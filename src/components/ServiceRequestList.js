@@ -20,8 +20,17 @@ export default class ServiceRequestList extends Component {
   _renderRow(rowData, sectionID, rowID, highlightRow) {
     return (
       <View>
-        <Text>Foo</Text>
+        <Text>{rowData['original_request_number']}</Text>
+        <Text>{rowData['complaint_type']}</Text>
+        <Text>{rowData['complaint_details']}</Text>
+        <Text>{rowData['request_created_at']}</Text>
       </View>
+    );
+  }
+
+  _renderSeparator(sectionID, rowID, adjacentRowHighlighted) {
+    return (
+      <View style={{height: 1, backgroundColor: 'lightgray'}} />
     );
   }
 
@@ -30,6 +39,7 @@ export default class ServiceRequestList extends Component {
       <ListView
         dataSource={this.state.dataSource}
         renderRow={this._renderRow}
+        renderSeparator={this._renderSeparator}
         enableEmptySections={true}
       />
     );
@@ -46,15 +56,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+  }
 });
