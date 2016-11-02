@@ -17,8 +17,6 @@ export default class ServiceRequestList extends Component {
         dataSource: this.state.dataSource.cloneWithRows(nextProps.serviceRequests)
       })
     }
-    console.log('Receiving Props')
-    console.log(nextProps)
   }
 
   _renderRow(rowData, sectionID, rowID, highlightRow) {
