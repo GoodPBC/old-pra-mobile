@@ -1,3 +1,3 @@
-rootProject.name = 'StreetSmart'
+rootProject.name = 'ProviderResponseApp'
 
 include ':app'

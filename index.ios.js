@@ -1,5 +1,5 @@
 /**
- * StreetSmart
+ * ProviderResponseApp  
  * @flow
  */
 
@@ -11,7 +11,7 @@ import configureStore from './src/store';
 
 const store = configureStore()
 
-class StreetSmart extends Component {
+class ProviderResponseApp extends Component {
   render() {
     return (
       <Provider store={store}>
@@ -21,4 +21,4 @@ class StreetSmart extends Component {
   }
 }
 
-AppRegistry.registerComponent('StreetSmart', () => StreetSmart);
+AppRegistry.registerComponent('ProviderResponseApp', () => ProviderResponseApp);

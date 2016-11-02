@@ -2,23 +2,19 @@ import React, { Component, PropTypes } from 'react';
 
 import { ListView, StyleSheet, Text, View } from 'react-native';
 
-export default class ServiceRequestList extends Component {
+export default class ServiceRequestDetail extends Component {
   constructor(props) {
     super(props);
 
-    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    //const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
-    this.state = { dataSource: ds.cloneWithRows(props.serviceRequests) };
+    //this.state = { dataSource: ds.cloneWithRows(props.serviceRequests) };
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.serviceRequests) {
-      this.setState({
-        dataSource: this.state.dataSource.cloneWithRows(nextProps.serviceRequests)
-      })
-    }
-    console.log('Receiving Props')
-    console.log(nextProps)
+    this.setState({
+      //dataSource: this.state.dataSource.cloneWithRows(nextProps.serviceRequests)
+    })
   }
 
   _renderRow(rowData, sectionID, rowID, highlightRow) {
@@ -40,18 +36,13 @@ export default class ServiceRequestList extends Component {
 
   render() {
     return (
-      <ListView
-        dataSource={this.state.dataSource}
-        renderRow={this._renderRow}
-        renderSeparator={this._renderSeparator}
-        enableEmptySections={true}
-      />
+      <p>This is the service request detail</p>
     );
   }
 }
 
-ServiceRequestList.propTypes = {
-  serviceRequests: PropTypes.array.isRequired,
+ServiceRequestDetail.propTypes = {
+  //serviceRequests: PropTypes.array.isRequired,
 };
 
 const styles = StyleSheet.create({

@@ -5,7 +5,7 @@
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import StreetSmart from '../components/StreetSmart';
+import ProviderResponseApp from '../components/ProviderResponseApp';
 import * as ServiceRequestActions from '../actions/serviceRequests';
 
 function mapStateToProps(state) {
@@ -18,4 +18,4 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(ServiceRequestActions, dispatch)
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(StreetSmart)
+export default connect(mapStateToProps, mapDispatchToProps)(ProviderResponseApp)
