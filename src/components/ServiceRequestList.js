@@ -21,7 +21,7 @@ export default class ServiceRequestList extends Component {
 
   _renderRow(rowData, sectionID, rowID, highlightRow) {
     return (
-      <View>
+      <View key={rowData['id']}>
         <Text>{rowData['original_request_number']}</Text>
         <Text>{rowData['complaint_type']}</Text>
         <Text>{rowData['complaint_details']}</Text>
@@ -52,11 +52,3 @@ ServiceRequestList.propTypes = {
   serviceRequests: PropTypes.array.isRequired,
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  }
-});

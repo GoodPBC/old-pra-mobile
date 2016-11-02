@@ -15,7 +15,7 @@ export default class MyRequestsScreen extends Component {
 
   render() {
     return (
-      <View style={{marginTop: 22}}>
+      <View style={styles.container}>
         <ServiceRequestList serviceRequests={this.props.serviceRequests} />
       </View>
     );
@@ -25,3 +25,9 @@ export default class MyRequestsScreen extends Component {
 MyRequestsScreen.propTypes = {
   serviceRequests: PropTypes.array.isRequired,
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  }
+});

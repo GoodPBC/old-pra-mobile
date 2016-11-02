@@ -105,14 +105,9 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
   tabBarNavigator: {
-    position: 'absolute',
-    bottom: 0,
-    right: 0,
-    left: 0
+    flex: 1,
   },
 });
