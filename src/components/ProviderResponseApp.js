@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 
 import { StyleSheet, TabBarIOS, NavigatorIOS, Modal, TextInput, TouchableHighlight, Text, View } from 'react-native';
 
 import ServiceRequestList from './ServiceRequestList';
 import ServiceRequestDetail from './ServiceRequestDetail';
 
+import LoginScreen from './LoginScreen';
 import Teams from './Teams';
 import Feed from './Feed';
 import Sync from './Sync';
@@ -17,97 +18,77 @@ export default class ProviderResponseApp extends Component {
     props.fetchServiceRequests();
 
     this.state = {
-      loginModalVisible: true,
-      username: null,
-      password: null
+      userIsAuthenticated: false,
     }
   }
 
-  loginUser() {
-    
+  _renderLogin() {
+    return (
+      <View style={{marginTop: 22}}>
+        <Modal
+          animationType={"slide"}
+          transparent={false}
+          visible={this.state.userIsAuthenticated !== true}
+          >
+          <LoginScreen {...this.props}/>
+        </Modal>
+      </View>
+    )
   }
 
-  setLoginModalVisible(visible) {
-    this.setState({loginModalVisible: visible});
+  _renderTabs() {
+    return (
+      <TabBarIOS barTintColor="black" tintColor="white" style={styles.tabBarNavigator} >
+        <TabBarIOS.Item title="My Requests" selected={false} >
+          <ServiceRequestList serviceRequests={this.props.serviceRequests} />
+        </TabBarIOS.Item>
+        <TabBarIOS.Item title='Feed' selected={false} >
+          <NavigatorIOS
+            initialRoute = {{
+              component: Feed,
+              title: 'Feed'
+            }}
+          />
+        </TabBarIOS.Item>
+        <TabBarIOS.Item title='Teams' selected={true} >
+          <NavigatorIOS
+            initialRoute = {{
+              component: Teams,
+              title: 'Teams'
+            }}
+          />
+        </TabBarIOS.Item>
+        <TabBarIOS.Item title='Sync' selected={false} >
+          <NavigatorIOS
+            initialRoute = {{
+              component: Sync,
+              title: 'Sync'
+            }}
+          />
+        </TabBarIOS.Item>
+      </TabBarIOS>
+    )
   }
-  
+
   render() {
-    const {
-      serviceRequests,
-    } = this.props;
-
-    return (    
-        <View style={styles.homeContainer}>
-          <TabBarIOS barTintColor="black" tintColor="white" style={styles.tabBarNavigator} >
-            <TabBarIOS.Item title="My Requests" selected={false} >
-              <ServiceRequestList serviceRequests={serviceRequests} />
-            </TabBarIOS.Item>
-            <TabBarIOS.Item title='Feed' selected={false} >
-              <NavigatorIOS 
-                initialRoute = {{
-                  component: Feed,
-                  title: 'Feed'
-                }}
-              />
-            </TabBarIOS.Item>
-            <TabBarIOS.Item title='Teams' selected={true} >
-              <NavigatorIOS 
-                initialRoute = {{
-                  component: Teams,
-                  title: 'Teams'
-                }}
-              />
-            </TabBarIOS.Item>
-            <TabBarIOS.Item title='Sync' selected={false} >
-              <NavigatorIOS 
-                initialRoute = {{
-                  component: Sync,
-                  title: 'Sync'
-                }}
-              />
-            </TabBarIOS.Item>
-          </TabBarIOS>
-          <View style={{marginTop: 22}}>
-            <Modal
-              animationType={"slide"}
-              transparent={false}
-              visible={this.state.loginModalVisible}
-              >
-              <View style={{marginTop: 22}}>
-                <View style={styles.loginModal}>
-                  <Text>Username</Text>
-                  <TextInput
-                    style={styles.loginModalInput}
-                    onChangeText={(username) => this.setState({username})}
-                    value={this.state.username}
-                  />
-                  <Text>Password</Text>
-                  <TextInput
-                    style={styles.loginModalInput}
-                    onChangeText={(password) => this.setState({password})}
-                    value={this.state.password}
-                  />
-                  <TouchableHighlight
-                    style={styles.button}
-                    onPress={this.loginUser.bind(this)}>
-                    <View>
-                      <Text style={styles.buttonText}>Login</Text>
-                    </View>
-                  </TouchableHighlight>
-                  <TouchableHighlight onPress={() => {
-                    this.setLoginModalVisible(!this.state.loginModalVisible)
-                  }}>
-                    <Text>Hide Modal</Text>
-                  </TouchableHighlight>
-                </View>
-              </View>
-            </Modal>
-          </View>
-        </View> 
-      );
+    let content = null;
+    if (this.props.userIsAuthenticated) {
+       content = this._renderTabs();
+    } else {
+      content = this._renderLogin();
     }
+    return (
+        <View style={styles.homeContainer}>
+          {content}
+        </View>
+      );
+  }
 }
 
+ProviderResponseApp.propTypes = {
+  serviceRequests: PropTypes.array.isRequired,
+  userIsAuthenticated: PropTypes.bool,
+}
 
 
 const styles = StyleSheet.create({
@@ -141,29 +122,4 @@ const styles = StyleSheet.create({
     right: 0,
     left: 0
   },
-  loginModal: {
-    flexDirection: 'column',
-    paddingLeft: 20,
-    paddingRight: 20,
-    paddingTop: 40
-  },
-  loginModalInput: {
-    marginTop: 0,
-    marginBottom: 30,
-    height: 40,
-    borderColor: '#ccc',
-    borderWidth: 1
-  },
-  button: {
-    backgroundColor: '#3b5998',
-    borderColor: 'white',
-    borderRadius: 4,
-    borderWidth: 1,
-    height: 40,
-    paddingTop: 5
-  },
-  buttonText: {
-    textAlign: 'center',
-    color: 'white'
-  }
 });

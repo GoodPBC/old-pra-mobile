@@ -6,16 +6,17 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import ProviderResponseApp from '../components/ProviderResponseApp';
-import * as ServiceRequestActions from '../actions/serviceRequests';
+import * as AllActions from '../actions';
 
 function mapStateToProps(state) {
   return {
-    serviceRequests: state.serviceRequests.serviceRequests
+    userIsAuthenticated: state.user.userIsAuthenticated,
+    serviceRequests: state.serviceRequests.serviceRequests,
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators(ServiceRequestActions, dispatch)
+  return bindActionCreators(AllActions, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProviderResponseApp)
