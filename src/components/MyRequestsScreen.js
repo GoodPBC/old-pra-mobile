@@ -17,7 +17,7 @@ export default class MyRequestsScreen extends Component {
   _goToDetail(serviceRequest) {
     this.props.navigator.push({
       component: ServiceRequestDetail,
-      title: serviceRequest['original_request_number'],
+      title: `SR# ${serviceRequest['original_request_number']}`,
       passProps: {
         serviceRequest,
       },

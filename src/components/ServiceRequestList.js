@@ -2,6 +2,8 @@ import React, { Component, PropTypes } from 'react';
 
 import { ListView, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 
+import Separator from './Separator';
+
 export default class ServiceRequestList extends Component {
   constructor(props) {
     super(props);
@@ -37,7 +39,7 @@ export default class ServiceRequestList extends Component {
 
   _renderSeparator(sectionID, rowID, adjacentRowHighlighted) {
     return (
-      <View style={{height: 1, backgroundColor: 'lightgray'}} />
+      <Separator />
     );
   }
 
