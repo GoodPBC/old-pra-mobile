@@ -3,6 +3,7 @@ import React, { Component, PropTypes } from 'react';
 import { StyleSheet, TextInput, TouchableHighlight, Text, View } from 'react-native';
 
 import ServiceRequestList from './ServiceRequestList';
+import ServiceRequestDetail from './ServiceRequestDetail';
 
 export default class MyRequestsScreen extends Component {
   constructor(props) {
@@ -13,10 +14,22 @@ export default class MyRequestsScreen extends Component {
     this.props.fetchServiceRequests();
   }
 
+  _goToDetail(serviceRequest) {
+    this.props.navigator.push({
+      component: ServiceRequestDetail,
+      title: serviceRequest['original_request_number'],
+      passProps: {
+        serviceRequest,
+      },
+    });
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <ServiceRequestList serviceRequests={this.props.serviceRequests} />
+        <ServiceRequestList
+          goToDetails={this._goToDetail.bind(this)}
+          serviceRequests={this.props.serviceRequests} />
       </View>
     );
   }

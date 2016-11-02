@@ -48,7 +48,13 @@ export default class ProviderResponseApp extends Component {
     return (
       <TabBarIOS barTintColor="black" tintColor="white" style={styles.tabBarNavigator} >
         <TabBarIOS.Item title="My Requests" selected={true} >
-          <MyRequests />
+          <NavigatorIOS
+            initialRoute = {{
+              component: MyRequests,
+              title: 'My Requests'
+            }}
+            style={{flex: 1}}
+            />
         </TabBarIOS.Item>
         <TabBarIOS.Item title='Feed' selected={false} >
           <NavigatorIOS
@@ -56,6 +62,7 @@ export default class ProviderResponseApp extends Component {
               component: Feed,
               title: 'Feed'
             }}
+            style={{flex: 1}}
           />
         </TabBarIOS.Item>
         <TabBarIOS.Item title='Teams' selected={false} >
