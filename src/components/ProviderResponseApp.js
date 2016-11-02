@@ -1,9 +1,20 @@
 import React, { Component, PropTypes } from 'react';
 
-import { StyleSheet, TabBarIOS, NavigatorIOS, Modal, TextInput, TouchableHighlight, Text, View } from 'react-native';
+import {
+  ActivityIndicator,
+  Modal,
+  StyleSheet,
+  TabBarIOS,
+  NavigatorIOS,
+  TextInput,
+  TouchableHighlight,
+  Text,
+  View
+} from 'react-native';
 
 import ServiceRequestList from './ServiceRequestList';
 import ServiceRequestDetail from './ServiceRequestDetail';
+import MyRequests from '../containers/MyRequests';
 
 import LoginScreen from './LoginScreen';
 import Teams from './Teams';
@@ -13,9 +24,6 @@ import Sync from './Sync';
 export default class ProviderResponseApp extends Component {
   constructor(props) {
     super(props);
-
-    // Fetch on initial app load.
-    props.fetchServiceRequests();
 
     this.state = {
       userIsAuthenticated: false,
@@ -39,8 +47,8 @@ export default class ProviderResponseApp extends Component {
   _renderTabs() {
     return (
       <TabBarIOS barTintColor="black" tintColor="white" style={styles.tabBarNavigator} >
-        <TabBarIOS.Item title="My Requests" selected={false} >
-          <ServiceRequestList serviceRequests={this.props.serviceRequests} />
+        <TabBarIOS.Item title="My Requests" selected={true} >
+          <MyRequests />
         </TabBarIOS.Item>
         <TabBarIOS.Item title='Feed' selected={false} >
           <NavigatorIOS
@@ -50,7 +58,7 @@ export default class ProviderResponseApp extends Component {
             }}
           />
         </TabBarIOS.Item>
-        <TabBarIOS.Item title='Teams' selected={true} >
+        <TabBarIOS.Item title='Teams' selected={false} >
           <NavigatorIOS
             initialRoute = {{
               component: Teams,
@@ -78,7 +86,7 @@ export default class ProviderResponseApp extends Component {
       content = this._renderLogin();
     }
     return (
-        <View style={styles.homeContainer}>
+        <View style={styles.container}>
           {content}
         </View>
       );
@@ -86,35 +94,20 @@ export default class ProviderResponseApp extends Component {
 }
 
 ProviderResponseApp.propTypes = {
-  serviceRequests: PropTypes.array.isRequired,
   userIsAuthenticated: PropTypes.bool,
 }
 
-
 const styles = StyleSheet.create({
+  loadingIndicator: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-  homeContainer: {
-    flex: 1,
-    backgroundColor: 'red',
-    position: 'absolute',
-    bottom: 0,
-    right: 0,
-    left: 0
   },
   tabBarNavigator: {
     position: 'absolute',
