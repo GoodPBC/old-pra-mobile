@@ -10,7 +10,7 @@ import * as ServiceRequestActions from '../actions/serviceRequests';
 
 function mapStateToProps(state) {
   return {
-    serviceRequests: state.serviceRequests.serviceRequests
+    serviceRequests: state.serviceRequests.serviceRequests,
   };
 }
 
