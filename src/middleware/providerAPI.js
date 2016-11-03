@@ -1,5 +1,5 @@
-const BASE_URL = 'http://localhost:3000/api/v1/'
-//const BASE_URL = 'https://provider-response-app-staging.herokuapp.com/api/v1/'
+// const BASE_URL = 'http://0.0.0.0:3000/api/v1/'
+const BASE_URL = 'https://pra-cms-stage.herokuapp.com/api/v1/';
 
 const SERVICE_REQUEST_GET_URL =  BASE_URL + 'service_requests';
 const LOGIN_USER_URL = BASE_URL + 'users/sign_in';
