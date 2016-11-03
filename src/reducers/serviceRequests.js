@@ -7,12 +7,7 @@ export default function reducer(state = initialState, action) {
   case 'FETCH_SERVICE_REQUESTS_SUCCESS':
     return {
       ...state,
-      serviceRequests: action.data,
-    };
-  case 'LOGIN_USER_SUCCESS':
-    return {
-      ...state,
-      loginData: action.data
+      serviceRequests: action.data.service_requests,
     };
   default:
     return state;

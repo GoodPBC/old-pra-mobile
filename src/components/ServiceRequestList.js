@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 
-import { ListView, StyleSheet, Text, View } from 'react-native';
+import { ListView, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
+
+import Separator from './Separator';
 
 export default class ServiceRequestList extends Component {
   constructor(props) {
@@ -21,18 +23,23 @@ export default class ServiceRequestList extends Component {
 
   _renderRow(rowData, sectionID, rowID, highlightRow) {
     return (
-      <View>
-        <Text>{rowData['original_request_number']}</Text>
-        <Text>{rowData['complaint_type']}</Text>
-        <Text>{rowData['complaint_details']}</Text>
-        <Text>{rowData['request_created_at']}</Text>
+      <View key={rowData['id']}>
+        <TouchableHighlight
+          onPress={() => this.props.goToDetails(rowData)}>
+          <View>
+            <Text>{rowData['original_request_number']}</Text>
+            <Text>{rowData['complaint_type']}</Text>
+            <Text>{rowData['complaint_details']}</Text>
+            <Text>{rowData['request_created_at']}</Text>
+          </View>
+        </TouchableHighlight>
       </View>
     );
   }
 
   _renderSeparator(sectionID, rowID, adjacentRowHighlighted) {
     return (
-      <View style={{height: 1, backgroundColor: 'lightgray'}} />
+      <Separator />
     );
   }
 
@@ -40,8 +47,8 @@ export default class ServiceRequestList extends Component {
     return (
       <ListView
         dataSource={this.state.dataSource}
-        renderRow={this._renderRow}
-        renderSeparator={this._renderSeparator}
+        renderRow={this._renderRow.bind(this)}
+        renderSeparator={this._renderSeparator.bind(this)}
         enableEmptySections={true}
       />
     );
@@ -49,14 +56,7 @@ export default class ServiceRequestList extends Component {
 }
 
 ServiceRequestList.propTypes = {
+  goToDetails: PropTypes.func.isRequired,
   serviceRequests: PropTypes.array.isRequired,
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  }
-});
