@@ -1,3 +1,4 @@
 import MyRequestsScreen from './containers/MyRequestsScreen';
+import { FETCH_SERVICE_REQUESTS } from './actionTypes';
 
-export { MyRequestsScreen };
+export { FETCH_SERVICE_REQUESTS, MyRequestsScreen };
