@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Button from './Button';
+import ChangeTeamScreen from './ChangeTeamScreen';
 import CreateTeamScreen from '../containers/CreateTeamScreen';
 import JoinTeamScreen from './JoinTeamScreen';
 
@@ -22,8 +23,19 @@ export default class CurrentTeamScreen extends Component {
   _goToJoinTeam() {
     this.props.navigator.push({
       component: JoinTeamScreen,
-      title: 'Create a Team',
+      title: 'Join a Team',
     });
+  }
+
+  _goToChangeTeam() {
+    this.props.navigator.push({
+      component: ChangeTeamScreen,
+      title: 'Change Team',
+    });
+  }
+
+  _leaveTeam() {
+    // TODO: Dispatch action to leave the team.
   }
 
   _goBackToCurrentTeam() {
@@ -40,12 +52,19 @@ export default class CurrentTeamScreen extends Component {
   }
 
   render() {
+    const createTeamButton = <Button onPress={this._goToCreateTeam.bind(this)}>Create a Team</Button>;
+    const joinTeamButton = <Button onPress={this._goToJoinTeam.bind(this)}>Join a Team</Button>;
+    const changeTeamButton = <Button onPress={this._goToChangeTeam.bind(this)}>Change Team</Button>;
+    const leaveTeamButton = <Button onPress={this._leaveTeam.bind(this)}>Leave team</Button>;
+    const hasJoinedTeam = !!this.props.currentTeam;
     return(
       <View style={styles.container}>
         <Text>Current Team</Text>
         {this._renderCurrentTeamName()}
-        <Button onPress={this._goToCreateTeam.bind(this)}>Create a Team</Button>
-        <Button onPress={this._goToJoinTeam.bind(this)}>Join a Team</Button>
+        {!hasJoinedTeam && createTeamButton}
+        {!hasJoinedTeam && joinTeamButton}
+        {hasJoinedTeam && changeTeamButton}
+        {hasJoinedTeam && leaveTeamButton}
       </View>
     );
   }

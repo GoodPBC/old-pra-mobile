@@ -1,7 +1,8 @@
 import { CREATE_TEAM_SUCCESS } from '../actions/actionTypes';
 
 let initialState = {
-  currentTeam: null
+  currentTeam: null,
+  teams: [],
 };
 
 export default function reducer(state = initialState, action) {
