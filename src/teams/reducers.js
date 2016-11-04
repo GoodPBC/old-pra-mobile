@@ -1,4 +1,4 @@
-import { CREATE_TEAM_SUCCESS } from '../actions/actionTypes';
+import { CREATE_TEAM_SUCCESS } from './actionTypes';
 
 let initialState = {
   currentTeam: null,

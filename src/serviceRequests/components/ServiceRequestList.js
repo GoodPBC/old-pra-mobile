@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 
 import { ListView, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 
-import Separator from './Separator';
+import Separator from '../../shared/components/Separator';
 
 export default class ServiceRequestList extends Component {
   constructor(props) {

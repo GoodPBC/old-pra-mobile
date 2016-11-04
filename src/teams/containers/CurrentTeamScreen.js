@@ -6,7 +6,7 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import CurrentTeamScreen from '../components/CurrentTeamScreen';
-import * as TeamsActions from '../actions/teams';
+import * as TeamsActions from '../actions';
 
 /**
  * Should be able to see the user's currently-assigned team.

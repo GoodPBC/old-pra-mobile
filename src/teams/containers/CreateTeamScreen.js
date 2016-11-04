@@ -6,7 +6,7 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import CreateTeamScreen from '../components/CreateTeamScreen';
-import * as TeamsActions from '../actions/teams';
+import * as TeamsActions from '../actions';
 
 /**
  * No application state necessary for this form.

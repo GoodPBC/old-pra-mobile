@@ -12,14 +12,10 @@ import {
   View
 } from 'react-native';
 
-import ServiceRequestList from './ServiceRequestList';
-import ServiceRequestDetail from './ServiceRequestDetail';
-import MyRequests from '../containers/MyRequests';
+import { MyRequestsScreen } from '../../serviceRequests';
 
-import LoginScreen from './LoginScreen';
-import CurrentTeamScreen from '../containers/CurrentTeamScreen';
-import Feed from './Feed';
-import Sync from './Sync';
+import { LoginScreen } from '../../user';
+import { CurrentTeamScreen } from '../../teams';
 
 const Tabs = {
   my_requests: 0,
@@ -63,7 +59,7 @@ export default class ProviderResponseApp extends Component {
           }}>
           <NavigatorIOS
             initialRoute = {{
-              component: MyRequests,
+              component: MyRequestsScreen,
               title: 'My Requests'
             }}
             style={{flex: 1}}
@@ -79,7 +75,7 @@ export default class ProviderResponseApp extends Component {
           }}>
           <NavigatorIOS
             initialRoute = {{
-              component: Feed,
+              component: View,
               title: 'Feed'
             }}
             style={{flex: 1}}
@@ -104,7 +100,7 @@ export default class ProviderResponseApp extends Component {
         <TabBarIOS.Item title='Sync' selected={false} >
           <NavigatorIOS
             initialRoute = {{
-              component: Sync,
+              component: View,
               title: 'Sync'
             }}
           />

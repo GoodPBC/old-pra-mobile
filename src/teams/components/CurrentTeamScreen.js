@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import Button from './Button';
+import Button from '../../shared/components/Button';
 import ChangeTeamScreen from './ChangeTeamScreen';
 import CreateTeamScreen from '../containers/CreateTeamScreen';
 import JoinTeamScreen from './JoinTeamScreen';

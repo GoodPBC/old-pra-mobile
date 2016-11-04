@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
-import Button from './Button';
+import SelectTeamList from '../containers/SelectTeamList';
 
-export default class JoinTeamScreen extends Component {
+export default class ChangeTeamScreen extends Component {
   constructor(props){
     super(props);
   }
@@ -10,16 +10,20 @@ export default class JoinTeamScreen extends Component {
   render() {
     return(
       <View style={styles.container}>
-        <Text>Join a team</Text>
+        <SelectTeamList />
       </View>
     );
   }
 }
+
+ChangeTeamScreen.propTypes = {
+  onFinish: PropTypes.func.isRequired,
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-  }
+  },
 });
