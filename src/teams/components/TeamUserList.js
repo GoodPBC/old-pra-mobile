@@ -2,23 +2,21 @@ import React, { Component, PropTypes } from 'react';
 import { ListView, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import Separator from '../../shared/components/Separator';
 
-export default class SelectTeamList extends Component {
+export default class TeamUserList extends Component {
   constructor(props) {
     super(props);
 
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-
-    this.state = { dataSource: ds.cloneWithRows(props.teams) };
+    this.state = { dataSource: ds.cloneWithRows(props.team.users) };
   }
 
-  componentWillMount() {
-    this.props.fetchTeams();
-  }
-
+  /**
+   * List of users is nested within the team json, like so: team.users
+   */
   componentWillReceiveProps(nextProps) {
-    if (nextProps.teams) {
+    if (nextProps.team) {
       this.setState({
-        dataSource: this.state.dataSource.cloneWithRows(nextProps.teams)
+        dataSource: this.state.dataSource.cloneWithRows(nextProps.team.users)
       })
     }
   }
@@ -26,12 +24,9 @@ export default class SelectTeamList extends Component {
   _renderRow(rowData, sectionID, rowID, highlightRow) {
     return (
       <View key={rowData['id']}>
-        <TouchableHighlight
-          onPress={() => this.props.onSelectTeam(rowData)}>
-          <View>
-            <Text>{rowData['name']}</Text>
-          </View>
-        </TouchableHighlight>
+        <View>
+          <Text>{rowData['email']}</Text>
+        </View>
       </View>
     );
   }
@@ -54,9 +49,7 @@ export default class SelectTeamList extends Component {
   }
 }
 
-SelectTeamList.propTypes = {
-  fetchTeams: PropTypes.func.isRequired,
-  onSelectTeam: PropTypes.func.isRequired,
-  teams: PropTypes.array.isRequired,
+TeamUserList.propTypes = {
+  team: PropTypes.object.isRequired,
 };
 

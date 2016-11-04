@@ -1,9 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Button from '../../shared/components/Button';
-import ChangeTeamScreen from './ChangeTeamScreen';
 import CreateTeamScreen from '../containers/CreateTeamScreen';
-import JoinTeamScreen from './JoinTeamScreen';
+import SelectTeamScreen from './SelectTeamScreen';
 
 export default class CurrentTeamScreen extends Component {
   constructor(props){
@@ -22,14 +21,14 @@ export default class CurrentTeamScreen extends Component {
 
   _goToJoinTeam() {
     this.props.navigator.push({
-      component: JoinTeamScreen,
+      component: SelectTeamScreen,
       title: 'Join a Team',
     });
   }
 
   _goToChangeTeam() {
     this.props.navigator.push({
-      component: ChangeTeamScreen,
+      component: SelectTeamScreen,
       title: 'Change Team',
     });
   }
