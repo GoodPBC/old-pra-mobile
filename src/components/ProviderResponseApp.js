@@ -17,17 +17,23 @@ import ServiceRequestDetail from './ServiceRequestDetail';
 import MyRequests from '../containers/MyRequests';
 
 import LoginScreen from './LoginScreen';
-import Teams from './Teams';
+import CurrentTeamScreen from '../containers/CurrentTeamScreen';
 import Feed from './Feed';
 import Sync from './Sync';
+
+const Tabs = {
+  my_requests: 0,
+  feed: 1,
+  teams: 2,
+};
 
 export default class ProviderResponseApp extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      userIsAuthenticated: false,
-    }
+      selectedTab: Tabs.my_requests,
+    };
   }
 
   _renderLogin() {
@@ -36,7 +42,7 @@ export default class ProviderResponseApp extends Component {
         <Modal
           animationType={"slide"}
           transparent={false}
-          visible={this.state.userIsAuthenticated !== true}
+          visible={this.props.userIsAuthenticated !== true}
           >
           <LoginScreen {...this.props}/>
         </Modal>
@@ -47,7 +53,14 @@ export default class ProviderResponseApp extends Component {
   _renderTabs() {
     return (
       <TabBarIOS barTintColor="black" tintColor="white" style={styles.tabBarNavigator} >
-        <TabBarIOS.Item title="My Requests" selected={true} >
+        <TabBarIOS.Item
+          title="My Requests"
+          selected={this.state.selectedTab === Tabs.my_requests}
+          onPress={() => {
+            this.setState({
+              selectedTab: Tabs.my_requests,
+            });
+          }}>
           <NavigatorIOS
             initialRoute = {{
               component: MyRequests,
@@ -56,7 +69,14 @@ export default class ProviderResponseApp extends Component {
             style={{flex: 1}}
             />
         </TabBarIOS.Item>
-        <TabBarIOS.Item title='Feed' selected={false} >
+        <TabBarIOS.Item
+          title='Feed'
+          selected={this.state.selectedTab === Tabs.feed}
+          onPress={() => {
+            this.setState({
+              selectedTab: Tabs.feed,
+            });
+          }}>
           <NavigatorIOS
             initialRoute = {{
               component: Feed,
@@ -65,12 +85,20 @@ export default class ProviderResponseApp extends Component {
             style={{flex: 1}}
           />
         </TabBarIOS.Item>
-        <TabBarIOS.Item title='Teams' selected={false} >
+        <TabBarIOS.Item
+          title='Teams'
+          selected={this.state.selectedTab === Tabs.teams}
+          onPress={() => {
+            this.setState({
+              selectedTab: Tabs.teams,
+            });
+          }}>
           <NavigatorIOS
             initialRoute = {{
-              component: Teams,
+              component: CurrentTeamScreen,
               title: 'Teams'
             }}
+            style={{flex: 1}}
           />
         </TabBarIOS.Item>
         <TabBarIOS.Item title='Sync' selected={false} >

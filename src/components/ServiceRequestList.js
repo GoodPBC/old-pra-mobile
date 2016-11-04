@@ -39,7 +39,7 @@ export default class ServiceRequestList extends Component {
 
   _renderSeparator(sectionID, rowID, adjacentRowHighlighted) {
     return (
-      <Separator />
+      <Separator key={rowID} />
     );
   }
 

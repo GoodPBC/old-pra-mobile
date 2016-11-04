@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
 import { StyleSheet, TextInput, TouchableHighlight, Text, View } from 'react-native';
+import Button from './Button';
 
 export default class LoginScreen extends Component {
   constructor(props) {
@@ -34,13 +35,9 @@ export default class LoginScreen extends Component {
             autoCapitalize={'none'}
             value={this.state.password}
           />
-          <TouchableHighlight
-            style={styles.button}
-            onPress={this._submitForm.bind(this)}>
-            <View>
-              <Text style={styles.buttonText}>Login</Text>
-            </View>
-          </TouchableHighlight>
+          <Button onPress={this._submitForm.bind(this)}>
+            Login
+          </Button>
         </View>
       </View>
     );
@@ -65,16 +62,4 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
     borderWidth: 1
   },
-  button: {
-    backgroundColor: '#3b5998',
-    borderColor: 'white',
-    borderRadius: 4,
-    borderWidth: 1,
-    height: 40,
-    paddingTop: 5
-  },
-  buttonText: {
-    textAlign: 'center',
-    color: 'white'
-  }
 });
