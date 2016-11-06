@@ -33,7 +33,7 @@ async function postAndDispatchResponse({ url, postParams, actionName, next, stor
     'Content-Type': 'application/json'
   };
   Object.assign(headers, authenticationHeaders(store));
-  const response = fetch(url, {
+  const response = await fetch(url, {
     method: 'post',
     body,
     headers,
