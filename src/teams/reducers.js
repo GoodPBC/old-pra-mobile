@@ -2,6 +2,7 @@ import {
   CREATE_TEAM_SUCCESS,
   FETCH_TEAMS_SUCCESS,
   JOIN_TEAM_SUCCESS,
+  LEAVE_TEAM_SUCCESS,
 } from './actionTypes';
 
 let initialState = {
@@ -26,6 +27,11 @@ export default function reducer(state = initialState, action) {
     return {
       ...state,
       currentTeam: action.data.team,
+    }
+  case LEAVE_TEAM_SUCCESS:
+    return {
+      ...state,
+      currentTeam: null,
     }
   default:
     return state;

@@ -9,7 +9,5 @@ const styles = StyleSheet.create({
   separator: {
     height: 1,
     backgroundColor: 'lightgray',
-    marginTop: 10,
-    marginBottom: 10,
   }
 });

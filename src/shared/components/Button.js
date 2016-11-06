@@ -5,7 +5,8 @@ export default function Button({ children, onPress }) {
   return (
     <TouchableHighlight
       style={styles.button}
-      onPress={onPress}>
+      onPress={onPress}
+      underlayColor={'gray'}>
       <View>
         <Text style={styles.buttonText}>{children}</Text>
       </View>

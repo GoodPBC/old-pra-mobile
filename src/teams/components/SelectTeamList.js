@@ -27,7 +27,9 @@ export default class SelectTeamList extends Component {
     return (
       <View key={rowData['id']}>
         <TouchableHighlight
-          onPress={() => this.props.onSelectTeam(rowData)}>
+          style={styles.listItem}
+          onPress={() => this.props.onSelectTeam(rowData)}
+          underlayColor={'gray'}>
           <View>
             <Text>{rowData['name']}</Text>
           </View>
@@ -60,3 +62,9 @@ SelectTeamList.propTypes = {
   teams: PropTypes.array.isRequired,
 };
 
+const styles = StyleSheet.create({
+  listItem: {
+    paddingTop: 20,
+    paddingBottom: 20,
+  }
+});

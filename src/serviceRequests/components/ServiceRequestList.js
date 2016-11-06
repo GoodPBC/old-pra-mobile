@@ -25,7 +25,8 @@ export default class ServiceRequestList extends Component {
     return (
       <View key={rowData['id']}>
         <TouchableHighlight
-          onPress={() => this.props.goToDetails(rowData)}>
+          onPress={() => this.props.goToDetails(rowData)}
+          underlayColor={'gray'}>
           <View>
             <Text>{rowData['original_request_number']}</Text>
             <Text>{rowData['complaint_type']}</Text>

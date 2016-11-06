@@ -2,6 +2,7 @@ import {
   CREATE_TEAM_SUCCESS,
   FETCH_TEAMS_SUCCESS,
   JOIN_TEAM_SUCCESS,
+  LEAVE_TEAM_SUCCESS,
 } from './actionTypes';
 
 /**
@@ -73,6 +74,15 @@ export function joinTeam(team) {
       // TODO: Assume for the sake of convenience that the request returns
       // the latest team object.
       team: team,
+    }
+  }
+}
+
+export function leaveTeam() {
+  return {
+    type: LEAVE_TEAM_SUCCESS,
+    data: {
+      // TODO: Not sure whether we need to respond with any data here.
     }
   }
 }

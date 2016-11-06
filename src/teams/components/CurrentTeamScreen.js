@@ -34,7 +34,7 @@ export default class CurrentTeamScreen extends Component {
   }
 
   _leaveTeam() {
-    // TODO: Dispatch action to leave the team.
+    this.props.leaveTeam();
   }
 
   _goBackToCurrentTeam() {
@@ -70,7 +70,8 @@ export default class CurrentTeamScreen extends Component {
 }
 
 CurrentTeamScreen.propTypes = {
-  currentTeam: PropTypes.any.isRequired,
+  currentTeam: PropTypes.any,
+  leaveTeam: PropTypes.func.isRequired,
 };
 
 const styles = StyleSheet.create({
