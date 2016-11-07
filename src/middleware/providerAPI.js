@@ -1,4 +1,4 @@
-import { API_REQUEST } from '../shared';
+import { API_REQUEST, API_REQUEST_SUCCESS, API_REQUEST_FAILURE } from '../shared';
 
 const BASE_URL = 'http://0.0.0.0:3000/api/v1/';
 // const BASE_URL = 'https://pra-cms-stage.herokuapp.com/api/v1/';
@@ -41,6 +41,9 @@ async function makeRequestAndDispatchResponse({ url, requestMethod, requestParam
  */
 async function dispatchFetchResponse(response, actionName, next) {
   function dispatchSuccess(json) {
+    next({
+      type: API_REQUEST_SUCCESS,
+    })
     return next({
       type: `${actionName}_SUCCESS`,
       data: json
@@ -48,7 +51,10 @@ async function dispatchFetchResponse(response, actionName, next) {
   }
 
   function dispatchFailure(error) {
-    console.log('failed with error', error);
+    next({
+      type: API_REQUEST_FAILURE,
+      error: error,
+    })
 
     return next({
       type: `${actionName}_FAILURE`,

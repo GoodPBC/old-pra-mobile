@@ -1,3 +1,3 @@
-import { API_REQUEST } from './actionTypes';
+import { API_REQUEST, API_REQUEST_SUCCESS, API_REQUEST_FAILURE } from './actionTypes';
 
-export { API_REQUEST };
+export { API_REQUEST, API_REQUEST_FAILURE, API_REQUEST_SUCCESS };

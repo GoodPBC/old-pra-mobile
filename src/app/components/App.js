@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 
 import {
   ActivityIndicator,
+  Alert,
   Modal,
   StyleSheet,
   TabBarIOS,
@@ -30,6 +31,14 @@ export default class ProviderResponseApp extends Component {
     this.state = {
       selectedTab: Tabs.my_requests,
     };
+  }
+
+  componentWillReceiveProps(newProps) {
+    if (newProps.errorMessage) {
+      Alert.alert('Error', newProps.errorMessage, [
+        { text: 'OK', onPress: this.props.clearErrorMessage }
+      ]);
+    }
   }
 
   _renderLogin() {
@@ -125,6 +134,8 @@ export default class ProviderResponseApp extends Component {
 }
 
 ProviderResponseApp.propTypes = {
+  apiRequestInProgress: PropTypes.bool.isRequired,
+  errorMessage: PropTypes.string,
   userIsAuthenticated: PropTypes.bool,
 }
 
