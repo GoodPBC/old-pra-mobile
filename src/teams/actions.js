@@ -1,88 +1,63 @@
 import {
-  CREATE_TEAM_SUCCESS,
-  FETCH_TEAMS_SUCCESS,
-  JOIN_TEAM_SUCCESS,
-  LEAVE_TEAM_SUCCESS,
+  CREATE_TEAM,
+  FETCH_TEAMS,
+  FETCH_TEAM_USERS,
+  JOIN_TEAM,
+  LEAVE_TEAM,
 } from './actionTypes';
 
-/**
- *
- * Proposed JSON structure for teams:
- *
- * {
- *   "name": "Whatever",
- *   "created_at": ...,
- *   "updated_at": ...,
- *   "users": [
- *     { ... }
- *   ]
- * }
- *
- */
+import { API_REQUEST } from '../shared';
+
 export function createTeam(teamName) {
-  // TODO: Replace this with an API call.
   return {
-    type: CREATE_TEAM_SUCCESS,
-    data: {
+    type: API_REQUEST,
+    actionName: CREATE_TEAM,
+    requestPath: 'teams',
+    requestMethod: 'POST',
+    requestParams: {
       team: {
         name: teamName,
-        users: []
       }
     }
   };
 }
 
 export function fetchTeams() {
-  // TODO: Replace with API call
   return {
-    type: FETCH_TEAMS_SUCCESS,
-    data: {
-      teams: [
-        {
-          id: 123,
-          name: 'Red Team (fake data)',
-          users: [
-            {
-              email: 'red1@example.com',
-            },
-            {
-              email: 'red2@example.com',
-            }
-          ]
-        },
-        {
-          id: 456,
-          name: 'Blue Team (fake data)',
-          users: [
-            {
-              email: 'blue1@example.com',
-            },
-            {
-              email: 'blue2@example.com',
-            }
-          ]
-        }
-      ]
-    }
+      type: API_REQUEST,
+      actionName: FETCH_TEAMS,
+      requestPath: 'teams',
+      requestMethod: 'GET',
+  };
+}
+
+export function fetchTeamUsers(team) {
+  return {
+    type: API_REQUEST,
+    actionName: FETCH_TEAM_USERS,
+    requestPath: `teams/${team.id}/users`,
+    requestMethod: 'GET',
   }
 }
 
 export function joinTeam(team) {
   return {
-    type: JOIN_TEAM_SUCCESS,
-    data: {
-      // TODO: Assume for the sake of convenience that the request returns
-      // the latest team object.
-      team: team,
+    type: API_REQUEST,
+    actionName: JOIN_TEAM,
+    requestPath: 'me/team',
+    requestMethod: 'PUT',
+    requestParams: {
+      team,
     }
-  }
+  };
 }
 
 export function leaveTeam() {
   return {
-    type: LEAVE_TEAM_SUCCESS,
-    data: {
-      // TODO: Not sure whether we need to respond with any data here.
-    }
-  }
+    type: API_REQUEST,
+    actionName: LEAVE_TEAM,
+    requestPath: 'me/team',
+    requestMethod: 'DELETE',
+    requestParams: {}
+  };
 }

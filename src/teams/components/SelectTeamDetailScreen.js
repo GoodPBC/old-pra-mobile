@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
 import Button from '../../shared/components/Button';
-import TeamUserList from './TeamUserList';
+import TeamUserList from '../containers/TeamUserList';
 
 export default class SelectTeamDetailScreen extends Component {
   constructor(props){

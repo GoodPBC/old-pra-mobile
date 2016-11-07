@@ -7,16 +7,20 @@ export default class TeamUserList extends Component {
     super(props);
 
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-    this.state = { dataSource: ds.cloneWithRows(props.team.users) };
+    this.state = { dataSource: ds.cloneWithRows(props.users) };
+  }
+
+  componentWillMount() {
+    this.props.fetchTeamUsers(this.props.team);
   }
 
   /**
    * List of users is nested within the team json, like so: team.users
    */
   componentWillReceiveProps(nextProps) {
-    if (nextProps.team) {
+    if (nextProps.users) {
       this.setState({
-        dataSource: this.state.dataSource.cloneWithRows(nextProps.team.users)
+        dataSource: this.state.dataSource.cloneWithRows(nextProps.users)
       })
     }
   }
@@ -50,6 +54,7 @@ export default class TeamUserList extends Component {
 }
 
 TeamUserList.propTypes = {
+  users: PropTypes.array.isRequired,
   team: PropTypes.object.isRequired,
 };
 
