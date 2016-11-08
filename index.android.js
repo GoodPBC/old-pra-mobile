@@ -12,7 +12,7 @@ import {
   View
 } from 'react-native';
 
-export default class StreetSmart extends Component {
+export default class ProviderResponseApp extends Component {
   render() {
     return (
       <View style={styles.container}>
@@ -50,4 +50,4 @@ const styles = StyleSheet.create({
   },
 });
 
-AppRegistry.registerComponent('StreetSmart', () => StreetSmart);
+AppRegistry.registerComponent('ProviderResponseApp', () => ProviderResponseApp);

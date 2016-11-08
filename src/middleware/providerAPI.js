@@ -1,7 +1,7 @@
 import { API_REQUEST, API_REQUEST_SUCCESS, API_REQUEST_FAILURE } from '../shared';
 
-const BASE_URL = 'http://0.0.0.0:3000/api/v1/';
-// const BASE_URL = 'https://pra-cms-stage.herokuapp.com/api/v1/';
+// const BASE_URL = 'http://0.0.0.0:3000/api/v1/';
+const BASE_URL = 'https://pra-cms-stage.herokuapp.com/api/v1/';
 
 function authenticationHeaders(store) {
   const state = store.getState().user;
