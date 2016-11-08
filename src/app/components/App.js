@@ -4,6 +4,7 @@ import {
   ActivityIndicator,
   Alert,
   Modal,
+  StatusBar,
   StyleSheet,
   TabBarIOS,
   NavigatorIOS,
@@ -127,6 +128,9 @@ export default class ProviderResponseApp extends Component {
     }
     return (
         <View style={styles.container}>
+           <StatusBar
+            networkActivityIndicatorVisible={this.props.apiRequestInProgress}
+          />
           {content}
         </View>
       );
