@@ -2,8 +2,7 @@ import React, { Component, PropTypes } from 'react';
 
 import { StyleSheet, TextInput, TouchableHighlight, Text, View } from 'react-native';
 
-import ServiceRequestList from './ServiceRequestList';
-import ServiceRequestDetailScreen from './ServiceRequestDetailScreen';
+import ServiceRequestList from '../containers/ServiceRequestList';
 
 export default class MyRequestsScreen extends Component {
   constructor(props) {
@@ -16,11 +15,9 @@ export default class MyRequestsScreen extends Component {
 
   _goToDetail(serviceRequest) {
     this.props.navigator.push({
-      component: ServiceRequestDetailScreen,
+      index: 1,
       title: `SR# ${serviceRequest['original_request_number']}`,
-      passProps: {
-        serviceRequest,
-      },
+      serviceRequest,
     });
   }
 
@@ -28,15 +25,14 @@ export default class MyRequestsScreen extends Component {
     return (
       <View style={styles.container}>
         <ServiceRequestList
-          goToDetails={this._goToDetail.bind(this)}
-          serviceRequests={this.props.serviceRequests} />
+          onSelectServiceRequest={this._goToDetail.bind(this)} />
       </View>
     );
   }
 }
 
 MyRequestsScreen.propTypes = {
-  serviceRequests: PropTypes.array.isRequired,
+  navigator: PropTypes.object.isRequired,
 };
 
 const styles = StyleSheet.create({

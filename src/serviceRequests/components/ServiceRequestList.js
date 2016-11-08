@@ -25,7 +25,7 @@ export default class ServiceRequestList extends Component {
     return (
       <View key={rowData['id']}>
         <TouchableHighlight
-          onPress={() => this.props.goToDetails(rowData)}
+          onPress={() => this.props.onSelectServiceRequest(rowData)}
           underlayColor={'gray'}>
           <View>
             <Text>{rowData['original_request_number']}</Text>
@@ -57,7 +57,7 @@ export default class ServiceRequestList extends Component {
 }
 
 ServiceRequestList.propTypes = {
-  goToDetails: PropTypes.func.isRequired,
+  onSelectServiceRequest: PropTypes.func.isRequired,
   serviceRequests: PropTypes.array.isRequired,
 };
 

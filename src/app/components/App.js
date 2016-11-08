@@ -14,7 +14,7 @@ import {
   View
 } from 'react-native';
 
-import { MyRequestsScreen } from '../../serviceRequests';
+import { ServiceRequestNavigation } from '../../serviceRequests';
 
 import { LoginScreen } from '../../user';
 import { CurrentTeamScreen } from '../../teams';
@@ -67,13 +67,7 @@ export default class ProviderResponseApp extends Component {
               selectedTab: Tabs.my_requests,
             });
           }}>
-          <NavigatorIOS
-            initialRoute = {{
-              component: MyRequestsScreen,
-              title: 'My Requests'
-            }}
-            style={{flex: 1}}
-            />
+          <ServiceRequestNavigation />
         </TabBarIOS.Item>
         <TabBarIOS.Item
           title='Feed'

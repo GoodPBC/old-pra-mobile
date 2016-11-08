@@ -4,18 +4,20 @@
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import MyRequestsScreen from '../components/MyRequestsScreen';
+import serviceRequestList from '../components/ServiceRequestList';
 import * as ServiceRequestActions from '../actions';
 
 /**
- * Map only necessary data for the 'My Requests' screen.
+ * Map only necessary data for the 'Service Requests' list.
  */
 function mapStateToProps(state) {
-  return {};
+  return {
+    serviceRequests: state.serviceRequests.serviceRequests,
+  };
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(ServiceRequestActions, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MyRequestsScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(serviceRequestList);
