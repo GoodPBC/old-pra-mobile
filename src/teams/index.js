@@ -1,3 +1,3 @@
-import CurrentTeamScreen from './containers/CurrentTeamScreen';
+import TeamNavigation from './components/TeamNavigation';
 
-export { CurrentTeamScreen };
+export { TeamNavigation };

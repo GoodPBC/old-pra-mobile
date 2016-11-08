@@ -3,6 +3,8 @@ import { StyleSheet, Text, TextInput, View } from 'react-native';
 import SelectTeamList from '../containers/SelectTeamList';
 import SelectTeamDetailScreen from '../containers/SelectTeamDetailScreen';
 
+import { RouteIndices } from './TeamNavigation';
+
 export default class SelectTeamScreen extends Component {
   constructor(props){
     super(props);
@@ -10,13 +12,12 @@ export default class SelectTeamScreen extends Component {
   }
 
   _goToDetail(team) {
-    this.props.navigator.push({
-      component: SelectTeamDetailScreen,
+    const route = {
+      index: RouteIndices.USER_LIST,
       title: team['name'],
-      passProps: {
-        team,
-      },
-    });
+      team,
+    };
+    this.props.navigator.push(route);
   }
 
   render() {
@@ -28,7 +29,9 @@ export default class SelectTeamScreen extends Component {
   }
 }
 
-SelectTeamScreen.propTypes = {};
+SelectTeamScreen.propTypes = {
+  navigator: PropTypes.object.isRequired,
+};
 
 const styles = StyleSheet.create({
   container: {

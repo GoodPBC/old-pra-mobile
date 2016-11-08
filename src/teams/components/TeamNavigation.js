@@ -2,10 +2,19 @@ import React, { Component, PropTypes } from 'react';
 
 import { Navigator, StyleSheet, TouchableHighlight, Text, View } from 'react-native';
 
-import MyRequestsScreen from '../containers/MyRequestsScreen';
-import ServiceRequestDetailScreen from './ServiceRequestDetailScreen';
+import CreateTeamScreen from '../containers/CreateTeamScreen';
+import CurrentTeamScreen from '../containers/CurrentTeamScreen';
+import SelectTeamScreen from './SelectTeamScreen';
+import SelectTeamDetailScreen from '../containers/SelectTeamDetailScreen';
 
-export default class ServiceRequestNavigation extends Component {
+export const RouteIndices = {
+  CURRENT_TEAM: 0,
+  TEAM_LIST: 1,
+  USER_LIST: 2,
+  CREATE_TEAM: 3,
+};
+
+export default class TeamNavigation extends Component {
   constructor(props) {
     super(props);
     this._renderScene = this._renderScene.bind(this);
@@ -37,7 +46,7 @@ export default class ServiceRequestNavigation extends Component {
   _rightButton() {
     return (
       <View style={styles.navElement}>
-        <TouchableHighlight onPress={() => this.props.fetchServiceRequests()}>
+        <TouchableHighlight onPress={() => console.log('TODO: Refresh')}>
           <Text>Refresh</Text>
         </TouchableHighlight>
       </View>
@@ -52,15 +61,23 @@ export default class ServiceRequestNavigation extends Component {
     );
   }
 
-  /**
-   * 2 screens: My Requests and the details screen
-   */
   _renderScene(route, navigator) {
     let content = null;
-    if (route.index === 0) {
-      content = <MyRequestsScreen navigator={navigator} />;
-    } else if (route.index === 1) {
-      content = <ServiceRequestDetailScreen serviceRequest={route.serviceRequest} />;
+    switch (route.index) {
+      case RouteIndices.CURRENT_TEAM:
+        content = <CurrentTeamScreen navigator={navigator} />;
+        break;
+      case RouteIndices.CREATE_TEAM:
+        content = <CreateTeamScreen onFinish={() => navigator.pop()} />;
+        break;
+      case RouteIndices.TEAM_LIST:
+        content = <SelectTeamScreen navigator={navigator} />;
+        break;
+      case RouteIndices.USER_LIST:
+        content = <SelectTeamDetailScreen navigator={navigator} team={route.team} />;
+        break;
+      default:
+        throw 'Invalid route provided';
     }
     return(
       <View style={styles.navAdjustment}>
@@ -77,7 +94,7 @@ export default class ServiceRequestNavigation extends Component {
     };
 
     const initialRoute = {
-      title: 'My Requests',
+      title: 'Teams',
       index: 0,
     };
     return (
@@ -88,7 +105,7 @@ export default class ServiceRequestNavigation extends Component {
         navigationBar={
           <Navigator.NavigationBar
           routeMapper={routeMapper}
-          style={{backgroundColor: 'lightgray'}}
+          style={styles.navBar}
           />
         }
       />
@@ -96,9 +113,7 @@ export default class ServiceRequestNavigation extends Component {
   }
 }
 
-ServiceRequestNavigation.propTypes = {
-  fetchServiceRequests: PropTypes.func.isRequired,
-};
+TeamNavigation.propTypes = {};
 
 const styles = StyleSheet.create({
   container: {
@@ -107,6 +122,9 @@ const styles = StyleSheet.create({
   navAdjustment: {
     flex: 1,
     marginTop: 64,
+  },
+  navBar: {
+    backgroundColor: 'lightgray',
   },
   navElement: {
     flex: 1,

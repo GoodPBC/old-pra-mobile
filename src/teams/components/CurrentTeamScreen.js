@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import Button from '../../shared/components/Button';
 import CreateTeamScreen from '../containers/CreateTeamScreen';
 import SelectTeamScreen from './SelectTeamScreen';
+import { RouteIndices } from './TeamNavigation';
 
 export default class CurrentTeamScreen extends Component {
   constructor(props){
@@ -11,34 +12,27 @@ export default class CurrentTeamScreen extends Component {
 
   _goToCreateTeam() {
     this.props.navigator.push({
-      component: CreateTeamScreen,
+      index: RouteIndices.CREATE_TEAM,
       title: 'Create a Team',
-      passProps: {
-        onFinish: this._goBackToCurrentTeam.bind(this)
-      },
     });
   }
 
   _goToJoinTeam() {
     this.props.navigator.push({
-      component: SelectTeamScreen,
+      index: RouteIndices.TEAM_LIST,
       title: 'Join a Team',
     });
   }
 
   _goToChangeTeam() {
     this.props.navigator.push({
-      component: SelectTeamScreen,
+      index: RouteIndices.TEAM_LIST,
       title: 'Change Team',
     });
   }
 
   _leaveTeam() {
     this.props.leaveTeam();
-  }
-
-  _goBackToCurrentTeam() {
-    this.props.navigator.pop();
   }
 
   _renderCurrentTeamName() {
