@@ -1,7 +1,7 @@
 import { API_REQUEST, API_REQUEST_SUCCESS, API_REQUEST_FAILURE } from '../shared';
 
-// export const BASE_URL = 'http://0.0.0.0:3000/api/v1/';
-export const BASE_URL = 'https://pra-cms-stage.herokuapp.com/api/v1/';
+export const BASE_URL = 'http://0.0.0.0:3000/api/v1/';
+// export const BASE_URL = 'https://pra-cms-stage.herokuapp.com/api/v1/';
 
 function authenticationHeaders(store) {
   const state = store.getState().user;
@@ -50,14 +50,16 @@ async function dispatchFetchResponse(response, actionName, next) {
     });
   }
 
-  function dispatchFailure(error) {
+  function dispatchFailure(error, status) {
     next({
       type: API_REQUEST_FAILURE,
-      error: error,
+      status,
+      error,
     })
 
     return next({
       type: `${actionName}_FAILURE`,
+      status,
       error: error
     });
   }
@@ -67,10 +69,10 @@ async function dispatchFetchResponse(response, actionName, next) {
     if (response.ok) {
       dispatchSuccess(json);
     } else {
-      dispatchFailure(json['error']);
+      dispatchFailure(json['error'], response.status);
     }
   } catch(e) {
-    dispatchFailure(e);
+    dispatchFailure(e, response.status);
   }
 }
 

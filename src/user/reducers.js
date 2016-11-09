@@ -1,3 +1,7 @@
+import {
+  FORBIDDEN_RESPONSE_STATUS,
+} from '../shared';
+
 let initialState = {
   authenticationToken: null,
   email: null,
@@ -18,6 +22,17 @@ export default function reducer(state = initialState, action) {
     return {
       ...state,
       userIsAuthenticated: false,
+    }
+  case 'API_REQUEST_FAILURE': // Reset the user auth status if necessary.
+    if (action.status === FORBIDDEN_RESPONSE_STATUS) {
+      return {
+        ...state,
+        userIsAuthenticated: false,
+        authenticationToken: null,
+        email: null,
+      };
+    } else {
+      return state;
     }
   default:
     return state;

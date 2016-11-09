@@ -77,6 +77,7 @@ describe('API middleware', () => {
       expect(next).toHaveBeenLastCalledWith({
         type: 'FETCH_FOOBAR_FAILURE',
         error: 'Some error message',
+        status: 400,
       });
     });
   });

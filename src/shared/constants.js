@@ -1,0 +1,1 @@
+export const FORBIDDEN_RESPONSE_STATUS = 403;

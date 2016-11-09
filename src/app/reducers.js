@@ -2,6 +2,7 @@ import {
   API_REQUEST,
   API_REQUEST_SUCCESS,
   API_REQUEST_FAILURE,
+  FORBIDDEN_RESPONSE_STATUS,
 } from '../shared';
 
 import {
@@ -26,13 +27,17 @@ export default function reducer(state = initialState, action) {
       apiRequestInProgress: false,
     };
   case API_REQUEST_FAILURE:
-    // Clear out the existing requests if the fetch failed, because we don't
-    // know whether the data is out of sync.
-    return {
+    let newState = {
       ...state,
       apiRequestInProgress: false,
-      errorMessage: action.error.toString(),
+    };
+    if (action.status === FORBIDDEN_RESPONSE_STATUS) {
+      newState.errorMessage = null;
+    } else {
+      newState.errorMessage = action.error.toString();
     }
+    return newState;
+    break;
   case CLEAR_ERROR_MESSAGE:
     return {
       ...state,
