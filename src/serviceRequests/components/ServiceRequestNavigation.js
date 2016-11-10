@@ -3,7 +3,7 @@ import React, { Component, PropTypes } from 'react';
 import { Navigator, StyleSheet, TouchableHighlight, Text, View } from 'react-native';
 
 import MyRequestsScreen from '../containers/MyRequestsScreen';
-import ServiceRequestDetailScreen from './ServiceRequestDetailScreen';
+import ServiceRequestDetailScreen from '../containers/ServiceRequestDetailScreen';
 
 export default class ServiceRequestNavigation extends Component {
   constructor(props) {
@@ -12,6 +12,13 @@ export default class ServiceRequestNavigation extends Component {
     this._leftButton = this._leftButton.bind(this);
     this._rightButton = this._rightButton.bind(this);
     this._title = this._title.bind(this);
+
+    this._refreshAndGoBack = this._refreshAndGoBack.bind(this);
+  }
+
+  _refreshAndGoBack(navigator) {
+    this.props.fetchServiceRequests();
+    navigator.pop();
   }
 
   /**
@@ -21,7 +28,7 @@ export default class ServiceRequestNavigation extends Component {
     if (index > 0) {
       return (
         <View style={styles.navElement}>
-          <TouchableHighlight onPress={() => navigator.pop()}>
+          <TouchableHighlight onPress={() => this._refreshAndGoBack(navigator) }>
             <Text>Back</Text>
           </TouchableHighlight>
         </View>
@@ -60,7 +67,7 @@ export default class ServiceRequestNavigation extends Component {
     if (route.index === 0) {
       content = <MyRequestsScreen navigator={navigator} />;
     } else if (route.index === 1) {
-      content = <ServiceRequestDetailScreen serviceRequest={route.serviceRequest} />;
+      content = <ServiceRequestDetailScreen />;
     }
     return(
       <View style={styles.navAdjustment}>

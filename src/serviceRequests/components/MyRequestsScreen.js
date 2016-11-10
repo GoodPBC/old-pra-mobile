@@ -13,19 +13,10 @@ export default class MyRequestsScreen extends Component {
     this.props.fetchServiceRequests();
   }
 
-  _goToDetail(serviceRequest) {
-    this.props.navigator.push({
-      index: 1,
-      title: `SR# ${serviceRequest['original_request_number']}`,
-      serviceRequest,
-    });
-  }
-
   render() {
     return (
       <View style={styles.container}>
-        <ServiceRequestList
-          onSelectServiceRequest={this._goToDetail.bind(this)} />
+        <ServiceRequestList navigator={this.props.navigator} />
       </View>
     );
   }

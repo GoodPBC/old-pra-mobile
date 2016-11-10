@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 
 import { ListView, StyleSheet, Text, View } from 'react-native';
 
-import Separator from '../../shared/components/Separator';
+import { Button, Separator } from '../../shared';
 
 function LabeledText({labelText, children}) {
   return (
@@ -13,24 +13,30 @@ function LabeledText({labelText, children}) {
   );
 }
 
+function OnsiteButton({ serviceRequest, updateOnsiteStatus }) {
+  if (serviceRequest.onsite_status) {
+    return <Text>ONSITE since {serviceRequest.onsite_status.reported_at}</Text>;
+  } else {
+    return <Button onPress={() => updateOnsiteStatus(serviceRequest)}>Onsite</Button>;
+  }
+}
+
 function SectionHeader({ children }) {
   return <Text style={styles.sectionHeader}>{children}</Text>;
 }
 
-export default class ServiceRequestDetail extends Component {
+export default class ServiceRequestDetailScreen extends Component {
   constructor(props) {
     super(props);
   }
 
-  componentWillReceiveProps(nextProps) {
-  }
-
-
   render() {
-    const { serviceRequest } = this.props;
+    const { serviceRequest, updateOnsiteStatus } = this.props;
     return (
       <View style={styles.container}>
         <View style={styles.detailsContainer}>
+          <OnsiteButton {...this.props} />
+          <Separator />
           <Text>{serviceRequest['request_created_at']}</Text>
           <Separator />
           <SectionHeader>What</SectionHeader>
@@ -45,8 +51,9 @@ export default class ServiceRequestDetail extends Component {
   }
 }
 
-ServiceRequestDetail.propTypes = {
+ServiceRequestDetailScreen.propTypes = {
   serviceRequest: PropTypes.object.isRequired,
+  updateOnsiteStatus: PropTypes.func.isRequired,
 };
 
 const styles = StyleSheet.create({

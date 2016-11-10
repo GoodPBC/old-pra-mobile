@@ -11,6 +11,8 @@ export default class ServiceRequestList extends Component {
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
     this.state = { dataSource: ds.cloneWithRows(props.serviceRequests) };
+
+    this._selectServiceRequest = this._selectServiceRequest.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -21,11 +23,20 @@ export default class ServiceRequestList extends Component {
     }
   }
 
+  _selectServiceRequest(serviceRequest) {
+    this.props.selectServiceRequest(serviceRequest); // Select offline state.
+    this.props.fetchServiceRequestDetails(serviceRequest);
+    this.props.navigator.push({ // Push navigation
+      index: 1,
+      title: `SR# ${serviceRequest['original_request_number']}`,
+    });
+  }
+
   _renderRow(rowData, sectionID, rowID, highlightRow) {
     return (
       <View key={rowData['id']}>
         <TouchableHighlight
-          onPress={() => this.props.onSelectServiceRequest(rowData)}
+          onPress={() => this._selectServiceRequest(rowData)}
           underlayColor={'gray'}>
           <View>
             <Text>{rowData['original_request_number']}</Text>
@@ -57,7 +68,8 @@ export default class ServiceRequestList extends Component {
 }
 
 ServiceRequestList.propTypes = {
-  onSelectServiceRequest: PropTypes.func.isRequired,
+  navigator: PropTypes.object.isRequired,
+  selectServiceRequest: PropTypes.func.isRequired,
   serviceRequests: PropTypes.array.isRequired,
 };
 
