@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 
-import { ListView, ScrollView, StyleSheet, Text, View } from 'react-native';
-
+import { ListView, Picker, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Button, Separator } from '../../shared';
+import ResolutionForm from './ResolutionForm';
 
 function LabeledText({labelText, children}) {
   return (
@@ -21,6 +21,7 @@ function OnsiteButton({ serviceRequest, updateOnsiteStatus }) {
   }
 }
 
+
 function SectionHeader({ children }) {
   return <Text style={styles.sectionHeader}>{children}</Text>;
 }
@@ -28,6 +29,10 @@ function SectionHeader({ children }) {
 export default class ServiceRequestDetailScreen extends Component {
   constructor(props) {
     super(props);
+  }
+
+  componentWillMount() {
+    this.props.fetchResolutionCodes();
   }
 
   render() {
@@ -46,6 +51,8 @@ export default class ServiceRequestDetailScreen extends Component {
             <LabeledText labelText={'Location Type'}>{serviceRequest['location_type']}</LabeledText>
             <LabeledText labelText={'Address'}>{serviceRequest['address']}</LabeledText>
             <LabeledText labelText={'Location Details'}>{serviceRequest['location_details']}</LabeledText>
+            <Separator />
+            <ResolutionForm {...this.props} />
           </View>
         </ScrollView>
       </View>
@@ -54,6 +61,11 @@ export default class ServiceRequestDetailScreen extends Component {
 }
 
 ServiceRequestDetailScreen.propTypes = {
+  fetchResolutionCodes: PropTypes.func.isRequired,
+  resolutionCodes: PropTypes.array.isRequired,
+  resolveServiceRequest: PropTypes.func.isRequired,
+  selectedResolutionCode: PropTypes.string,
+  selectServiceRequestResolution: PropTypes.func.isRequired,
   serviceRequest: PropTypes.object.isRequired,
   updateOnsiteStatus: PropTypes.func.isRequired,
 };
@@ -64,6 +76,7 @@ const styles = StyleSheet.create({
   },
   detailsContainer: {
     padding: 10,
+    marginBottom: 50, // Otherwise we can't scroll to the button at the bottom
   },
   label: {
     fontWeight: 'bold',

@@ -1,12 +1,37 @@
 import {
+    FETCH_RESOLUTION_CODES,
     FETCH_SERVICE_REQUESTS,
     FETCH_SERVICE_REQUEST_DETAILS,
+    RESOLVE_SERVICE_REQUEST,
     SELECT_SERVICE_REQUEST,
+    SELECT_SERVICE_REQUEST_RESOLUTION,
     UPDATE_ONSITE_STATUS,
 } from './actionTypes';
 import { API_REQUEST } from '../shared';
 
+const RESOLUTION_CODES_PATH = 'resolutions';
 const SERVICE_REQUESTS_PATH = 'service_requests';
+
+export function selectServiceRequestResolution(resolutionCode) {
+    return {
+        type: SELECT_SERVICE_REQUEST_RESOLUTION,
+        selectedResolutionCode: resolutionCode,
+    };
+}
+
+export function fetchResolutionCodes() {
+    return (dispatch, getState) => {
+        // Only fetch the list of resolution codes if they aren't already loaded.
+        if (!getState().serviceRequests.resolutionCodes.length) {
+            dispatch({
+                type: API_REQUEST,
+                actionName: FETCH_RESOLUTION_CODES,
+                requestPath: RESOLUTION_CODES_PATH,
+                requestMethod: 'GET',
+            });
+        }
+    };
+}
 
 export function fetchServiceRequests() {
     return {
@@ -24,6 +49,23 @@ export function fetchServiceRequestDetails(serviceRequest) {
         requestPath: `service_requests/${serviceRequest.id}`,
         requestMethod: 'GET',
     }
+}
+
+export function resolveServiceRequest(serviceRequest, resolutionCode) {
+    const reportedAtDate = Date();
+
+    return {
+        type: API_REQUEST,
+        actionName: RESOLVE_SERVICE_REQUEST,
+        requestPath: `service_requests/${serviceRequest.id}/resolution`,
+        requestMethod: 'POST',
+        requestParams: {
+            status: {
+                reported_at: reportedAtDate,
+                resolution_code: resolutionCode,
+            }
+        }
+    };
 }
 
 export function selectServiceRequest(serviceRequest) {

@@ -9,6 +9,8 @@ import * as ServiceRequestActions from '../actions';
 
 function mapStateToProps(state) {
   return {
+    resolutionCodes: state.serviceRequests.resolutionCodes,
+    selectedResolutionCode: state.serviceRequests.selectedResolutionCode,
     serviceRequest: state.serviceRequests.currentServiceRequest,
   };
 }
