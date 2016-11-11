@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
-import { ListView, StyleSheet, Text, View } from 'react-native';
+import { ListView, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import { Button, Separator } from '../../shared';
 
@@ -34,18 +34,20 @@ export default class ServiceRequestDetailScreen extends Component {
     const { serviceRequest, updateOnsiteStatus } = this.props;
     return (
       <View style={styles.container}>
-        <View style={styles.detailsContainer}>
-          <OnsiteButton {...this.props} />
-          <Separator />
-          <Text>{serviceRequest['request_created_at']}</Text>
-          <Separator />
-          <SectionHeader>What</SectionHeader>
-          <Text>{serviceRequest['complaint_details']}</Text>
-          <SectionHeader>Where</SectionHeader>
-          <LabeledText labelText={'Location Type'}>{serviceRequest['location_type']}</LabeledText>
-          <LabeledText labelText={'Address'}>{serviceRequest['address']}</LabeledText>
-          <LabeledText labelText={'Location Details'}>{serviceRequest['location_details']}</LabeledText>
-        </View>
+        <ScrollView>
+          <View style={styles.detailsContainer}>
+            <OnsiteButton {...this.props} />
+            <Separator />
+            <Text>{serviceRequest['request_created_at']}</Text>
+            <Separator />
+            <SectionHeader>What</SectionHeader>
+            <Text>{serviceRequest['complaint_details']}</Text>
+            <SectionHeader>Where</SectionHeader>
+            <LabeledText labelText={'Location Type'}>{serviceRequest['location_type']}</LabeledText>
+            <LabeledText labelText={'Address'}>{serviceRequest['address']}</LabeledText>
+            <LabeledText labelText={'Location Details'}>{serviceRequest['location_details']}</LabeledText>
+          </View>
+        </ScrollView>
       </View>
     );
   }
@@ -59,7 +61,6 @@ ServiceRequestDetailScreen.propTypes = {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 64, // NavigatorIOS overlap
   },
   detailsContainer: {
     padding: 10,
