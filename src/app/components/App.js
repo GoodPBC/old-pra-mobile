@@ -16,12 +16,13 @@ import {
 
 import { ServiceRequestNavigation } from '../../serviceRequests';
 import { TeamNavigation } from '../../teams';
+import { SyncNavigation } from '../../offline';
 
 import { LoginScreen } from '../../user';
 
 const Tabs = {
   my_requests: 0,
-  feed: 1,
+  sync: 1,
   teams: 2,
 };
 
@@ -70,16 +71,6 @@ export default class ProviderResponseApp extends Component {
           <ServiceRequestNavigation />
         </TabBarIOS.Item>
         <TabBarIOS.Item
-          title='Feed'
-          selected={this.state.selectedTab === Tabs.feed}
-          onPress={() => {
-            this.setState({
-              selectedTab: Tabs.feed,
-            });
-          }}>
-          <View />
-        </TabBarIOS.Item>
-        <TabBarIOS.Item
           title='Teams'
           selected={this.state.selectedTab === Tabs.teams}
           onPress={() => {
@@ -89,13 +80,15 @@ export default class ProviderResponseApp extends Component {
           }}>
           <TeamNavigation />
         </TabBarIOS.Item>
-        <TabBarIOS.Item title='Sync' selected={false} >
-          <NavigatorIOS
-            initialRoute = {{
-              component: View,
-              title: 'Sync'
-            }}
-          />
+        <TabBarIOS.Item
+          title='Sync'
+          selected={this.state.selectedTab === Tabs.sync}
+          onPress={() => {
+            this.setState({
+              selectedTab: Tabs.sync,
+            });
+          }} >
+          <SyncNavigation />
         </TabBarIOS.Item>
       </TabBarIOS>
     )

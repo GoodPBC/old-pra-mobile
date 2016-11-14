@@ -64,7 +64,8 @@ export function resolveServiceRequest(serviceRequest, resolutionCode) {
                 reported_at: reportedAtDate,
                 resolution_code: resolutionCode,
             }
-        }
+        },
+        serviceRequest, // Needed for sync
     };
 }
 
@@ -87,6 +88,7 @@ export function updateOnsiteStatus(serviceRequest) {
             status: {
                 reported_at: reportedAtDate,
             }
-        }
+        },
+        serviceRequest, // Needed for sync
     };
 }

@@ -55,13 +55,12 @@ export default function reducer(state = initialState, action) {
     return {
       ...state,
       selectedResolutionCode: action.selectedResolutionCode,
-    }
-
+    };
   case UPDATE_ONSITE_STATUS_SUCCESS:
     return {
       ...state,
       currentServiceRequest: action.data.service_request,
-    }
+    };
   default:
     return state;
   }

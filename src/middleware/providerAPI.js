@@ -15,31 +15,10 @@ function authenticationHeaders(store) {
   }
 }
 
-async function makeRequestAndDispatchResponse({ url, requestMethod, requestParams, actionName, next, store }) {
-  let body = '';
-  if (requestParams) {
-    body = JSON.stringify(requestParams);
-  }
-  const headers = {
-    'Content-Type': 'application/json'
-  };
-  Object.assign(headers, authenticationHeaders(store));
-  const response = await fetch(url, {
-    method: requestMethod,
-    body,
-    headers,
-  });
-  return dispatchFetchResponse(response, actionName, next);
-}
+async function makeRequestAndDispatchResponse({action, next, store }) {
+  const { requestMethod, requestParams, actionName } = action;
+  const url = `${BASE_URL}${action.requestPath}`;
 
-/**
- * Dispatch appropriate success / failure actions based on the status
- * of the response.
- *
- * Non-2xx responses will dispatch as failure with an error message.
- * Errors parsing the response will dispatch as failures.
- */
-async function dispatchFetchResponse(response, actionName, next) {
   function dispatchSuccess(json) {
     next({
       type: API_REQUEST_SUCCESS,
@@ -53,6 +32,7 @@ async function dispatchFetchResponse(response, actionName, next) {
   function dispatchFailure(error, status) {
     next({
       type: API_REQUEST_FAILURE,
+      action: action,
       status,
       error,
     })
@@ -64,15 +44,29 @@ async function dispatchFetchResponse(response, actionName, next) {
     });
   }
 
+  let body = '';
+  if (requestParams) {
+    body = JSON.stringify(requestParams);
+  }
+  const headers = {
+    'Content-Type': 'application/json'
+  };
+  Object.assign(headers, authenticationHeaders(store));
+  let response = null;
   try {
+    response = await fetch(url, {
+      method: requestMethod,
+      body,
+      headers,
+    });
     const json = await response.json();
     if (response.ok) {
       dispatchSuccess(json);
     } else {
       dispatchFailure(json['error'], response.status);
     }
-  } catch(e) {
-    dispatchFailure(e, response.status);
+  } catch (e) {
+    dispatchFailure(e, response ? response.status : 'unknown');
   }
 }
 
@@ -81,11 +75,6 @@ export default store => next => action => {
   if (action.type !== API_REQUEST) {
     return;
   }
-  const url = `${BASE_URL}${action.requestPath}`;
   return makeRequestAndDispatchResponse({
-    url: url,
-    requestParams: action.requestParams,
-    requestMethod: action.requestMethod,
-    actionName: action.actionName,
-    next, store });
+    action, next, store });
 };
