@@ -23,13 +23,6 @@ export default function reducer(state = initialState, action) {
       ...state,
       serviceRequests: action.data.service_requests,
     };
-  case FETCH_SERVICE_REQUESTS_FAILURE:
-    // Clear out the existing requests if the fetch failed, because we don't
-    // know whether the data is out of sync.
-    return {
-      ...state,
-      serviceRequests: [],
-    };
   case FETCH_RESOLUTION_CODES_SUCCESS:
     return {
       ...state,

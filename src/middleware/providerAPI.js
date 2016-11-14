@@ -1,4 +1,9 @@
-import { API_REQUEST, API_REQUEST_SUCCESS, API_REQUEST_FAILURE } from '../shared';
+import {
+  API_REQUEST,
+  API_REQUEST_SUCCESS,
+  API_REQUEST_FAILURE,
+  API_REQUEST_NETWORK_ERROR,
+} from '../shared';
 
 export const BASE_URL = 'http://0.0.0.0:3000/api/v1/';
 // export const BASE_URL = 'https://pra-cms-stage.herokuapp.com/api/v1/';
@@ -26,6 +31,14 @@ async function makeRequestAndDispatchResponse({action, next, store }) {
     return next({
       type: `${actionName}_SUCCESS`,
       data: json
+    });
+  }
+
+  function dispatchNetworkFailure(action, error) {
+    next({
+      type: API_REQUEST_NETWORK_ERROR,
+      action,
+      error,
     });
   }
 
@@ -66,7 +79,7 @@ async function makeRequestAndDispatchResponse({action, next, store }) {
       dispatchFailure(json['error'], response.status);
     }
   } catch (e) {
-    dispatchFailure(e, response ? response.status : 'unknown');
+    dispatchNetworkFailure(action, e);
   }
 }
 

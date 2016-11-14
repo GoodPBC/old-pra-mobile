@@ -4,7 +4,7 @@ import {
 } from '../serviceRequests';
 
 import {
-  API_REQUEST_FAILURE,
+  API_REQUEST_NETWORK_ERROR,
 } from '../shared';
 
 const initialState = {
@@ -17,10 +17,13 @@ const QUEUEABLE_ACTIONS = [
 ];
 
 export default function reducer(state = initialState, action) {
-  if (action.type !== API_REQUEST_FAILURE) {
+  if (action.type !== API_REQUEST_NETWORK_ERROR) {
     return state;
   }
 
+  // Works for a subset of actions, provided that the service
+  // request is also passed along. Otherwise can't see it in the
+  // sync list.
   const isQueueable =
     QUEUEABLE_ACTIONS.indexOf(action.action.actionName) !== -1 &&
     !!action.action.serviceRequest;
