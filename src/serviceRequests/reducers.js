@@ -16,6 +16,13 @@ let initialState = {
   selectedResolutionCode: null,
 };
 
+function updateServiceRequestDetails(state, action) {
+  return {
+    ...state,
+    currentServiceRequest: action.data.service_request,
+  };
+}
+
 export default function reducer(state = initialState, action) {
   switch(action.type) {
   case FETCH_SERVICE_REQUESTS_SUCCESS:
@@ -29,31 +36,21 @@ export default function reducer(state = initialState, action) {
       resolutionCodes: action.data.resolutions,
     };
   case FETCH_SERVICE_REQUEST_DETAILS_SUCCESS:
-    return {
-      ...state,
-      currentServiceRequest: action.data.service_request,
-    };
+    return updateServiceRequestDetails(state, action);
   case RESOLVE_SERVICE_REQUEST_SUCCESS:
-    return {
-      ...state,
-      currentServiceRequest: action.data.service_request,
-    };
+    return updateServiceRequestDetails(state, action);
   case SELECT_SERVICE_REQUEST: // Works offline
     return {
       ...state,
       currentServiceRequest: action.serviceRequest,
     };
-
   case SELECT_SERVICE_REQUEST_RESOLUTION:
     return {
       ...state,
       selectedResolutionCode: action.selectedResolutionCode,
     };
   case UPDATE_ONSITE_STATUS_SUCCESS:
-    return {
-      ...state,
-      currentServiceRequest: action.data.service_request,
-    };
+    return updateServiceRequestDetails(state, action);
   default:
     return state;
   }
