@@ -58,7 +58,10 @@ async function makeRequestAndDispatchResponse({action, next, store }) {
   }
 
   let body = '';
-  if (requestParams) {
+  if (requestMethod === 'GET' || requestMethod === 'get') {
+    // Otherwise fails on Android.
+    body = null;
+  } else if (requestParams) {
     body = JSON.stringify(requestParams);
   }
   const headers = {
