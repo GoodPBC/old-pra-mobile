@@ -25,17 +25,17 @@ async function makeRequestAndDispatchResponse({action, next, store }) {
   const url = `${BASE_URL}${action.requestPath}`;
 
   function dispatchSuccess(json) {
-    next({
+    store.dispatch({
       type: API_REQUEST_SUCCESS,
     })
-    return next({
+    return store.dispatch({
       type: `${actionName}_SUCCESS`,
       data: json
     });
   }
 
   function dispatchNetworkFailure(action, error) {
-    next({
+    store.dispatch({
       type: API_REQUEST_NETWORK_ERROR,
       action,
       error,
@@ -43,14 +43,14 @@ async function makeRequestAndDispatchResponse({action, next, store }) {
   }
 
   function dispatchFailure(error, status) {
-    next({
+    store.dispatch({
       type: API_REQUEST_FAILURE,
       action: action,
       status,
       error,
     })
 
-    return next({
+    return store.dispatch({
       type: `${actionName}_FAILURE`,
       status,
       error: error

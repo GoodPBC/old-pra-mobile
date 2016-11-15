@@ -1,6 +1,7 @@
 import { combineReducers, createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import providerAPI from '../middleware/providerAPI';
+import offlineSync from '../middleware/offlineSync';
 import {persistStore, autoRehydrate} from 'redux-persist';
 import { AsyncStorage } from 'react-native';
 
@@ -21,7 +22,7 @@ const reducer = combineReducers({
 export default function configureStore(initialState) {
   const store = createStore(
     reducer,
-    applyMiddleware(thunk, providerAPI),
+    applyMiddleware(thunk, offlineSync, providerAPI),
     autoRehydrate()
   );
   persistStore(store, { storage: AsyncStorage });
