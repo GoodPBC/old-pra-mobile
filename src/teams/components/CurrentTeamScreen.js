@@ -4,6 +4,7 @@ import Button from '../../shared/components/Button';
 import CreateTeamScreen from '../containers/CreateTeamScreen';
 import SelectTeamScreen from './SelectTeamScreen';
 import { RouteIndices } from './TeamNavigation';
+import { LIGHT_BLUE } from '../../shared';
 
 export default class CurrentTeamScreen extends Component {
   constructor(props){
@@ -54,8 +55,8 @@ export default class CurrentTeamScreen extends Component {
       <View style={styles.container}>
         <Text>Current Team</Text>
         {this._renderCurrentTeamName()}
-        {!hasJoinedTeam && createTeamButton}
         {!hasJoinedTeam && joinTeamButton}
+        {!hasJoinedTeam && createTeamButton}
         {hasJoinedTeam && changeTeamButton}
         {hasJoinedTeam && leaveTeamButton}
       </View>
@@ -70,8 +71,9 @@ CurrentTeamScreen.propTypes = {
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: LIGHT_BLUE,
     flex: 1,
-    alignItems: 'center',
     justifyContent: 'center',
+    padding: 50,
   }
 });
