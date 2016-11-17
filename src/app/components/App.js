@@ -7,12 +7,13 @@ import {
   StatusBar,
   StyleSheet,
   TabBarIOS,
-  NavigatorIOS,
   TextInput,
   TouchableHighlight,
   Text,
   View
 } from 'react-native';
+
+import ScrollableTabView from 'react-native-scrollable-tab-view';
 
 import { ServiceRequestNavigation } from '../../serviceRequests';
 import { TeamNavigation } from '../../teams';
@@ -26,7 +27,7 @@ const Tabs = {
   teams: 2,
 };
 
-export default class ProviderResponseApp extends Component {
+export default class App extends Component {
   constructor(props) {
     super(props);
 
@@ -50,6 +51,7 @@ export default class ProviderResponseApp extends Component {
           animationType={"slide"}
           transparent={false}
           visible={this.props.userIsAuthenticated !== true}
+          onRequestClose={() => console.log('requested close')}
           >
           <LoginScreen {...this.props}/>
         </Modal>
@@ -59,39 +61,14 @@ export default class ProviderResponseApp extends Component {
 
   _renderTabs() {
     return (
-      <TabBarIOS barTintColor="black" tintColor="white" style={styles.tabBarNavigator} >
-        <TabBarIOS.Item
-          title="My Requests"
-          selected={this.state.selectedTab === Tabs.my_requests}
-          onPress={() => {
-            this.setState({
-              selectedTab: Tabs.my_requests,
-            });
-          }}>
-          <ServiceRequestNavigation />
-        </TabBarIOS.Item>
-        <TabBarIOS.Item
-          title='Teams'
-          selected={this.state.selectedTab === Tabs.teams}
-          onPress={() => {
-            this.setState({
-              selectedTab: Tabs.teams,
-            });
-          }}>
-          <TeamNavigation />
-        </TabBarIOS.Item>
-        <TabBarIOS.Item
-          title='Sync'
-          selected={this.state.selectedTab === Tabs.sync}
-          onPress={() => {
-            this.setState({
-              selectedTab: Tabs.sync,
-            });
-          }} >
-          <SyncNavigation />
-        </TabBarIOS.Item>
-      </TabBarIOS>
-    )
+      <ScrollableTabView
+        tabBarPosition="bottom"
+        tabBarUnderlineStyle={{backgroundColor: 'white'}}>
+        <ServiceRequestNavigation tabLabel="My Requests" />
+        <TeamNavigation tabLabel="Teams" />
+        <SyncNavigation tabLabel="Sync" />
+      </ScrollableTabView>
+    );
   }
 
   render() {
@@ -112,7 +89,7 @@ export default class ProviderResponseApp extends Component {
   }
 }
 
-ProviderResponseApp.propTypes = {
+App.propTypes = {
   apiRequestInProgress: PropTypes.bool.isRequired,
   errorMessage: PropTypes.string,
   userIsAuthenticated: PropTypes.bool,
