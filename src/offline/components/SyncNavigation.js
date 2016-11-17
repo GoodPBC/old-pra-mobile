@@ -4,54 +4,12 @@ import { Navigator, StyleSheet, TouchableHighlight, Text, View } from 'react-nat
 
 import SyncScreen from '../components/SyncScreen';
 import ServiceRequestDetailScreen from '../../serviceRequests/containers/ServiceRequestDetailScreen';
+import { Navigation } from '../../shared';
 
 export default class SyncNavigation extends Component {
   constructor(props) {
     super(props);
     this._renderScene = this._renderScene.bind(this);
-    this._leftButton = this._leftButton.bind(this);
-    this._rightButton = this._rightButton.bind(this);
-    this._title = this._title.bind(this);
-
-    this._refreshAndGoBack = this._refreshAndGoBack.bind(this);
-  }
-
-  _refreshAndGoBack(navigator) {
-    navigator.pop();
-  }
-
-  /**
-   * Back button only on the details screen
-   */
-  _leftButton(route, navigator, index, navState) {
-    if (index > 0) {
-      return (
-        <View style={styles.navElement}>
-          <TouchableHighlight onPress={() => this._refreshAndGoBack(navigator) }>
-            <Text>Back</Text>
-          </TouchableHighlight>
-        </View>
-      );
-    } else {
-      return <View />;
-    }
-  }
-
-  /**
-   * Right button refreshes whichever screen you're on
-   */
-  _rightButton() {
-    return (
-      <View style={styles.navElement} />
-    );
-  }
-
-  _title(route, navigator, index, navState) {
-    return (
-      <View style={styles.navElement}>
-        <Text>{route.title}</Text>
-      </View>
-    );
   }
 
   /**
@@ -72,28 +30,17 @@ export default class SyncNavigation extends Component {
   }
 
   render() {
-    const routeMapper = {
-      LeftButton: this._leftButton,
-      RightButton: this._rightButton,
-      Title: this._title,
-    };
-
     const initialRoute = {
       title: 'Sync',
       index: 0,
     };
+
     return (
-      <Navigator
+      <Navigation
         initialRoute={initialRoute}
-        configureScene={() => Navigator.SceneConfigs.HorizontalSwipeJump}
         renderScene={this._renderScene}
-        navigationBar={
-          <Navigator.NavigationBar
-          routeMapper={routeMapper}
-          style={{backgroundColor: 'lightgray'}}
-          />
-        }
-      />
+        onBack={() => {}}
+        rightButtonAction={() => {}} />
     );
   }
 }

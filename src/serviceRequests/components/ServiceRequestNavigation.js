@@ -4,60 +4,12 @@ import { Navigator, StyleSheet, TouchableHighlight, Text, View } from 'react-nat
 
 import MyRequestsScreen from '../containers/MyRequestsScreen';
 import ServiceRequestDetailScreen from '../containers/ServiceRequestDetailScreen';
-import { LIGHT_BLUE, DARK_BLUE } from '../../shared';
+import { LIGHT_BLUE, DARK_BLUE, Navigation } from '../../shared';
 
 export default class ServiceRequestNavigation extends Component {
   constructor(props) {
     super(props);
     this._renderScene = this._renderScene.bind(this);
-    this._leftButton = this._leftButton.bind(this);
-    this._rightButton = this._rightButton.bind(this);
-    this._title = this._title.bind(this);
-
-    this._refreshAndGoBack = this._refreshAndGoBack.bind(this);
-  }
-
-  _refreshAndGoBack(navigator) {
-    this.props.fetchServiceRequests();
-    navigator.pop();
-  }
-
-  /**
-   * Back button only on the details screen
-   */
-  _leftButton(route, navigator, index, navState) {
-    if (index > 0) {
-      return (
-        <View style={styles.navElement}>
-          <TouchableHighlight onPress={() => this._refreshAndGoBack(navigator) }>
-            <Text style={styles.navHeader}>Back</Text>
-          </TouchableHighlight>
-        </View>
-      );
-    } else {
-      return <View />;
-    }
-  }
-
-  /**
-   * Right button refreshes whichever screen you're on
-   */
-  _rightButton() {
-    return (
-      <View style={styles.navElement}>
-        <TouchableHighlight onPress={() => this.props.fetchServiceRequests()}>
-          <Text>Refresh</Text>
-        </TouchableHighlight>
-      </View>
-    );
-  }
-
-  _title(route, navigator, index, navState) {
-    return (
-      <View style={styles.navElement}>
-        <Text style={styles.navHeader}>{route.title}</Text>
-      </View>
-    );
   }
 
   /**
@@ -89,17 +41,11 @@ export default class ServiceRequestNavigation extends Component {
       index: 0,
     };
     return (
-      <Navigator
+      <Navigation
         initialRoute={initialRoute}
-        configureScene={() => Navigator.SceneConfigs.HorizontalSwipeJump}
         renderScene={this._renderScene}
-        navigationBar={
-          <Navigator.NavigationBar
-          routeMapper={routeMapper}
-          style={styles.navBar}
-          />
-        }
-      />
+        onBack={this.props.fetchServiceRequests}
+        rightButtonAction={() => {}} />
     );
   }
 }

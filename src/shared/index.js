@@ -10,6 +10,7 @@ import {
   FORBIDDEN_RESPONSE_STATUS
 } from './constants';
 import Button from './components/Button';
+import Navigation from './components/Navigation';
 import Separator from './components/Separator';
 
 export {
@@ -21,5 +22,6 @@ export {
   LIGHT_BLUE,
   DARK_BLUE,
   Button,
+  Navigation,
   Separator,
 };
