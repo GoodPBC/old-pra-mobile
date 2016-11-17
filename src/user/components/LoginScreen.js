@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
 import { StyleSheet, TextInput, TouchableHighlight, Text, View } from 'react-native';
-import Button from '../../shared/components/Button';
+import { Button } from '../../shared';
 
 export default class LoginScreen extends Component {
   constructor(props) {

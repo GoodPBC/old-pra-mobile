@@ -6,6 +6,7 @@ import {
 import {
   LOGIN_USER_SUCCESS,
   LOGIN_USER_FAILURE,
+  LOGOUT_USER,
 } from './actionTypes';
 
 let initialState = {
@@ -39,6 +40,13 @@ export default function reducer(state = initialState, action) {
     } else {
       return state;
     }
+  case LOGOUT_USER:
+    return {
+      ...state,
+      authenticationToken: null,
+      email: null,
+      userIsAuthenticated: false,
+    };
   default:
     return state;
   }

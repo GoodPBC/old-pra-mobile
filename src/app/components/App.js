@@ -19,7 +19,7 @@ import { ServiceRequestNavigation } from '../../serviceRequests';
 import { TeamNavigation } from '../../teams';
 import { SyncNavigation } from '../../offline';
 
-import { LoginScreen } from '../../user';
+import { LoginScreen, LogoutScreen } from '../../user';
 
 const Tabs = {
   my_requests: 0,
@@ -67,6 +67,7 @@ export default class App extends Component {
         <ServiceRequestNavigation tabLabel="My Requests" />
         <TeamNavigation tabLabel="Teams" />
         <SyncNavigation tabLabel="Sync" />
+        <LogoutScreen tabLabel="Logout" />
       </ScrollableTabView>
     );
   }
