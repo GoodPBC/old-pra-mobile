@@ -74,14 +74,16 @@ async function makeRequestAndDispatchResponse({action, next, store }) {
       body,
       headers,
     });
-    const json = await response.json();
-    if (response.ok) {
-      dispatchSuccess(json);
-    } else {
-      dispatchFailure(json['error'], response.status);
-    }
   } catch (e) {
     dispatchNetworkFailure(action, e);
+    return;
+  }
+
+  const json = await response.json();
+  if (response.ok) {
+    dispatchSuccess(json);
+  } else {
+    dispatchFailure(json['error'], response.status);
   }
 }
 

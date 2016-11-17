@@ -2,14 +2,15 @@ import React, { Component, PropTypes } from 'react';
 
 import { StyleSheet, TextInput, TouchableHighlight, Text, View } from 'react-native';
 import { Button, Separator } from '../../shared';
+import DescriptionSection from './DescriptionSection';
+import AddressSection from './AddressSection';
 
 export default function DetailsSection({ serviceRequest }) {
   return (
     <View style={styles.detailsContainer}>
-      <Text>{serviceRequest['complaint_details']}</Text>
-      <Text>{serviceRequest['location_type']}</Text>
-      <Text>{serviceRequest['address']}</Text>
-      <Text>{serviceRequest['location_details']}</Text>
+      <AddressSection serviceRequest={serviceRequest} />
+      <Separator />
+      <DescriptionSection serviceRequest={serviceRequest} />
       <Separator />
     </View>
   );
