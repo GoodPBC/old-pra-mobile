@@ -6,9 +6,6 @@ import { Button, Separator } from '../../shared';
 export default function DetailsSection({ serviceRequest }) {
   return (
     <View style={styles.detailsContainer}>
-      <Separator />
-      <Text>{serviceRequest['request_created_at']}</Text>
-      <Separator />
       <Text>{serviceRequest['complaint_details']}</Text>
       <Text>{serviceRequest['location_type']}</Text>
       <Text>{serviceRequest['address']}</Text>
