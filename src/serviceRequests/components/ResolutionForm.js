@@ -4,18 +4,24 @@ import { Picker, StyleSheet, Text, View } from 'react-native';
 
 import { Button, Separator } from '../../shared';
 
-export default function ResolutionForm(props) {
-  const { serviceRequest } = props;
-  if (serviceRequest.resolution) {
-    return <Text>RESOLVED with code {serviceRequest.resolution.resolution_code} since {serviceRequest.resolution.reported_at}</Text>
-  } else {
-    return (
-      <View>
-        <ResolutionPicker {...props} />
-        <Separator />
-        <ResolveRequestButton {...props} />
-      </View>
-    );
+export default class ResolutionForm extends Component {
+  componentWillMount() {
+    this.props.fetchResolutionCodes();
+  }
+
+  render() {
+    const { serviceRequest } = this.props;
+    if (serviceRequest.resolution) {
+      return <Text>RESOLVED with code {serviceRequest.resolution.resolution_code} since {serviceRequest.resolution.reported_at}</Text>
+    } else {
+      return (
+        <View>
+          <ResolutionPicker {...this.props} />
+          <Separator />
+          <ResolveRequestButton {...this.props} />
+        </View>
+      );
+    }
   }
 }
 
