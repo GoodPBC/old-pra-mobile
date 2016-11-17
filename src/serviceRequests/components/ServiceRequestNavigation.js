@@ -4,6 +4,7 @@ import { Navigator, StyleSheet, TouchableHighlight, Text, View } from 'react-nat
 
 import MyRequestsScreen from '../containers/MyRequestsScreen';
 import ServiceRequestDetailScreen from '../containers/ServiceRequestDetailScreen';
+import { LIGHT_BLUE, DARK_BLUE } from '../../shared';
 
 export default class ServiceRequestNavigation extends Component {
   constructor(props) {
@@ -29,7 +30,7 @@ export default class ServiceRequestNavigation extends Component {
       return (
         <View style={styles.navElement}>
           <TouchableHighlight onPress={() => this._refreshAndGoBack(navigator) }>
-            <Text>Back</Text>
+            <Text style={styles.navHeader}>Back</Text>
           </TouchableHighlight>
         </View>
       );
@@ -54,7 +55,7 @@ export default class ServiceRequestNavigation extends Component {
   _title(route, navigator, index, navState) {
     return (
       <View style={styles.navElement}>
-        <Text>{route.title}</Text>
+        <Text style={styles.navHeader}>{route.title}</Text>
       </View>
     );
   }
@@ -95,7 +96,7 @@ export default class ServiceRequestNavigation extends Component {
         navigationBar={
           <Navigator.NavigationBar
           routeMapper={routeMapper}
-          style={{backgroundColor: 'lightgray'}}
+          style={styles.navBar}
           />
         }
       />
@@ -115,8 +116,14 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: 64,
   },
+  navBar: {
+    backgroundColor: LIGHT_BLUE,
+  },
   navElement: {
     flex: 1,
     justifyContent: 'center',
+  },
+  navHeader: {
+    color: 'white',
   }
 });

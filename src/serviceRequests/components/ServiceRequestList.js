@@ -4,6 +4,8 @@ import { ListView, StyleSheet, Text, TouchableHighlight, View } from 'react-nati
 
 import Separator from '../../shared/components/Separator';
 
+import ServiceRequestListItem from './ServiceRequestListItem';
+
 export default class ServiceRequestList extends Component {
   constructor(props) {
     super(props);
@@ -34,18 +36,7 @@ export default class ServiceRequestList extends Component {
 
   _renderRow(rowData, sectionID, rowID, highlightRow) {
     return (
-      <View key={rowData['id']}>
-        <TouchableHighlight
-          onPress={() => this._selectServiceRequest(rowData)}
-          underlayColor={'gray'}>
-          <View>
-            <Text>{rowData['original_request_number']}</Text>
-            <Text>{rowData['complaint_type']}</Text>
-            <Text>{rowData['complaint_details']}</Text>
-            <Text>{rowData['request_created_at']}</Text>
-          </View>
-        </TouchableHighlight>
-      </View>
+      <ServiceRequestListItem serviceRequest={rowData} selectServiceRequest={this._selectServiceRequest} />
     );
   }
 
