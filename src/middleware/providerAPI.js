@@ -5,8 +5,7 @@ import {
   API_REQUEST_NETWORK_ERROR,
 } from '../shared';
 
-export const BASE_URL = 'http://0.0.0.0:3000/api/v1/';
-// export const BASE_URL = 'https://pra-cms-stage.herokuapp.com/api/v1/';
+import Config from 'react-native-config';
 
 function authenticationHeaders(store) {
   const state = store.getState().user;
@@ -22,7 +21,7 @@ function authenticationHeaders(store) {
 
 async function makeRequestAndDispatchResponse({action, next, store }) {
   const { requestMethod, requestParams, actionName } = action;
-  const url = `${BASE_URL}${action.requestPath}`;
+  const url = `${Config.BASE_URL}${action.requestPath}`;
 
   function dispatchSuccess(json) {
     store.dispatch({
