@@ -8,6 +8,7 @@ import {
   LIGHT_BLUE,
   X_AXIS_PADDING,
 } from '../../shared';
+import CreateTeamWarningHeader from './CreateTeamWarningHeader';
 
 export default class CreateTeamScreen extends Component {
   constructor(props){
@@ -30,22 +31,11 @@ export default class CreateTeamScreen extends Component {
     this.props.onFinish();
   }
 
-  _renderWarningText() {
-    const { currentTeam } = this.props;
-    return (
-      <View style={styles.warning}>
-        <InvertText style={styles.warningText}>BY CREATING THIS TEAM YOU WILL BE REMOVED FROM TEAM</InvertText>
-        <Separator style={{width: 200, marginTop: 20, marginBottom: 20}}/>
-        <InvertText style={styles.teamName}>{currentTeam.name}</InvertText>
-      </View>
-    );
-  }
-
   render() {
     const { currentTeam } = this.props;
     return(
       <View style={styles.container}>
-        {currentTeam && this._renderWarningText()}
+        {currentTeam && <CreateTeamWarningHeader currentTeam={currentTeam} />}
         <View>
           <InvertTextInput
             style={styles.input}
@@ -79,15 +69,4 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
     borderWidth: 1
   },
-  teamName: {
-    fontStyle: 'italic',
-    fontSize: 30,
-  },
-  warningText: {
-    fontSize: 18,
-    textAlign: 'center'
-  },
-  warning: {
-    alignItems: 'center',
-  }
 });

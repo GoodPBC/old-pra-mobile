@@ -12,6 +12,5 @@ export default function InvertText(props) {
 const styles = StyleSheet.create({
   text: {
     color: 'white',
-    fontWeight: 'bold',
   }
 });

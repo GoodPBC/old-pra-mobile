@@ -10,6 +10,7 @@ import {
   LIGHT_BLUE,
   X_AXIS_PADDING,
 } from '../../shared';
+import CurrentTeamHeader from './CurrentTeamHeader';
 
 export default class CurrentTeamScreen extends Component {
   constructor(props){
@@ -45,16 +46,8 @@ export default class CurrentTeamScreen extends Component {
     this.props.leaveTeam();
   }
 
-  _renderCurrentTeamName() {
-    const { currentTeam } = this.props;
-    if (currentTeam) {
-      return <InvertText style={styles.teamName}>{currentTeam['name']}</InvertText>;
-    } else {
-      return <InvertText style={styles.teamName}>Unassigned</InvertText>;
-    }
-  }
-
   render() {
+    const { currentTeam } = this.props;
     const createTeamButton = <InvertButton onPress={this._goToCreateTeam}>Create a Team</InvertButton>;
     const joinTeamButton = <InvertButton onPress={this._goToJoinTeam}>Join a Team</InvertButton>;
     const changeTeamButton = <InvertButton onPress={this._goToChangeTeam}>Change Team</InvertButton>;
@@ -62,8 +55,7 @@ export default class CurrentTeamScreen extends Component {
     const hasJoinedTeam = !!this.props.currentTeam;
     return(
       <View style={styles.container}>
-        <InvertText>TEAM</InvertText>
-        {this._renderCurrentTeamName()}
+        <CurrentTeamHeader currentTeam={currentTeam} />
         <View style={styles.buttonsContainer}>
           {!hasJoinedTeam && joinTeamButton}
           {createTeamButton}
@@ -88,7 +80,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: LIGHT_BLUE,
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'space-around',
     paddingLeft: X_AXIS_PADDING,
     paddingRight: X_AXIS_PADDING,
   },
