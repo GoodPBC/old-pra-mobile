@@ -8,11 +8,10 @@ import { connect } from 'react-redux';
 import CreateTeamScreen from '../components/CreateTeamScreen';
 import * as TeamsActions from '../actions';
 
-/**
- * No application state necessary for this form.
- */
 function mapStateToProps(state) {
-  return {};
+  return {
+    currentTeam: state.teams.currentTeam,
+  };
 }
 
 function mapDispatchToProps(dispatch) {

@@ -8,11 +8,13 @@ import {
   GRAY_TEXT,
   LIGHT_BLUE,
   DARK_BLUE,
-  FORBIDDEN_RESPONSE_STATUS
+  FORBIDDEN_RESPONSE_STATUS,
+  X_AXIS_PADDING,
 } from './constants';
 import Button from './components/Button';
 import InvertButton from './components/InvertButton';
 import InvertText from './components/InvertText';
+import InvertTextInput from './components/InvertTextInput';
 import Navigation from './components/Navigation';
 import Separator from './components/Separator';
 
@@ -25,9 +27,11 @@ export {
   GRAY_TEXT,
   LIGHT_BLUE,
   DARK_BLUE,
+  X_AXIS_PADDING,
   Button,
   InvertButton,
   InvertText,
+  InvertTextInput,
   Navigation,
   Separator,
 };

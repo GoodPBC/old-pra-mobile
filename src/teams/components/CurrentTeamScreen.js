@@ -4,7 +4,12 @@ import Button from '../../shared/components/Button';
 import CreateTeamScreen from '../containers/CreateTeamScreen';
 import SelectTeamScreen from './SelectTeamScreen';
 import { RouteIndices } from './TeamNavigation';
-import { InvertButton, InvertText, LIGHT_BLUE } from '../../shared';
+import {
+  InvertButton,
+  InvertText,
+  LIGHT_BLUE,
+  X_AXIS_PADDING,
+} from '../../shared';
 
 export default class CurrentTeamScreen extends Component {
   constructor(props){
@@ -52,8 +57,8 @@ export default class CurrentTeamScreen extends Component {
   render() {
     const createTeamButton = <InvertButton onPress={this._goToCreateTeam}>Create a Team</InvertButton>;
     const joinTeamButton = <InvertButton onPress={this._goToJoinTeam}>Join a Team</InvertButton>;
-    const changeTeamButton = <Button onPress={this._goToChangeTeam}>Change Team</Button>;
-    const leaveTeamButton = <Button onPress={this._leaveTeam}>Leave team</Button>;
+    const changeTeamButton = <InvertButton onPress={this._goToChangeTeam}>Change Team</InvertButton>;
+    const leaveTeamButton = <InvertButton onPress={this._leaveTeam}>Leave team</InvertButton>;
     const hasJoinedTeam = !!this.props.currentTeam;
     return(
       <View style={styles.container}>
@@ -61,7 +66,7 @@ export default class CurrentTeamScreen extends Component {
         {this._renderCurrentTeamName()}
         <View style={styles.buttonsContainer}>
           {!hasJoinedTeam && joinTeamButton}
-          {!hasJoinedTeam && createTeamButton}
+          {createTeamButton}
           {hasJoinedTeam && changeTeamButton}
           {hasJoinedTeam && leaveTeamButton}
         </View>
@@ -84,7 +89,8 @@ const styles = StyleSheet.create({
     backgroundColor: LIGHT_BLUE,
     flex: 1,
     justifyContent: 'center',
-    padding: 50,
+    paddingLeft: X_AXIS_PADDING,
+    paddingRight: X_AXIS_PADDING,
   },
   teamName: {
     fontStyle: 'italic',

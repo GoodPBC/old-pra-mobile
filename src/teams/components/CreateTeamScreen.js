@@ -1,6 +1,13 @@
 import React, { Component, PropTypes } from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
-import Button from '../../shared/components/Button';
+import {
+  InvertButton,
+  InvertText,
+  InvertTextInput,
+  Separator,
+  LIGHT_BLUE,
+  X_AXIS_PADDING,
+} from '../../shared';
 
 export default class CreateTeamScreen extends Component {
   constructor(props){
@@ -23,27 +30,48 @@ export default class CreateTeamScreen extends Component {
     this.props.onFinish();
   }
 
+  _renderWarningText() {
+    const { currentTeam } = this.props;
+    return (
+      <View style={styles.warning}>
+        <InvertText style={styles.warningText}>BY CREATING THIS TEAM YOU WILL BE REMOVED FROM TEAM</InvertText>
+        <Separator style={{width: 200, marginTop: 20, marginBottom: 20}}/>
+        <InvertText style={styles.teamName}>{currentTeam.name}</InvertText>
+      </View>
+    );
+  }
+
   render() {
+    const { currentTeam } = this.props;
     return(
       <View style={styles.container}>
-        <Text>Enter a team name</Text>
-        <TextInput style={styles.input} onChangeText={this._onChangeText} />
-        <Button onPress={this._onSubmitForm}>Create Team</Button>
+        {currentTeam && this._renderWarningText()}
+        <View>
+          <InvertTextInput
+            style={styles.input}
+            onChangeText={this._onChangeText}
+            placeholder="Team Name"
+            value={this.state.teamName} />
+          <InvertButton onPress={this._onSubmitForm}>Create Team</InvertButton>
+        </View>
       </View>
     );
   }
 }
 
 CreateTeamScreen.propTypes = {
+  currentTeam: PropTypes.object,
   createTeam: PropTypes.func.isRequired,
   onFinish: PropTypes.func.isRequired,
 };
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: LIGHT_BLUE,
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    paddingLeft: X_AXIS_PADDING,
+    paddingRight: X_AXIS_PADDING,
+    justifyContent: 'space-around',
   },
   input: {
     marginBottom: 30,
@@ -51,4 +79,15 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
     borderWidth: 1
   },
+  teamName: {
+    fontStyle: 'italic',
+    fontSize: 30,
+  },
+  warningText: {
+    fontSize: 18,
+    textAlign: 'center'
+  },
+  warning: {
+    alignItems: 'center',
+  }
 });
