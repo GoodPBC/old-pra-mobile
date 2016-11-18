@@ -21,6 +21,11 @@ import { SyncNavigation } from '../../offline';
 
 import { LoginScreen, LogoutScreen } from '../../user';
 
+import {
+  DARK_BLUE,
+  GRAY_TEXT,
+} from '../../shared';
+
 const Tabs = {
   my_requests: 0,
   sync: 1,
@@ -62,6 +67,8 @@ export default class App extends Component {
   _renderTabs() {
     return (
       <ScrollableTabView
+        tabBarInactiveTextColor={GRAY_TEXT}
+        tabBarActiveTextColor={DARK_BLUE}
         tabBarPosition="bottom"
         tabBarUnderlineStyle={{backgroundColor: 'white'}}>
         <ServiceRequestNavigation tabLabel="My Requests" />

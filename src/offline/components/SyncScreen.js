@@ -4,6 +4,9 @@ import { StyleSheet, TextInput, TouchableHighlight, Text, View } from 'react-nat
 
 import SyncServiceRequestList from '../containers/SyncServiceRequestList';
 import SyncButton from '../containers/SyncButton';
+import {
+  X_AXIS_PADDING,
+} from '../../shared';
 
 export default class SyncScreen extends Component {
   constructor(props) {
@@ -13,7 +16,9 @@ export default class SyncScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <SyncButton />
+        <View style={styles.buttonContainer}>
+          <SyncButton />
+        </View>
         <SyncServiceRequestList navigator={this.props.navigator} />
       </View>
     );
@@ -27,5 +32,11 @@ SyncScreen.propTypes = {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  buttonContainer: {
+    paddingLeft: X_AXIS_PADDING,
+    paddingRight: X_AXIS_PADDING,
+    paddingTop: 20,
+    paddingBottom: 20,
   }
 });

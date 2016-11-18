@@ -12,6 +12,7 @@ import {
 let initialState = {
   authenticationToken: null,
   email: null,
+  name: null,
   userIsAuthenticated: null,
 };
 
@@ -22,6 +23,7 @@ export default function reducer(state = initialState, action) {
       ...state,
       authenticationToken: action.data.user.authentication_token,
       email: action.data.user.email,
+      name: action.data.user.name,
       userIsAuthenticated: true,
     };
   case LOGIN_USER_FAILURE:
@@ -45,6 +47,7 @@ export default function reducer(state = initialState, action) {
       ...state,
       authenticationToken: null,
       email: null,
+      name: null,
       userIsAuthenticated: false,
     };
   default:

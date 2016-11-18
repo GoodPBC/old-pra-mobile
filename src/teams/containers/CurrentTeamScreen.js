@@ -13,6 +13,7 @@ import * as TeamsActions from '../actions';
  */
 function mapStateToProps(state) {
   return {
+    userName: state.user.name,
     currentTeam: state.teams.currentTeam,
   };
 }

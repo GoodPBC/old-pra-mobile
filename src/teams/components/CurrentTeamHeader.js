@@ -9,10 +9,10 @@ import {
   X_AXIS_PADDING,
 } from '../../shared';
 
-export default function CurrentTeamHeader({ currentTeam }) {
+export default function CurrentTeamHeader({ currentTeam, userName }) {
   return (
     <View style={styles.warning}>
-      <InvertText style={styles.header}>Insert logged-in user name here</InvertText>
+      <InvertText style={styles.header}>{userName}</InvertText>
       <Separator style={styles.separator} />
       <InvertText style={styles.tinyHeader}>TEAM</InvertText>
       <InvertText style={styles.teamName}>{currentTeam ? currentTeam.name : 'Unassigned'}</InvertText>
