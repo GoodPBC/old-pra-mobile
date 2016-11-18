@@ -29,5 +29,7 @@ MyRequestsScreen.propTypes = {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    borderTopWidth: 1,
+    borderTopColor: 'white',
   }
 });

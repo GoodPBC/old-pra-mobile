@@ -39,8 +39,7 @@ export default class SyncNavigation extends Component {
       <Navigation
         initialRoute={initialRoute}
         renderScene={this._renderScene}
-        onBack={() => {}}
-        rightButtonAction={() => {}} />
+        onBack={() => {}} />
     );
   }
 }

@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
 import { StyleSheet, TextInput, TouchableHighlight, Text, View } from 'react-native';
-import Button from '../../shared/components/Button';
+import { Button, X_AXIS_PADDING } from '../../shared';
 
 export default class LoginScreen extends Component {
   constructor(props) {
@@ -26,5 +26,8 @@ LoginScreen.propTypes = {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingLeft: X_AXIS_PADDING,
+    paddingRight: X_AXIS_PADDING,
+    justifyContent: 'center',
   }
 });

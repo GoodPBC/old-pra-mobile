@@ -56,7 +56,7 @@ export default class TeamNavigation extends Component {
         initialRoute={initialRoute}
         renderScene={this._renderScene}
         onBack={() => console.log('pressed back')}
-        rightButtonAction={() => {}} />
+       />
     );
   }
 }

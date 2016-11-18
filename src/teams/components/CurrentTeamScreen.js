@@ -65,7 +65,6 @@ export default class CurrentTeamScreen extends Component {
           {!hasJoinedTeam && joinTeamButton}
           {createTeamButton}
           {hasJoinedTeam && changeTeamButton}
-          {hasJoinedTeam && leaveTeamButton}
         </View>
       </LinearGradient>
     );

@@ -40,13 +40,18 @@ export default class Navigation extends Component {
    * Right button refreshes whichever screen you're on
    */
   _rightButton() {
-    return (
-      <View style={styles.navElement}>
-        <TouchableHighlight onPress={this.props.rightButtonAction}>
-          <Text style={styles.navHeader}>Refresh</Text>
-        </TouchableHighlight>
-      </View>
-    );
+    const { rightButtonAction } = this.props;
+    if (rightButtonAction) {
+      return (
+        <View style={styles.navElement}>
+          <TouchableHighlight onPress={this.props.rightButtonAction}>
+            <Text style={styles.navHeader}>Refresh</Text>
+          </TouchableHighlight>
+        </View>
+      );
+    } else {
+      return <View />;
+    }
   }
 
   _title(route, navigator, index, navState) {
@@ -71,6 +76,7 @@ export default class Navigation extends Component {
         navigationBar={
           <Navigator.NavigationBar
           routeMapper={routeMapper}
+          navigationStyles={Navigator.NavigationBar.StylesIOS}
           style={styles.navBar}
           />
         }
@@ -82,16 +88,12 @@ export default class Navigation extends Component {
 Navigation.propTypes = {
   onBack: PropTypes.func.isRequired,
   renderScene: PropTypes.func.isRequired,
-  rightButtonAction: PropTypes.func.isRequired,
+  rightButtonAction: PropTypes.func,
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  navAdjustment: {
-    flex: 1,
-    marginTop: 64,
   },
   navBar: {
     backgroundColor: DARK_BLUE,

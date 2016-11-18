@@ -2,7 +2,11 @@ import React, { Component, PropTypes } from 'react';
 
 import { Picker, StyleSheet, Text, View } from 'react-native';
 
-import { Button, Separator } from '../../shared';
+import {
+  Button,
+  Separator,
+  X_AXIS_PADDING,
+} from '../../shared';
 
 export default class ResolutionForm extends Component {
   componentWillMount() {
@@ -18,7 +22,10 @@ export default class ResolutionForm extends Component {
         <View>
           <ResolutionPicker {...this.props} />
           <Separator />
-          <ResolveRequestButton {...this.props} />
+          <View style={styles.buttonContainer}>
+            <Text style={styles.srNumber}>SR# {serviceRequest.original_request_number}</Text>
+            <ResolveRequestButton {...this.props} />
+          </View>
         </View>
       );
     }
@@ -26,7 +33,9 @@ export default class ResolutionForm extends Component {
 }
 
 function ResolveRequestButton({ serviceRequest, selectedResolutionCode, resolveServiceRequest }) {
-  return <Button onPress={() => resolveServiceRequest(serviceRequest, selectedResolutionCode) }>Submit Resolution</Button>;
+  return (
+    <Button onPress={() => resolveServiceRequest(serviceRequest, selectedResolutionCode) }>Submit</Button>
+  );
 }
 
 function ResolutionPicker({
@@ -44,3 +53,18 @@ function ResolutionPicker({
     </Picker>
   );
 }
+
+const styles = StyleSheet.create({
+  buttonContainer: {
+    backgroundColor: 'lightgray',
+    paddingLeft: X_AXIS_PADDING,
+    paddingRight: X_AXIS_PADDING,
+    paddingTop: 20,
+    paddingBottom: 30,
+  },
+  srNumber: {
+    textAlign: 'center',
+    fontSize: 20,
+    paddingBottom: 10,
+  }
+});
