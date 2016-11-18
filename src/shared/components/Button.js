@@ -2,14 +2,14 @@ import React from 'react';
 import { TouchableHighlight, StyleSheet, Text, View } from 'react-native';
 import { DARK_BLUE } from '../constants';
 
-export default function Button({ children, onPress }) {
+export default function Button(props) {
   return (
     <TouchableHighlight
-      style={styles.container}
-      onPress={onPress}
+      style={[styles.container, props.style]}
+      onPress={props.onPress}
       underlayColor={'gray'}>
       <View>
-        <Text style={styles.text}>{children}</Text>
+        <Text style={[styles.text, props.textStyle]}>{props.children}</Text>
       </View>
     </TouchableHighlight>
   );

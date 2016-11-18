@@ -11,6 +11,8 @@ import {
   FORBIDDEN_RESPONSE_STATUS
 } from './constants';
 import Button from './components/Button';
+import InvertButton from './components/InvertButton';
+import InvertText from './components/InvertText';
 import Navigation from './components/Navigation';
 import Separator from './components/Separator';
 
@@ -24,6 +26,8 @@ export {
   LIGHT_BLUE,
   DARK_BLUE,
   Button,
+  InvertButton,
+  InvertText,
   Navigation,
   Separator,
 };

@@ -4,11 +4,15 @@ import Button from '../../shared/components/Button';
 import CreateTeamScreen from '../containers/CreateTeamScreen';
 import SelectTeamScreen from './SelectTeamScreen';
 import { RouteIndices } from './TeamNavigation';
-import { LIGHT_BLUE } from '../../shared';
+import { InvertButton, InvertText, LIGHT_BLUE } from '../../shared';
 
 export default class CurrentTeamScreen extends Component {
   constructor(props){
     super(props);
+    this._goToCreateTeam = this._goToCreateTeam.bind(this);
+    this._goToJoinTeam = this._goToJoinTeam.bind(this);
+    this._goToChangeTeam = this._goToChangeTeam.bind(this);
+    this._leaveTeam = this._leaveTeam.bind(this);
   }
 
   _goToCreateTeam() {
@@ -39,26 +43,28 @@ export default class CurrentTeamScreen extends Component {
   _renderCurrentTeamName() {
     const { currentTeam } = this.props;
     if (currentTeam) {
-      return <Text>{currentTeam['name']}</Text>;
+      return <InvertText style={styles.teamName}>{currentTeam['name']}</InvertText>;
     } else {
-      return <Text>Unassigned</Text>;
+      return <InvertText style={styles.teamName}>Unassigned</InvertText>;
     }
   }
 
   render() {
-    const createTeamButton = <Button onPress={this._goToCreateTeam.bind(this)}>Create a Team</Button>;
-    const joinTeamButton = <Button onPress={this._goToJoinTeam.bind(this)}>Join a Team</Button>;
-    const changeTeamButton = <Button onPress={this._goToChangeTeam.bind(this)}>Change Team</Button>;
-    const leaveTeamButton = <Button onPress={this._leaveTeam.bind(this)}>Leave team</Button>;
+    const createTeamButton = <InvertButton onPress={this._goToCreateTeam}>Create a Team</InvertButton>;
+    const joinTeamButton = <InvertButton onPress={this._goToJoinTeam}>Join a Team</InvertButton>;
+    const changeTeamButton = <Button onPress={this._goToChangeTeam}>Change Team</Button>;
+    const leaveTeamButton = <Button onPress={this._leaveTeam}>Leave team</Button>;
     const hasJoinedTeam = !!this.props.currentTeam;
     return(
       <View style={styles.container}>
-        <Text>Current Team</Text>
+        <InvertText>TEAM</InvertText>
         {this._renderCurrentTeamName()}
-        {!hasJoinedTeam && joinTeamButton}
-        {!hasJoinedTeam && createTeamButton}
-        {hasJoinedTeam && changeTeamButton}
-        {hasJoinedTeam && leaveTeamButton}
+        <View style={styles.buttonsContainer}>
+          {!hasJoinedTeam && joinTeamButton}
+          {!hasJoinedTeam && createTeamButton}
+          {hasJoinedTeam && changeTeamButton}
+          {hasJoinedTeam && leaveTeamButton}
+        </View>
       </View>
     );
   }
@@ -70,10 +76,17 @@ CurrentTeamScreen.propTypes = {
 };
 
 const styles = StyleSheet.create({
+  buttonsContainer: {
+    height: 150,
+    justifyContent: 'space-between',
+  },
   container: {
     backgroundColor: LIGHT_BLUE,
     flex: 1,
     justifyContent: 'center',
     padding: 50,
+  },
+  teamName: {
+    fontStyle: 'italic',
   }
 });
