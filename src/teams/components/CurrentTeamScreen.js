@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
 import Button from '../../shared/components/Button';
 import CreateTeamScreen from '../containers/CreateTeamScreen';
 import SelectTeamScreen from './SelectTeamScreen';
@@ -8,6 +9,7 @@ import {
   InvertButton,
   InvertText,
   LIGHT_BLUE,
+  DARK_BLUE,
   X_AXIS_PADDING,
 } from '../../shared';
 import CurrentTeamHeader from './CurrentTeamHeader';
@@ -54,7 +56,10 @@ export default class CurrentTeamScreen extends Component {
     const leaveTeamButton = <InvertButton onPress={this._leaveTeam}>Leave team</InvertButton>;
     const hasJoinedTeam = !!this.props.currentTeam;
     return(
-      <View style={styles.container}>
+      <LinearGradient
+        colors={[DARK_BLUE, LIGHT_BLUE]}
+        locations={[0,0.5]}
+        style={styles.container}>
         <CurrentTeamHeader currentTeam={currentTeam} userName={userName} />
         <View style={styles.buttonsContainer}>
           {!hasJoinedTeam && joinTeamButton}
@@ -62,7 +67,7 @@ export default class CurrentTeamScreen extends Component {
           {hasJoinedTeam && changeTeamButton}
           {hasJoinedTeam && leaveTeamButton}
         </View>
-      </View>
+      </LinearGradient>
     );
   }
 }
@@ -79,7 +84,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   container: {
-    backgroundColor: LIGHT_BLUE,
     flex: 1,
     justifyContent: 'space-around',
     paddingLeft: X_AXIS_PADDING,

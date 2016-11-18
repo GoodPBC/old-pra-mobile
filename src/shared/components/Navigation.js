@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     marginTop: 64,
   },
   navBar: {
-    backgroundColor: LIGHT_BLUE,
+    backgroundColor: DARK_BLUE,
   },
   navElement: {
     flex: 1,

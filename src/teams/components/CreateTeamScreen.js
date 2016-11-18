@@ -1,10 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
 import {
   InvertButton,
   InvertText,
   InvertTextInput,
   Separator,
+  DARK_BLUE,
   LIGHT_BLUE,
   X_AXIS_PADDING,
 } from '../../shared';
@@ -34,7 +36,10 @@ export default class CreateTeamScreen extends Component {
   render() {
     const { currentTeam } = this.props;
     return(
-      <View style={styles.container}>
+      <LinearGradient
+        colors={[DARK_BLUE, LIGHT_BLUE]}
+        locations={[0,0.5]}
+        style={styles.container}>
         {currentTeam && <CreateTeamWarningHeader currentTeam={currentTeam} />}
         <View>
           <InvertTextInput
@@ -44,7 +49,7 @@ export default class CreateTeamScreen extends Component {
             value={this.state.teamName} />
           <InvertButton onPress={this._onSubmitForm}>Create Team</InvertButton>
         </View>
-      </View>
+      </LinearGradient>
     );
   }
 }
@@ -57,7 +62,6 @@ CreateTeamScreen.propTypes = {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: LIGHT_BLUE,
     flex: 1,
     paddingLeft: X_AXIS_PADDING,
     paddingRight: X_AXIS_PADDING,
