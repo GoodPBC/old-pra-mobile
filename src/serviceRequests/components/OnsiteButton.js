@@ -1,10 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import { StyleSheet, Switch, TouchableHighlight, Text, View } from 'react-native';
+import OnsiteTime from './OnsiteTime';
 
 export default class OnsiteButton extends Component {
   _renderOnState() {
-    const { serviceRequest, updateOnsiteStatus } = this.props;
-    return <Text>ONSITE since {serviceRequest.onsite_status.reported_at}</Text>;
+    const { serviceRequest } = this.props;
+    return <OnsiteTime serviceRequest={serviceRequest} />;
   }
 
   _renderOffState() {
