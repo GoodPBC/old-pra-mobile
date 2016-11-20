@@ -20,6 +20,7 @@ import { TeamNavigation } from '../../teams';
 import { SyncNavigation } from '../../offline';
 
 import { LoginScreen, LogoutScreen } from '../../user';
+import TabBar from './TabBar';
 
 import {
   DARK_BLUE,
@@ -67,6 +68,7 @@ export default class App extends Component {
   _renderTabs() {
     return (
       <ScrollableTabView
+        renderTabBar={() => <TabBar />}
         tabBarInactiveTextColor={GRAY_TEXT}
         tabBarActiveTextColor={DARK_BLUE}
         tabBarPosition="bottom"
