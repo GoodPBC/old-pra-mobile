@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 
 import { ListView, Picker, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Button, Separator } from '../../shared';
-import ResolutionForm from '../containers/ResolutionForm';
+import ResolutionSection from '../containers/ResolutionSection';
 import DetailsSection from './DetailsSection';
 import OnsiteButton from './OnsiteButton';
 
@@ -18,7 +18,7 @@ export default class ServiceRequestDetailScreen extends Component {
         <ScrollView>
           <OnsiteButton {...this.props} />
           <DetailsSection serviceRequest={serviceRequest} />
-          <ResolutionForm />
+          <ResolutionSection />
         </ScrollView>
       </View>
     );

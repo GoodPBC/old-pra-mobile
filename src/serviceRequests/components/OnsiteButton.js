@@ -8,12 +8,27 @@ export default class OnsiteButton extends Component {
     return <OnsiteTime serviceRequest={serviceRequest} />;
   }
 
+  _renderPendingState() {
+    const { serviceRequest } = this.props;
+
+    return (
+      <View style={styles.offContainer}>
+        <Text>Pending</Text>
+        <Switch
+          value={true}
+          disabled={serviceRequest.pendingOnsite} />
+      </View>
+    );
+  }
+
   _renderOffState() {
     const { serviceRequest, updateOnsiteStatus } = this.props;
     return (
       <View style={styles.offContainer}>
         <Text style={styles.onsiteText}>I'm on site</Text>
-        <Switch onValueChange={() => updateOnsiteStatus(serviceRequest)} />
+        <Switch
+          onValueChange={() => updateOnsiteStatus(serviceRequest)}
+          disabled={serviceRequest.pendingOnsite} />
       </View>
     );
   }
@@ -23,6 +38,8 @@ export default class OnsiteButton extends Component {
     let content = null;
     if (serviceRequest.onsite_status) {
       content = this._renderOnState();
+    } else if (serviceRequest.pendingOnsite) {
+      content = this._renderPendingState();
     } else {
       content = this._renderOffState();
     }

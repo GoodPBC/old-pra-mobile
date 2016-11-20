@@ -4,7 +4,7 @@
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import ResolutionForm from '../components/ResolutionForm';
+import ResolutionSection from '../components/ResolutionSection';
 import * as ServiceRequestActions from '../actions';
 
 function mapStateToProps(state) {
@@ -19,4 +19,4 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(ServiceRequestActions, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ResolutionForm);
+export default connect(mapStateToProps, mapDispatchToProps)(ResolutionSection);
