@@ -3,11 +3,10 @@ import React, { Component, PropTypes } from 'react';
 import { ListView, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import DescriptionSection from './DescriptionSection';
 import AddressSection from './AddressSection';
-import OnsiteTime from './OnsiteTime';
+import OnsiteSection from './OnsiteSection';
 import {
   LIGHT_BLUE,
   DARK_BLUE,
-  TimeSinceDate,
 } from '../../shared';
 
 
@@ -27,9 +26,7 @@ export default class ServiceRequestListItem extends Component {
             <Text style={styles.headerText}>SR# {serviceRequest['original_request_number']}</Text>
           </View>
           <View style={styles.content}>
-            <View style={styles.contentSection}>
-              <OnsiteTime serviceRequest={serviceRequest} />
-            </View>
+            <OnsiteSection serviceRequest={serviceRequest} />
             <AddressSection serviceRequest={serviceRequest} />
             <DescriptionSection
               serviceRequest={serviceRequest}
@@ -54,6 +51,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   content: {
+    height: 175,
+    justifyContent: 'space-around',
     padding: 5,
     borderColor: 'lightgray',
     borderLeftWidth: 1,

@@ -1,12 +1,12 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { LIGHT_BLUE } from '../../shared';
+import SectionWithIcon from './SectionWithIcon';
 
 export default function AddressSection({ serviceRequest }) {
   return (
-    <View style={styles.container}>
+    <SectionWithIcon icon={require('./img/location-icon-active.png')}>
       <Text style={styles.text}>{serviceRequest['address']}</Text>
-    </View>
+    </SectionWithIcon>
   );
 }
 
