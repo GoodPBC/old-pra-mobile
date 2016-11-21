@@ -42,3 +42,6 @@ android/keystores/debug.keystore
 
 .vscode/
 .env
+
+android/app/dhs-pra.keystore
+ios/main.jsbundle*
