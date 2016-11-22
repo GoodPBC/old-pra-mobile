@@ -1,8 +1,11 @@
-const BASE_URL = 'http://localhost:3000/api/v1/'
-//const BASE_URL = 'https://provider-response-app-staging.herokuapp.com/api/v1/'
+import {
+  API_REQUEST,
+  API_REQUEST_SUCCESS,
+  API_REQUEST_FAILURE,
+  API_REQUEST_NETWORK_ERROR,
+} from '../shared';
 
-const SERVICE_REQUEST_GET_URL =  BASE_URL + 'service_requests';
-const LOGIN_USER_URL = BASE_URL + 'users/sign_in';
+import Config from 'react-native-config';
 
 function authenticationHeaders(store) {
   const state = store.getState().user;
@@ -10,83 +13,85 @@ function authenticationHeaders(store) {
     return {
       'X-User-Email': state.email,
       'X-User-Token': state.authenticationToken
-    }
+    };
   } else {
     return {};
   }
 }
 
-function getAndDispatchResponse({ url, actionName, next, store }) {
-  const fetchOptions = {
-    headers: authenticationHeaders(store)
-  };
-  return dispatchFetchResponse(fetch(url, fetchOptions), actionName, next, store);
-}
+async function makeRequestAndDispatchResponse({action, next, store }) {
+  const { requestMethod, requestParams, actionName } = action;
+  const url = `${Config.BASE_URL}${action.requestPath}`;
 
-function postAndDispatchResponse({url, postParams, actionName, next, store}) {
-  const body = JSON.stringify(postParams);
-  const headers = {
-    'Content-Type': 'application/json'
-  };
-  Object.assign(headers, authenticationHeaders(store));
-  let fetchPromise = fetch(url, {
-    method: 'post',
-    body,
-    headers,
-  });
-  return dispatchFetchResponse(fetchPromise, actionName, next);
-}
-
-/**
- * Dispatch appropriate success / failure actions based on the status
- * of the response.
- *
- * Non-2xx responses will dispatch as failure with an error message.
- * Errors parsing the response will dispatch as failures.
- */
-function dispatchFetchResponse(fetchPromise, actionName, next) {
   function dispatchSuccess(json) {
-    return next({
+    store.dispatch({
+      type: API_REQUEST_SUCCESS,
+    })
+    return store.dispatch({
       type: `${actionName}_SUCCESS`,
       data: json
     });
   }
 
-  function dispatchFailure(error) {
-    return next({
+  function dispatchNetworkFailure(action, error) {
+    store.dispatch({
+      type: API_REQUEST_NETWORK_ERROR,
+      action,
+      error,
+    });
+  }
+
+  function dispatchFailure(error, status) {
+    store.dispatch({
+      type: API_REQUEST_FAILURE,
+      action: action,
+      status,
+      error,
+    })
+
+    return store.dispatch({
       type: `${actionName}_FAILURE`,
+      status,
       error: error
     });
   }
 
-  return fetchPromise.then(response => {
-    return response.json().then(json => {
-      if (response.ok) {
-        return dispatchSuccess(json);
-      } else {
-        return dispatchFailure(json['error']);
-      }
+  let body = '';
+  if (requestMethod === 'GET' || requestMethod === 'get') {
+    // Otherwise fails on Android.
+    body = null;
+  } else if (requestParams) {
+    body = JSON.stringify(requestParams);
+  }
+  const headers = {
+    'Content-Type': 'application/json'
+  };
+  Object.assign(headers, authenticationHeaders(store));
+  let response = null;
+  try {
+    response = await fetch(url, {
+      method: requestMethod,
+      body,
+      headers,
     });
-  })
-  .catch(dispatchFailure);
+  } catch (e) {
+    dispatchNetworkFailure(action, e);
+    return;
+  }
+
+  const json = await response.json();
+  if (response.ok) {
+    dispatchSuccess(json);
+  } else {
+    dispatchFailure(json['error'], response.status);
+  }
 }
 
 export default store => next => action => {
   next(action)
-  switch (action.type) {
-  case 'FETCH_SERVICE_REQUESTS':
-    getAndDispatchResponse({url: SERVICE_REQUEST_GET_URL, actionName: 'FETCH_SERVICE_REQUESTS', next, store });
-    break;
-  case 'LOGIN_USER':
-    const postParams = {
-      user: {
-        email: action.data.email,
-        password: action.data.password
-      }
-    };
-    postAndDispatchResponse({url: LOGIN_USER_URL, actionName: 'LOGIN_USER', postParams, next, store });
-    break;
-  default:
-    break
+  if (action.type !== API_REQUEST) {
+    return;
   }
+  return makeRequestAndDispatchResponse({
+    action, next, store });
 };

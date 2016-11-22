@@ -4,14 +4,20 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
+    "ios:bundle": "react-native bundle --dev false --entry-file index.ios.js --bundle-output ios/main.jsbundle --platform ios",
+    "android:release": "cd android && ./gradlew assembleRelease && cd ..",
     "test": "jest"
   },
   "dependencies": {
+    "moment": "^2.16.0",
     "react": "15.3.2",
     "react-native": "0.36.0",
-    "react-native-router-flux": "^3.36.0",
+    "react-native-config": "^0.1.2",
+    "react-native-linear-gradient": "^1.5.15",
+    "react-native-scrollable-tab-view": "^0.6.0",
     "react-redux": "^4.4.5",
     "redux": "^3.6.0",
+    "redux-logger": "^2.7.4",
     "redux-persist": "^4.0.0-alpha7",
     "redux-thunk": "^2.1.0"
   },
@@ -21,8 +27,9 @@
   "devDependencies": {
     "babel-jest": "16.0.0",
     "babel-preset-react-native": "1.9.0",
-    "jest": "16.0.2",
-    "jest-react-native": "16.0.0",
+    "fetch-mock": "^5.5.0",
+    "jest": "^17.0.0",
+    "jest-react-native": "^17.0.0",
     "react-test-renderer": "15.3.2"
   }
 }
