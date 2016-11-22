@@ -1,8 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
-import Button from '../../shared/components/Button';
+import { Button, LIGHT_BLUE, DARK_BLUE } from '../../shared';
 import TeamUserList from '../containers/TeamUserList';
 import JoinTeamButton from './JoinTeamButton';
+import LinearGradient from 'react-native-linear-gradient';
 
 export default class SelectTeamDetailScreen extends Component {
   constructor(props){
@@ -18,12 +19,15 @@ export default class SelectTeamDetailScreen extends Component {
 
   render() {
     return(
-      <View style={styles.container}>
+      <LinearGradient
+        colors={[DARK_BLUE, LIGHT_BLUE]}
+        locations={[0,0.5]}
+        style={styles.container}>
         <View style={styles.listWrapper}>
           <TeamUserList team={this.props.team} />
         </View>
         <JoinTeamButton joinTeam={this._onJoinTeam} />
-      </View>
+      </LinearGradient>
     );
   }
 }

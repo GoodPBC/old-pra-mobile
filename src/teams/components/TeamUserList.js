@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { ListView, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import Separator from '../../shared/components/Separator';
+import TeamUserListItem from './TeamUserListItem';
 
 export default class TeamUserList extends Component {
   constructor(props) {
@@ -14,9 +15,6 @@ export default class TeamUserList extends Component {
     this.props.fetchTeamUsers(this.props.team);
   }
 
-  /**
-   * List of users is nested within the team json, like so: team.users
-   */
   componentWillReceiveProps(nextProps) {
     if (nextProps.users) {
       this.setState({
@@ -25,13 +23,9 @@ export default class TeamUserList extends Component {
     }
   }
 
-  _renderRow(rowData, sectionID, rowID, highlightRow) {
+  _renderRow(user, sectionID, rowID, highlightRow) {
     return (
-      <View key={rowData['id']}>
-        <View>
-          <Text>{rowData['email']}</Text>
-        </View>
-      </View>
+      <TeamUserListItem user={user} />
     );
   }
 
