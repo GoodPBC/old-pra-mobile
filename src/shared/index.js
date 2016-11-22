@@ -13,6 +13,7 @@ import {
 } from './constants';
 import Button from './components/Button';
 import Checkbox from './components/Checkbox';
+import GradientBackground from './components/GradientBackground';
 import InvertButton from './components/InvertButton';
 import InvertText from './components/InvertText';
 import InvertTextInput from './components/InvertTextInput';
@@ -31,6 +32,7 @@ export {
   X_AXIS_PADDING,
   Button,
   Checkbox,
+  GradientBackground,
   InvertButton,
   InvertText,
   InvertTextInput,

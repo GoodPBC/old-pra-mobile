@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
 import {
   InvertButton,
   InvertText,
@@ -11,6 +10,7 @@ import {
   X_AXIS_PADDING,
 } from '../../shared';
 import CreateTeamWarningHeader from './CreateTeamWarningHeader';
+import { GradientBackground } from '../../shared';
 
 export default class CreateTeamScreen extends Component {
   constructor(props){
@@ -36,9 +36,7 @@ export default class CreateTeamScreen extends Component {
   render() {
     const { currentTeam } = this.props;
     return(
-      <LinearGradient
-        colors={[DARK_BLUE, LIGHT_BLUE]}
-        locations={[0,0.5]}
+      <GradientBackground
         style={styles.container}>
         {currentTeam && <CreateTeamWarningHeader currentTeam={currentTeam} />}
         <View>
@@ -49,7 +47,7 @@ export default class CreateTeamScreen extends Component {
             value={this.state.teamName} />
           <InvertButton onPress={this._onSubmitForm}>Create Team</InvertButton>
         </View>
-      </LinearGradient>
+      </GradientBackground>
     );
   }
 }

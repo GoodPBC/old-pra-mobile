@@ -3,7 +3,7 @@ import { StyleSheet, Text, TextInput, View } from 'react-native';
 import { Button, LIGHT_BLUE, DARK_BLUE } from '../../shared';
 import TeamUserList from '../containers/TeamUserList';
 import JoinTeamButton from './JoinTeamButton';
-import LinearGradient from 'react-native-linear-gradient';
+import { GradientBackground } from '../../shared';
 
 export default class SelectTeamDetailScreen extends Component {
   constructor(props){
@@ -19,15 +19,13 @@ export default class SelectTeamDetailScreen extends Component {
 
   render() {
     return(
-      <LinearGradient
-        colors={[DARK_BLUE, LIGHT_BLUE]}
-        locations={[0,0.5]}
+      <GradientBackground
         style={styles.container}>
         <View style={styles.listWrapper}>
           <TeamUserList team={this.props.team} />
         </View>
         <JoinTeamButton joinTeam={this._onJoinTeam} />
-      </LinearGradient>
+      </GradientBackground>
     );
   }
 }

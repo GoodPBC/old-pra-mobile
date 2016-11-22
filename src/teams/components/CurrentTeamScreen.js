@@ -1,11 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
 import Button from '../../shared/components/Button';
 import CreateTeamScreen from '../containers/CreateTeamScreen';
 import SelectTeamScreen from './SelectTeamScreen';
 import { RouteIndices } from './TeamNavigation';
 import {
+  GradientBackground,
   InvertButton,
   InvertText,
   LIGHT_BLUE,
@@ -56,9 +56,7 @@ export default class CurrentTeamScreen extends Component {
     const leaveTeamButton = <InvertButton onPress={this._leaveTeam}>Leave team</InvertButton>;
     const hasJoinedTeam = !!this.props.currentTeam;
     return(
-      <LinearGradient
-        colors={[DARK_BLUE, LIGHT_BLUE]}
-        locations={[0,0.5]}
+      <GradientBackground
         style={styles.container}>
         <CurrentTeamHeader currentTeam={currentTeam} userName={userName} />
         <View style={styles.buttonsContainer}>
@@ -66,7 +64,7 @@ export default class CurrentTeamScreen extends Component {
           {createTeamButton}
           {hasJoinedTeam && changeTeamButton}
         </View>
-      </LinearGradient>
+      </GradientBackground>
     );
   }
 }
