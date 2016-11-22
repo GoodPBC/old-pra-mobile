@@ -4,7 +4,7 @@ import { Navigator, StyleSheet, TouchableHighlight, Text, View } from 'react-nat
 
 import CreateTeamScreen from '../containers/CreateTeamScreen';
 import CurrentTeamScreen from '../containers/CurrentTeamScreen';
-import SelectTeamScreen from './SelectTeamScreen';
+import SelectTeamScreen from '../containers/SelectTeamScreen';
 import SelectTeamDetailScreen from '../containers/SelectTeamDetailScreen';
 import { Navigation } from '../../shared';
 

@@ -12,6 +12,7 @@ import {
   X_AXIS_PADDING,
 } from './constants';
 import Button from './components/Button';
+import Checkbox from './components/Checkbox';
 import InvertButton from './components/InvertButton';
 import InvertText from './components/InvertText';
 import InvertTextInput from './components/InvertTextInput';
@@ -29,6 +30,7 @@ export {
   DARK_BLUE,
   X_AXIS_PADDING,
   Button,
+  Checkbox,
   InvertButton,
   InvertText,
   InvertTextInput,

@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { ListView, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import Separator from '../../shared/components/Separator';
+import SelectTeamListItem from './SelectTeamListItem';
 
 export default class SelectTeamList extends Component {
   constructor(props) {
@@ -23,18 +24,14 @@ export default class SelectTeamList extends Component {
     }
   }
 
-  _renderRow(rowData, sectionID, rowID, highlightRow) {
+  _renderRow(team, sectionID, rowID, highlightRow) {
     return (
-      <View key={rowData['id']}>
-        <TouchableHighlight
-          style={styles.listItem}
-          onPress={() => this.props.onSelectTeam(rowData)}
-          underlayColor={'gray'}>
-          <View>
-            <Text>{rowData['name']}</Text>
-          </View>
-        </TouchableHighlight>
-      </View>
+      <SelectTeamListItem
+        team={team}
+        onSelectTeam={this.props.selectTeam}
+        selected={team.selected}
+        onViewTeamDetails={this.props.onViewTeamDetails}
+      />
     );
   }
 
@@ -58,13 +55,11 @@ export default class SelectTeamList extends Component {
 
 SelectTeamList.propTypes = {
   fetchTeams: PropTypes.func.isRequired,
-  onSelectTeam: PropTypes.func.isRequired,
+  selectTeam: PropTypes.func.isRequired,
+  onViewTeamDetails: PropTypes.func.isRequired,
+  selectedTeam: PropTypes.object,
   teams: PropTypes.array.isRequired,
 };
 
 const styles = StyleSheet.create({
-  listItem: {
-    paddingTop: 20,
-    paddingBottom: 20,
-  }
 });
