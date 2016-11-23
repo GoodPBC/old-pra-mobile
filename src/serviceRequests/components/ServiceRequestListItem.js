@@ -17,7 +17,7 @@ export default function ServiceRequestListItem({ serviceRequest, selectServiceRe
       underlayColor={'gray'}>
       <View key={serviceRequest.id}>
         <View style={styles.header}>
-          <Text style={styles.headerText}>SR# {serviceRequest.original_request_number}</Text>
+          <Text style={styles.headerText}>SR# {serviceRequest.sr_number}</Text>
         </View>
         <View style={styles.content}>
           <OnsiteSection serviceRequest={serviceRequest} />

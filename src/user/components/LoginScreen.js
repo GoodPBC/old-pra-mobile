@@ -15,8 +15,8 @@ export default class LoginScreen extends Component {
 
     this.state = {
       email: null,
-      password: null
-    }
+      password: null,
+    };
 
     this._submitForm = this._submitForm.bind(this);
   }

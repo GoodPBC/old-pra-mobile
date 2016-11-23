@@ -33,7 +33,7 @@ function ResolutionForm(props) {
       <ResolutionPicker {...props} />
       <Separator />
       <View style={styles.buttonContainer}>
-        <Text style={styles.srNumber}>SR# {props.serviceRequest.original_request_number}</Text>
+        <Text style={styles.srNumber}>SR# {props.serviceRequest.sr_number}</Text>
         <ResolveRequestButton {...props} />
       </View>
     </View>
