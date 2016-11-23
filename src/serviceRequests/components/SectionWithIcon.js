@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
 import {
   GRAY_TEXT,
@@ -18,6 +18,12 @@ export default function SectionWithIcon({ icon, header, children }) {
   );
 }
 
+SectionWithIcon.propTypes = {
+  icon: PropTypes.any.isRequired,
+  header: PropTypes.string,
+  children: PropTypes.node.isRequired,
+};
+
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
@@ -31,5 +37,5 @@ const styles = StyleSheet.create({
   },
   text: {
     color: GRAY_TEXT,
-  }
+  },
 });

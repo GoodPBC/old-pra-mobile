@@ -1,10 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 
-import { Navigator, StyleSheet, TouchableHighlight, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import MyRequestsScreen from '../containers/MyRequestsScreen';
 import ServiceRequestDetailScreen from '../containers/ServiceRequestDetailScreen';
-import { LIGHT_BLUE, DARK_BLUE, Navigation } from '../../shared';
+import { LIGHT_BLUE, Navigation } from '../../shared';
 
 export default class ServiceRequestNavigation extends Component {
   constructor(props) {
@@ -22,20 +22,14 @@ export default class ServiceRequestNavigation extends Component {
     } else if (route.index === 1) {
       content = <ServiceRequestDetailScreen />;
     }
-    return(
+    return (
       <View style={styles.navAdjustment}>
         {content}
       </View>
-    )
+    );
   }
 
   render() {
-    const routeMapper = {
-      LeftButton: this._leftButton,
-      RightButton: this._rightButton,
-      Title: this._title,
-    };
-
     const initialRoute = {
       title: 'My Requests',
       index: 0,
@@ -45,7 +39,8 @@ export default class ServiceRequestNavigation extends Component {
         initialRoute={initialRoute}
         renderScene={this._renderScene}
         onBack={this.props.fetchServiceRequests}
-        rightButtonAction={() => {}} />
+        rightButtonAction={() => {}}
+      />
     );
   }
 }

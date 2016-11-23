@@ -1,3 +1,6 @@
+/* global fetch */
+import Config from 'react-native-config';
+
 import {
   API_REQUEST,
   API_REQUEST_SUCCESS,
@@ -5,35 +8,32 @@ import {
   API_REQUEST_NETWORK_ERROR,
 } from '../shared';
 
-import Config from 'react-native-config';
-
 function authenticationHeaders(store) {
   const state = store.getState().user;
   if (state.userIsAuthenticated) {
     return {
       'X-User-Email': state.email,
-      'X-User-Token': state.authenticationToken
+      'X-User-Token': state.authenticationToken,
     };
-  } else {
-    return {};
   }
+  return {};
 }
 
-async function makeRequestAndDispatchResponse({action, next, store }) {
+async function makeRequestAndDispatchResponse({ action, store }) {
   const { requestMethod, requestParams, actionName } = action;
   const url = `${Config.BASE_URL}${action.requestPath}`;
 
   function dispatchSuccess(json) {
     store.dispatch({
       type: API_REQUEST_SUCCESS,
-    })
+    });
     return store.dispatch({
       type: `${actionName}_SUCCESS`,
-      data: json
+      data: json,
     });
   }
 
-  function dispatchNetworkFailure(action, error) {
+  function dispatchNetworkFailure(error) {
     store.dispatch({
       type: API_REQUEST_NETWORK_ERROR,
       action,
@@ -44,15 +44,15 @@ async function makeRequestAndDispatchResponse({action, next, store }) {
   function dispatchFailure(error, status) {
     store.dispatch({
       type: API_REQUEST_FAILURE,
-      action: action,
+      action,
       status,
       error,
-    })
+    });
 
     return store.dispatch({
       type: `${actionName}_FAILURE`,
       status,
-      error: error
+      error,
     });
   }
 
@@ -64,7 +64,7 @@ async function makeRequestAndDispatchResponse({action, next, store }) {
     body = JSON.stringify(requestParams);
   }
   const headers = {
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
   };
   Object.assign(headers, authenticationHeaders(store));
   let response = null;
@@ -75,7 +75,7 @@ async function makeRequestAndDispatchResponse({action, next, store }) {
       headers,
     });
   } catch (e) {
-    dispatchNetworkFailure(action, e);
+    dispatchNetworkFailure(e);
     return;
   }
 
@@ -83,15 +83,14 @@ async function makeRequestAndDispatchResponse({action, next, store }) {
   if (response.ok) {
     dispatchSuccess(json);
   } else {
-    dispatchFailure(json['error'], response.status);
+    dispatchFailure(json.error, response.status);
   }
 }
 
 export default store => next => action => {
-  next(action)
-  if (action.type !== API_REQUEST) {
-    return;
+  next(action);
+  if (action.type === API_REQUEST) {
+    makeRequestAndDispatchResponse({
+      action, store });
   }
-  return makeRequestAndDispatchResponse({
-    action, next, store });
 };

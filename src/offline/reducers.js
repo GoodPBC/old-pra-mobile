@@ -27,7 +27,7 @@ export default function reducer(state = initialState, action) {
   const isQueueable =
     QUEUEABLE_ACTIONS.indexOf(action.action.actionName) !== -1 &&
     !!action.action.serviceRequest;
-  if (!isQueueable)  {
+  if (!isQueueable) {
     return state;
   }
 

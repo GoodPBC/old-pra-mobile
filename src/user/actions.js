@@ -11,8 +11,8 @@ export function submitLoginCredentials(email, password) {
     requestMethod: 'POST',
     requestParams: {
       user: {
-        email: email,
-        password: password,
+        email,
+        password,
       }
     }
   };

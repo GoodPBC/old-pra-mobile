@@ -7,7 +7,8 @@ export default function Button(props) {
     <TouchableHighlight
       style={[styles.container, props.style]}
       onPress={props.onPress}
-      underlayColor={'gray'}>
+      underlayColor={'gray'}
+    >
       <View>
         <Text style={[styles.text, props.textStyle]}>{props.children}</Text>
       </View>

@@ -1,16 +1,12 @@
 import React, { Component, PropTypes } from 'react';
-import { StyleSheet, Text, TextInput, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import {
+  GradientBackground,
   InvertButton,
-  InvertText,
   InvertTextInput,
-  Separator,
-  DARK_BLUE,
-  LIGHT_BLUE,
   X_AXIS_PADDING,
 } from '../../shared';
 import CreateTeamWarningHeader from './CreateTeamWarningHeader';
-import { GradientBackground } from '../../shared';
 
 export default class CreateTeamScreen extends Component {
   constructor(props){
@@ -25,7 +21,7 @@ export default class CreateTeamScreen extends Component {
   }
 
   _onChangeText(text) {
-    this.setState({ teamName: text});
+    this.setState({ teamName: text });
   }
 
   _onSubmitForm() {
@@ -35,7 +31,7 @@ export default class CreateTeamScreen extends Component {
 
   render() {
     const { currentTeam } = this.props;
-    return(
+    return (
       <GradientBackground
         style={styles.container}>
         {currentTeam && <CreateTeamWarningHeader currentTeam={currentTeam} />}

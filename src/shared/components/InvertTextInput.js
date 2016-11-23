@@ -1,6 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, TextInput, View } from 'react-native';
-import { LIGHT_BLUE } from '../constants';
+import { StyleSheet, TextInput } from 'react-native';
 
 export default function InvertTextInput(props) {
   const {

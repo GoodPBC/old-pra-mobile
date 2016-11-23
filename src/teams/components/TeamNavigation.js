@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
-import { Navigator, StyleSheet, TouchableHighlight, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import CreateTeamScreen from '../containers/CreateTeamScreen';
 import CurrentTeamScreen from '../containers/CurrentTeamScreen';
@@ -37,9 +37,9 @@ export default class TeamNavigation extends Component {
         content = <SelectTeamDetailScreen navigator={navigator} team={route.team} />;
         break;
       default:
-        throw 'Invalid route provided';
+        throw new Error('Invalid route provided');
     }
-    return(
+    return (
       <View style={styles.navAdjustment}>
         {content}
       </View>
@@ -55,7 +55,7 @@ export default class TeamNavigation extends Component {
       <Navigation
         initialRoute={initialRoute}
         renderScene={this._renderScene}
-        onBack={() => console.log('pressed back')}
+        onBack={() => {}}
        />
     );
   }

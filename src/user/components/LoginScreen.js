@@ -19,19 +19,19 @@ export default class LoginScreen extends Component {
 
   render() {
     return (
-      <View style={{marginTop: 22}}>
+      <View style={{ marginTop: 22 }}>
         <View style={styles.loginModal}>
           <Text>email</Text>
           <TextInput
             style={styles.loginModalInput}
-            onChangeText={(email) => this.setState({email})}
+            onChangeText={(email) => this.setState({ email })}
             autoCapitalize={'none'}
             value={this.state.email}
           />
           <Text>Password</Text>
           <TextInput
             style={styles.loginModalInput}
-            onChangeText={(password) => this.setState({password})}
+            onChangeText={(password) => this.setState({ password })}
             autoCapitalize={'none'}
             value={this.state.password}
           />

@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 
 import { Navigator, StyleSheet, TouchableHighlight, Text, View } from 'react-native';
 
-import { LIGHT_BLUE, DARK_BLUE } from '../constants';
+import { DARK_BLUE } from '../constants';
 
 export default class Navigation extends Component {
   constructor(props) {
@@ -22,7 +22,7 @@ export default class Navigation extends Component {
   /**
    * Back button only on the details screen
    */
-  _leftButton(route, navigator, index, navState) {
+  _leftButton(route, navigator, index) {
     if (index > 0) {
       return (
         <View style={styles.navElement}>
@@ -31,9 +31,9 @@ export default class Navigation extends Component {
           </TouchableHighlight>
         </View>
       );
-    } else {
-      return <View />;
     }
+
+    return <View />;
   }
 
   /**
@@ -49,12 +49,11 @@ export default class Navigation extends Component {
           </TouchableHighlight>
         </View>
       );
-    } else {
-      return <View />;
     }
+    return <View />;
   }
 
-  _title(route, navigator, index, navState) {
+  _title(route, navigator, index) {
     return (
       <View style={styles.navElement}>
         <Text style={styles.navHeader}>{route.title}</Text>

@@ -6,7 +6,7 @@ export default function GradientBackground({ children, style }) {
   return (
       <LinearGradient
         colors={[DARK_BLUE, LIGHT_BLUE]}
-        locations={[0,0.5]}
+        locations={[0, 0.5]}
         style={style}>
         {children}
       </LinearGradient>

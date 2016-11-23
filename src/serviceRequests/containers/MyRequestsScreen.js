@@ -10,7 +10,7 @@ import * as ServiceRequestActions from '../actions';
 /**
  * Map only necessary data for the 'My Requests' screen.
  */
-function mapStateToProps(state) {
+function mapStateToProps() {
   return {};
 }
 

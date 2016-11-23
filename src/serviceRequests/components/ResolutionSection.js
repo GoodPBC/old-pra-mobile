@@ -9,12 +9,23 @@ import {
 } from '../../shared';
 
 function CurrentResolution({ serviceRequest }) {
-  return <Text>RESOLVED with code {serviceRequest.resolution.resolution_code} since {serviceRequest.resolution.reported_at}</Text>
+  return (
+    <Text>RESOLVED with code {serviceRequest.resolution.resolution_code}
+      since {serviceRequest.resolution.reported_at}</Text>
+  );
 }
 
-function ResolutionPending({ serviceRequest }) {
+CurrentResolution.propTypes = {
+  serviceRequest: PropTypes.object.isRequired,
+};
+
+function ResolutionPending() {
   return <Text>Resolution submission pending</Text>;
 }
+
+ResolutionPending.propTypes = {
+  serviceRequest: PropTypes.object.isRequired,
+};
 
 function ResolutionForm(props) {
   return (
@@ -29,6 +40,10 @@ function ResolutionForm(props) {
   );
 }
 
+ResolutionForm.propTypes = {
+  serviceRequest: PropTypes.object.isRequired,
+};
+
 export default class ResolutionSection extends Component {
   componentWillMount() {
     this.props.fetchResolutionCodes();
@@ -40,26 +55,31 @@ export default class ResolutionSection extends Component {
       return <CurrentResolution serviceRequest={serviceRequest} />;
     } else if (serviceRequest.pendingResolution) {
       return <ResolutionPending {...this.props} />;
-    } else {
-      return <ResolutionForm {...this.props} />;
     }
+
+    return <ResolutionForm {...this.props} />;
   }
 }
 
-function ResolveRequestButton({ serviceRequest, selectedResolutionCode, resolveServiceRequest }) {
+function ResolveRequestButton({
+  serviceRequest,
+  selectedResolutionCode,
+  resolveServiceRequest }) {
   return (
     <Button onPress={() => resolveServiceRequest(serviceRequest, selectedResolutionCode) }>Submit</Button>
   );
 }
+
+ResolveRequestButton.propTypes = {
+  serviceRequest: PropTypes.object.isRequired,
+};
 
 function ResolutionPicker({
   serviceRequest,
   resolutionCodes,
   selectedResolutionCode,
   selectServiceRequestResolution }) {
-  const options = resolutionCodes.map((obj) => {
-    return <Picker.Item value={obj.code} label={obj.display_name} key={obj.code} />
-  });
+  const options = resolutionCodes.map((obj) => <Picker.Item value={obj.code} label={obj.display_name} key={obj.code} />);
 
   return (
     <Picker onValueChange={selectServiceRequestResolution} selectedValue={selectedResolutionCode}>
@@ -67,6 +87,13 @@ function ResolutionPicker({
     </Picker>
   );
 }
+
+ResolutionPicker.propTypes = {
+  serviceRequest: PropTypes.object.isRequired,
+  resolutionCodes: PropTypes.array.isRequired,
+  selectedResolutionCode: PropTypes.any,
+  selectServiceRequestResolution: PropTypes.func.isRequired,
+};
 
 const styles = StyleSheet.create({
   buttonContainer: {

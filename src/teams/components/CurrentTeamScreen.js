@@ -1,15 +1,9 @@
 import React, { Component, PropTypes } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import Button from '../../shared/components/Button';
-import CreateTeamScreen from '../containers/CreateTeamScreen';
-import SelectTeamScreen from './SelectTeamScreen';
+import { StyleSheet, View } from 'react-native';
 import { RouteIndices } from './TeamNavigation';
 import {
   GradientBackground,
   InvertButton,
-  InvertText,
-  LIGHT_BLUE,
-  DARK_BLUE,
   X_AXIS_PADDING,
 } from '../../shared';
 import CurrentTeamHeader from './CurrentTeamHeader';
@@ -53,9 +47,9 @@ export default class CurrentTeamScreen extends Component {
     const createTeamButton = <InvertButton onPress={this._goToCreateTeam}>Create a Team</InvertButton>;
     const joinTeamButton = <InvertButton onPress={this._goToJoinTeam}>Join a Team</InvertButton>;
     const changeTeamButton = <InvertButton onPress={this._goToChangeTeam}>Change Team</InvertButton>;
-    const leaveTeamButton = <InvertButton onPress={this._leaveTeam}>Leave team</InvertButton>;
+    // const leaveTeamButton = <InvertButton onPress={this._leaveTeam}>Leave team</InvertButton>;
     const hasJoinedTeam = !!this.props.currentTeam;
-    return(
+    return (
       <GradientBackground
         style={styles.container}>
         <CurrentTeamHeader currentTeam={currentTeam} userName={userName} />

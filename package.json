@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
+    "lint": "eslint src/",
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "ios:bundle": "react-native bundle --dev false --entry-file index.ios.js --bundle-output ios/main.jsbundle --platform ios",
     "android:release": "cd android && ./gradlew assembleRelease && cd ..",
@@ -27,6 +28,11 @@
   "devDependencies": {
     "babel-jest": "16.0.0",
     "babel-preset-react-native": "1.9.0",
+    "eslint": "^3.10.2",
+    "eslint-config-airbnb": "^13.0.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^2.0.1",
+    "eslint-plugin-react": "^6.7.1",
     "fetch-mock": "^5.5.0",
     "jest": "^17.0.0",
     "jest-react-native": "^17.0.0",

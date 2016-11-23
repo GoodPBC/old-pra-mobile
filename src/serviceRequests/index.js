@@ -10,7 +10,7 @@ import { selectServiceRequest, fetchServiceRequestDetails } from './actions';
 import {
   FETCH_SERVICE_REQUESTS,
   UPDATE_ONSITE_STATUS,
-  RESOLVE_SERVICE_REQUEST
+  RESOLVE_SERVICE_REQUEST,
 } from './actionTypes';
 
 export {
@@ -20,5 +20,5 @@ export {
   fetchServiceRequestDetails,
   selectServiceRequest,
   ServiceRequestList,
-  ServiceRequestNavigation
+  ServiceRequestNavigation,
 };

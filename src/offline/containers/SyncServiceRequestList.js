@@ -1,19 +1,15 @@
-/**
- * @flow
- */
-
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import {
   fetchServiceRequestDetails,
   selectServiceRequest,
-  ServiceRequestList
+  ServiceRequestList,
 } from '../../serviceRequests';
 import * as SyncActions from '../actions';
 
 function syncQueueServiceRequests(syncQueue) {
   return syncQueue.map(queuedAction => queuedAction.serviceRequest)
-    .filter(sr => !!sr)
+    .filter(sr => !!sr);
 }
 
 function mapStateToProps(state) {
@@ -29,7 +25,7 @@ function mapDispatchToProps(dispatch) {
   const actions = {
     ...SyncActions,
     fetchServiceRequestDetails,
-    selectServiceRequest
+    selectServiceRequest,
   };
   return bindActionCreators(actions, dispatch);
 }

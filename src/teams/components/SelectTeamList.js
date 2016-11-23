@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { ListView, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
+import { ListView, StyleSheet } from 'react-native';
 import Separator from '../../shared/components/Separator';
 import SelectTeamListItem from './SelectTeamListItem';
 
@@ -7,7 +7,7 @@ export default class SelectTeamList extends Component {
   constructor(props) {
     super(props);
 
-    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
 
     this.state = { dataSource: ds.cloneWithRows(props.teams) };
   }
@@ -24,7 +24,7 @@ export default class SelectTeamList extends Component {
     }
   }
 
-  _renderRow(team, sectionID, rowID, highlightRow) {
+  _renderRow(team, sectionID) {
     return (
       <SelectTeamListItem
         team={team}
@@ -35,7 +35,7 @@ export default class SelectTeamList extends Component {
     );
   }
 
-  _renderSeparator(sectionID, rowID, adjacentRowHighlighted) {
+  _renderSeparator(sectionID, rowID) {
     return (
       <Separator key={rowID} />
     );
@@ -47,7 +47,7 @@ export default class SelectTeamList extends Component {
         dataSource={this.state.dataSource}
         renderRow={this._renderRow.bind(this)}
         renderSeparator={this._renderSeparator.bind(this)}
-        enableEmptySections={true}
+        enableEmptySections
       />
     );
   }

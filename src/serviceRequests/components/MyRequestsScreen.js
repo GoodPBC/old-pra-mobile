@@ -1,14 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 
-import { StyleSheet, TextInput, TouchableHighlight, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import ServiceRequestList from '../containers/ServiceRequestList';
 
 export default class MyRequestsScreen extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   componentWillMount() {
     this.props.fetchServiceRequests();
   }
@@ -23,6 +19,7 @@ export default class MyRequestsScreen extends Component {
 }
 
 MyRequestsScreen.propTypes = {
+  fetchServiceRequests: PropTypes.func.isRequired,
   navigator: PropTypes.object.isRequired,
 };
 
@@ -31,5 +28,5 @@ const styles = StyleSheet.create({
     flex: 1,
     borderTopWidth: 1,
     borderTopColor: 'white',
-  }
+  },
 });

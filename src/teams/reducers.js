@@ -7,7 +7,7 @@ import {
   SELECT_TEAM,
 } from './actionTypes';
 
-let initialState = {
+const initialState = {
   currentTeam: null,
   selectedTeam: null,
   teams: [],
@@ -15,7 +15,7 @@ let initialState = {
 };
 
 export default function reducer(state = initialState, action) {
-  switch(action.type) {
+  switch (action.type) {
   case CREATE_TEAM_SUCCESS:
     return {
       ...state,

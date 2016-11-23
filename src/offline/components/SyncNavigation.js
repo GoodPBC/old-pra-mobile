@@ -1,6 +1,6 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 
-import { Navigator, StyleSheet, TouchableHighlight, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import SyncScreen from '../components/SyncScreen';
 import ServiceRequestDetailScreen from '../../serviceRequests/containers/ServiceRequestDetailScreen';
@@ -22,11 +22,11 @@ export default class SyncNavigation extends Component {
     } else if (route.index === 1) {
       content = <ServiceRequestDetailScreen />;
     }
-    return(
+    return (
       <View style={styles.navAdjustment}>
         {content}
       </View>
-    )
+    );
   }
 
   render() {
@@ -39,7 +39,8 @@ export default class SyncNavigation extends Component {
       <Navigation
         initialRoute={initialRoute}
         renderScene={this._renderScene}
-        onBack={() => {}} />
+        onBack={() => {}}
+      />
     );
   }
 }
@@ -57,5 +58,5 @@ const styles = StyleSheet.create({
   navElement: {
     flex: 1,
     justifyContent: 'center',
-  }
+  },
 });

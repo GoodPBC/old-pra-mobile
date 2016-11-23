@@ -1,9 +1,8 @@
 import React, { Component, PropTypes } from 'react';
-import { StyleSheet, Text, TextInput, View } from 'react-native';
-import { Button, LIGHT_BLUE, DARK_BLUE } from '../../shared';
+import { StyleSheet, View } from 'react-native';
+import { GradientBackground } from '../../shared';
 import TeamUserList from '../containers/TeamUserList';
 import JoinTeamButton from './JoinTeamButton';
-import { GradientBackground } from '../../shared';
 
 export default class SelectTeamDetailScreen extends Component {
   constructor(props){
@@ -18,7 +17,7 @@ export default class SelectTeamDetailScreen extends Component {
   }
 
   render() {
-    return(
+    return (
       <GradientBackground
         style={styles.container}>
         <View style={styles.listWrapper}>

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {
   Image,
   StyleSheet,
@@ -11,41 +11,43 @@ import {
   DARK_BLUE,
 } from '../../shared';
 
+import myRequestsActiveIcon from './img/my-requests-icon-active.png';
+import myRequestsInactiveIcon from './img/my-requests-icon-inactive.png';
+import teamsActiveIcon from './img/teams-icon-active.png';
+import teamsInactiveIcon from './img/teams-icon-inactive.png';
+import syncActiveIcon from './img/sync-icon-active.png';
+import syncInactiveIcon from './img/sync-icon-inactive.png';
+
 const tabIcons = [
-  { active: require('./img/my-requests-icon-active.png'), inactive: require('./img/my-requests-icon-inactive.png') },
-  { active: require('./img/teams-icon-active.png'), inactive: require('./img/teams-icon-inactive.png') },
-  { active: require('./img/sync-icon-active.png'), inactive: require('./img/sync-icon-inactive.png') },
-  { active: require('./img/my-requests-icon-active.png'), inactive: require('./img/my-requests-icon-inactive.png') },
+  { active: myRequestsActiveIcon, inactive: myRequestsInactiveIcon },
+  { active: teamsActiveIcon, inactive: teamsInactiveIcon },
+  { active: syncActiveIcon, inactive: syncInactiveIcon },
+  { active: myRequestsActiveIcon, inactive: myRequestsInactiveIcon },
 ];
 
-export default class TabBar extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <View style={[styles.tabs, this.props.style, ]}>
-        {this.props.tabs.map((tab, i) => {
-          const isActiveTab = this.props.activeTab === i;
-          const tabIcon = isActiveTab ? tabIcons[i].active : tabIcons[i].inactive;
-          return (
-            <TouchableOpacity key={tab} onPress={() => this.props.goToPage(i)} style={styles.tab}>
-              <View style={styles.group}>
-                <Image source={tabIcon} />
-                <Text style={[styles.text, isActiveTab ? styles.activeText : null ]}>{tab}</Text>
-              </View>
-            </TouchableOpacity>
-          );
-        })}
-      </View>
-    );
-  }
+export default function TabBar({ style, activeTab, goToPage, tabs }) {
+  return (
+    <View style={[styles.tabs, style]}>
+      {tabs.map((tab, i) => {
+        const isActiveTab = activeTab === i;
+        const tabIcon = isActiveTab ? tabIcons[i].active : tabIcons[i].inactive;
+        return (
+          <TouchableOpacity key={tab} onPress={() => goToPage(i)} style={styles.tab}>
+            <View style={styles.group}>
+              <Image source={tabIcon} />
+              <Text style={[styles.text, isActiveTab ? styles.activeText : null]}>{tab}</Text>
+            </View>
+          </TouchableOpacity>
+        );
+      })}
+    </View>
+  );
 }
 
 TabBar.propTypes = {
   goToPage: React.PropTypes.func,
   activeTab: React.PropTypes.number,
+  style: View.propTypes.style,
   tabs: React.PropTypes.array,
 };
 

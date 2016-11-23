@@ -19,7 +19,7 @@ export default function SelectTeamListItem({ selected, onSelectTeam, onViewTeamD
       </TouchableHighlight>
       <TouchableHighlight style={styles.detailsLink} onPress={() => onViewTeamDetails(team)}>
         <View>
-          <Image source={detailArrowImage}/>
+          <Image source={detailArrowImage} />
         </View>
       </TouchableHighlight>
     </View>

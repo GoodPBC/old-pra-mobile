@@ -1,12 +1,16 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { PropTypes } from 'react';
 import SectionWithIcon from './SectionWithIcon';
 import OnsiteTime from './OnsiteTime';
+import timeIcon from './img/time-icon-active.png';
 
 export default function OnsiteSection({ serviceRequest }) {
   return (
-    <SectionWithIcon icon={require('./img/time-icon-active.png')}>
+    <SectionWithIcon icon={timeIcon}>
       <OnsiteTime serviceRequest={serviceRequest} />
     </SectionWithIcon>
   );
 }
+
+OnsiteSection.propTypes = {
+  serviceRequest: PropTypes.object.isRequired,
+};
