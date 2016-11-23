@@ -6,7 +6,7 @@ export default function InvertTextInput(props) {
     style,
     ...rest,
   } = props;
-  return <TextInput style={[props.style, styles.input]} placeholderTextColor="white" {...rest} />;
+  return <TextInput style={[style, styles.input]} placeholderTextColor="white" {...rest} />;
 }
 
 const styles = StyleSheet.create({

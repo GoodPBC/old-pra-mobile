@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 
 import { StyleSheet, View } from 'react-native';
 
@@ -43,7 +43,7 @@ export default class TeamNavigation extends Component {
       <View style={styles.navAdjustment}>
         {content}
       </View>
-    )
+    );
   }
 
   render() {

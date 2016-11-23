@@ -11,7 +11,7 @@ import * as TeamsActions from '../actions';
 /**
  * No additional state necessary.
  */
-function mapStateToProps(state) {
+function mapStateToProps() {
   return {};
 }
 

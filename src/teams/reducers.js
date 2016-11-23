@@ -53,13 +53,13 @@ export default function reducer(state = initialState, action) {
         return {
           ...team,
           selected: true,
-        }
-      } else {
-        return {
-          ...team,
-          selected: false,
-        }
+        };
       }
+
+      return {
+        ...team,
+        selected: false,
+      };
     });
     return {
       ...state,

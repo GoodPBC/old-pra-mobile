@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import ServiceRequestNavigation from '../components/ServiceRequestNavigation';
 import * as ServiceRequestActions from '../actions';
 
-function mapStateToProps(state) {
+function mapStateToProps() {
   return {};
 }
 

@@ -22,11 +22,11 @@ export default class TeamUserList extends Component {
     if (nextProps.users) {
       this.setState({
         dataSource: this.state.dataSource.cloneWithRows(nextProps.users)
-      })
+      });
     }
   }
 
-  _renderRow(user, sectionID, rowID) {
+  _renderRow(user) {
     return (
       <TeamUserListItem user={user} />
     );
@@ -51,6 +51,7 @@ export default class TeamUserList extends Component {
 }
 
 TeamUserList.propTypes = {
+  fetchTeamUsers: PropTypes.func.isRequired,
   users: PropTypes.array.isRequired,
   team: PropTypes.object.isRequired,
 };

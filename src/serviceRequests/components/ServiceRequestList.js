@@ -37,7 +37,7 @@ export default class ServiceRequestList extends Component {
     });
   }
 
-  _renderRow(rowData, sectionID, rowID) {
+  _renderRow(rowData) {
     return (
       <ServiceRequestListItem
         serviceRequest={rowData}
@@ -65,6 +65,7 @@ export default class ServiceRequestList extends Component {
 }
 
 ServiceRequestList.propTypes = {
+  fetchServiceRequestDetails: PropTypes.func.isRequired,
   navigator: PropTypes.object.isRequired,
   selectServiceRequest: PropTypes.func.isRequired,
   serviceRequests: PropTypes.array.isRequired,

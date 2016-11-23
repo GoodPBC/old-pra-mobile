@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Button, X_AXIS_PADDING } from '../../shared';
 
@@ -11,6 +11,10 @@ export default function JoinTeamButton({ joinTeam }) {
     </View>
   );
 }
+
+JoinTeamButton.propTypes = {
+  joinTeam: PropTypes.func.isRequired,
+};
 
 const styles = StyleSheet.create({
   buttonWrapper: {

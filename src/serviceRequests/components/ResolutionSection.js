@@ -61,6 +61,11 @@ export default class ResolutionSection extends Component {
   }
 }
 
+ResolutionSection.propTypes = {
+  fetchResolutionCodes: PropTypes.func.isRequired,
+  serviceRequest: PropTypes.object.isRequired,
+};
+
 function ResolveRequestButton({
   serviceRequest,
   selectedResolutionCode,
@@ -72,10 +77,11 @@ function ResolveRequestButton({
 
 ResolveRequestButton.propTypes = {
   serviceRequest: PropTypes.object.isRequired,
+  selectedResolutionCode: PropTypes.string,
+  resolveServiceRequest: PropTypes.func.isRequired,
 };
 
 function ResolutionPicker({
-  serviceRequest,
   resolutionCodes,
   selectedResolutionCode,
   selectServiceRequestResolution }) {

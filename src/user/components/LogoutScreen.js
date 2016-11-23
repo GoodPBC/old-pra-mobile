@@ -1,22 +1,16 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 
-import { StyleSheet, TextInput, TouchableHighlight, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Button, X_AXIS_PADDING } from '../../shared';
 
-export default class LoginScreen extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <View style={styles.container}>
-        <Button onPress={this.props.logoutUser}>
-          Logout
-        </Button>
-      </View>
-    );
-  }
+export default function LoginScreen({ logoutUser }) {
+  return (
+    <View style={styles.container}>
+      <Button onPress={logoutUser}>
+        Logout
+      </Button>
+    </View>
+  );
 }
 
 LoginScreen.propTypes = {

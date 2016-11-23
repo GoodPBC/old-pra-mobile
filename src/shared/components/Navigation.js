@@ -53,7 +53,7 @@ export default class Navigation extends Component {
     return <View />;
   }
 
-  _title(route, navigator, index) {
+  _title(route) {
     return (
       <View style={styles.navElement}>
         <Text style={styles.navHeader}>{route.title}</Text>

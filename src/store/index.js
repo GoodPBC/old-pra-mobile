@@ -29,5 +29,5 @@ export default function configureStore() {
     autoRehydrate()
   );
   persistStore(store, { storage: AsyncStorage });
-  return store
+  return store;
 }

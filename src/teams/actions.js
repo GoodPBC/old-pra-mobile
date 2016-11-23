@@ -38,7 +38,7 @@ export function fetchTeamUsers(team) {
     actionName: FETCH_TEAM_USERS,
     requestPath: `teams/${team.id}/users`,
     requestMethod: 'GET',
-  }
+  };
 }
 
 export function joinTeam(team) {

@@ -52,6 +52,11 @@ export default class OnsiteButton extends Component {
   }
 }
 
+OnsiteButton.propTypes = {
+  serviceRequest: PropTypes.object.isRequired,
+  updateOnsiteStatus: PropTypes.func.isRequired,
+};
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,

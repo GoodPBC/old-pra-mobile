@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { Image, View, StyleSheet, Text, TouchableHighlight } from 'react-native';
 import detailArrowImage from '../../serviceRequests/components/img/details-arrow-icon-white.png';
 import { Checkbox } from '../../shared';
@@ -25,6 +25,14 @@ export default function SelectTeamListItem({ selected, onSelectTeam, onViewTeamD
     </View>
   );
 }
+
+SelectTeamListItem.propTypes = {
+  selected: PropTypes.bool,
+  onViewTeamDetails: PropTypes.func.isRequired,
+  onSelectTeam: PropTypes.func.isRequired,
+  team: PropTypes.object.isRequired,
+};
+
 
 const styles = StyleSheet.create({
   checkboxContainer: {
