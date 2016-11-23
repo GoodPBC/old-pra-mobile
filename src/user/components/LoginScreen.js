@@ -1,7 +1,13 @@
 import React, { Component, PropTypes } from 'react';
 
-import { StyleSheet, TextInput, TouchableHighlight, Text, View } from 'react-native';
-import { Button } from '../../shared';
+import { StyleSheet, View } from 'react-native';
+import {
+  GradientBackground,
+  InvertButton,
+  InvertText,
+  InvertTextInput,
+  X_AXIS_PADDING,
+} from '../../shared';
 
 export default class LoginScreen extends Component {
   constructor(props) {
@@ -11,6 +17,8 @@ export default class LoginScreen extends Component {
       email: null,
       password: null
     }
+
+    this._submitForm = this._submitForm.bind(this);
   }
 
   _submitForm() {
@@ -19,27 +27,27 @@ export default class LoginScreen extends Component {
 
   render() {
     return (
-      <View style={{ marginTop: 22 }}>
-        <View style={styles.loginModal}>
-          <Text>email</Text>
-          <TextInput
+      <GradientBackground style={styles.container}>
+        <View style={styles.wrapper}>
+          <InvertText>Email</InvertText>
+          <InvertTextInput
             style={styles.loginModalInput}
             onChangeText={(email) => this.setState({ email })}
             autoCapitalize={'none'}
             value={this.state.email}
           />
-          <Text>Password</Text>
-          <TextInput
+          <InvertText>Password</InvertText>
+          <InvertTextInput
             style={styles.loginModalInput}
             onChangeText={(password) => this.setState({ password })}
             autoCapitalize={'none'}
             value={this.state.password}
           />
-          <Button onPress={this._submitForm.bind(this)}>
+          <InvertButton onPress={this._submitForm}>
             Login
-          </Button>
+          </InvertButton>
         </View>
-      </View>
+      </GradientBackground>
     );
   }
 }
@@ -49,17 +57,16 @@ LoginScreen.propTypes = {
 };
 
 const styles = StyleSheet.create({
-  loginModal: {
-    flexDirection: 'column',
-    paddingLeft: 20,
-    paddingRight: 20,
-    paddingTop: 40
+  container: {
+    flex: 1,
+    paddingLeft: X_AXIS_PADDING,
+    paddingRight: X_AXIS_PADDING,
+    justifyContent: 'center',
   },
   loginModalInput: {
-    marginTop: 0,
     marginBottom: 30,
-    height: 40,
-    borderColor: '#ccc',
-    borderWidth: 1
+  },
+  wrapper: { // Transparent wrapper for the text
+    backgroundColor: 'rgba(0,0,0,0)',
   },
 });
