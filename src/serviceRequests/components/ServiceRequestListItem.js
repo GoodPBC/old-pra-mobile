@@ -14,7 +14,7 @@ export default function ServiceRequestListItem({ serviceRequest, selectServiceRe
   return (
     <TouchableHighlight
       onPress={() => selectServiceRequest(serviceRequest)}
-      underlayColor={'gray'}>
+      underlayColor={'lightgray'}>
       <View key={serviceRequest.id}>
         <View style={styles.header}>
           <Text style={styles.headerText}>SR# {serviceRequest.sr_number}</Text>

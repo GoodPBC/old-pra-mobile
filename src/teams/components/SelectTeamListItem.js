@@ -1,12 +1,12 @@
 import React, { PropTypes } from 'react';
-import { Image, View, StyleSheet, Text, TouchableHighlight } from 'react-native';
+import { Image, View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import detailArrowImage from '../../serviceRequests/components/img/details-arrow-icon-white.png';
 import { Checkbox } from '../../shared';
 
 export default function SelectTeamListItem({ selected, onSelectTeam, onViewTeamDetails, team }) {
   return (
     <View key={team.id} style={styles.container}>
-      <TouchableHighlight
+      <TouchableOpacity
         style={styles.selectableName}
         onPress={() => onSelectTeam(team)}
         underlayColor={'gray'}>
@@ -16,12 +16,12 @@ export default function SelectTeamListItem({ selected, onSelectTeam, onViewTeamD
           </View>
           <Text style={styles.teamName}>{team.name}</Text>
         </View>
-      </TouchableHighlight>
-      <TouchableHighlight style={styles.detailsLink} onPress={() => onViewTeamDetails(team)}>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.detailsLink} onPress={() => onViewTeamDetails(team)}>
         <View>
           <Image source={detailArrowImage} />
         </View>
-      </TouchableHighlight>
+      </TouchableOpacity>
     </View>
   );
 }
