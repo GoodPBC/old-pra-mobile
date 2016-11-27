@@ -8,7 +8,7 @@ import AddressSection from './AddressSection';
 export default function DetailsSection({ serviceRequest }) {
   return (
     <View style={styles.detailsContainer}>
-      <AddressSection serviceRequest={serviceRequest} />
+      <AddressSection serviceRequest={serviceRequest} fullLength />
       <Separator />
       <DescriptionSection serviceRequest={serviceRequest} />
       <Separator />
