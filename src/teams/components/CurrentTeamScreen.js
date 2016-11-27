@@ -42,21 +42,36 @@ export default class CurrentTeamScreen extends Component {
     this.props.leaveTeam();
   }
 
+  /**
+   * Need to adjust the height of the container to fit
+   * the appropriate number of buttons.
+   */
+  _buttonsContainerHeight() {
+    const hasJoinedTeam = !!this.props.currentTeam;
+    const buttonSpace = 75;
+    if (hasJoinedTeam) { // 3 buttons
+      return buttonSpace * 3;
+    }
+
+    return buttonSpace * 2;
+  }
+
   render() {
     const { currentTeam, userName } = this.props;
     const createTeamButton = <InvertButton onPress={this._goToCreateTeam}>Create a Team</InvertButton>;
     const joinTeamButton = <InvertButton onPress={this._goToJoinTeam}>Join a Team</InvertButton>;
     const changeTeamButton = <InvertButton onPress={this._goToChangeTeam}>Change Team</InvertButton>;
-    // const leaveTeamButton = <InvertButton onPress={this._leaveTeam}>Leave team</InvertButton>;
+    const leaveTeamButton = <InvertButton onPress={this._leaveTeam}>Leave team</InvertButton>;
     const hasJoinedTeam = !!this.props.currentTeam;
     return (
       <GradientBackground
         style={styles.container}>
         <CurrentTeamHeader currentTeam={currentTeam} userName={userName} />
-        <View style={styles.buttonsContainer}>
+        <View style={[styles.buttonsContainer, { height: this._buttonsContainerHeight() }]}>
           {!hasJoinedTeam && joinTeamButton}
           {createTeamButton}
           {hasJoinedTeam && changeTeamButton}
+          {hasJoinedTeam && leaveTeamButton}
         </View>
       </GradientBackground>
     );
