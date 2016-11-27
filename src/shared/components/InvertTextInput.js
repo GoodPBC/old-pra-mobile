@@ -12,10 +12,9 @@ export default function InvertTextInput(props) {
 const styles = StyleSheet.create({
   input: {
     color: 'white',
-    fontWeight: 'bold',
-    borderColor: 'white',
-    borderWidth: 1,
     borderRadius: 5,
     height: 60,
+    paddingLeft: 20,
+    backgroundColor: 'rgba(105,174,222,0.3)',
   }
 });

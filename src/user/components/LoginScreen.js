@@ -36,20 +36,20 @@ export default class LoginScreen extends Component {
     return (
       <GradientBackground style={styles.container}>
         <View style={styles.wrapper}>
-          <InvertText>Email</InvertText>
           <InvertTextInput
             style={styles.loginModalInput}
             onChangeText={(email) => this.setState({ email })}
             autoCapitalize={'none'}
             keyboardType="email-address"
+            placeholder="Email"
             value={this.state.email}
           />
-          <InvertText>Password</InvertText>
           <InvertTextInput
             style={styles.loginModalInput}
             onChangeText={(password) => this.setState({ password })}
             autoCapitalize={'none'}
             secureTextEntry={!this.state.showPassword}
+            placeholder="Password"
             value={this.state.password}
           />
           <View style={styles.showPassword}>
@@ -79,11 +79,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   loginModalInput: {
-    marginBottom: 30,
+    marginBottom: 15,
   },
   showPassword: {
     flexDirection: 'row',
     alignItems: 'center',
+    marginBottom: 20,
   },
   wrapper: { // Transparent wrapper for the text
     backgroundColor: 'rgba(0,0,0,0)',
