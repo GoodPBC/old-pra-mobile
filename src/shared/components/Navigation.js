@@ -47,12 +47,12 @@ export default class Navigation extends Component {
   /**
    * Right button refreshes whichever screen you're on
    */
-  _rightButton() {
+  _rightButton(route, navigator, index) {
     const { rightButtonAction } = this.props;
     if (rightButtonAction) {
       return (
         <View style={styles.navElement}>
-          <TouchableOpacity onPress={this.props.rightButtonAction}>
+          <TouchableOpacity onPress={() => this.props.rightButtonAction(route, navigator, index)}>
             <Image source={refreshIcon} />
           </TouchableOpacity>
         </View>

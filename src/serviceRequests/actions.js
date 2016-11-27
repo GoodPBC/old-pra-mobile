@@ -51,6 +51,13 @@ export function fetchServiceRequestDetails(serviceRequest) {
   };
 }
 
+export function refreshCurrentServiceRequest() {
+  return (dispatch, getState) => {
+    const currentServiceRequest = getState().serviceRequests.currentServiceRequest;
+    dispatch(fetchServiceRequestDetails(currentServiceRequest));
+  };
+}
+
 export function resolveServiceRequest(serviceRequest, resolutionCode) {
   const reportedAtDate = Date();
 

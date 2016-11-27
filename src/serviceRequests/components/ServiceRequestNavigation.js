@@ -10,6 +10,15 @@ export default class ServiceRequestNavigation extends Component {
   constructor(props) {
     super(props);
     this._renderScene = this._renderScene.bind(this);
+    this._refreshServiceRequests = this._refreshServiceRequests.bind(this);
+  }
+
+  _refreshServiceRequests(route, navigator, index) {
+    if (index === 0) {
+      this.props.fetchServiceRequests();
+    } else if (index === 1) {
+      this.props.refreshCurrentServiceRequest();
+    }
   }
 
   /**
@@ -39,7 +48,7 @@ export default class ServiceRequestNavigation extends Component {
         initialRoute={initialRoute}
         renderScene={this._renderScene}
         onBack={this.props.fetchServiceRequests}
-        rightButtonAction={() => {}}
+        rightButtonAction={this._refreshServiceRequests}
       />
     );
   }
@@ -47,6 +56,7 @@ export default class ServiceRequestNavigation extends Component {
 
 ServiceRequestNavigation.propTypes = {
   fetchServiceRequests: PropTypes.func.isRequired,
+  refreshCurrentServiceRequest: PropTypes.func.isRequired,
 };
 
 const styles = StyleSheet.create({
