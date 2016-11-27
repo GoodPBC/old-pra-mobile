@@ -10,6 +10,7 @@ export default class SelectTeamScreen extends Component {
   constructor(props){
     super(props);
     this._goToDetail = this._goToDetail.bind(this);
+    this._joinTeam = this._joinTeam.bind(this);
   }
 
   _goToDetail(team) {
@@ -21,6 +22,11 @@ export default class SelectTeamScreen extends Component {
     this.props.navigator.push(route);
   }
 
+  _joinTeam() {
+    this.props.joinTeam(this.props.selectedTeam);
+    this.props.navigator.pop();
+  }
+
   render() {
     return (
       <GradientBackground
@@ -30,7 +36,7 @@ export default class SelectTeamScreen extends Component {
             onViewTeamDetails={this._goToDetail}
           />
         </View>
-        <JoinTeamButton joinTeam={() => this.props.joinTeam(this.props.selectedTeam) } />
+        <JoinTeamButton joinTeam={this._joinTeam} />
       </GradientBackground>
     );
   }
