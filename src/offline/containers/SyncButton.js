@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import SyncButton from '../components/SyncButton';
 import * as SyncActions from '../actions';
 
-function mapStateToProps(state) {
+function mapStateToProps() {
   return {};
 }
 

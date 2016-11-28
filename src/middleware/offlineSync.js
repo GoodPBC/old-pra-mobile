@@ -12,13 +12,13 @@ import {
 function drainSyncQueue(store) {
   const pendingActions = store.getState().offline.syncQueue;
   let action = null;
-  while(action = pendingActions.shift()) { // FIFO
+  while (action = pendingActions.shift()) { // FIFO
     store.dispatch(action);
   }
 }
 
 export default store => next => action => {
-  next(action)
+  next(action);
 
   const drainTriggerActions = [
     API_REQUEST_SUCCESS, // Any successful API request

@@ -1,15 +1,9 @@
 import React, { Component, PropTypes } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
-import Button from '../../shared/components/Button';
-import CreateTeamScreen from '../containers/CreateTeamScreen';
-import SelectTeamScreen from './SelectTeamScreen';
+import { StyleSheet, View } from 'react-native';
 import { RouteIndices } from './TeamNavigation';
 import {
+  GradientBackground,
   InvertButton,
-  InvertText,
-  LIGHT_BLUE,
-  DARK_BLUE,
   X_AXIS_PADDING,
 } from '../../shared';
 import CurrentTeamHeader from './CurrentTeamHeader';
@@ -48,6 +42,20 @@ export default class CurrentTeamScreen extends Component {
     this.props.leaveTeam();
   }
 
+  /**
+   * Need to adjust the height of the container to fit
+   * the appropriate number of buttons.
+   */
+  _buttonsContainerHeight() {
+    const hasJoinedTeam = !!this.props.currentTeam;
+    const buttonSpace = 75;
+    if (hasJoinedTeam) { // 3 buttons
+      return buttonSpace * 3;
+    }
+
+    return buttonSpace * 2;
+  }
+
   render() {
     const { currentTeam, userName } = this.props;
     const createTeamButton = <InvertButton onPress={this._goToCreateTeam}>Create a Team</InvertButton>;
@@ -55,18 +63,17 @@ export default class CurrentTeamScreen extends Component {
     const changeTeamButton = <InvertButton onPress={this._goToChangeTeam}>Change Team</InvertButton>;
     const leaveTeamButton = <InvertButton onPress={this._leaveTeam}>Leave team</InvertButton>;
     const hasJoinedTeam = !!this.props.currentTeam;
-    return(
-      <LinearGradient
-        colors={[DARK_BLUE, LIGHT_BLUE]}
-        locations={[0,0.5]}
+    return (
+      <GradientBackground
         style={styles.container}>
         <CurrentTeamHeader currentTeam={currentTeam} userName={userName} />
-        <View style={styles.buttonsContainer}>
+        <View style={[styles.buttonsContainer, { height: this._buttonsContainerHeight() }]}>
           {!hasJoinedTeam && joinTeamButton}
           {createTeamButton}
           {hasJoinedTeam && changeTeamButton}
+          {hasJoinedTeam && leaveTeamButton}
         </View>
-      </LinearGradient>
+      </GradientBackground>
     );
   }
 }

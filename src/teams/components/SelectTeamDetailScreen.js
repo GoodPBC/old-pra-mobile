@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react';
-import { StyleSheet, Text, TextInput, View } from 'react-native';
-import Button from '../../shared/components/Button';
+import { StyleSheet, View } from 'react-native';
+import { GradientBackground } from '../../shared';
 import TeamUserList from '../containers/TeamUserList';
+import JoinTeamButton from './JoinTeamButton';
 
 export default class SelectTeamDetailScreen extends Component {
   constructor(props){
@@ -16,15 +17,14 @@ export default class SelectTeamDetailScreen extends Component {
   }
 
   render() {
-    return(
-      <View style={styles.container}>
+    return (
+      <GradientBackground
+        style={styles.container}>
         <View style={styles.listWrapper}>
           <TeamUserList team={this.props.team} />
         </View>
-        <View style={styles.bottomButton}>
-          <Button onPress={this._onJoinTeam}>Join Team</Button>
-        </View>
-      </View>
+        <JoinTeamButton joinTeam={this._onJoinTeam} />
+      </GradientBackground>
     );
   }
 }
@@ -38,12 +38,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 20,
-  },
-  bottomButton: {
-    position: 'absolute',
-    bottom: 60,
-    left: 0,
-    right: 0,
   },
   listWrapper: {
     flex: 1,

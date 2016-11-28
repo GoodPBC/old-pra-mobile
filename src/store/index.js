@@ -1,10 +1,10 @@
 import { combineReducers, createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
-import providerAPI from '../middleware/providerAPI';
-import offlineSync from '../middleware/offlineSync';
-import {persistStore, autoRehydrate} from 'redux-persist';
+import { persistStore, autoRehydrate } from 'redux-persist';
 import createLogger from 'redux-logger';
 import { AsyncStorage } from 'react-native';
+import providerAPI from '../middleware/providerAPI';
+import offlineSync from '../middleware/offlineSync';
 
 import app from '../app/reducers';
 import offline from '../offline/reducers';
@@ -22,12 +22,12 @@ const reducer = combineReducers({
 
 const logger = createLogger();
 
-export default function configureStore(initialState) {
+export default function configureStore() {
   const store = createStore(
     reducer,
     applyMiddleware(thunk, offlineSync, providerAPI, logger),
     autoRehydrate()
   );
   persistStore(store, { storage: AsyncStorage });
-  return store
+  return store;
 }

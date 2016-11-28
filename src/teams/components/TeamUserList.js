@@ -1,41 +1,38 @@
 import React, { Component, PropTypes } from 'react';
-import { ListView, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
+import { ListView } from 'react-native';
 import Separator from '../../shared/components/Separator';
+import TeamUserListItem from './TeamUserListItem';
 
 export default class TeamUserList extends Component {
   constructor(props) {
     super(props);
 
-    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
     this.state = { dataSource: ds.cloneWithRows(props.users) };
+
+    this._renderRow = this._renderRow.bind(this);
+    this._renderSeparator = this._renderSeparator.bind(this);
   }
 
   componentWillMount() {
     this.props.fetchTeamUsers(this.props.team);
   }
 
-  /**
-   * List of users is nested within the team json, like so: team.users
-   */
   componentWillReceiveProps(nextProps) {
     if (nextProps.users) {
       this.setState({
         dataSource: this.state.dataSource.cloneWithRows(nextProps.users)
-      })
+      });
     }
   }
 
-  _renderRow(rowData, sectionID, rowID, highlightRow) {
+  _renderRow(user) {
     return (
-      <View key={rowData['id']}>
-        <View>
-          <Text>{rowData['email']}</Text>
-        </View>
-      </View>
+      <TeamUserListItem user={user} />
     );
   }
 
-  _renderSeparator(sectionID, rowID, adjacentRowHighlighted) {
+  _renderSeparator(sectionID, rowID) {
     return (
       <Separator key={rowID} />
     );
@@ -45,15 +42,16 @@ export default class TeamUserList extends Component {
     return (
       <ListView
         dataSource={this.state.dataSource}
-        renderRow={this._renderRow.bind(this)}
-        renderSeparator={this._renderSeparator.bind(this)}
-        enableEmptySections={true}
+        renderRow={this._renderRow}
+        renderSeparator={this._renderSeparator}
+        enableEmptySections
       />
     );
   }
 }
 
 TeamUserList.propTypes = {
+  fetchTeamUsers: PropTypes.func.isRequired,
   users: PropTypes.array.isRequired,
   team: PropTypes.object.isRequired,
 };

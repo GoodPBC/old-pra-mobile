@@ -8,11 +8,9 @@ import { connect } from 'react-redux';
 import SelectTeamList from '../components/SelectTeamList';
 import * as TeamsActions from '../actions';
 
-/**
- * Needs the list of teams to display.
- */
 function mapStateToProps(state) {
   return {
+    selectedTeam: state.teams.selectedTeam,
     teams: state.teams.teams,
   };
 }

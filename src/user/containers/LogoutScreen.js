@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import LogoutScreen from '../components/LogoutScreen';
 import * as UserActions from '../actions';
 
-function mapStateToProps(state) {
+function mapStateToProps() {
   return {};
 }
 

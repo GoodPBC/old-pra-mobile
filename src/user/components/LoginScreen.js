@@ -1,7 +1,14 @@
 import React, { Component, PropTypes } from 'react';
 
-import { StyleSheet, TextInput, TouchableHighlight, Text, View } from 'react-native';
-import { Button } from '../../shared';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import {
+  Checkbox,
+  GradientBackground,
+  InvertButton,
+  InvertText,
+  InvertTextInput,
+  X_AXIS_PADDING,
+} from '../../shared';
 
 export default class LoginScreen extends Component {
   constructor(props) {
@@ -9,8 +16,16 @@ export default class LoginScreen extends Component {
 
     this.state = {
       email: null,
-      password: null
-    }
+      password: null,
+      showPassword: false,
+    };
+
+    this._submitForm = this._submitForm.bind(this);
+    this._toggleShowPassword = this._toggleShowPassword.bind(this);
+  }
+
+  _toggleShowPassword() {
+    this.setState({ showPassword: !this.state.showPassword });
   }
 
   _submitForm() {
@@ -19,27 +34,35 @@ export default class LoginScreen extends Component {
 
   render() {
     return (
-      <View style={{marginTop: 22}}>
-        <View style={styles.loginModal}>
-          <Text>email</Text>
-          <TextInput
+      <GradientBackground style={styles.container}>
+        <View style={styles.wrapper}>
+          <InvertTextInput
             style={styles.loginModalInput}
-            onChangeText={(email) => this.setState({email})}
+            onChangeText={(email) => this.setState({ email })}
             autoCapitalize={'none'}
+            keyboardType="email-address"
+            placeholder="Email"
             value={this.state.email}
           />
-          <Text>Password</Text>
-          <TextInput
+          <InvertTextInput
             style={styles.loginModalInput}
-            onChangeText={(password) => this.setState({password})}
+            onChangeText={(password) => this.setState({ password })}
             autoCapitalize={'none'}
+            secureTextEntry={!this.state.showPassword}
+            placeholder="Password"
             value={this.state.password}
           />
-          <Button onPress={this._submitForm.bind(this)}>
+          <View style={styles.showPassword}>
+            <TouchableOpacity onPress={this._toggleShowPassword}>
+              <Checkbox checked={this.state.showPassword} />
+            </TouchableOpacity>
+            <InvertText>Show Password</InvertText>
+          </View>
+          <InvertButton onPress={this._submitForm}>
             Login
-          </Button>
+          </InvertButton>
         </View>
-      </View>
+      </GradientBackground>
     );
   }
 }
@@ -49,17 +72,21 @@ LoginScreen.propTypes = {
 };
 
 const styles = StyleSheet.create({
-  loginModal: {
-    flexDirection: 'column',
-    paddingLeft: 20,
-    paddingRight: 20,
-    paddingTop: 40
+  container: {
+    flex: 1,
+    paddingLeft: X_AXIS_PADDING,
+    paddingRight: X_AXIS_PADDING,
+    justifyContent: 'center',
   },
   loginModalInput: {
-    marginTop: 0,
-    marginBottom: 30,
-    height: 40,
-    borderColor: '#ccc',
-    borderWidth: 1
+    marginBottom: 15,
+  },
+  showPassword: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  wrapper: { // Transparent wrapper for the text
+    backgroundColor: 'rgba(0,0,0,0)',
   },
 });

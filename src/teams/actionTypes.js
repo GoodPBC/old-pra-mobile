@@ -12,3 +12,5 @@ export const JOIN_TEAM_SUCCESS = 'JOIN_TEAM_SUCCESS';
 
 export const LEAVE_TEAM = 'LEAVE_TEAM';
 export const LEAVE_TEAM_SUCCESS = 'LEAVE_TEAM_SUCCESS';
+
+export const SELECT_TEAM = 'SELECT_TEAM';

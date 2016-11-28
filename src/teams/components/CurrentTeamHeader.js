@@ -1,12 +1,8 @@
-import React, { Component, PropTypes } from 'react';
-import { StyleSheet, Text, TextInput, View } from 'react-native';
+import React, { PropTypes } from 'react';
+import { StyleSheet, View } from 'react-native';
 import {
-  InvertButton,
   InvertText,
-  InvertTextInput,
   Separator,
-  LIGHT_BLUE,
-  X_AXIS_PADDING,
 } from '../../shared';
 
 export default function CurrentTeamHeader({ currentTeam, userName }) {

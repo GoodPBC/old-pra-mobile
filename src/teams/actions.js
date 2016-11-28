@@ -4,6 +4,7 @@ import {
   FETCH_TEAM_USERS,
   JOIN_TEAM,
   LEAVE_TEAM,
+  SELECT_TEAM,
 } from './actionTypes';
 
 import { API_REQUEST } from '../shared';
@@ -37,7 +38,7 @@ export function fetchTeamUsers(team) {
     actionName: FETCH_TEAM_USERS,
     requestPath: `teams/${team.id}/users`,
     requestMethod: 'GET',
-  }
+  };
 }
 
 export function joinTeam(team) {
@@ -59,5 +60,12 @@ export function leaveTeam() {
     requestPath: 'me/team',
     requestMethod: 'DELETE',
     requestParams: {}
+  };
+}
+
+export function selectTeam(team) {
+  return {
+    type: SELECT_TEAM,
+    team,
   };
 }

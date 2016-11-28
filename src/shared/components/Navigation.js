@@ -1,8 +1,16 @@
 import React, { Component, PropTypes } from 'react';
 
-import { Navigator, StyleSheet, TouchableHighlight, Text, View } from 'react-native';
+import {
+  Image,
+  Navigator,
+  StyleSheet,
+  TouchableOpacity,
+  Text,
+  View,
+} from 'react-native';
+import { DARK_BLUE } from '../constants';
 
-import { LIGHT_BLUE, DARK_BLUE } from '../constants';
+import refreshIcon from './img/refresh-icon.png';
 
 export default class Navigation extends Component {
   constructor(props) {
@@ -22,39 +30,38 @@ export default class Navigation extends Component {
   /**
    * Back button only on the details screen
    */
-  _leftButton(route, navigator, index, navState) {
+  _leftButton(route, navigator, index) {
     if (index > 0) {
       return (
         <View style={styles.navElement}>
-          <TouchableHighlight onPress={() => this._refreshAndGoBack(navigator) }>
+          <TouchableOpacity onPress={() => this._refreshAndGoBack(navigator) }>
             <Text style={styles.navHeader}>Back</Text>
-          </TouchableHighlight>
+          </TouchableOpacity>
         </View>
       );
-    } else {
-      return <View />;
     }
+
+    return <View />;
   }
 
   /**
    * Right button refreshes whichever screen you're on
    */
-  _rightButton() {
+  _rightButton(route, navigator, index) {
     const { rightButtonAction } = this.props;
     if (rightButtonAction) {
       return (
         <View style={styles.navElement}>
-          <TouchableHighlight onPress={this.props.rightButtonAction}>
-            <Text style={styles.navHeader}>Refresh</Text>
-          </TouchableHighlight>
+          <TouchableOpacity onPress={() => this.props.rightButtonAction(route, navigator, index)}>
+            <Image source={refreshIcon} />
+          </TouchableOpacity>
         </View>
       );
-    } else {
-      return <View />;
     }
+    return <View />;
   }
 
-  _title(route, navigator, index, navState) {
+  _title(route) {
     return (
       <View style={styles.navElement}>
         <Text style={styles.navHeader}>{route.title}</Text>

@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { StyleSheet, Switch, TouchableHighlight, Text, View } from 'react-native';
+import { StyleSheet, Switch, Text, View } from 'react-native';
 import OnsiteTime from './OnsiteTime';
 
 export default class OnsiteButton extends Component {
@@ -15,8 +15,9 @@ export default class OnsiteButton extends Component {
       <View style={styles.offContainer}>
         <Text>Pending</Text>
         <Switch
-          value={true}
-          disabled={serviceRequest.pendingOnsite} />
+          value
+          disabled={serviceRequest.pendingOnsite}
+        />
       </View>
     );
   }
@@ -25,7 +26,7 @@ export default class OnsiteButton extends Component {
     const { serviceRequest, updateOnsiteStatus } = this.props;
     return (
       <View style={styles.offContainer}>
-        <Text style={styles.onsiteText}>I'm on site</Text>
+        <Text style={styles.onsiteText}>I&apos;m on site</Text>
         <Switch
           onValueChange={() => updateOnsiteStatus(serviceRequest)}
           disabled={serviceRequest.pendingOnsite} />
@@ -50,6 +51,11 @@ export default class OnsiteButton extends Component {
     );
   }
 }
+
+OnsiteButton.propTypes = {
+  serviceRequest: PropTypes.object.isRequired,
+  updateOnsiteStatus: PropTypes.func.isRequired,
+};
 
 const styles = StyleSheet.create({
   container: {

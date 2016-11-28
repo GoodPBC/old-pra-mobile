@@ -9,7 +9,7 @@ import {
   LOGOUT_USER,
 } from './actionTypes';
 
-let initialState = {
+const initialState = {
   authenticationToken: null,
   email: null,
   name: null,
@@ -17,7 +17,7 @@ let initialState = {
 };
 
 export default function reducer(state = initialState, action) {
-  switch(action.type) {
+  switch (action.type) {
   case LOGIN_USER_SUCCESS:
     return {
       ...state,
@@ -30,7 +30,7 @@ export default function reducer(state = initialState, action) {
     return {
       ...state,
       userIsAuthenticated: false,
-    }
+    };
   case API_REQUEST_FAILURE: // Reset the user auth status if necessary.
     if (action.status === FORBIDDEN_RESPONSE_STATUS) {
       return {
@@ -39,9 +39,8 @@ export default function reducer(state = initialState, action) {
         authenticationToken: null,
         email: null,
       };
-    } else {
-      return state;
     }
+    return state;
   case LOGOUT_USER:
     return {
       ...state,

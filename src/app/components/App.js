@@ -1,16 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 
 import {
-  ActivityIndicator,
   Alert,
   Modal,
   StatusBar,
   StyleSheet,
-  TabBarIOS,
-  TextInput,
-  TouchableHighlight,
-  Text,
-  View
+  View,
 } from 'react-native';
 
 import ScrollableTabView from 'react-native-scrollable-tab-view';
@@ -45,24 +40,24 @@ export default class App extends Component {
   componentWillReceiveProps(newProps) {
     if (newProps.errorMessage) {
       Alert.alert('Error', newProps.errorMessage, [
-        { text: 'OK', onPress: this.props.clearErrorMessage }
+        { text: 'OK', onPress: this.props.clearErrorMessage },
       ]);
     }
   }
 
   _renderLogin() {
     return (
-      <View style={{marginTop: 22}}>
+      <View style={{ marginTop: 22 }}>
         <Modal
-          animationType={"slide"}
+          animationType={'slide'}
           transparent={false}
           visible={this.props.userIsAuthenticated !== true}
-          onRequestClose={() => console.log('requested close')}
-          >
-          <LoginScreen {...this.props}/>
+          onRequestClose={() => {}}
+        >
+          <LoginScreen {...this.props} />
         </Modal>
       </View>
-    )
+    );
   }
 
   _renderTabs() {
@@ -72,7 +67,8 @@ export default class App extends Component {
         tabBarInactiveTextColor={GRAY_TEXT}
         tabBarActiveTextColor={DARK_BLUE}
         tabBarPosition="bottom"
-        tabBarUnderlineStyle={{backgroundColor: 'white'}}>
+        tabBarUnderlineStyle={{ backgroundColor: 'white' }}
+      >
         <ServiceRequestNavigation tabLabel="My Requests" />
         <TeamNavigation tabLabel="Teams" />
         <SyncNavigation tabLabel="Sync" />
@@ -84,27 +80,28 @@ export default class App extends Component {
   render() {
     let content = null;
     if (this.props.userIsAuthenticated) {
-       content = this._renderTabs();
+      content = this._renderTabs();
     } else {
       content = this._renderLogin();
     }
     return (
-        <View style={styles.container}>
-           <StatusBar
-            barStyle="light-content"
-            networkActivityIndicatorVisible={this.props.apiRequestInProgress}
-          />
-          {content}
-        </View>
-      );
+      <View style={styles.container}>
+        <StatusBar
+          barStyle="light-content"
+          networkActivityIndicatorVisible={this.props.apiRequestInProgress}
+        />
+        {content}
+      </View>
+    );
   }
 }
 
 App.propTypes = {
   apiRequestInProgress: PropTypes.bool.isRequired,
+  clearErrorMessage: PropTypes.func.isRequired,
   errorMessage: PropTypes.string,
   userIsAuthenticated: PropTypes.bool,
-}
+};
 
 const styles = StyleSheet.create({
   loadingIndicator: {

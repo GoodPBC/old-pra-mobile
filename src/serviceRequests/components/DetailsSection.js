@@ -1,20 +1,24 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 
-import { StyleSheet, TextInput, TouchableHighlight, Text, View } from 'react-native';
-import { Button, Separator } from '../../shared';
+import { StyleSheet, View } from 'react-native';
+import { Separator } from '../../shared';
 import DescriptionSection from './DescriptionSection';
 import AddressSection from './AddressSection';
 
 export default function DetailsSection({ serviceRequest }) {
   return (
     <View style={styles.detailsContainer}>
-      <AddressSection serviceRequest={serviceRequest} />
+      <AddressSection serviceRequest={serviceRequest} fullLength />
       <Separator />
       <DescriptionSection serviceRequest={serviceRequest} />
       <Separator />
     </View>
   );
 }
+
+DetailsSection.propTypes = {
+  serviceRequest: PropTypes.object.isRequired,
+};
 
 const styles = StyleSheet.create({
   container: {

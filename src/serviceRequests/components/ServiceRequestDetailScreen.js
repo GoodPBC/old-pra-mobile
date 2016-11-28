@@ -1,28 +1,20 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 
-import { ListView, Picker, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { Button, Separator } from '../../shared';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import ResolutionSection from '../containers/ResolutionSection';
 import DetailsSection from './DetailsSection';
 import OnsiteButton from './OnsiteButton';
 
-export default class ServiceRequestDetailScreen extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    const { serviceRequest, updateOnsiteStatus } = this.props;
-    return (
-      <View style={styles.container}>
-        <ScrollView>
-          <OnsiteButton {...this.props} />
-          <DetailsSection serviceRequest={serviceRequest} />
-          <ResolutionSection />
-        </ScrollView>
-      </View>
-    );
-  }
+export default function ServiceRequestDetailScreen(props) {
+  return (
+    <View style={styles.container}>
+      <ScrollView>
+        <OnsiteButton {...props} />
+        <DetailsSection serviceRequest={props.serviceRequest} />
+        <ResolutionSection />
+      </ScrollView>
+    </View>
+  );
 }
 
 ServiceRequestDetailScreen.propTypes = {
@@ -42,6 +34,6 @@ const styles = StyleSheet.create({
   },
   sectionHeader: {
     color: 'gray',
-    fontVariant: ['small-caps']
-  }
+    fontVariant: ['small-caps'],
+  },
 });
