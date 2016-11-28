@@ -1,5 +1,6 @@
 import {
   CREATE_TEAM,
+  FETCH_CURRENT_TEAM,
   FETCH_TEAMS,
   FETCH_TEAM_USERS,
   JOIN_TEAM,
@@ -20,6 +21,15 @@ export function createTeam(teamName) {
         name: teamName,
       }
     }
+  };
+}
+
+export function fetchCurrentTeam() {
+  return {
+    type: API_REQUEST,
+    actionName: FETCH_CURRENT_TEAM,
+    requestPath: 'me/team',
+    requestMethod: 'GET',
   };
 }
 
