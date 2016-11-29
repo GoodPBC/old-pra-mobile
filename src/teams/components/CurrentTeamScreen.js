@@ -43,7 +43,9 @@ export default class CurrentTeamScreen extends Component {
   }
 
   _leaveTeam() {
+    const { currentTeam } = this.props;
     this.props.leaveTeam();
+    this.props.unassignServiceRequestsForTeam(currentTeam);
   }
 
   /**

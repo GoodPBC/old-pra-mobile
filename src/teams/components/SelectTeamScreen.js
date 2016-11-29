@@ -23,7 +23,8 @@ export default class SelectTeamScreen extends Component {
   }
 
   _joinTeam() {
-    this.props.joinTeam(this.props.selectedTeam);
+    this.props.joinTeamAndProcessAssignments(this.props.selectedTeam);
+
     this.props.navigator.pop();
   }
 
@@ -44,6 +45,7 @@ export default class SelectTeamScreen extends Component {
 
 SelectTeamScreen.propTypes = {
   joinTeam: PropTypes.func.isRequired,
+  joinTeamAndProcessAssignments: PropTypes.func.isRequired,
   navigator: PropTypes.object.isRequired,
   selectedTeam: PropTypes.object,
 };

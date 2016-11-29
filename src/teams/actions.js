@@ -1,4 +1,7 @@
+import { Alert } from 'react-native';
+
 import {
+  ASSIGN_SERVICE_REQUESTS,
   CREATE_TEAM,
   FETCH_CURRENT_TEAM,
   FETCH_TEAMS,
@@ -6,9 +9,31 @@ import {
   JOIN_TEAM,
   LEAVE_TEAM,
   SELECT_TEAM,
+  UNASSIGN_SERVICE_REQUESTS,
 } from './actionTypes';
 
 import { API_REQUEST } from '../shared';
+
+export function assignServiceRequestsForTeam(team) {
+  function createAction() {
+    return {
+      type: API_REQUEST,
+      actionName: ASSIGN_SERVICE_REQUESTS,
+      requestPath: 'me/assignments',
+      requestMethod: 'POST',
+      requestParams: {
+        team_id: team.id,
+      },
+    };
+  }
+
+  return (dispatch) => {
+    Alert.alert('Joining new team', 'Do you want to receive all current assignments for this team?', [
+      { text: 'No', onPress: () => {} },
+      { text: 'Yes', onPress: () => dispatch(createAction()) }
+    ]);
+  };
+}
 
 export function createTeam(teamName) {
   return {
@@ -77,5 +102,43 @@ export function selectTeam(team) {
   return {
     type: SELECT_TEAM,
     team,
+  };
+}
+
+export function unassignServiceRequestsForTeam(team) {
+  function createAction() {
+    return {
+      type: API_REQUEST,
+      actionName: UNASSIGN_SERVICE_REQUESTS,
+      requestPath: 'me/assignments',
+      requestMethod: 'DELETE',
+      requestParams: {
+        team_id: team.id,
+      },
+    };
+  }
+
+  return (dispatch) => {
+    Alert.alert('Leaving old team', 'Do you want to remove all assignments from your previous team?', [
+      { text: 'No',
+        onPress: () => {} },
+      { text: 'Yes',
+        onPress: () => dispatch(createAction()) },
+    ]);
+  };
+ }
+
+ export function joinTeamAndProcessAssignments(team) {
+  return (dispatch, getState) => {
+    const { currentTeam } = getState().teams;
+    dispatch(joinTeam(team));
+    // Changing teams (as opposed to going from nil -> team)
+    if (currentTeam && currentTeam.id !== team.id) {
+      dispatch(unassignServiceRequestsForTeam(currentTeam));
+    }
+    // Ask to assign if changing teams or going from nil -> team
+    if (!currentTeam || currentTeam.id !== team.id) {
+      dispatch(assignServiceRequestsForTeam(team));
+    }
   };
 }
