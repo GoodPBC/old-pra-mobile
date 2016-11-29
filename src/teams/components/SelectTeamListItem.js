@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { Image, View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import detailArrowImage from '../../serviceRequests/components/img/details-arrow-icon-white.png';
-import { Checkbox } from '../../shared';
+import { Radio } from '../../shared';
 
 export default function SelectTeamListItem({ selected, onSelectTeam, onViewTeamDetails, team }) {
   return (
@@ -12,7 +12,7 @@ export default function SelectTeamListItem({ selected, onSelectTeam, onViewTeamD
         underlayColor={'gray'}>
         <View style={styles.teamNameContainer}>
           <View style={styles.checkboxContainer}>
-            <Checkbox checked={selected} />
+            <Radio checked={selected} />
           </View>
           <Text style={styles.teamName}>{team.name}</Text>
         </View>

@@ -2,11 +2,10 @@ import React, { Component, PropTypes } from 'react';
 
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import {
-  Checkbox,
-  GradientBackground,
   InvertButton,
   InvertText,
   InvertTextInput,
+  Radio,
   X_AXIS_PADDING,
 } from '../../shared';
 import loginBackgroundImage from './img/LoginBackground.png';
@@ -59,7 +58,7 @@ export default class LoginScreen extends Component {
               />
               <View style={styles.showPassword}>
                 <TouchableOpacity onPress={this._toggleShowPassword}>
-                  <Checkbox checked={this.state.showPassword} />
+                  <Radio checked={this.state.showPassword} />
                 </TouchableOpacity>
                 <InvertText>Show Password</InvertText>
               </View>
