@@ -13,6 +13,11 @@ export default class SelectTeamScreen extends Component {
     this._joinTeam = this._joinTeam.bind(this);
   }
 
+  componentWillMount() {
+    // Clear any pre-existing selection when we show this screen.
+    this.props.selectTeam(null);
+  }
+
   _goToDetail(team) {
     const route = {
       index: RouteIndices.USER_LIST,
@@ -37,14 +42,13 @@ export default class SelectTeamScreen extends Component {
             onViewTeamDetails={this._goToDetail}
           />
         </View>
-        <JoinTeamButton joinTeam={this._joinTeam} />
+        {this.props.selectedTeam && <JoinTeamButton joinTeam={this._joinTeam} />}
       </GradientBackground>
     );
   }
 }
 
 SelectTeamScreen.propTypes = {
-  joinTeam: PropTypes.func.isRequired,
   joinTeamAndProcessAssignments: PropTypes.func.isRequired,
   navigator: PropTypes.object.isRequired,
   selectedTeam: PropTypes.object,
