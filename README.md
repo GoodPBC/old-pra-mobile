@@ -24,4 +24,11 @@
 - Open Android Studio
 - `Build -> Generate Signed APK`
 - Fill out the prompts
-- The APK is generated in `android/build/outputs/apk`
+- The APK is generated in `android/app/app-release.apk`
+
+## Troubleshooting
+
+- *App running slowly on the emulator*, make sure JS Debugging is turned off.
+- *Android Studio build appears to not be updating the JS*, make sure the `Preferences -> Build, Execution, Deployment -> Compile -> Configure on Demand` config is turned off.
+- *Command line Android build not working*, I couldn't get the Android build to work via the command line, so in that case use Android Studio.
+- *APK not installing on the emulator / device*, make sure USB debugging is enabled on the device. Uninstall and reinstall the app on the device.
