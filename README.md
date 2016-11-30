@@ -26,6 +26,14 @@
 - Fill out the prompts
 - The APK is generated in `android/app/app-release.apk`
 
+## Deploying via Fabric
+- Install the Fabric plugin in Android Studio
+- Open the Fabric plugin pane and log in as DHS
+- Build the APK
+- Go through the Crashlytics stuff on the Fabric pane
+- Go to Beta distributions and drop the APK on the pane
+- Add email addresses and distribute
+
 ## Troubleshooting
 
 - *App running slowly on the emulator*, make sure JS Debugging is turned off.
