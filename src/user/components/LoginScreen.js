@@ -86,7 +86,8 @@ LoginScreen.propTypes = {
 const styles = StyleSheet.create({
   backgroundImage: {
     flex: 1,
-    resizeMode: 'stretch',
+    width: null,
+    height: null,
   },
   container: {
     flex: 1,
