@@ -32,3 +32,4 @@
 - *Android Studio build appears to not be updating the JS*, make sure the `Preferences -> Build, Execution, Deployment -> Compile -> Configure on Demand` config is turned off.
 - *Command line Android build not working*, I couldn't get the Android build to work via the command line, so in that case use Android Studio.
 - *APK not installing on the emulator / device*, make sure USB debugging is enabled on the device. Uninstall and reinstall the app on the device.
+- *Using Crashlytics on iOS build*, this was giving errors so it's currently not linked in the iOS binaries. Add `libSMXCrashlytics.a` back at some point to get this working.
