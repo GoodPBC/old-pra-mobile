@@ -1,6 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 
-import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
+import {
+  KeyboardAvoidingView,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {
   InvertButton,
   InvertText,
@@ -39,7 +45,7 @@ export default class LoginScreen extends Component {
         <Image source={loginBackgroundImage} style={styles.backgroundImage}>
           <View style={styles.wrapper}>
             <Image source={logoImage} style={styles.logo} />
-            <View style={styles.form}>
+            <KeyboardAvoidingView behavior="padding" style={styles.form}>
               <InvertTextInput
                 style={styles.loginModalInput}
                 onChangeText={(email) => this.setState({ email })}
@@ -65,7 +71,7 @@ export default class LoginScreen extends Component {
               <InvertButton onPress={this._submitForm}>
                 Login
               </InvertButton>
-            </View>
+            </KeyboardAvoidingView>
           </View>
         </Image>
       </View>
