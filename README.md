@@ -24,4 +24,20 @@
 - Open Android Studio
 - `Build -> Generate Signed APK`
 - Fill out the prompts
-- The APK is generated in `android/build/outputs/apk`
+- The APK is generated in `android/app/app-release.apk`
+
+## Deploying via Fabric
+- Install the Fabric plugin in Android Studio
+- Open the Fabric plugin pane and log in as DHS
+- Build the APK
+- Go through the Crashlytics stuff on the Fabric pane
+- Go to Beta distributions and drop the APK on the pane
+- Add email addresses and distribute
+
+## Troubleshooting
+
+- *App running slowly on the emulator*, make sure JS Debugging is turned off.
+- *Android Studio build appears to not be updating the JS*, make sure the `Preferences -> Build, Execution, Deployment -> Compile -> Configure on Demand` config is turned off.
+- *Command line Android build not working*, I couldn't get the Android build to work via the command line, so in that case use Android Studio.
+- *APK not installing on the emulator / device*, make sure USB debugging is enabled on the device. Uninstall and reinstall the app on the device.
+- *Using Crashlytics on iOS build*, this was giving errors so it's currently not linked in the iOS binaries. Add `libSMXCrashlytics.a` back at some point to get this working.

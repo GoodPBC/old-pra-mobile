@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { ListView } from 'react-native';
+import { ListView, ScrollView } from 'react-native';
 import Separator from '../../shared/components/Separator';
 import SelectTeamListItem from './SelectTeamListItem';
 

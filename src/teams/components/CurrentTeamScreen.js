@@ -17,6 +17,10 @@ export default class CurrentTeamScreen extends Component {
     this._leaveTeam = this._leaveTeam.bind(this);
   }
 
+  componentWillMount() {
+    this.props.fetchCurrentTeam();
+  }
+
   _goToCreateTeam() {
     this.props.navigator.push({
       index: RouteIndices.CREATE_TEAM,
@@ -39,7 +43,9 @@ export default class CurrentTeamScreen extends Component {
   }
 
   _leaveTeam() {
+    const { currentTeam } = this.props;
     this.props.leaveTeam();
+    this.props.unassignServiceRequestsForTeam(currentTeam);
   }
 
   /**
@@ -80,6 +86,7 @@ export default class CurrentTeamScreen extends Component {
 
 CurrentTeamScreen.propTypes = {
   currentTeam: PropTypes.any,
+  fetchCurrentTeam: PropTypes.func.isRequired,
   leaveTeam: PropTypes.func.isRequired,
   userName: PropTypes.string.isRequired,
 };

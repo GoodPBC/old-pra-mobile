@@ -1,14 +1,21 @@
 import React, { Component, PropTypes } from 'react';
 
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import {
-  Checkbox,
-  GradientBackground,
+  KeyboardAvoidingView,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import {
   InvertButton,
   InvertText,
   InvertTextInput,
+  Radio,
   X_AXIS_PADDING,
 } from '../../shared';
+import loginBackgroundImage from './img/LoginBackground.png';
+import logoImage from './img/NYC_DHS-Logo.png';
 
 export default class LoginScreen extends Component {
   constructor(props) {
@@ -34,35 +41,40 @@ export default class LoginScreen extends Component {
 
   render() {
     return (
-      <GradientBackground style={styles.container}>
-        <View style={styles.wrapper}>
-          <InvertTextInput
-            style={styles.loginModalInput}
-            onChangeText={(email) => this.setState({ email })}
-            autoCapitalize={'none'}
-            keyboardType="email-address"
-            placeholder="Email"
-            value={this.state.email}
-          />
-          <InvertTextInput
-            style={styles.loginModalInput}
-            onChangeText={(password) => this.setState({ password })}
-            autoCapitalize={'none'}
-            secureTextEntry={!this.state.showPassword}
-            placeholder="Password"
-            value={this.state.password}
-          />
-          <View style={styles.showPassword}>
-            <TouchableOpacity onPress={this._toggleShowPassword}>
-              <Checkbox checked={this.state.showPassword} />
-            </TouchableOpacity>
-            <InvertText>Show Password</InvertText>
+      <View style={styles.container}>
+        <Image source={loginBackgroundImage} style={styles.backgroundImage}>
+          <View style={styles.wrapper}>
+            <Image source={logoImage} style={styles.logo} />
+            <KeyboardAvoidingView behavior="padding" style={styles.form}>
+              <InvertTextInput
+                style={styles.loginModalInput}
+                onChangeText={(email) => this.setState({ email })}
+                autoCapitalize={'none'}
+                keyboardType="email-address"
+                placeholder="Email"
+                value={this.state.email}
+              />
+              <InvertTextInput
+                style={styles.loginModalInput}
+                onChangeText={(password) => this.setState({ password })}
+                autoCapitalize={'none'}
+                secureTextEntry={!this.state.showPassword}
+                placeholder="Password"
+                value={this.state.password}
+              />
+              <View style={styles.showPassword}>
+                <TouchableOpacity onPress={this._toggleShowPassword}>
+                  <Radio checked={this.state.showPassword} />
+                </TouchableOpacity>
+                <InvertText>Show Password</InvertText>
+              </View>
+              <InvertButton onPress={this._submitForm}>
+                Login
+              </InvertButton>
+            </KeyboardAvoidingView>
           </View>
-          <InvertButton onPress={this._submitForm}>
-            Login
-          </InvertButton>
-        </View>
-      </GradientBackground>
+        </Image>
+      </View>
     );
   }
 }
@@ -72,14 +84,21 @@ LoginScreen.propTypes = {
 };
 
 const styles = StyleSheet.create({
+  backgroundImage: {
+    flex: 1,
+    width: null,
+    height: null,
+  },
   container: {
     flex: 1,
-    paddingLeft: X_AXIS_PADDING,
-    paddingRight: X_AXIS_PADDING,
-    justifyContent: 'center',
   },
+  form: {},
   loginModalInput: {
     marginBottom: 15,
+  },
+  logo: {
+    alignSelf: 'center',
+    marginBottom: 50,
   },
   showPassword: {
     flexDirection: 'row',
@@ -87,6 +106,10 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   wrapper: { // Transparent wrapper for the text
+    flex: 1,
     backgroundColor: 'rgba(0,0,0,0)',
+    justifyContent: 'center',
+    paddingLeft: X_AXIS_PADDING,
+    paddingRight: X_AXIS_PADDING,
   },
 });

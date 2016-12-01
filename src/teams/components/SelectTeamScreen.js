@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import SelectTeamList from '../containers/SelectTeamList';
 import { GradientBackground } from '../../shared';
 
@@ -13,6 +13,11 @@ export default class SelectTeamScreen extends Component {
     this._joinTeam = this._joinTeam.bind(this);
   }
 
+  componentWillMount() {
+    // Clear any pre-existing selection when we show this screen.
+    this.props.selectTeam(null);
+  }
+
   _goToDetail(team) {
     const route = {
       index: RouteIndices.USER_LIST,
@@ -23,7 +28,8 @@ export default class SelectTeamScreen extends Component {
   }
 
   _joinTeam() {
-    this.props.joinTeam(this.props.selectedTeam);
+    this.props.joinTeamAndProcessAssignments(this.props.selectedTeam);
+
     this.props.navigator.pop();
   }
 
@@ -31,19 +37,21 @@ export default class SelectTeamScreen extends Component {
     return (
       <GradientBackground
         style={styles.container}>
-        <View style={styles.listContainer}>
-          <SelectTeamList
-            onViewTeamDetails={this._goToDetail}
-          />
-        </View>
-        <JoinTeamButton joinTeam={this._joinTeam} />
+        <ScrollView>
+          <View style={styles.listContainer}>
+            <SelectTeamList
+              onViewTeamDetails={this._goToDetail}
+            />
+          </View>
+          {this.props.selectedTeam && <JoinTeamButton joinTeam={this._joinTeam} />}
+        </ScrollView>
       </GradientBackground>
     );
   }
 }
 
 SelectTeamScreen.propTypes = {
-  joinTeam: PropTypes.func.isRequired,
+  joinTeamAndProcessAssignments: PropTypes.func.isRequired,
   navigator: PropTypes.object.isRequired,
   selectedTeam: PropTypes.object,
 };

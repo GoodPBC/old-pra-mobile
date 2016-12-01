@@ -18,6 +18,7 @@ import InvertButton from './components/InvertButton';
 import InvertText from './components/InvertText';
 import InvertTextInput from './components/InvertTextInput';
 import Navigation from './components/Navigation';
+import Radio from './components/Radio';
 import Separator from './components/Separator';
 
 export {
@@ -37,5 +38,6 @@ export {
   InvertText,
   InvertTextInput,
   Navigation,
+  Radio,
   Separator,
 };
