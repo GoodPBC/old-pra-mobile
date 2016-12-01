@@ -4,6 +4,8 @@ import { StyleSheet, View } from 'react-native';
 
 import MyRequestsScreen from '../containers/MyRequestsScreen';
 import ServiceRequestDetailScreen from '../containers/ServiceRequestDetailScreen';
+import ServiceRequestContactSelector from './ServiceRequestContactSelector';
+import ServiceRequestAddContact from '../containers/ServiceRequestAddContact';
 import { LIGHT_BLUE, Navigation } from '../../shared';
 
 export default class ServiceRequestNavigation extends Component {
@@ -14,7 +16,7 @@ export default class ServiceRequestNavigation extends Component {
   }
 
   _refreshServiceRequests(route, navigator, index) {
-    if (index === 0) {
+    if (index === 0) {  
       this.props.fetchServiceRequests();
     } else if (index === 1) {
       this.props.refreshCurrentServiceRequest();
@@ -23,13 +25,18 @@ export default class ServiceRequestNavigation extends Component {
 
   /**
    * 2 screens: My Requests and the details screen
+    +2 screens: Contacts selection and add contacts
    */
   _renderScene(route, navigator) {
     let content = null;
     if (route.index === 0) {
       content = <MyRequestsScreen navigator={navigator} />;
     } else if (route.index === 1) {
-      content = <ServiceRequestDetailScreen />;
+      content = <ServiceRequestDetailScreen navigator={navigator} />;
+    } else if (route.index === 2) {
+      content = <ServiceRequestContactSelector navigator={navigator} />;
+    } else if (route.index === 3) {
+      content = <ServiceRequestAddContact navigator={navigator} />;
     }
     return (
       <View style={styles.navAdjustment}>

@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 
 import { ScrollView, StyleSheet, View } from 'react-native';
 import ResolutionSection from '../containers/ResolutionSection';
+import ContactSection from '../containers/ContactSection';
 import DetailsSection from './DetailsSection';
 import OnsiteButton from './OnsiteButton';
 
@@ -11,6 +12,7 @@ export default function ServiceRequestDetailScreen(props) {
       <ScrollView>
         <OnsiteButton {...props} />
         <DetailsSection serviceRequest={props.serviceRequest} />
+        <ContactSection {...props} />
         <ResolutionSection />
       </ScrollView>
     </View>

@@ -6,6 +6,7 @@ import {
     SELECT_SERVICE_REQUEST,
     SELECT_SERVICE_REQUEST_RESOLUTION,
     UPDATE_ONSITE_STATUS,
+    ADD_CONTACT_TO_SERVICE_REQUEST
 } from './actionTypes';
 import { API_REQUEST } from '../shared';
 
@@ -97,5 +98,17 @@ export function updateOnsiteStatus(serviceRequest) {
       },
     },
     serviceRequest, // Needed for sync
+  };
+}
+
+export function addContactToServiceRequest(contact) {
+  return {
+    type: API_REQUEST,
+    actionName: ADD_CONTACT_TO_SERVICE_REQUEST,
+    requestMethod: 'POST',
+    requestPath: 'contacts',
+    requestParams: {
+      contact: contact
+    }
   };
 }

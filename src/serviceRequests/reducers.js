@@ -8,6 +8,7 @@ import {
   SELECT_SERVICE_REQUEST_RESOLUTION,
   UPDATE_ONSITE_STATUS,
   UPDATE_ONSITE_STATUS_SUCCESS,
+  ADD_CONTACT_TO_SERVICE_REQUEST
 } from './actionTypes';
 
 import {
@@ -77,6 +78,11 @@ export default function reducer(state = initialState, action) {
       };
     case UPDATE_ONSITE_STATUS_SUCCESS:
       return updateServiceRequestDetails(state, action);
+    case ADD_CONTACT_TO_SERVICE_REQUEST:
+      return {
+        ...state,
+        currentServiceRequest: action.serviceRequest,
+      };
     default:
       return state;
   }
