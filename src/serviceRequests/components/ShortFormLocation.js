@@ -6,7 +6,7 @@ export default function ShortFormLocation({ serviceRequest }) {
   const { primaryLocation, secondaryLocation } = prioritizeLocationData(serviceRequest);
   return (
     <View>
-      <Text style={styles.primary}>{formatLocationData(serviceRequest, primaryLocation)}</Text>
+      <Text style={styles.primary} numberOfLines={2}>{formatLocationData(serviceRequest, primaryLocation)}</Text>
       <Text style={styles.secondary} numberOfLines={1}>{formatLocationData(serviceRequest, secondaryLocation)}</Text>
     </View>
   );

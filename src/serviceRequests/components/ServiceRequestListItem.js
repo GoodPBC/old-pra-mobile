@@ -45,8 +45,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   content: {
-    height: 175,
-    justifyContent: 'space-around',
+    maxHeight: 175,
     padding: 5,
     borderColor: 'lightgray',
     borderLeftWidth: 1,

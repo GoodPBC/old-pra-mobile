@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     paddingRight: X_AXIS_PADDING,
+    marginBottom: 10,
   },
   header: {
     color: LIGHT_BLUE,
