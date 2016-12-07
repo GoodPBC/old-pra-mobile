@@ -9,7 +9,7 @@ export default function DetailsSection({ serviceRequest }) {
   return (
     <View style={styles.detailsContainer}>
       <AddressSection serviceRequest={serviceRequest} fullLength />
-      <Separator />
+      <Separator style={styles.separator} />
       <DescriptionSection serviceRequest={serviceRequest} />
       <Separator />
     </View>
@@ -30,5 +30,8 @@ const styles = StyleSheet.create({
   },
   label: {
     fontWeight: 'bold',
+  },
+  separator: {
+    marginBottom: 10,
   },
 });
