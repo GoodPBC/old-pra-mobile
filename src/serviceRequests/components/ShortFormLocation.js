@@ -4,10 +4,11 @@ import { formatLocationData, prioritizeLocationData } from '../address';
 
 export default function ShortFormLocation({ serviceRequest }) {
   const { primaryLocation, secondaryLocation } = prioritizeLocationData(serviceRequest);
+  const formattedSecondaryLocation = formatLocationData(serviceRequest, secondaryLocation);
   return (
     <View>
       <Text style={styles.primary} numberOfLines={2}>{formatLocationData(serviceRequest, primaryLocation)}</Text>
-      <Text style={styles.secondary} numberOfLines={1}>{formatLocationData(serviceRequest, secondaryLocation)}</Text>
+      {formattedSecondaryLocation && <Text style={styles.secondary} numberOfLines={1}>{formattedSecondaryLocation}</Text>}
     </View>
   );
 }
