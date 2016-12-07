@@ -6,7 +6,13 @@ export default function InvertTextInput(props) {
     style,
     ...rest,
   } = props;
-  return <TextInput style={[style, styles.input]} placeholderTextColor="white" {...rest} />;
+  return (
+    <TextInput
+      style={[style, styles.input]}
+      placeholderTextColor="white" {...rest}
+      underlineColorAndroid="transparent"
+    />
+  );
 }
 
 const styles = StyleSheet.create({
