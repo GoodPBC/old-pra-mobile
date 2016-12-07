@@ -11,18 +11,13 @@ export default class ContactSection extends Component {
     this._goToAddContactsNumber = this._goToAddContactsNumber.bind(this);
   }
 
-  componentDidMount(){
-    console.log('=======props on contactsection.js========');
-    console.log(this.props);
-  }
-
   _goToAddContactsNumber() {
     this.props.navigator.push({
       index: 3,
       title: 'Add Contact'
     });
   }
-  
+
   render() {
     const contacts = this.props.contacts;
     return (
