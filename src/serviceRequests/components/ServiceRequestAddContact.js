@@ -41,7 +41,7 @@ export default class ServiceRequestAddContact extends Component {
       outcome: this.state.outcome
     };
     this.props.addContactToServiceRequest(contact);
-    this.onFinish();
+    this._onFinish();
   }
 
   _onFinish() {

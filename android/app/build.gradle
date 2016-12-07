@@ -126,6 +126,11 @@ android {
             keyPassword DHS_PRA_RELEASE_KEY_PASSWORD
         }
     }
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+        }
+    }
     splits {
         abi {
             reset()
