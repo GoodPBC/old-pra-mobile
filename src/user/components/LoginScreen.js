@@ -49,6 +49,7 @@ export default class LoginScreen extends Component {
               <InvertTextInput
                 style={styles.loginModalInput}
                 onChangeText={(email) => this.setState({ email })}
+                autoCorrect={false}
                 autoCapitalize={'none'}
                 keyboardType="email-address"
                 placeholder="Email"
@@ -57,6 +58,7 @@ export default class LoginScreen extends Component {
               <InvertTextInput
                 style={styles.loginModalInput}
                 onChangeText={(password) => this.setState({ password })}
+                autoCorrect={false}
                 autoCapitalize={'none'}
                 secureTextEntry={!this.state.showPassword}
                 placeholder="Password"
