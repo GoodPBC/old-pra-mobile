@@ -63,7 +63,7 @@ export default class App extends Component {
   _renderTabs() {
     return (
       <ScrollableTabView
-        renderTabBar={() => <TabBar />}
+        renderTabBar={() => <TabBar style={styles.tabBar}/>}
         tabBarInactiveTextColor={GRAY_TEXT}
         tabBarActiveTextColor={DARK_BLUE}
         tabBarPosition="bottom"
@@ -116,4 +116,10 @@ const styles = StyleSheet.create({
   tabBarNavigator: {
     flex: 1,
   },
+  tabBar: {
+    shadowColor: '#333333',
+    shadowOpacity: 1,
+    shadowOffset: { width: 0, height: 6 },
+    shadowRadius: 8
+  }
 });

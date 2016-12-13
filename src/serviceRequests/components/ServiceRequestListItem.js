@@ -49,8 +49,7 @@ const styles = StyleSheet.create({
     padding: 5,
     borderColor: 'lightgray',
     borderLeftWidth: 1,
-    borderRightWidth: 1,
-    borderBottomWidth: 1,
+    borderRightWidth: 1
   },
   contentSection: {
     padding: 5,

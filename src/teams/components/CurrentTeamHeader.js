@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
   },
   separator: {
     width: 200,
-    marginTop: 20,
+    marginTop: 15,
     marginBottom: 20,
   },
   tinyHeader: {

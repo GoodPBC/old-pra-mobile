@@ -9,6 +9,7 @@ import {
   View,
 } from 'react-native';
 import { DARK_BLUE } from '../constants';
+import { GREY_TEXT } from '../constants';
 
 import refreshIcon from './img/refresh-icon.png';
 
@@ -104,12 +105,19 @@ const styles = StyleSheet.create({
   },
   navBar: {
     backgroundColor: DARK_BLUE,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc'
+
   },
   navElement: {
     flex: 1,
     justifyContent: 'center',
+    paddingRight: 10,
+    paddingLeft: 10
   },
   navHeader: {
     color: 'white',
+    fontSize: 18,
+    fontWeight: 'bold'
   }
 });

@@ -6,12 +6,22 @@ import {
   Button,
   Separator,
   X_AXIS_PADDING,
+  GRAY_TEXT,
+  LIGHT_BLUE,
 } from '../../shared';
 
 function CurrentResolution({ serviceRequest }) {
+  const resDate = new Date(serviceRequest.resolution.reported_at);
+  const resDateDisplay = resDate.getHours() + ':' + resDate.getMinutes() + ', ' + resDate.toDateString();
   return (
-    <Text>RESOLVED with code {serviceRequest.resolution.resolution_code}
-      since {serviceRequest.resolution.reported_at}</Text>
+    <View style={styles.detailsContainer}>
+      <View style={styles.detailsContainerInner}>
+        <Text style={styles.header}>Resolution</Text>
+        <Text>Service Request Resolved</Text>
+        <Text>Status Code: {serviceRequest.resolution.resolution_code}</Text>
+        <Text>Resolved At: {resDateDisplay}</Text>
+      </View>
+    </View>
   );
 }
 
@@ -20,7 +30,14 @@ CurrentResolution.propTypes = {
 };
 
 function ResolutionPending() {
-  return <Text>Resolution submission pending</Text>;
+  return (
+    <View style={styles.detailsContainer}>
+      <View style={styles.detailsContainerInner}>
+        <Text style={styles.header}>Resolution</Text>
+        <Text>Resolution submission pending</Text>
+      </View>
+    </View>
+  );
 }
 
 ResolutionPending.propTypes = {
@@ -29,13 +46,16 @@ ResolutionPending.propTypes = {
 
 function ResolutionForm(props) {
   return (
-    <View>
-      <ResolutionPicker {...props} />
-      <Separator />
-      <View style={styles.buttonContainer}>
-        <Text style={styles.srNumber}>SR# {props.serviceRequest.sr_number}</Text>
-        <ResolveRequestButton {...props} />
+    <View style={styles.detailsContainer}>
+      <View style={styles.detailsContainerInner}>
+        <Text style={styles.header}>Resolution</Text>
       </View>
+        <ResolutionPicker {...props} />
+        <Separator />
+        <View style={styles.buttonContainer}>
+          <Text style={styles.srNumber}>SR# {props.serviceRequest.sr_number}</Text>
+          <ResolveRequestButton {...props} />
+        </View>
     </View>
   );
 }
@@ -113,5 +133,17 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 20,
     paddingBottom: 10,
-  }
+  },
+  header: {
+    color: LIGHT_BLUE,
+    marginBottom: 3,
+  },
+  detailsContainer: {
+    padding: 10,
+  },
+  detailsContainerInner: {
+    paddingLeft: 30,
+    paddingBottom: 10,
+    marginBottom: 10
+  },
 });

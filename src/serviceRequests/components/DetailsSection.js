@@ -26,7 +26,6 @@ const styles = StyleSheet.create({
   },
   detailsContainer: {
     padding: 10,
-    marginBottom: 50, // Otherwise we can't scroll to the button at the bottom
   },
   label: {
     fontWeight: 'bold',

@@ -6,7 +6,7 @@ import Separator from '../../shared/components/Separator';
 
 import ServiceRequestListItem from './ServiceRequestListItem';
 
-import { Button } from '../../shared';
+import { Button, InvertButton } from '../../shared';
 
 export default class ServiceRequestList extends Component {
   constructor(props) {
@@ -103,13 +103,22 @@ export default class ServiceRequestList extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.buttonRow}>
-          <Button style={styles.button} onPress={ () => this.setState({ displayServiceRequests: 'active' }) }>Active</Button>
-          <Button style={styles.button} onPress={ () => this.setState({ displayServiceRequests: 'inactive' }) }>Closed</Button>
+          <InvertButton 
+            style={this.state.displayServiceRequests === 'active' ? styles.buttonActive : styles.button} 
+            textStyle={this.state.displayServiceRequests === 'active' ? styles.textActive : styles.text} 
+            onPress={ () => this.setState({ displayServiceRequests: 'active' }) }>
+            ACTIVE
+          </InvertButton>
+          <InvertButton 
+            style={this.state.displayServiceRequests === 'inactive' ? styles.buttonActive : styles.button} 
+            textStyle={this.state.displayServiceRequests === 'inactive' ? styles.textActive : styles.text} 
+            onPress={ () => this.setState({ displayServiceRequests: 'inactive' }) }>
+            CLOSED
+          </InvertButton>
         </View>
         <ListView
           dataSource={this.state.dataSource}
           renderRow={this._renderRow}
-          renderSeparator={this._renderSeparator}
           enableEmptySections
         />
       </View>
@@ -130,12 +139,37 @@ const styles = StyleSheet.create({
   },
   buttonRow: {
     flexDirection: 'row',
-    justifyContent: 'space-around'
+    justifyContent: 'space-around',
+    backgroundColor: '#1A73C2',
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingLeft: 20,
+    paddingRight: 20,
+    marginBottom: 10
   },
   button: {
     flex: 1,
-    height: 40,
+    height: 30,
     borderWidth: 1,
-    borderColor: 'white'
-  }
+    borderColor: 'white',
+    backgroundColor: '#1A73C2'
+  },
+  buttonActive: {
+    flex: 1,
+    height: 30,
+    borderWidth: 1,
+    borderColor: 'white',
+    backgroundColor: 'white',
+    color: '#1A73C2'
+  },
+  text: {
+    color: 'white',
+    fontSize: 14,
+    fontWeight: 'bold'
+  },
+  textActive: {
+    color: '#1A73C2',
+    fontSize: 14,
+    fontWeight: 'bold'
+  },
 });

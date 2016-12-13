@@ -1,7 +1,13 @@
 import React, { Component, PropTypes } from 'react';
 
 import { StyleSheet, Text, View } from 'react-native';
-import { Separator, Button } from '../../shared';
+import { 
+  Separator, 
+  Button,
+  GRAY_TEXT,
+  LIGHT_BLUE,
+  InvertButton
+} from '../../shared';
 
 export default class ContactSection extends Component {
 
@@ -22,15 +28,27 @@ export default class ContactSection extends Component {
     const contacts = this.props.contacts;
     return (
       <View style={styles.detailsContainer}>
-        <Text style={styles.label}>Contacts</Text>
-        {
-          contacts.map( (contact, key) => {
-            return (
-              <ContactDetail key={key} contact={contact} />
-            );
-          })
-        }
-        <Button onPress={ () => {this._goToAddContactsNumber()} } >Add Contacts</Button>
+        <View style={styles.detailsContainerInner}>
+          <Text style={styles.header}>Contacts</Text>
+          { 
+            contacts.length === 0 ? 
+              <Text>Currently no contacts added to Service Request.</Text>
+            :
+              contacts.map( (contact, key) => {
+                return (
+                  <ContactDetail key={key} contact={contact} />
+                );
+              })
+            }
+          <InvertButton 
+            onPress={ () => {this._goToAddContactsNumber()} } 
+            style={styles.invertButton}
+            textStyle={styles.invertButtonText}
+          >
+            Add Contacts
+            </InvertButton>
+          </View>
+        <Separator />
       </View>
     );
   }
@@ -47,12 +65,31 @@ const styles = StyleSheet.create({
   detailsContainer: {
     padding: 10,
   },
-  label: {
-    fontWeight: 'bold',
+  detailsContainerInner: {
+    paddingLeft: 30,
+    paddingBottom: 10,
+    marginBottom: 10
+  },
+  header: {
+    color: LIGHT_BLUE,
+    marginBottom: 3,
   },
   contactWrapper: {
     paddingTop: 3,
     paddingBottom: 3,
+  },
+  invertButton: {
+    borderColor: LIGHT_BLUE,
+    flex: 2,
+    borderWidth: 1,
+    borderRadius: 4,
+    height: 30,
+    backgroundColor: 'transparent',
+    marginTop: 5,
+  },  
+  invertButtonText: {
+    fontSize: 14,
+    color: LIGHT_BLUE
   }
 });
 
