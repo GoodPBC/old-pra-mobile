@@ -5,8 +5,12 @@ import { View, StyleSheet, ListView } from 'react-native';
 import Separator from '../../shared/components/Separator';
 
 import ServiceRequestListItem from './ServiceRequestListItem';
+import ServiceRequestFilters from './ServiceRequestFilters';
 
-import { Button, InvertButton } from '../../shared';
+const FILTERS = {
+  ACTIVE: 'active',
+  INACTIVE: 'inactive',
+};
 
 export default class ServiceRequestList extends Component {
   constructor(props) {
@@ -14,11 +18,14 @@ export default class ServiceRequestList extends Component {
 
     const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
 
-    this.state = { 
-      dataSource: ds.cloneWithRows(props.serviceRequests),
-      displayServiceRequests: 'active' 
+    this.state = {
+      currentFilter: FILTERS.ACTIVE
     };
 
+    this._includeServiceRequest = this._includeServiceRequest.bind(this);
+    this.state.dataSource = ds.cloneWithRows(this._filteredServiceRequests(props.serviceRequests));
+
+    this._changeFilter = this._changeFilter.bind(this);
     this._selectServiceRequest = this._selectServiceRequest.bind(this);
 
     this._renderRow = this._renderRow.bind(this);
@@ -29,13 +36,13 @@ export default class ServiceRequestList extends Component {
     if (nextProps.serviceRequests) {
       this._sortServiceRequests(nextProps.serviceRequests);
       this.setState({
-        dataSource: this.state.dataSource.cloneWithRows(nextProps.serviceRequests),
+        dataSource: this.state.dataSource.cloneWithRows(
+          this._filteredServiceRequests(nextProps.serviceRequests)),
       });
     }
   }
 
   _sortServiceRequests(serviceRequests) {
-    
     function compare(a, b){
       if (statusMap[a] < statusMap[b]) {
         return -1;
@@ -67,30 +74,37 @@ export default class ServiceRequestList extends Component {
     });
   }
 
-  _renderRow(rowData) {
-    if (this.state.displayServiceRequests === 'active') {
-      if (rowData.status === 'in_the_field' || rowData.status === 'on_site') {
-        return (
-          <ServiceRequestListItem
-            serviceRequest={rowData}
-            selectServiceRequest={this._selectServiceRequest}
-          />
-        );
-      } else {
-        return null;
-      }
-    } else {
-      if (rowData.status === 'visit_complete'|| rowData.statue == 'closed') {
-        return (
-          <ServiceRequestListItem
-            serviceRequest={rowData}
-            selectServiceRequest={this._selectServiceRequest}
-          />
-        );
-      } else {
-        return null;
-      }
+  _changeFilter(newFilter) {
+    this.setState({ currentFilter: newFilter }, () => {
+      this.setState({ dataSource: this.state.dataSource.cloneWithRows(
+        this._filteredServiceRequests(this.props.serviceRequests))
+      });
+    });
+  }
+
+  _filteredServiceRequests(serviceRequests) {
+    return serviceRequests.filter(sr => {
+      return this._includeServiceRequest(sr);
+    });
+  }
+
+  // Runs as a filter predicate
+  _includeServiceRequest(serviceRequest) {
+    if (this.state.currentFilter === FILTERS.ACTIVE) {
+      return serviceRequest.status === 'in_the_field' || serviceRequest.status === 'on_site';
     }
+
+    return serviceRequest.status === 'visit_complete' || serviceRequest.statue === 'closed';
+  }
+
+  _renderRow(rowData) {
+    return (
+      <ServiceRequestListItem
+        key={rowData.sr_number}
+        serviceRequest={rowData}
+        selectServiceRequest={this._selectServiceRequest}
+      />
+    );
   }
 
   _renderSeparator(sectionID, rowID) {
@@ -102,20 +116,7 @@ export default class ServiceRequestList extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.buttonRow}>
-          <InvertButton 
-            style={this.state.displayServiceRequests === 'active' ? styles.buttonActive : styles.button} 
-            textStyle={this.state.displayServiceRequests === 'active' ? styles.textActive : styles.text} 
-            onPress={ () => this.setState({ displayServiceRequests: 'active' }) }>
-            ACTIVE
-          </InvertButton>
-          <InvertButton 
-            style={this.state.displayServiceRequests === 'inactive' ? styles.buttonActive : styles.button} 
-            textStyle={this.state.displayServiceRequests === 'inactive' ? styles.textActive : styles.text} 
-            onPress={ () => this.setState({ displayServiceRequests: 'inactive' }) }>
-            CLOSED
-          </InvertButton>
-        </View>
+        <ServiceRequestFilters onFilterChange={this._changeFilter} />
         <ListView
           dataSource={this.state.dataSource}
           renderRow={this._renderRow}
@@ -137,39 +138,5 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  buttonRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    backgroundColor: '#1A73C2',
-    paddingTop: 10,
-    paddingBottom: 10,
-    paddingLeft: 20,
-    paddingRight: 20,
-    marginBottom: 10
-  },
-  button: {
-    flex: 1,
-    height: 30,
-    borderWidth: 1,
-    borderColor: 'white',
-    backgroundColor: '#1A73C2'
-  },
-  buttonActive: {
-    flex: 1,
-    height: 30,
-    borderWidth: 1,
-    borderColor: 'white',
-    backgroundColor: 'white',
-    color: '#1A73C2'
-  },
-  text: {
-    color: 'white',
-    fontSize: 14,
-    fontWeight: 'bold'
-  },
-  textActive: {
-    color: '#1A73C2',
-    fontSize: 14,
-    fontWeight: 'bold'
-  },
+
 });
