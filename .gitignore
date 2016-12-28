@@ -49,3 +49,9 @@ ios/main.jsbundle*
 # Crashlytics says don't commit this to version control
 android/app/src/main/res/values/com_crashlytics_export_strings.xml
 android/app/src/main/assets/crashlytics-build.properties
+
+fastlane/.env
+fastlane/report.xml
+ProviderResponseApp.app.dSYM.zip
+*.cer
+*.mobileprovision
