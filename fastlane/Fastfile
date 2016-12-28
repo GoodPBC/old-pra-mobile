@@ -47,6 +47,7 @@ platform :android do
       properties: { versionCode: version_code }
     )
     crashlytics(
+      groups: ['testers'],
       api_token: ENV['CRASHLYTICS_API_TOKEN'],
       build_secret: ENV['CRASHLYTICS_BUILD_SECRET']
     )
