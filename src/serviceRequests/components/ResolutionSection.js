@@ -75,6 +75,8 @@ export default class ResolutionSection extends Component {
       return <CurrentResolution serviceRequest={serviceRequest} />;
     } else if (serviceRequest.pendingResolution) {
       return <ResolutionPending {...this.props} />;
+    } else if (serviceRequest.status !== 'on_site') {
+      return null;
     }
 
     return <ResolutionForm {...this.props} />;
