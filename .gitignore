@@ -55,3 +55,6 @@ fastlane/report.xml
 ProviderResponseApp.app.dSYM.zip
 *.cer
 *.mobileprovision
+
+tsconfig.json
+typings/
