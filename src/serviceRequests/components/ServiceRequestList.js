@@ -83,9 +83,7 @@ export default class ServiceRequestList extends Component {
   }
 
   _filteredServiceRequests(serviceRequests) {
-    return serviceRequests.filter(sr => {
-      return this._includeServiceRequest(sr);
-    });
+    return serviceRequests.filter(sr => this._includeServiceRequest(sr));
   }
 
   // Runs as a filter predicate

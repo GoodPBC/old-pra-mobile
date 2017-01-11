@@ -16,7 +16,7 @@ export default class ServiceRequestNavigation extends Component {
   }
 
   _refreshServiceRequests(route, navigator, index) {
-    if (index === 0) {  
+    if (index === 0) {
       this.props.fetchServiceRequests();
     } else if (index === 1) {
       this.props.refreshCurrentServiceRequest();

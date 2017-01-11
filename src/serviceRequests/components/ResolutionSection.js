@@ -12,7 +12,7 @@ import {
 
 function CurrentResolution({ serviceRequest }) {
   const resDate = new Date(serviceRequest.resolution.reported_at);
-  const resDateDisplay = resDate.getHours() + ':' + resDate.getMinutes() + ', ' + resDate.toDateString();
+  const resDateDisplay = `${resDate.getHours()}:${resDate.getMinutes()}, ${resDate.toDateString()}`;
   return (
     <View style={styles.detailsContainer}>
       <View style={styles.detailsContainerInner}>

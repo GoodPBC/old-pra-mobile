@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 
 import { StyleSheet, Text, View } from 'react-native';
-import { 
-  Separator, 
+import {
+  Separator,
   Button,
   GRAY_TEXT,
   LIGHT_BLUE,
@@ -30,18 +30,16 @@ export default class ContactSection extends Component {
       <View style={styles.detailsContainer}>
         <View style={styles.detailsContainerInner}>
           <Text style={styles.header}>Contacts</Text>
-          { 
-            contacts.length === 0 ? 
+          {
+            contacts.length === 0 ?
               <Text>Currently no contacts added to Service Request.</Text>
             :
-              contacts.map( (contact, key) => {
-                return (
+              contacts.map((contact, key) => (
                   <ContactDetail key={key} contact={contact} />
-                );
-              })
+                ))
             }
-          <InvertButton 
-            onPress={ () => {this._goToAddContactsNumber()} } 
+          <InvertButton
+            onPress={ () => { this._goToAddContactsNumber(); } }
             style={styles.invertButton}
             textStyle={styles.invertButtonText}
           >
@@ -86,7 +84,7 @@ const styles = StyleSheet.create({
     height: 30,
     backgroundColor: 'transparent',
     marginTop: 5,
-  },  
+  },
   invertButtonText: {
     fontSize: 14,
     color: LIGHT_BLUE
@@ -94,7 +92,7 @@ const styles = StyleSheet.create({
 });
 
 class ContactDetail extends Component {
-  
+
   constructor(props){
     super(props);
   }

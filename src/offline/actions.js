@@ -16,14 +16,12 @@ export function syncServiceRequests() {
 export function monitorNetworkChanges() {
   return (dispatch) => {
     NetInfo.isConnected.fetch().then(isConnected => {
-      console.log('First, is ' + (isConnected ? 'online' : 'offline'));
       dispatch({
         type: NETWORK_STATUS_CHANGE,
         isConnected,
       });
     });
     NetInfo.isConnected.addEventListener('change', isConnected => {
-      console.log('network changed');
       dispatch({
         type: NETWORK_STATUS_CHANGE,
         isConnected,

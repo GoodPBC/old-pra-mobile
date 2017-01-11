@@ -9,9 +9,7 @@ export default function LongFormLocation({ serviceRequest }) {
   const { primaryLocation } = prioritizeLocationData(serviceRequest);
   const fieldNames = ['cross_streets', 'city', 'state', 'zip', 'borough', 'location_details'];
   const remainingFields = fieldNames.filter(fieldName => !!serviceRequest[fieldName] && fieldName !== primaryLocation);
-  const textBlocks = remainingFields.map(fieldName => {
-    return <Text key={fieldName}>{formatLocationData(serviceRequest, fieldName)}</Text>;
-  });
+  const textBlocks = remainingFields.map(fieldName => <Text key={fieldName}>{formatLocationData(serviceRequest, fieldName)}</Text>);
 
   return (
     <View>

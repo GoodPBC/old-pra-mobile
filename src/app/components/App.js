@@ -68,7 +68,7 @@ export default class App extends Component {
   _renderTabs() {
     return (
       <ScrollableTabView
-        renderTabBar={() => <TabBar style={styles.tabBar}/>}
+        renderTabBar={() => <TabBar style={styles.tabBar} />}
         tabBarInactiveTextColor={GRAY_TEXT}
         tabBarActiveTextColor={DARK_BLUE}
         tabBarPosition="bottom"

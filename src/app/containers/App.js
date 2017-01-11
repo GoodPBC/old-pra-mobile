@@ -9,7 +9,6 @@ import { clearErrorMessage } from '../actions';
 import { monitorNetworkChanges } from '../../offline/actions';
 
 function mapStateToProps(state) {
-  console.log('state', state.offline);
   return {
     apiRequestInProgress: state.app.apiRequestInProgress,
     errorMessage: state.app.errorMessage,

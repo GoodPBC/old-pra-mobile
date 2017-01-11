@@ -108,7 +108,7 @@ export function addContactToServiceRequest(contact) {
     requestMethod: 'POST',
     requestPath: 'contacts',
     requestParams: {
-      contact: contact
+      contact
     }
   };
 }

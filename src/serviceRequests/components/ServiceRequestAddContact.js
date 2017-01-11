@@ -55,7 +55,7 @@ export default class ServiceRequestAddContact extends Component {
           <View style={styles.formGroup}>
             <Text style={styles.label}>Description</Text>
             <TextInput
-              multiline={true}
+              multiline
               numberOfLines={3}
               value={this.state.description}
               style={styles.textInput}
@@ -167,7 +167,7 @@ export default class ServiceRequestAddContact extends Component {
             />
           </View>
           <View style={styles.formGroup}>
-            <Button onPress={ () => { this._addContactToServiceRequest() } } >Add Contact</Button>
+            <Button onPress={ () => { this._addContactToServiceRequest(); } } >Add Contact</Button>
           </View>
         </ScrollView>
       </View>
