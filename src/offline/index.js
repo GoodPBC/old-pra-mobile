@@ -1,3 +1,4 @@
+import OfflineBanner from './components/OfflineBanner';
 import SyncNavigation from './components/SyncNavigation';
 
-export { SyncNavigation };
+export { OfflineBanner, SyncNavigation };

@@ -5,6 +5,7 @@ import {
   Modal,
   StatusBar,
   StyleSheet,
+  Text,
   View,
 } from 'react-native';
 
@@ -12,7 +13,7 @@ import ScrollableTabView from 'react-native-scrollable-tab-view';
 
 import { ServiceRequestNavigation } from '../../serviceRequests';
 import { TeamNavigation } from '../../teams';
-import { SyncNavigation } from '../../offline';
+import { OfflineBanner, SyncNavigation } from '../../offline';
 
 import { LoginScreen, LogoutScreen } from '../../user';
 import TabBar from './TabBar';
@@ -35,6 +36,10 @@ export default class App extends Component {
     this.state = {
       selectedTab: Tabs.my_requests,
     };
+  }
+
+  componentWillMount() {
+    this.props.monitorNetworkChanges();
   }
 
   componentWillReceiveProps(newProps) {
@@ -90,6 +95,7 @@ export default class App extends Component {
           barStyle="light-content"
           networkActivityIndicatorVisible={this.props.apiRequestInProgress}
         />
+        {!this.props.networkIsConnected && <OfflineBanner />}
         {content}
       </View>
     );
@@ -100,6 +106,8 @@ App.propTypes = {
   apiRequestInProgress: PropTypes.bool.isRequired,
   clearErrorMessage: PropTypes.func.isRequired,
   errorMessage: PropTypes.string,
+  monitorNetworkChanges: PropTypes.func.isRequired,
+  networkIsConnected: PropTypes.bool,
   userIsAuthenticated: PropTypes.bool,
 };
 
