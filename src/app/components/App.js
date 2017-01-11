@@ -2,21 +2,27 @@ import React, { Component, PropTypes } from 'react';
 
 import {
   Alert,
+  Image,
   Modal,
   StatusBar,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 
-import ScrollableTabView from 'react-native-scrollable-tab-view';
+import TabNavigator from 'react-native-tab-navigator';
 
 import { ServiceRequestNavigation } from '../../serviceRequests';
 import { TeamNavigation } from '../../teams';
 import { OfflineBanner, SyncNavigation } from '../../offline';
 
 import { LoginScreen, LogoutScreen } from '../../user';
-import TabBar from './TabBar';
+
+import myRequestsActiveIcon from './img/my-requests-icon-active.png';
+import myRequestsInactiveIcon from './img/my-requests-icon-inactive.png';
+import teamsActiveIcon from './img/teams-icon-active.png';
+import teamsInactiveIcon from './img/teams-icon-inactive.png';
+import syncActiveIcon from './img/sync-icon-active.png';
+import syncInactiveIcon from './img/sync-icon-inactive.png';
 
 import {
   DARK_BLUE,
@@ -27,6 +33,7 @@ const Tabs = {
   my_requests: 0,
   sync: 1,
   teams: 2,
+  logout: 3,
 };
 
 export default class App extends Component {
@@ -67,18 +74,52 @@ export default class App extends Component {
 
   _renderTabs() {
     return (
-      <ScrollableTabView
-        renderTabBar={() => <TabBar style={styles.tabBar} />}
-        tabBarInactiveTextColor={GRAY_TEXT}
-        tabBarActiveTextColor={DARK_BLUE}
-        tabBarPosition="bottom"
-        tabBarUnderlineStyle={{ backgroundColor: 'white' }}
-      >
-        <ServiceRequestNavigation tabLabel="My Requests" />
-        <TeamNavigation tabLabel="Teams" />
-        <SyncNavigation tabLabel="Sync" />
-        <LogoutScreen tabLabel="Logout" />
-      </ScrollableTabView>
+      <TabNavigator>
+        <TabNavigator.Item
+          selected={this.state.selectedTab === Tabs.my_requests}
+          title="My Requests"
+          renderIcon={() => <Image source={myRequestsInactiveIcon} />}
+          renderSelectedIcon={() => <Image source={myRequestsActiveIcon} />}
+          onPress={() => this.setState({ selectedTab: Tabs.my_requests })}
+          titleStyle={{ color: GRAY_TEXT }}
+          selectedTitleStyle={{ color: DARK_BLUE }}
+        >
+          <ServiceRequestNavigation />
+        </TabNavigator.Item>
+        <TabNavigator.Item
+          selected={this.state.selectedTab === Tabs.teams}
+          title="Teams"
+          renderIcon={() => <Image source={teamsInactiveIcon} />}
+          renderSelectedIcon={() => <Image source={teamsActiveIcon} />}
+          onPress={() => this.setState({ selectedTab: Tabs.teams })}
+          titleStyle={{ color: GRAY_TEXT }}
+          selectedTitleStyle={{ color: DARK_BLUE }}
+        >
+          <TeamNavigation />
+        </TabNavigator.Item>
+        <TabNavigator.Item
+          selected={this.state.selectedTab === Tabs.sync}
+          title="Sync"
+          renderIcon={() => <Image source={syncInactiveIcon} />}
+          renderSelectedIcon={() => <Image source={syncActiveIcon} />}
+          onPress={() => this.setState({ selectedTab: Tabs.sync })}
+          titleStyle={{ color: GRAY_TEXT }}
+          selectedTitleStyle={{ color: DARK_BLUE }}
+        >
+          <SyncNavigation />
+        </TabNavigator.Item>
+        <TabNavigator.Item
+          selected={this.state.selectedTab === Tabs.logout}
+          title="Logout"
+          renderIcon={() => <Image source={myRequestsInactiveIcon} />}
+          renderSelectedIcon={() => <Image source={myRequestsActiveIcon} />}
+          onPress={() => this.setState({ selectedTab: Tabs.logout })}
+          titleStyle={{ color: GRAY_TEXT }}
+          selectedTitleStyle={{ color: DARK_BLUE }}
+        >
+          <LogoutScreen />
+        </TabNavigator.Item>
+      </TabNavigator>
     );
   }
 

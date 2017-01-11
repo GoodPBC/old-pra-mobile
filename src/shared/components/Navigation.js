@@ -80,7 +80,15 @@ export default class Navigation extends Component {
     return (
       <Navigator
         {...this.props}
-        configureScene={() => Navigator.SceneConfigs.HorizontalSwipeJump}
+        configureScene={() => {
+          return {
+            ...Navigator.SceneConfigs.HorizontalSwipeJump,
+            // This prevents left/right swiping on the navigation
+            gestures: {
+              pop: {},
+            },
+          };
+        }}
         navigationBar={
           <Navigator.NavigationBar
           routeMapper={routeMapper}
