@@ -3,6 +3,7 @@ import React, { Component, PropTypes } from 'react';
 import {
   Image,
   Navigator,
+  Platform,
   StyleSheet,
   TouchableOpacity,
   Text,
@@ -77,6 +78,10 @@ export default class Navigation extends Component {
       Title: this._title,
     };
 
+    const navigationStyles = Platform.OS === 'ios' ?
+                            Navigator.NavigationBar.StylesIOS :
+                            Navigator.NavigationBar.StylesAndroid;
+
     return (
       <Navigator
         {...this.props}
@@ -92,7 +97,7 @@ export default class Navigation extends Component {
         navigationBar={
           <Navigator.NavigationBar
           routeMapper={routeMapper}
-          navigationStyles={Navigator.NavigationBar.StylesIOS}
+          navigationStyles={navigationStyles}
           style={styles.navBar}
           />
         }
