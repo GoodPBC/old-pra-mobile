@@ -4,7 +4,7 @@
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import ResolutionSection from '../components/ResolutionSection';
+import ResolutionSection from '../components/resolution/ResolutionSection';
 import * as ServiceRequestActions from '../actions';
 
 function mapStateToProps(state) {
