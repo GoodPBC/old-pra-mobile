@@ -7,17 +7,16 @@ import {
   LIGHT_BLUE,
 } from '../../../shared';
 
+import StatusWithTime from '../StatusWithTime';
+
 
 export default function CurrentResolution({ serviceRequest }) {
-  const resDate = new Date(serviceRequest.resolution.reported_at);
-  const resDateDisplay = `${resDate.getHours()}:${resDate.getMinutes()}, ${resDate.toDateString()}`;
   return (
     <View style={styles.detailsContainer}>
       <View style={styles.detailsContainerInner}>
         <Text style={styles.header}>Resolution</Text>
-        <Text>Service Request Resolved</Text>
-        <Text>Status Code: {serviceRequest.resolution.resolution_code}</Text>
-        <Text>Resolved At: {resDateDisplay}</Text>
+        <StatusWithTime serviceRequest={serviceRequest} />
+        <Text style={{fontWeight: 'bold'}}>{serviceRequest.resolution.display_name}</Text>
       </View>
     </View>
   );
