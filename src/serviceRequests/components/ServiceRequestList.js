@@ -70,7 +70,7 @@ export default class ServiceRequestList extends Component {
     this.props.fetchServiceRequestDetails(serviceRequest);
     this.props.navigator.push({ // Push navigation
       index: 1,
-      title: `SR# ${serviceRequest.sr_number}`,
+      title: `Request Details`,
     });
   }
 

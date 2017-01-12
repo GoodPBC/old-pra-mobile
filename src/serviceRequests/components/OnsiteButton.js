@@ -6,13 +6,15 @@ import StatusWithTime from './StatusWithTime';
 function OnState({ serviceRequest }) {
   return (
     <View style={styles.offContainer}>
-      <View style={{flexDirection: 'column'}}>
+      <View style={{flexDirection: 'column', flex: 3}}>
         <Text style={styles.onsiteText}>On-Site</Text>
         <StatusWithTime serviceRequest={serviceRequest} />
       </View>
-      <Switch
-        value
-        disabled />
+      <View style={{flex: 1}}>
+        <Switch
+          value
+          disabled />
+      </View>
     </View>
   );
 }
