@@ -26,6 +26,7 @@ LongFormLocation.propTypes = {
 const styles = StyleSheet.create({
   primary: {
     fontWeight: 'bold',
+    fontSize: 18,
   },
   secondary: {},
 });

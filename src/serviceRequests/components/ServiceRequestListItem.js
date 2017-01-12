@@ -3,7 +3,7 @@ import React, { PropTypes } from 'react';
 import { StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import DescriptionSection from './DescriptionSection';
 import AddressSection from './AddressSection';
-import OnsiteSection from './OnsiteSection';
+import TimeSection from './TimeSection';
 import {
   LIGHT_BLUE,
   DARK_BLUE,
@@ -20,7 +20,7 @@ export default function ServiceRequestListItem({ serviceRequest, selectServiceRe
           <Text style={styles.headerText}>SR# {serviceRequest.sr_number}</Text>
         </View>
         <View style={styles.content}>
-          <OnsiteSection serviceRequest={serviceRequest} />
+          <TimeSection serviceRequest={serviceRequest} />
           <AddressSection serviceRequest={serviceRequest} />
           <DescriptionSection
             serviceRequest={serviceRequest}

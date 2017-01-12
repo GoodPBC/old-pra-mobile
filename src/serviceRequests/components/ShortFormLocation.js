@@ -19,6 +19,7 @@ ShortFormLocation.propTypes = {
 
 const styles = StyleSheet.create({
   primary: {
+    fontSize: 18,
     fontWeight: 'bold',
   },
   secondary: {},
