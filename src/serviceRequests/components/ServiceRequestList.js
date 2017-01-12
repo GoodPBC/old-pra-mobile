@@ -114,7 +114,7 @@ export default class ServiceRequestList extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <ServiceRequestFilters onFilterChange={this._changeFilter} />
+        {this.props.enableFilters && <ServiceRequestFilters onFilterChange={this._changeFilter} />}
         <ListView
           dataSource={this.state.dataSource}
           renderRow={this._renderRow}
@@ -127,6 +127,7 @@ export default class ServiceRequestList extends Component {
 
 ServiceRequestList.propTypes = {
   fetchServiceRequestDetails: PropTypes.func.isRequired,
+  enableFilters: PropTypes.bool,
   navigator: PropTypes.object.isRequired,
   selectServiceRequest: PropTypes.func.isRequired,
   serviceRequests: PropTypes.array.isRequired,

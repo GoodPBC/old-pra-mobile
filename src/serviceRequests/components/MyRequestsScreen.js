@@ -12,7 +12,7 @@ export default class MyRequestsScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <ServiceRequestList navigator={this.props.navigator} />
+        <ServiceRequestList navigator={this.props.navigator} enableFilters />
       </View>
     );
   }
