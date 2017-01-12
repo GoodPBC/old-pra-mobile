@@ -11,7 +11,7 @@ function timeDescriptor(serviceRequest) {
       name = serviceRequest.onsite_status.user.full_name;
       return `${name} went on-site`;
     case 'visit_complete':
-      name = serviceRequest.onsite_status.user.full_name;
+      name = serviceRequest.resolution.user.full_name;
       return `${name} resolved`;
     default: return 'unknown';
   }
