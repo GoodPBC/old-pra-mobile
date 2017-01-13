@@ -1,43 +1,40 @@
+# Running in Simulator
+
+- For iOS, the default scheme has been renamed to `ProviderResponseApp-Development`,
+so run the following command to build on the simulator: `react-native run-ios --scheme=ProviderResponseApp-Development`
+
 # Build Instructions
 
-## IOS:
+- Install fastlane: `gem install fastlane`
+- Create a `.env` file in `fastlane/` and put the following in it:
+  ```
+  USERNAME=kristopher@happyfuncorp.com
+  CRASHLYTICS_API_TOKEN=***
+  CRASHLYTICS_BUILD_SECRET=***
+  ```
+  - Replace with your Apple developer account email, the real crashlytics token and secret
 
-- Make sure env points to the staging / prod API:
-  * Set `BASE_URL` in `.env`
-- Bundle the JS: `npm run ios:bundle`
-- Bump the version numbers in `Info.plist`
-- Archive a build in Xcode
-- Upload to iTunes
+## iOS:
+
+- Run `fastlane ios beta`
+- Once the build completes, commit the changes to the build number.
 
 ## Android:
-- Make sure env points to the staging API (see above)
+
 - Set up your signing keys:
   - get a copy of the existing keystore, it's called `dhs-pra.keystore` and copy to `android/app/dhs-pra.keystore`
   - add the following config to your `~/.gradle/gradle.properties` file:
     ```
     DHS_PRA_RELEASE_STORE_FILE=dhs-pra.keystore
     DHS_PRA_RELEASE_KEY_ALIAS=dha-pra
-    DHS_PRA_RELEASE_STORE_PASSWORD=*****
-    DHS_PRA_RELEASE_KEY_PASSWORD=
+    DHS_PRA_RELEASE_STORE_PASSWORD=dhs_pra_123
+    DHS_PRA_RELEASE_KEY_PASSWORD=dhs_pra_123
     ```
-  - Fill in the key password that you should also have gotten
-- Open Android Studio
-- `Build -> Generate Signed APK`
-- Fill out the prompts
-- The APK is generated in `android/app/app-release.apk`
-
-## Deploying via Fabric
-- Install the Fabric plugin in Android Studio
-- Open the Fabric plugin pane and log in as DHS
-- Build the APK
-- Go through the Crashlytics stuff on the Fabric pane
-- Go to Beta distributions and drop the APK on the pane
-- Add email addresses and distribute
+- Run `fastlane android beta`
+- Commit the change to the build number.
 
 ## Troubleshooting
 
 - *App running slowly on the emulator*, make sure JS Debugging is turned off.
-- *Android Studio build appears to not be updating the JS*, make sure the `Preferences -> Build, Execution, Deployment -> Compile -> Configure on Demand` config is turned off.
-- *Command line Android build not working*, I couldn't get the Android build to work via the command line, so in that case use Android Studio.
 - *APK not installing on the emulator / device*, make sure USB debugging is enabled on the device. Uninstall and reinstall the app on the device.
 - *Using Crashlytics on iOS build*, this was giving errors so it's currently not linked in the iOS binaries. Add `libSMXCrashlytics.a` back at some point to get this working.
