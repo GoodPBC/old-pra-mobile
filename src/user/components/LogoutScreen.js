@@ -1,8 +1,10 @@
 import React, { PropTypes } from 'react';
 
 import {
+  Image,
   StyleSheet,
-  View } from 'react-native';
+  View,
+} from 'react-native';
 import {
   InvertButton,
   InvertText,
@@ -12,14 +14,23 @@ import {
   X_AXIS_PADDING,
 } from '../../shared';
 
+import iconName from './img/icon_logout_name.png';
+import iconEmail from './img/icon_logout_email.png';
+
 function LogoutScene({ logoutUser, name, email }) {
   return (
     <GradientBackground style={styles.container}>
       <View>
-        <InvertText style={styles.text}>{name}</InvertText>
-        <Separator />
-        <InvertText style={styles.text}>{email}</InvertText>
-        <Separator />
+        <View style={styles.row}>
+          <Image source={iconName} />
+          <InvertText style={styles.text}>{name}</InvertText>
+        </View>
+        <Separator style={styles.separator} />
+        <View style={styles.row}>
+          <Image source={iconEmail} />
+          <InvertText style={styles.text}>{email}</InvertText>
+        </View>
+        <Separator style={styles.separator} />
       </View>
       <InvertButton onPress={logoutUser}>
         Logout
@@ -64,8 +75,15 @@ const styles = StyleSheet.create({
     paddingRight: X_AXIS_PADDING,
     justifyContent: 'space-around',
   },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  separator: {
+    marginBottom: 20,
+    marginTop: 10,
+  },
   text: {
-    marginTop: 20,
-    marginBottom: 10,
+    paddingLeft: 20,
   }
 });

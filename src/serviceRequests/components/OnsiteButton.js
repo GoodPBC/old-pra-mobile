@@ -1,13 +1,25 @@
 import React, { Component, PropTypes } from 'react';
-import { StyleSheet, Switch, Text, View } from 'react-native';
+import {
+  Image,
+  StyleSheet,
+  Switch,
+  Text,
+  View,
+} from 'react-native';
 
+import SectionWithIcon from './SectionWithIcon';
 import StatusWithTime from './StatusWithTime';
+
+import iconResolved from './img/icon-resolved_star.png';
+import {
+  Separator
+} from '../../shared';
 
 function OnState({ serviceRequest }) {
   return (
     <View style={styles.offContainer}>
       <View style={{flexDirection: 'column', flex: 3}}>
-        <Text style={styles.onsiteText}>On-Site</Text>
+        <Text style={styles.statusText}>On-Site</Text>
         <StatusWithTime serviceRequest={serviceRequest} />
       </View>
       <View style={{flex: 1}}>
@@ -47,10 +59,10 @@ function PendingState({ serviceRequest }) {
 
 function ResolvedState({ serviceRequest }) {
   return (
-    <View>
-      <Text>Resolved</Text>
-      <StatusWithTime serviceRequest={serviceRequest} />
-    </View>
+    <SectionWithIcon icon={iconResolved}>
+        <Text style={styles.statusText}>Resolved</Text>
+        <StatusWithTime serviceRequest={serviceRequest} />
+    </SectionWithIcon>
   );
 }
 
@@ -70,6 +82,7 @@ export default class OnsiteButton extends Component {
     return (
       <View style={styles.container}>
         {content}
+        <Separator />
       </View>
     );
   }
@@ -83,18 +96,19 @@ OnsiteButton.propTypes = {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingLeft: 40,
-    paddingRight: 40,
+    paddingRight: 10,
     paddingTop: 20,
     paddingBottom: 20,
+    paddingLeft: 10,
   },
   offContainer: {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    paddingLeft: 30,
   },
-  onsiteText: {
+  statusText: {
     width: 100,
     fontSize: 20,
     fontWeight: 'bold',

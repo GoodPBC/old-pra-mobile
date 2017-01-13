@@ -12,6 +12,7 @@ import DetailsSection from './DetailsSection';
 import OnsiteButton from './OnsiteButton';
 import {
   DARK_BLUE,
+  Separator,
 } from '../../shared';
 
 function BannerWithNumber({ serviceRequest }) {
