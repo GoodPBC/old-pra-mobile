@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
 import {
+  BackAndroid,
   Image,
   Navigator,
   Platform,
@@ -21,7 +22,26 @@ export default class Navigation extends Component {
     this._rightButton = this._rightButton.bind(this);
     this._title = this._title.bind(this);
 
+    this._handleAndroidBackButton = this._handleAndroidBackButton.bind(this);
     this._refreshAndGoBack = this._refreshAndGoBack.bind(this);
+
+    this.navigator = null; // Ref for Back button handler
+  }
+
+  componentDidMount() {
+    // This handler gets added for every tab.
+    // These navigation components are never un-mounted, so there
+    // is no opportunity to remove the handler.
+    BackAndroid.addEventListener('hardwareBackPress', this._handleAndroidBackButton);
+  }
+
+  _handleAndroidBackButton() {
+    const navigator = this.navigator;
+    if (navigator && navigator.getCurrentRoutes().length > 1) {
+      navigator.pop();
+      return true;
+    }
+    return false;
   }
 
   _refreshAndGoBack(navigator) {
@@ -94,6 +114,7 @@ export default class Navigation extends Component {
             },
           };
         }}
+        ref={(nav) => { this.navigator = nav; }}
         navigationBar={
           <Navigator.NavigationBar
           routeMapper={routeMapper}
