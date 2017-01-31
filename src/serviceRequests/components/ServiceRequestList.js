@@ -23,9 +23,7 @@ export default class ServiceRequestList extends Component {
     };
 
     this._includeServiceRequest = this._includeServiceRequest.bind(this);
-    if (props.serviceRequests && props.serviceRequests.length > 0) {
-      this.state.dataSource = ds.cloneWithRows(this._filteredServiceRequests(props.serviceRequests));
-    }
+    this.state.dataSource = ds.cloneWithRows(this._filteredServiceRequests(props.serviceRequests));
     this._changeFilter = this._changeFilter.bind(this);
     this._selectServiceRequest = this._selectServiceRequest.bind(this);
 
@@ -34,13 +32,11 @@ export default class ServiceRequestList extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.serviceRequests.length > 0) {
       this._sortServiceRequests(nextProps.serviceRequests);
       this.setState({
         dataSource: this.state.dataSource.cloneWithRows(
           this._filteredServiceRequests(nextProps.serviceRequests)),
       });
-    }
   }
 
   _sortServiceRequests(serviceRequests) {
@@ -76,19 +72,15 @@ export default class ServiceRequestList extends Component {
   }
 
   _changeFilter(newFilter) {
-    if (this.props.serviceRequests.length > 0) {
       this.setState({ currentFilter: newFilter }, () => {
         this.setState({ dataSource: this.state.dataSource.cloneWithRows(
           this._filteredServiceRequests(this.props.serviceRequests))
         });
       });
-    }
   }
 
   _filteredServiceRequests(serviceRequests) {
-    if ( serviceRequests.length > 0 ) {
-      return serviceRequests.filter(sr => this._includeServiceRequest(sr));
-    }
+    return serviceRequests.filter(sr => this._includeServiceRequest(sr));
   }
 
   // Runs as a filter predicate
@@ -120,13 +112,11 @@ export default class ServiceRequestList extends Component {
     return (
       <View style={styles.container}>
         {this.props.enableFilters && <ServiceRequestFilters onFilterChange={this._changeFilter} />}
-        {this.props.serviceRequests.length > 0 ?
           <ListView
             dataSource={this.state.dataSource}
             renderRow={this._renderRow}
             enableEmptySections
           />
-        : null }
       </View>
     );
   }

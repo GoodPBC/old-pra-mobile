@@ -3,6 +3,7 @@ import React, { Component, PropTypes } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import ServiceRequestList from '../containers/ServiceRequestList';
+import EmptyServiceRequestList from './EmptyServiceRequestList';
 
 export default class MyRequestsScreen extends Component {
   componentWillMount() {
@@ -12,7 +13,10 @@ export default class MyRequestsScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <ServiceRequestList navigator={this.props.navigator} enableFilters />
+      {this.props.serviceRequests === undefined || this.props.serviceRequests.length == 0 ?
+        <EmptyServiceRequestList />
+      : <ServiceRequestList navigator={this.props.navigator} enableFilters />
+      }
       </View>
     );
   }
