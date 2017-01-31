@@ -23,7 +23,7 @@ export default class ServiceRequestList extends Component {
     };
 
     this._includeServiceRequest = this._includeServiceRequest.bind(this);
-    if (props.serviceRequests.length > 0) {
+    if (props.serviceRequests && props.serviceRequests.length > 0) {
       this.state.dataSource = ds.cloneWithRows(this._filteredServiceRequests(props.serviceRequests));
     }
     this._changeFilter = this._changeFilter.bind(this);
