@@ -62,6 +62,9 @@ export function refreshCurrentServiceRequest() {
 export function resolveServiceRequest(serviceRequest, resolutionCode) {
   const reportedAtDate = Date();
 
+  console.log('resolution code recieved by resolveservierequest function')
+  console.log(resolutionCode)
+
   return {
     type: API_REQUEST,
     actionName: RESOLVE_SERVICE_REQUEST,
