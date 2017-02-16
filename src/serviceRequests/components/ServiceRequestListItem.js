@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   content: {
-    maxHeight: 175,
+    maxHeight: 220,
     padding: 5,
     borderColor: 'lightgray',
     borderLeftWidth: 1,
