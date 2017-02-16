@@ -12,10 +12,10 @@ export function prioritizeLocationData(serviceRequest) {
   } = serviceRequest;
   let primaryLocation = null;
   let secondaryLocation = null;
-  if (address) {
+  if (address && address.trim()) {
     primaryLocation = 'address';
     secondaryLocation = crossStreets ? 'cross_streets' : 'location_details';
-  } else if (crossStreets) {
+  } else if (crossStreets && crossStreets.trim()) {
     primaryLocation = 'cross_streets';
     secondaryLocation = 'location_details';
   } else {
