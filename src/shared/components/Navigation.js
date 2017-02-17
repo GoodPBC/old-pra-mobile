@@ -100,7 +100,12 @@ export default class Navigation extends Component {
 
     const navigationStyles = Platform.OS === 'ios' ?
                             Navigator.NavigationBar.StylesIOS :
-                            Navigator.NavigationBar.StylesAndroid;
+                            Navigator.NavigationBar.StylesIOS;
+
+    // Navbar looks too small at the top on Android.
+    const navigatorStyles = Platform.OS === 'ios' ?
+                            {} :
+                            { marginTop: 10 };
 
     return (
       <Navigator
@@ -122,6 +127,7 @@ export default class Navigation extends Component {
           style={styles.navBar}
           />
         }
+        style={navigatorStyles}
       />
     );
   }
@@ -140,8 +146,7 @@ const styles = StyleSheet.create({
   navBar: {
     backgroundColor: DARK_BLUE,
     borderBottomWidth: 1,
-    borderBottomColor: '#ccc'
-
+    borderBottomColor: '#ccc',
   },
   navElement: {
     flex: 1,
