@@ -51,7 +51,6 @@ const styles = StyleSheet.create({
   },
   detailsContainerInner: {
     paddingLeft: 30,
-    paddingBottom: 10,
-    marginBottom: 10
+    paddingBottom: 10
   },
 });
