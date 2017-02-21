@@ -2,10 +2,13 @@ import React, { Component, PropTypes } from 'react';
 
 import { View, StyleSheet, ListView } from 'react-native';
 
+import moment from 'moment';
+
 import Separator from '../../shared/components/Separator';
 
 import ServiceRequestListItem from './ServiceRequestListItem';
 import ServiceRequestFilters from './ServiceRequestFilters';
+import UrgentServiceRequestModal from './UrgentServiceRequestModal';
 
 const FILTERS = {
   ACTIVE: 'active',
@@ -19,7 +22,8 @@ export default class ServiceRequestList extends Component {
     const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
 
     this.state = {
-      currentFilter: FILTERS.ACTIVE
+      currentFilter: FILTERS.ACTIVE,
+      urgentServiceRequests: []
     };
 
     this._includeServiceRequest = this._includeServiceRequest.bind(this);
@@ -29,15 +33,49 @@ export default class ServiceRequestList extends Component {
 
     this._renderRow = this._renderRow.bind(this);
     this._renderSeparator = this._renderSeparator.bind(this);
+
+    this.filterServiceRequestsByUrgency = this.filterServiceRequestsByUrgency.bind(this);
+    this.dismissUrgentServiceRequests = this.dismissUrgentServiceRequests.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
+    console.log('nextprops on servicerequest list');
+    console.log(nextProps);
+      if (nextProps.serviceRequests) {
+        this.filterServiceRequestsByUrgency();
+      }
       this._sortServiceRequests(nextProps.serviceRequests);
       this.setState({
         dataSource: this.state.dataSource.cloneWithRows(
           this._filteredServiceRequests(nextProps.serviceRequests)),
       });
   }
+
+  filterServiceRequestsByUrgency(){
+    let urgentServiceRequests = this.props.serviceRequests.map( (serviceRequest) => {
+      if (serviceRequest.status === "in_the_field") {
+        let now = new Date();
+        // one minute for now for testing pursposes
+        let one_hour = 60 * 1000;
+        let sr_time = moment(serviceRequest.updated_at).valueOf();
+        if (now - sr_time > one_hour && serviceRequest.has_alerted === false) {
+          return serviceRequest
+        }
+      }
+    }).filter(Boolean)
+
+    this.setState({
+      urgentServiceRequests: urgentServiceRequests
+    })
+  }
+
+  dismissUrgentServiceRequests() {
+    this.setState({
+      urgentServiceRequests: null
+    })
+    // also hit the server to register them as viewed
+  }
+
 
   _sortServiceRequests(serviceRequests) {
     function compare(a, b){
@@ -117,6 +155,14 @@ export default class ServiceRequestList extends Component {
             renderRow={this._renderRow}
             enableEmptySections
           />
+          { this.state.urgentServiceRequests.length ?
+          <UrgentServiceRequestModal 
+            style={styles.modal}
+            urgentServiceRequests={this.state.urgentServiceRequests} 
+            dismissUrgentServiceRequests={this.dismissUrgentServiceRequests}
+            />
+          : null  
+        }
       </View>
     );
   }
