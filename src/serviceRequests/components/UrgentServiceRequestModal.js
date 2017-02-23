@@ -34,7 +34,7 @@ export default class UrgentServiceRequestModal extends Component {
   */
   componentWillMount(){
     if ( this.props.urgentServiceRequests.length ) {
-      this.setModalVisible(true)
+      this.setModalVisible(false)
     }
   }
 

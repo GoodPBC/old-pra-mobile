@@ -60,17 +60,17 @@ export default class UrgentServiceRequestModalItem extends Component {
                   value={this.state.timeOnsite}
                 />
               </View>
-              <Button 
-                onPress={this.saveServiceRequest} 
-                style={styles.button}
-                disabled={this.state.saved}
-              >
-                <Text>Save Service Request</Text>
-              </Button>
             </View>
           )
         : null
         }
+        <Button 
+          onPress={this.saveServiceRequest} 
+          style={styles.button}
+          disabled={this.state.saved}
+        >
+          <Text>Save Service Request</Text>
+        </Button>
       </View>
     )
   }

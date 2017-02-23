@@ -39,8 +39,6 @@ export default class ServiceRequestList extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('nextprops on servicerequest list');
-    console.log(nextProps);
       if (nextProps.serviceRequests) {
         this.filterServiceRequestsByUrgency();
       }
@@ -73,7 +71,7 @@ export default class ServiceRequestList extends Component {
     this.setState({
       urgentServiceRequests: []
     })
-    // also hit the server to register them as viewed
+
   }
 
 
@@ -155,7 +153,8 @@ export default class ServiceRequestList extends Component {
             renderRow={this._renderRow}
             enableEmptySections
           />
-          { this.state.urgentServiceRequests.length ?
+          { //this is just to hide the modal for now - remove
+            this.state.urgentServiceRequests.length == 'test' ?
           <UrgentServiceRequestModal 
             style={styles.modal}
             urgentServiceRequests={this.state.urgentServiceRequests} 
