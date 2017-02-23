@@ -145,8 +145,6 @@ const styles = StyleSheet.create({
   },
   navBar: {
     backgroundColor: DARK_BLUE,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
   },
   navElement: {
     flex: 1,
