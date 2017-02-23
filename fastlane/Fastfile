@@ -32,18 +32,18 @@ platform :ios do
   end
 
 
-  desc 'Beta Builds'
-  lane :beta do
-    cert
-    sigh
-    increment_build_number(xcodeproj: './ios/ProviderResponseApp.xcodeproj')
-    gym(
-      scheme: 'ProviderResponseApp-Production',
-      project: './ios/ProviderResponseApp.xcodeproj'
-    )
-    pilot(skip_waiting_for_build_processing: true)
-  end
-end
+#   desc 'Beta Builds'
+#   lane :beta do
+#     cert
+#     sigh
+#     increment_build_number(xcodeproj: './ios/ProviderResponseApp.xcodeproj')
+#     gym(
+#       scheme: 'ProviderResponseApp-Production',
+#       project: './ios/ProviderResponseApp.xcodeproj'
+#     )
+#     pilot(skip_waiting_for_build_processing: true)
+#   end
+# end
 
 platform :android do
   desc 'Deploy to crashlytics (staging)'
@@ -69,26 +69,26 @@ platform :android do
     )
   end
 
-  desc 'Deploy to crashlytics (production)'
-  lane :beta do
-    version_file = '../android/version_code'
-    version_code = File.read(version_file).to_i
-    version_code += 1
+  # desc 'Deploy to crashlytics (production)'
+  # lane :beta do
+  #   version_file = '../android/version_code'
+  #   version_code = File.read(version_file).to_i
+  #   version_code += 1
 
-    f = File.new(version_file, 'w')
-    f.write(version_code)
-    f.close
+  #   f = File.new(version_file, 'w')
+  #   f.write(version_code)
+  #   f.close
 
-    gradle(
-      project_dir: 'android',
-      task: 'assemble',
-      build_type: 'Release',
-      properties: { versionCode: version_code }
-    )
-    crashlytics(
-      groups: ['testers'],
-      api_token: ENV['CRASHLYTICS_API_TOKEN'],
-      build_secret: ENV['CRASHLYTICS_BUILD_SECRET']
-    )
-  end
+  #   gradle(
+  #     project_dir: 'android',
+  #     task: 'assemble',
+  #     build_type: 'Release',
+  #     properties: { versionCode: version_code }
+  #   )
+  #   crashlytics(
+  #     groups: ['testers'],
+  #     api_token: ENV['CRASHLYTICS_API_TOKEN'],
+  #     build_secret: ENV['CRASHLYTICS_BUILD_SECRET']
+  #   )
+  # end
 end
