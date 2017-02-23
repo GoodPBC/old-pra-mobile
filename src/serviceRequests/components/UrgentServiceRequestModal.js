@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 
-import { StyleSheet, View, Text, Modal, TouchableHighlight } from 'react-native';
+import { StyleSheet, ScrollView, View, Text, Modal, TouchableHighlight } from 'react-native';
 
 import UrgentServiceRequestModalItem from './UrgentServiceRequestModalItem';
 
 import { Button } from '../../shared';
+import Separator from '../../shared/components/Separator';
 
 export default class UrgentServiceRequestModal extends Component {
 
@@ -40,7 +41,7 @@ export default class UrgentServiceRequestModal extends Component {
   render() {
     const urgentServiceRequests = this.props.urgentServiceRequests
     return(
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         <Button 
           onPress={this.props.dismissUrgentServiceRequests} 
           style={styles.button}
@@ -48,18 +49,24 @@ export default class UrgentServiceRequestModal extends Component {
           <Text>Dismiss Notification</Text>
         </Button>
         <Text>The following service requests are more than an hour old. Please provide additional information:</Text>
+        <Separator style={styles.mainSeparator}/>
         {urgentServiceRequests.map( (serviceRequest, key) => {
-          return (<UrgentServiceRequestModalItem serviceRequest={serviceRequest} key={key} />)
+          return (
+            <View key={key}>
+              <UrgentServiceRequestModalItem serviceRequest={serviceRequest} />
+            <Separator />
+            </View>
+          )
         })
       }
-      </View>
+      </ScrollView>
     )
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: 'center',
+    //alignItems: 'center',
     padding: 20,
     position: 'absolute',
     top: 0,
@@ -77,5 +84,9 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     paddingRight: 20,
     marginBottom: 15
+  },
+  mainSeparator: {
+    marginTop: 4,
+    marginBottom: 2
   }
 })
