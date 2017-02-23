@@ -6,7 +6,7 @@ import ServiceRequestList from '../containers/ServiceRequestList';
 import EmptyServiceRequestList from './EmptyServiceRequestList';
 
 export default class MyRequestsScreen extends Component {
-  
+
   constructor(props) {
     super(props)
   }
@@ -36,8 +36,6 @@ MyRequestsScreen.propTypes = {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    borderTopWidth: 1,
-    borderTopColor: 'white',
   },
   modal: {
     backgroundColor: 'white',
