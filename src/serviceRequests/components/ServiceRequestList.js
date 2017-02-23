@@ -71,7 +71,7 @@ export default class ServiceRequestList extends Component {
 
   dismissUrgentServiceRequests() {
     this.setState({
-      urgentServiceRequests: null
+      urgentServiceRequests: []
     })
     // also hit the server to register them as viewed
   }
@@ -179,6 +179,6 @@ ServiceRequestList.propTypes = {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
+  }
 
 });

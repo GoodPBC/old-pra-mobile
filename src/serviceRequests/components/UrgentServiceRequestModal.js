@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 
-import { StyleSheet, View, Text, Modal } from 'react-native';
+import { StyleSheet, View, Text, Modal, TouchableHighlight } from 'react-native';
+
+import UrgentServiceRequestModalItem from './UrgentServiceRequestModalItem';
+
+import { Button } from '../../shared';
 
 export default class UrgentServiceRequestModal extends Component {
 
@@ -20,8 +24,15 @@ export default class UrgentServiceRequestModal extends Component {
     ); 
   }
 
+  /*
   componentWillReceiveProps(nextProps) {
     if ( nextProps.urgentServiceRequests.length && nextProps.urgentServiceRequests.length > 0 ) {
+      this.setModalVisible(true)
+    }
+  }
+  */
+  componentWillMount(){
+    if ( this.props.urgentServiceRequests.length ) {
       this.setModalVisible(true)
     }
   }
@@ -30,7 +41,17 @@ export default class UrgentServiceRequestModal extends Component {
     const urgentServiceRequests = this.props.urgentServiceRequests
     return(
       <View style={styles.container}>
-        <Text>Urgent Service Requests are more than an hour old and need attention</Text>
+        <Button 
+          onPress={this.props.dismissUrgentServiceRequests} 
+          style={styles.button}
+        >
+          <Text>Dismiss Notification</Text>
+        </Button>
+        <Text>The following service requests are more than an hour old. Please provide additional information:</Text>
+        {urgentServiceRequests.map( (serviceRequest, key) => {
+          return (<UrgentServiceRequestModalItem serviceRequest={serviceRequest} key={key} />)
+        })
+      }
       </View>
     )
   }
@@ -39,6 +60,22 @@ export default class UrgentServiceRequestModal extends Component {
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    padding: 20
+    padding: 20,
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    right: 0,
+    left: 0,
+    backgroundColor: 'white'
+  },
+  button: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderColor: 'white',
+    borderRadius: 6,
+    height: 40,
+    paddingLeft: 20,
+    paddingRight: 20,
+    marginBottom: 15
   }
 })
