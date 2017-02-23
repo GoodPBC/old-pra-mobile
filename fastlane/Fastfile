@@ -16,6 +16,22 @@ fastlane_version '2.3.0'
 default_platform :ios
 
 platform :ios do
+  desc 'Staging Builds'
+  lane :staging do
+    cert
+    sigh(app_identifier: 'gov.nyc.dhs.providerresponse.staging')
+    increment_build_number(xcodeproj: './ios/ProviderResponseApp.xcodeproj')
+    gym(
+      scheme: 'ProviderResponseApp-Staging',
+      project: './ios/ProviderResponseApp.xcodeproj'
+    )
+    pilot(
+      skip_waiting_for_build_processing: true,
+      app_identifier: 'gov.nyc.dhs.providerresponse.staging'
+    )
+  end
+
+
   desc 'Beta Builds'
   lane :beta do
     cert
@@ -30,7 +46,30 @@ platform :ios do
 end
 
 platform :android do
-  desc 'Deploy to crashlytics'
+  desc 'Deploy to crashlytics (staging)'
+  lane :staging do
+    version_file = '../android/version_code'
+    version_code = File.read(version_file).to_i
+    version_code += 1
+
+    f = File.new(version_file, 'w')
+    f.write(version_code)
+    f.close
+
+    gradle(
+      project_dir: 'android',
+      task: 'assemble',
+      build_type: 'Staging',
+      properties: { versionCode: version_code }
+    )
+    crashlytics(
+      groups: ['testers'],
+      api_token: ENV['CRASHLYTICS_API_TOKEN'],
+      build_secret: ENV['CRASHLYTICS_BUILD_SECRET']
+    )
+  end
+
+  desc 'Deploy to crashlytics (production)'
   lane :beta do
     version_file = '../android/version_code'
     version_code = File.read(version_file).to_i

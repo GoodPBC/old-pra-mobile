@@ -29,6 +29,11 @@ xcode-select --install
 </table>
 # Available Actions
 ## iOS
+### ios staging
+```
+fastlane ios staging
+```
+Staging Builds
 ### ios beta
 ```
 fastlane ios beta
@@ -38,11 +43,16 @@ Beta Builds
 ----
 
 ## Android
+### android staging
+```
+fastlane android staging
+```
+Deploy to crashlytics (staging)
 ### android beta
 ```
 fastlane android beta
 ```
-Deploy to crashlytics
+Deploy to crashlytics (production)
 
 ----
 

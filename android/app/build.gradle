@@ -2,6 +2,7 @@ apply plugin: "com.android.application"
 
 project.ext.envConfigFiles = [
     debug: ".env.development",
+    staging: ".env.staging",
     release: ".env.production",
 ]
 
@@ -93,6 +94,10 @@ import com.android.build.OutputFile
  * ]
  */
 
+project.ext.react = [
+    bundleInStaging: true
+]
+
 apply from: "../../node_modules/react-native/react.gradle"
 
 /**
@@ -123,8 +128,15 @@ android {
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
+        resValue "string", "build_config_package", "com.providerresponseapp"
     }
     signingConfigs {
+        staging {
+            storeFile file(DHS_PRA_RELEASE_STORE_FILE)
+            storePassword DHS_PRA_RELEASE_STORE_PASSWORD
+            keyAlias DHS_PRA_RELEASE_KEY_ALIAS
+            keyPassword DHS_PRA_RELEASE_KEY_PASSWORD
+        }
         release {
             storeFile file(DHS_PRA_RELEASE_STORE_FILE)
             storePassword DHS_PRA_RELEASE_STORE_PASSWORD
@@ -141,6 +153,13 @@ android {
         }
     }
     buildTypes {
+        staging {
+            applicationIdSuffix ".staging"
+            signingConfig signingConfigs.staging
+            minifyEnabled enableProguardInReleaseBuilds
+            proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+        }
+
         release {
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
