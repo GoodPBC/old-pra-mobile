@@ -43,7 +43,7 @@ platform :ios do
 #     )
 #     pilot(skip_waiting_for_build_processing: true)
 #   end
-# end
+end
 
 platform :android do
   desc 'Deploy to crashlytics (staging)'
