@@ -14,10 +14,6 @@ export default class ResolutionSection extends Component {
     }
   }
 
-  componentWillMount() {
-    this.props.fetchResolutionCodes();
-  }
-
   componentDidMount() {
     Animated.timing(
       this.state.fadeAnim,
@@ -45,6 +41,5 @@ export default class ResolutionSection extends Component {
 }
 
 ResolutionSection.propTypes = {
-  fetchResolutionCodes: PropTypes.func.isRequired,
   serviceRequest: PropTypes.object.isRequired,
 };

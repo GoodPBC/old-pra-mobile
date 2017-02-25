@@ -121,11 +121,14 @@ export default class ServiceRequestList extends Component {
 
   // Runs as a filter predicate
   _includeServiceRequest(serviceRequest) {
-    if (this.state.currentFilter === FILTERS.ACTIVE) {
-      return serviceRequest.status === 'in_the_field' || serviceRequest.status === 'on_site';
-    }
+    // FIXME: Need to filter by status.
+    return true;
 
-    return serviceRequest.status === 'visit_complete' || serviceRequest.statue === 'closed';
+    // if (this.state.currentFilter === FILTERS.ACTIVE) {
+    //   return serviceRequest.status === 'in_the_field' || serviceRequest.status === 'on_site';
+    // }
+
+    // return serviceRequest.status === 'visit_complete' || serviceRequest.statue === 'closed';
   }
 
   _renderRow(rowData) {
@@ -155,12 +158,12 @@ export default class ServiceRequestList extends Component {
           />
           { //this is just to hide the modal for now - remove
             this.state.urgentServiceRequests.length == 'test' ?
-          <UrgentServiceRequestModal 
+          <UrgentServiceRequestModal
             style={styles.modal}
-            urgentServiceRequests={this.state.urgentServiceRequests} 
+            urgentServiceRequests={this.state.urgentServiceRequests}
             dismissUrgentServiceRequests={this.dismissUrgentServiceRequests}
             />
-          : null  
+          : null
         }
       </View>
     );

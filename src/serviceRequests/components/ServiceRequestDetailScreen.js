@@ -26,7 +26,6 @@ export default function ServiceRequestDetailScreen(props) {
         }
         <ResolutionSection {...props} />
         <DetailsSection serviceRequest={props.serviceRequest} />
-        <ContactSection {...props} />
       </ScrollView>
     </View>
   );

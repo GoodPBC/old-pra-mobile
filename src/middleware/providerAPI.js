@@ -8,6 +8,13 @@ import {
   API_REQUEST_NETWORK_ERROR,
 } from '../shared';
 
+const API_ENDPOINTS = [
+  'Get311ServiceRequests',
+  'getuserteams',
+  'update311servicerequests',
+  'updatepingresponse',
+];
+
 function authenticationHeaders(store) {
   const state = store.getState().user;
   if (state.userIsAuthenticated) {
@@ -78,17 +85,25 @@ async function makeRequestAndDispatchResponse({ action, store }) {
     return;
   }
 
-  const json = await response.json();
-  if (response.ok) {
-    dispatchSuccess(json);
-  } else {
-    dispatchFailure(json.error, response.status);
+  try {
+    const json = await response.json();
+    if (response.ok) {
+      dispatchSuccess(json);
+    } else {
+      dispatchFailure(json.error, response.status);
+    }
+  } catch (e) {
+    dispatchFailure(e, response.status);
+    console.log(response.body);
   }
 }
 
 export default store => next => action => {
   next(action);
   if (action.type === API_REQUEST) {
+    if (API_ENDPOINTS.indexOf(action.endpoint) === -1) {
+      throw `Invalid endpoint: ${action.requestPath} for action: ${action.actionName}`;
+    }
     makeRequestAndDispatchResponse({
       action, store });
   }

@@ -50,7 +50,7 @@ export default class CreateTeamScreen extends Component {
 
 CreateTeamScreen.propTypes = {
   currentTeam: PropTypes.object,
-  createTeam: PropTypes.func.isRequired,
+  // createTeam: PropTypes.func.isRequired,
   onFinish: PropTypes.func.isRequired,
 };
 

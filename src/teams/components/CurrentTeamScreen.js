@@ -11,22 +11,21 @@ import CurrentTeamHeader from './CurrentTeamHeader';
 export default class CurrentTeamScreen extends Component {
   constructor(props){
     super(props);
-    this._goToCreateTeam = this._goToCreateTeam.bind(this);
+    // this._goToCreateTeam = this._goToCreateTeam.bind(this);
     this._goToJoinTeam = this._goToJoinTeam.bind(this);
     this._goToChangeTeam = this._goToChangeTeam.bind(this);
     this._leaveTeam = this._leaveTeam.bind(this);
   }
 
   componentWillMount() {
-    this.props.fetchCurrentTeam();
   }
 
-  _goToCreateTeam() {
-    this.props.navigator.push({
-      index: RouteIndices.CREATE_TEAM,
-      title: 'Create a Team',
-    });
-  }
+  // _goToCreateTeam() {
+  //   this.props.navigator.push({
+  //     index: RouteIndices.CREATE_TEAM,
+  //     title: 'Create a Team',
+  //   });
+  // }
 
   _goToJoinTeam() {
     this.props.navigator.push({
@@ -45,7 +44,6 @@ export default class CurrentTeamScreen extends Component {
   _leaveTeam() {
     const { currentTeam } = this.props;
     this.props.leaveTeam();
-    this.props.unassignServiceRequestsForTeam(currentTeam);
   }
 
   /**
@@ -64,7 +62,7 @@ export default class CurrentTeamScreen extends Component {
 
   render() {
     const { currentTeam, userName } = this.props;
-    const createTeamButton = <InvertButton onPress={this._goToCreateTeam}>Create a Team</InvertButton>;
+    // const createTeamButton = <InvertButton onPress={this._goToCreateTeam}>Create a Team</InvertButton>;
     const joinTeamButton = <InvertButton onPress={this._goToJoinTeam}>Join a Team</InvertButton>;
     const changeTeamButton = <InvertButton onPress={this._goToChangeTeam}>Change Team</InvertButton>;
     const leaveTeamButton = <InvertButton onPress={this._leaveTeam}>Leave team</InvertButton>;
@@ -75,7 +73,6 @@ export default class CurrentTeamScreen extends Component {
         <CurrentTeamHeader currentTeam={currentTeam} userName={userName} />
         <View style={[styles.buttonsContainer, { height: this._buttonsContainerHeight() }]}>
           {!hasJoinedTeam && joinTeamButton}
-          {createTeamButton}
           {hasJoinedTeam && changeTeamButton}
           {hasJoinedTeam && leaveTeamButton}
         </View>
@@ -86,7 +83,6 @@ export default class CurrentTeamScreen extends Component {
 
 CurrentTeamScreen.propTypes = {
   currentTeam: PropTypes.any,
-  fetchCurrentTeam: PropTypes.func.isRequired,
   leaveTeam: PropTypes.func.isRequired,
   userName: PropTypes.string.isRequired,
 };
