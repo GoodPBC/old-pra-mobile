@@ -13,19 +13,19 @@ export default class UrgentServiceRequestModalItem extends Component {
     this.state = {
       reason: 'enroute',
       timeOnsite: null,
-    }
-    this.saveServiceRequest = this.saveServiceRequest.bind(this)
+    };
+    this.saveServiceRequest = this.saveServiceRequest.bind(this);
   }
 
   saveServiceRequest() {
     this.setState({
       saved: true
-    })
+    });
   }
 
   render() {
     const serviceRequest = this.props.serviceRequest;
-    return(
+    return (
       <View style={styles.container}>
         <Text style={styles.textItem}>
           <Text style={styles.boldText}>SR Number: </Text>{serviceRequest.sr_number}
@@ -39,14 +39,14 @@ export default class UrgentServiceRequestModalItem extends Component {
         <Text style={styles.textItem}>What's your status?</Text>
         <Picker
           selectedValue={this.state.reason}
-          onValueChange={(reas) => this.setState({reason: reas})}
-          mode='dropdown'
+          onValueChange={(reas) => this.setState({ reason: reas })}
+          mode="dropdown"
         >
           <Picker.Item label="Enroute" value="enroute" />
           <Picker.Item label="Stuck in Traffic" value="traffic" />
           <Picker.Item label="Forgot to Update" value="forgot" />
         </Picker>
-        {this.state.reason === 'forgot' 
+        {this.state.reason === 'forgot'
         ? (
             <View>
               <View>
@@ -55,8 +55,8 @@ export default class UrgentServiceRequestModalItem extends Component {
               <View>
                 <Text>Actual time on site</Text>
                 <TextInput
-                  style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-                  onChangeText={(text) => this.setState({timeOnsite: text})}
+                  style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+                  onChangeText={(text) => this.setState({ timeOnsite: text })}
                   value={this.state.timeOnsite}
                 />
               </View>
@@ -64,15 +64,15 @@ export default class UrgentServiceRequestModalItem extends Component {
           )
         : null
         }
-        <Button 
-          onPress={this.saveServiceRequest} 
+        <Button
+          onPress={this.saveServiceRequest}
           style={styles.button}
           disabled={this.state.saved}
         >
           <Text>Save Service Request</Text>
         </Button>
       </View>
-    )
+    );
   }
 }
 
@@ -102,4 +102,4 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     marginTop: 5
   },
-})
+});

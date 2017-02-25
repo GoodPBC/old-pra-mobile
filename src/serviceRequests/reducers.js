@@ -26,7 +26,7 @@ const initialState = {
     refused_assistance: 4,
   },
   serviceRequests: [],
-  selectedResolutionCode:  null,
+  selectedResolutionCode: null,
 };
 
 /**
@@ -93,8 +93,7 @@ function trim(str) {
 }
 
 function transformStreetSmartServiceRequests(serviceRequests) {
-  const convertedServiceRequests = serviceRequests.map(sr => {
-    return {
+  const convertedServiceRequests = serviceRequests.map(sr => ({
       address: trim(sr.Address),
       borough: trim(sr.Borough),
       city: trim(sr.City),
@@ -113,8 +112,7 @@ function transformStreetSmartServiceRequests(serviceRequests) {
 
       // FIXME: Missing fields
       status: 'in_the_field',
-    };
-  });
+    }));
   return convertedServiceRequests;
 }
 

@@ -10,19 +10,19 @@ import Separator from '../../shared/components/Separator';
 export default class UrgentServiceRequestModal extends Component {
 
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
       modalVisible: false,
-    }
+    };
 
     this.setModalVisible = this.setModalVisible.bind(this);
   }
 
   setModalVisible(visible) {
     this.setState(
-      {modalVisible: visible}
-    ); 
+      { modalVisible: visible }
+    );
   }
 
   /*
@@ -33,40 +33,38 @@ export default class UrgentServiceRequestModal extends Component {
   }
   */
   componentWillMount(){
-    if ( this.props.urgentServiceRequests.length ) {
-      this.setModalVisible(false)
+    if (this.props.urgentServiceRequests.length) {
+      this.setModalVisible(false);
     }
   }
 
   render() {
-    const urgentServiceRequests = this.props.urgentServiceRequests
-    return(
+    const urgentServiceRequests = this.props.urgentServiceRequests;
+    return (
       <ScrollView style={styles.container}>
-        <Button 
-          onPress={this.props.dismissUrgentServiceRequests} 
+        <Button
+          onPress={this.props.dismissUrgentServiceRequests}
           style={styles.button}
         >
           <Text>Dismiss Notification</Text>
         </Button>
         <Text>The following service requests are more than an hour old. Please provide additional information:</Text>
-        <Separator style={styles.mainSeparator}/>
-        {urgentServiceRequests.map( (serviceRequest, key) => {
-          return (
+        <Separator style={styles.mainSeparator} />
+        {urgentServiceRequests.map((serviceRequest, key) => (
             <View key={key}>
               <UrgentServiceRequestModalItem serviceRequest={serviceRequest} />
             <Separator />
             </View>
-          )
-        })
+          ))
       }
       </ScrollView>
-    )
+    );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    //alignItems: 'center',
+    // alignItems: 'center',
     padding: 20,
     position: 'absolute',
     top: 0,
@@ -89,4 +87,4 @@ const styles = StyleSheet.create({
     marginTop: 4,
     marginBottom: 2
   }
-})
+});

@@ -50,7 +50,7 @@ export function fetchServiceRequestDetails(serviceRequest) {
       type: FETCH_SERVICE_REQUEST_DETAILS,
       srNumber: serviceRequest.sr_number,
     });
-  }
+  };
 }
 
 export function refreshCurrentServiceRequest() {
@@ -63,8 +63,8 @@ export function refreshCurrentServiceRequest() {
 export function resolveServiceRequest(serviceRequest, resolutionCode) {
   const reportedAtDate = Date();
 
-  console.log('resolution code recieved by resolveservierequest function')
-  console.log(resolutionCode)
+  console.log('resolution code recieved by resolveservierequest function');
+  console.log(resolutionCode);
 
   return {
     type: API_REQUEST,
@@ -106,7 +106,7 @@ export function updateOnsiteStatus(serviceRequest) {
   return {
     type: API_REQUEST,
     actionName: UPDATE_ONSITE_STATUS,
-    requestPath: `update311servicerequests`,
+    requestPath: 'update311servicerequests',
     endpoint: 'update311servicerequests',
     requestMethod: 'POST',
     requestParams: [

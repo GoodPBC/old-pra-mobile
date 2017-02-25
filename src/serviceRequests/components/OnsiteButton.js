@@ -18,11 +18,11 @@ import {
 function OnState({ serviceRequest }) {
   return (
     <View style={styles.offContainer}>
-      <View style={{flexDirection: 'column', flex: 3}}>
+      <View style={{ flexDirection: 'column', flex: 3 }}>
         <Text style={styles.statusText}>On-Site</Text>
         <StatusWithTime serviceRequest={serviceRequest} />
       </View>
-      <View style={{flex: 1}}>
+      <View style={{ flex: 1 }}>
         <Switch
           value
           disabled />
@@ -34,7 +34,7 @@ function OnState({ serviceRequest }) {
 function OffState({ serviceRequest, updateOnsiteStatus }) {
   return (
     <View style={styles.offContainer}>
-      <View style={{flexDirection: 'column'}}>
+      <View style={{ flexDirection: 'column' }}>
         <Text style={styles.onsiteText}>On-Site</Text>
         <Text>Toggle when on-site</Text>
       </View>

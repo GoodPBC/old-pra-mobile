@@ -19,7 +19,7 @@ export default function ServiceRequestDetailScreen(props) {
   return (
     <View style={styles.container}>
       <ScrollView>
-        { props.serviceRequest.status === "in_the_field" ?
+        { props.serviceRequest.status === 'in_the_field' ?
           (
             <OnsiteSection {...props} />
           ) : null

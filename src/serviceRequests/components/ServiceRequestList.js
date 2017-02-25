@@ -50,28 +50,27 @@ export default class ServiceRequestList extends Component {
   }
 
   filterServiceRequestsByUrgency(){
-    let urgentServiceRequests = this.props.serviceRequests.map( (serviceRequest) => {
-      if (serviceRequest.status === "in_the_field") {
-        let now = new Date();
+    const urgentServiceRequests = this.props.serviceRequests.map((serviceRequest) => {
+      if (serviceRequest.status === 'in_the_field') {
+        const now = new Date();
         // one minute for now for testing pursposes
-        let one_hour = 60 * 1000;
-        let sr_time = moment(serviceRequest.updated_at).valueOf();
+        const one_hour = 60 * 1000;
+        const sr_time = moment(serviceRequest.updated_at).valueOf();
         if (now - sr_time > one_hour && serviceRequest.has_alerted === false) {
-          return serviceRequest
+          return serviceRequest;
         }
       }
-    }).filter(Boolean)
+    }).filter(Boolean);
 
     this.setState({
-      urgentServiceRequests: urgentServiceRequests
-    })
+      urgentServiceRequests
+    });
   }
 
   dismissUrgentServiceRequests() {
     this.setState({
       urgentServiceRequests: []
-    })
-
+    });
   }
 
 
@@ -103,7 +102,7 @@ export default class ServiceRequestList extends Component {
     this.props.fetchServiceRequestDetails(serviceRequest);
     this.props.navigator.push({ // Push navigation
       index: 1,
-      title: `Request Details`,
+      title: 'Request Details',
     });
   }
 
@@ -156,7 +155,7 @@ export default class ServiceRequestList extends Component {
             renderRow={this._renderRow}
             enableEmptySections
           />
-          { //this is just to hide the modal for now - remove
+          { // this is just to hide the modal for now - remove
             this.state.urgentServiceRequests.length == 'test' ?
           <UrgentServiceRequestModal
             style={styles.modal}

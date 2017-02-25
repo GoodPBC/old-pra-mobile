@@ -8,7 +8,7 @@ import EmptyServiceRequestList from './EmptyServiceRequestList';
 export default class MyRequestsScreen extends Component {
 
   constructor(props) {
-    super(props)
+    super(props);
   }
 
   componentWillMount() {

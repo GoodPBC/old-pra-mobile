@@ -12,29 +12,29 @@ function BannerWithNumber({ serviceRequest }) {
 
 export default class OnsiteSection extends Component {
 
-  
+
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       fadeAnim: new Animated.Value(1)
-    }
+    };
   }
-  
+
 
   componentWillUnmount() {
-    Animated.timing(          
-       this.state.fadeAnim,    
-       {toValue: 0}            
+    Animated.timing(
+       this.state.fadeAnim,
+       { toValue: 0 }
      ).start();
   }
 
   render() {
-    return(
-      <Animated.View style={{opacity: this.state.fadeAnim}}>
+    return (
+      <Animated.View style={{ opacity: this.state.fadeAnim }}>
         <BannerWithNumber serviceRequest={this.props.serviceRequest} />
         <OnsiteButton {...this.props} />
       </Animated.View>
-    )
+    );
   }
 }
 
@@ -48,4 +48,4 @@ styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
   }
-})
+});

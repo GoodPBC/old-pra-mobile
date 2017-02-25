@@ -9,7 +9,7 @@ export default class EmptyServiceRequestList extends Component {
       <View style={styles.container}>
         <Text style={styles.text}>You don't currently have any service request assignments. Please join a team to receive additional service requests.</Text>
       </View>
-    )
+    );
   }
 }
 
@@ -20,4 +20,4 @@ const styles = StyleSheet.create({
   text: {
     textAlign: 'center'
   }
-})
+});
