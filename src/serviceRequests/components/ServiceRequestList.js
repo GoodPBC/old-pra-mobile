@@ -67,7 +67,8 @@ export default class ServiceRequestList extends Component {
     })
   }
 
-  dismissUrgentServiceRequests() {
+  dismissUrgentServiceRequests(usr) {
+    this.props.updateServiceRequestsWithNotes(usr)
     this.setState({
       urgentServiceRequests: []
     })
@@ -153,8 +154,8 @@ export default class ServiceRequestList extends Component {
             renderRow={this._renderRow}
             enableEmptySections
           />
-          { //this is just to hide the modal for now - remove
-            this.state.urgentServiceRequests.length == 'test' ?
+          { 
+            this.state.urgentServiceRequests.length > 0 ?
           <UrgentServiceRequestModal 
             style={styles.modal}
             urgentServiceRequests={this.state.urgentServiceRequests} 

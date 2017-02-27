@@ -6,7 +6,8 @@ import {
     SELECT_SERVICE_REQUEST,
     SELECT_SERVICE_REQUEST_RESOLUTION,
     UPDATE_ONSITE_STATUS,
-    ADD_CONTACT_TO_SERVICE_REQUEST
+    ADD_CONTACT_TO_SERVICE_REQUEST,
+    UPDATE_SERVICE_REQUESTS_WITH_NOTES
 } from './actionTypes';
 import { API_REQUEST } from '../shared';
 
@@ -112,6 +113,18 @@ export function addContactToServiceRequest(contact) {
     requestPath: 'contacts',
     requestParams: {
       contact
+    }
+  };
+}
+
+export function updateServiceRequestsWithNotes(serviceRequests) {
+  return {
+    type: API_REQUEST,
+    actionName: UPDATE_SERVICE_REQUESTS_WITH_NOTES,
+    requestMethod: 'POST',
+    requestPath: 'service_requests/create_notes',
+    requestParams: {
+      service_requests: serviceRequests
     }
   };
 }
