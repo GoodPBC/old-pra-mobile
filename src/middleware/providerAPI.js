@@ -13,6 +13,7 @@ const API_ENDPOINTS = [
   'getuserteams',
   'update311servicerequests',
   'updatepingresponse',
+  'login',
 ];
 
 function authenticationHeaders(store) {

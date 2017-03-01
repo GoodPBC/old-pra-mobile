@@ -10,6 +10,7 @@ export function submitLoginCredentials(email, password) {
     actionName: LOGIN_USER,
     requestPath: USER_LOGIN_PATH,
     requestMethod: 'POST',
+    endpoint: 'login',
     requestParams: {
       UserName: email,
       Password: password,

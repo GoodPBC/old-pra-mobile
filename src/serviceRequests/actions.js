@@ -21,6 +21,8 @@ const STATUS_CODES = {
   closed: 6,
 };
 
+const PRA_BASE_PATH = 'dhsmobile/PRAService/SSPRAService.svc';
+
 function momentToStr(momentDate) {
   return momentDate.format('YYYY-MM-DD%20HH-mm-ss');
 }
@@ -38,7 +40,7 @@ export function fetchServiceRequests() {
   return {
     type: API_REQUEST,
     actionName: FETCH_SERVICE_REQUESTS,
-    requestPath: `Get311ServiceRequests/${yesterday}`,
+    requestPath: `${PRA_BASE_PATH}/Get311ServiceRequests/${yesterday}`,
     endpoint: 'Get311ServiceRequests',
     requestMethod: 'GET',
   };
