@@ -14,9 +14,12 @@ export default class UrgentServiceRequestModal extends Component {
 
     this.state = {
       modalVisible: false,
+      urgentServiceRequests: []
     };
 
     this.setModalVisible = this.setModalVisible.bind(this);
+    this.saveServiceRequestForUpdate = this.saveServiceRequestForUpdate.bind(this);
+    this.dismissUrgentServiceRequests = this.dismissUrgentServiceRequests.bind(this);
   }
 
   setModalVisible(visible) {
@@ -24,6 +27,27 @@ export default class UrgentServiceRequestModal extends Component {
       { modalVisible: visible }
     );
   }
+
+  saveServiceRequestForUpdate(data) {
+    let usr = this.state.urgentServiceRequests;
+    let found = false;
+    for (var i = 0; i < usr.length; i++){
+      if (usr[i].sr_number == data.sr_number){
+        found = true;
+        break;
+      }
+    }
+    if (!found) {
+      usr.push(data);
+      this.setState({urgentServiceRequests: usr});
+    }
+  }
+
+  dismissUrgentServiceRequests() {
+    this.props.dismissUrgentServiceRequests(this.state.urgentServiceRequests);
+  }
+
+
 
   /*
   componentWillReceiveProps(nextProps) {
@@ -43,7 +67,7 @@ export default class UrgentServiceRequestModal extends Component {
     return (
       <ScrollView style={styles.container}>
         <Button
-          onPress={this.props.dismissUrgentServiceRequests}
+          onPress={this.dismissUrgentServiceRequests}
           style={styles.button}
         >
           <Text>Dismiss Notification</Text>
@@ -52,7 +76,7 @@ export default class UrgentServiceRequestModal extends Component {
         <Separator style={styles.mainSeparator} />
         {urgentServiceRequests.map((serviceRequest, key) => (
             <View key={key}>
-              <UrgentServiceRequestModalItem serviceRequest={serviceRequest} />
+              <UrgentServiceRequestModalItem serviceRequest={serviceRequest} update={this.saveServiceRequestForUpdate} />
             <Separator />
             </View>
           ))

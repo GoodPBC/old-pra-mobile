@@ -12,7 +12,10 @@ import {
 const initialState = {
   authenticationToken: null,
   email: null,
+  firstName: null,
+  lastName: null,
   name: null,
+  userId: null,
   userIsAuthenticated: null,
 };
 
@@ -21,9 +24,11 @@ export default function reducer(state = initialState, action) {
   case LOGIN_USER_SUCCESS:
     return {
       ...state,
-      authenticationToken: action.data.user.authentication_token,
-      email: action.data.user.email,
-      name: action.data.user.name,
+      authenticationToken: action.data.Response.TokenString,
+      email: action.data.Response.UserName,
+      userId: action.data.Response.UserId,
+      firstName: action.data.Response.FirstName,
+      lastName: action.data.Response.LastName,
       userIsAuthenticated: true,
     };
   case LOGIN_USER_FAILURE:
@@ -38,6 +43,10 @@ export default function reducer(state = initialState, action) {
         userIsAuthenticated: false,
         authenticationToken: null,
         email: null,
+        firstName: null,
+        lastName: null,
+        name: null,
+        userId: null,
       };
     }
     return state;
@@ -46,7 +55,10 @@ export default function reducer(state = initialState, action) {
       ...state,
       authenticationToken: null,
       email: null,
+      firstName: null,
+      lastName: null,
       name: null,
+      userId: null,
       userIsAuthenticated: false,
     };
   default:

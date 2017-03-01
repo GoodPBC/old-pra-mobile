@@ -19,8 +19,8 @@ function authenticationHeaders(store) {
   const state = store.getState().user;
   if (state.userIsAuthenticated) {
     return {
-      'X-User-Email': state.email,
-      'X-User-Token': state.authenticationToken,
+      'TokenString': state.authenticationToken,
+      'Id': state.userId,
     };
   }
   return {};

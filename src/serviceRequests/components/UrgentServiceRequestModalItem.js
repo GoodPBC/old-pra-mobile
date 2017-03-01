@@ -21,6 +21,12 @@ export default class UrgentServiceRequestModalItem extends Component {
     this.setState({
       saved: true
     });
+    let data = {
+      sr_number: this.props.serviceRequest.sr_number,
+      reason: this.state.reason,
+      timeOnsite: this.state.timeOnsite
+    }
+    this.props.update(data)
   }
 
   render() {
