@@ -64,13 +64,13 @@ export default class CurrentTeamScreen extends Component {
 
   render() {
     const { currentTeam, userName } = this.props;
-    const createTeamButton = <InvertButton onPress={this._goToCreateTeam}>Create a Team</InvertButton>;
-    const joinTeamButton = <InvertButton onPress={this._goToJoinTeam}>Join a Team</InvertButton>;
-    const changeTeamButton = <InvertButton onPress={this._goToChangeTeam}>Change Team</InvertButton>;
-    const leaveTeamButton = <InvertButton onPress={this._leaveTeam}>Leave team</InvertButton>;
+    const createTeamButton = <InvertButton onPress={this._goToCreateTeam} withBorder>Create a Team</InvertButton>;
+    const joinTeamButton = <InvertButton onPress={this._goToJoinTeam} withBorder>Join a Team</InvertButton>;
+    const changeTeamButton = <InvertButton onPress={this._goToChangeTeam} withBorder>Change Team</InvertButton>;
+    const leaveTeamButton = <InvertButton onPress={this._leaveTeam} withBorder>Leave team</InvertButton>;
     const hasJoinedTeam = !!this.props.currentTeam;
     return (
-      <GradientBackground
+      <View
         style={styles.container}>
         <CurrentTeamHeader currentTeam={currentTeam} userName={userName} />
         <View style={[styles.buttonsContainer, { height: this._buttonsContainerHeight() }]}>
@@ -79,7 +79,7 @@ export default class CurrentTeamScreen extends Component {
           {hasJoinedTeam && changeTeamButton}
           {hasJoinedTeam && leaveTeamButton}
         </View>
-      </GradientBackground>
+      </View>
     );
   }
 }
@@ -97,6 +97,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   container: {
+    backgroundColor: '#FCFCFC',
     flex: 1,
     justifyContent: 'space-around',
     paddingLeft: X_AXIS_PADDING,
