@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { Image, View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import detailArrowImage from '../../serviceRequests/components/img/details-arrow-icon-white.png';
-import { Radio } from '../../shared';
+import { LIGHT_BLUE, Radio } from '../../shared';
 
 export default function SelectTeamListItem({ selected, onSelectTeam, onViewTeamDetails, team }) {
   return (
@@ -41,8 +41,8 @@ const styles = StyleSheet.create({
   },
   container: {
     flexDirection: 'row',
-    paddingTop: 30,
-    paddingBottom: 30,
+    paddingTop: 20,
+    paddingBottom: 20,
     alignItems: 'center',
   },
   detailsLink: {
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   teamName: {
-    color: 'white',
+    color: LIGHT_BLUE,
   },
   teamNameContainer: {
     flexDirection: 'row',

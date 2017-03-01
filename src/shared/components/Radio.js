@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { Image, StyleSheet } from 'react-native';
-import checkedCircleImage from './img/select-radio-active-on-blue.png';
-import uncheckedCircleImage from './img/select-radio-inactive-on-blue.png';
+import checkedCircleImage from './img/select-radio-active.png';
+import uncheckedCircleImage from './img/select-radio-inactive.png';
 
 export default function Radio({ checked }) {
   return (

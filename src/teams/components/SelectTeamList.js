@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react';
-import { ListView, ScrollView } from 'react-native';
+import { ListView, ScrollView, StyleSheet } from 'react-native';
 import Separator from '../../shared/components/Separator';
 import SelectTeamListItem from './SelectTeamListItem';
+import { LIGHT_BLUE } from '../../shared';
 
 export default class SelectTeamList extends Component {
   constructor(props) {
@@ -40,7 +41,7 @@ export default class SelectTeamList extends Component {
 
   _renderSeparator(sectionID, rowID) {
     return (
-      <Separator key={rowID} />
+      <Separator key={rowID} style={styles.separator} />
     );
   }
 
@@ -63,3 +64,9 @@ SelectTeamList.propTypes = {
   selectedTeam: PropTypes.object,
   teams: PropTypes.array.isRequired,
 };
+
+const styles = StyleSheet.create({
+  separator: {
+    backgroundColor: LIGHT_BLUE,
+  },
+});

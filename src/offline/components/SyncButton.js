@@ -1,9 +1,9 @@
 import React, { PropTypes } from 'react';
 
-import { Button } from '../../shared';
+import { InvertButton } from '../../shared';
 
 export default function SyncButton({ syncServiceRequests }) {
-  return <Button onPress={syncServiceRequests}>Sync All</Button>;
+  return <InvertButton onPress={syncServiceRequests} withBorder>Sync All</InvertButton>;
 }
 
 SyncButton.propTypes = {

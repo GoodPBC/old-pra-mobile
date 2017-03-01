@@ -3,6 +3,7 @@ import React, { PropTypes } from 'react';
 import {
   Image,
   StyleSheet,
+  Text,
   View,
 } from 'react-native';
 import {
@@ -11,6 +12,7 @@ import {
   GradientBackground,
   Navigation,
   Separator,
+  LIGHT_BLUE,
   X_AXIS_PADDING,
 } from '../../shared';
 
@@ -19,8 +21,11 @@ import iconEmail from './img/icon_logout_email.png';
 
 function LogoutScene({ logoutUser, name, email }) {
   return (
-    <GradientBackground style={styles.container}>
-      <View>
+    <View style={styles.container}>
+      <View style={styles.card}>
+        <View>
+          <Text style={[styles.text, styles.header]}>Logged In</Text>
+        </View>
         <View style={styles.row}>
           <Image source={iconName} />
           <InvertText style={styles.text}>{name}</InvertText>
@@ -32,10 +37,10 @@ function LogoutScene({ logoutUser, name, email }) {
         </View>
         <Separator style={styles.separator} />
       </View>
-      <InvertButton onPress={logoutUser}>
-        Logout
+      <InvertButton onPress={logoutUser} withBorder>
+        Log Out
       </InvertButton>
-    </GradientBackground>
+    </View>
   );
 }
 
@@ -48,7 +53,7 @@ LogoutScene.propTypes = {
 export default function LogoutScreen({ logoutUser, name, email }) {
 
   const initialRoute = {
-    title: 'Log Out',
+    title: 'User',
     index: 0,
   };
 
@@ -71,19 +76,43 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: 'rgba(0,0,0,0)',
     flex: 1,
-    paddingLeft: X_AXIS_PADDING,
-    paddingRight: X_AXIS_PADDING,
+    paddingLeft: X_AXIS_PADDING - 15,
+    paddingRight: X_AXIS_PADDING - 15,
     justifyContent: 'space-around',
+  },
+  card: {
+    paddingLeft: 30,
+    paddingRight: 30,
+    paddingTop: 30,
+    paddingBottom: 20,
+    marginTop: 25,
+
+    backgroundColor: 'white',
+    shadowColor: 'black',
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowRadius: 8,
+    shadowOpacity: 0.3,
+  },
+  header: {
+    alignSelf: 'center',
+    fontSize: 25,
+    paddingBottom: 40,
   },
   row: {
     flexDirection: 'row',
     alignItems: 'center',
   },
   separator: {
-    marginBottom: 20,
+    marginBottom: 30,
     marginTop: 10,
+    backgroundColor: LIGHT_BLUE,
   },
   text: {
     paddingLeft: 20,
+    fontSize: 16,
+    color: LIGHT_BLUE,
   }
 });

@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import SelectTeamList from '../containers/SelectTeamList';
-import { GradientBackground } from '../../shared';
+import { LIGHT_BLUE } from '../../shared';
 
 import { RouteIndices } from './TeamNavigation';
 import JoinTeamButton from './JoinTeamButton';
@@ -35,7 +35,7 @@ export default class SelectTeamScreen extends Component {
 
   render() {
     return (
-      <GradientBackground
+      <View
         style={styles.container}>
         <ScrollView>
           <View style={styles.listContainer}>
@@ -45,7 +45,7 @@ export default class SelectTeamScreen extends Component {
           </View>
           {this.props.selectedTeam && <JoinTeamButton joinTeam={this._joinTeam} />}
         </ScrollView>
-      </GradientBackground>
+      </View>
     );
   }
 }
@@ -59,7 +59,7 @@ SelectTeamScreen.propTypes = {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 20,
+    backgroundColor: 'white',
   },
   listContainer: {
     borderTopWidth: 1,

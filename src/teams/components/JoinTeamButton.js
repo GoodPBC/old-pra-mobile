@@ -1,12 +1,12 @@
 import React, { PropTypes } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Button, X_AXIS_PADDING } from '../../shared';
+import { InvertButton, X_AXIS_PADDING } from '../../shared';
 
 export default function JoinTeamButton({ joinTeam }) {
   return (
     <View style={styles.container}>
       <View style={styles.buttonWrapper}>
-        <Button onPress={joinTeam}>Join Team</Button>
+        <InvertButton onPress={joinTeam} withBorder>Join Team</InvertButton>
       </View>
     </View>
   );
@@ -24,6 +24,6 @@ const styles = StyleSheet.create({
     paddingRight: X_AXIS_PADDING,
   },
   container: {
-    backgroundColor: 'lightgray',
+    backgroundColor: 'white',
   },
 });
