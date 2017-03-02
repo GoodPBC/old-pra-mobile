@@ -12,7 +12,6 @@ import * as TeamsActions from '../actions';
  * Should be able to see the user's currently-assigned team.
  */
 function mapStateToProps(state) {
-  console.log('state', state.user);
   return {
     userName: state.user.name,
     currentTeam: state.teams.currentTeam,

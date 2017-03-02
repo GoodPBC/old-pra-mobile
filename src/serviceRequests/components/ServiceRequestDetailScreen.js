@@ -16,10 +16,14 @@ import {
 } from '../../shared';
 
 export default function ServiceRequestDetailScreen(props) {
+  // FIXME: Re-enable this check once we have StreetSmart access.
+  // const canGoOnsite = props.serviceRequest.status === 'in_the_field';
+  const canGoOnsite = true;
+
   return (
     <View style={styles.container}>
       <ScrollView>
-        { props.serviceRequest.status === 'in_the_field' ?
+        { canGoOnsite ?
           (
             <OnsiteSection {...props} />
           ) : null

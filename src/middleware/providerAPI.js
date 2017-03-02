@@ -86,10 +86,13 @@ async function makeRequestAndDispatchResponse({ action, store }) {
     return;
   }
 
+  let responseText = null;
+
   try {
     // const textBody = await response.text();
     // console.log('body', textBody);
-    const json = await response.json();
+    responseText = await response.text();
+    const json = JSON.parse(responseText);
     // console.log('json response', json);
     if (response.ok) {
       dispatchSuccess(json);
@@ -97,6 +100,7 @@ async function makeRequestAndDispatchResponse({ action, store }) {
       dispatchFailure(json.error, response.status);
     }
   } catch (e) {
+    console.log('response text', responseText);
     dispatchFailure(e, response.status);
   }
 }

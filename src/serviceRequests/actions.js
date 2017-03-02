@@ -67,9 +67,6 @@ export function refreshCurrentServiceRequest() {
 export function resolveServiceRequest(serviceRequest, resolutionCode) {
   const reportedAtDate = Date();
 
-  console.log('resolution code recieved by resolveservierequest function');
-  console.log(resolutionCode);
-
   return {
     type: API_REQUEST,
     actionName: RESOLVE_SERVICE_REQUEST,
@@ -108,26 +105,29 @@ export function updateOnsiteStatus(serviceRequest) {
 
   console.warn('FIXME: Need to fix onsite status update');
   return (dispatch, getState) => {
+
+    const requestParams = [
+      {
+        SR_Number: serviceRequest.sr_number,
+        ModifiedAt: momentToStr(moment()),
+        PRASRStatusId: STATUS_CODES.on_site,
+
+        // FIXME: Need to use correct values here.
+        AssignedTeamId: null,
+        ModifiedBy: null,
+        PRASRResolutionCodeId: 1,
+        PRASRResolutionNote: 'Note content here',
+      }
+    ];
+
+    console.log('onsite request params', requestParams);
     dispatch({
       type: API_REQUEST,
       actionName: UPDATE_ONSITE_STATUS,
       requestPath: 'update311servicerequests',
       endpoint: 'update311servicerequests',
       requestMethod: 'POST',
-      requestParams: [
-        {
-          SR_Number: serviceRequest.sr_number,
-          ModifiedAt: momentToStr(moment()),
-          PRASRStatusId: STATUS_CODES.on_site,
-
-          // FIXME: Need to use correct values here.
-          AssignedTeamId: null,
-          ModifiedBy: null,
-          PRASRResolutionCodeId: 1,
-          PRASRResolutionNote: 'Note content here',
-          ProviderId: null,
-        }
-      ],
+      requestParams,
       serviceRequest, // Needed for sync
     });
   };

@@ -15,7 +15,6 @@ const PRA_BASE_PATH = 'dhsmobile/PRAService/SSPRAService.svc';
 export function fetchTeams() {
   return (dispatch, getState) => {
     const { userIdString } = getState().user;
-    console.log('fetch teams for: ', userIdString)
     dispatch({
       type: API_REQUEST,
       actionName: FETCH_TEAMS,

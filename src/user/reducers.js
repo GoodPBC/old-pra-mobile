@@ -4,6 +4,7 @@ import {
 } from '../shared';
 
 import {
+  FETCH_TEAMS_SUCCESS,
   LOGIN_USER_SUCCESS,
   LOGIN_USER_FAILURE,
   LOGIN_USER,
