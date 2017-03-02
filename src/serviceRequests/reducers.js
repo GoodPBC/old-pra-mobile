@@ -45,7 +45,7 @@ function processServiceRequestFetch(state, action) {
   return {
     ...state,
     serviceRequests,
-    currentServiceRequest: updateCurrentServiceRequest(state.currentServiceRequest, serviceRequests),
+    // currentServiceRequest: updateCurrentServiceRequest(state.currentServiceRequest, serviceRequests),
   };
 }
 
@@ -64,11 +64,16 @@ function setCurrentServiceRequest(state, action) {
 /**
  * Update the currently-visible SR after a recent API fetch.
  */
-function updateCurrentServiceRequest(currentServiceRequest, serviceRequests) {
+function updateCurrentServiceRequest(state) {
+  let currentServiceRequest = state.currentServiceRequest;
   if (currentServiceRequest) {
-    return lookupServiceRequest(serviceRequests, currentServiceRequest.sr_number);
+    currentServiceRequest = lookupServiceRequest(state.serviceRequests, currentServiceRequest.sr_number);
   }
-  return currentServiceRequest;
+
+  return {
+    ...state,
+    currentServiceRequest,
+  };
 }
 
 function setFlagOnCurrentServiceRequest(state, flagName) {
@@ -97,7 +102,7 @@ function transformStatus(status) {
   // so we'll map that to in_the_field for expediency here.
   switch (status) {
     case 'Assigned': return 'in_the_field';
-    case 'On Site': return 'on_site';
+    case 'Onsite': return 'on_site';
     case 'Visit Complete': return 'visit_complete';
     case 'Closed': return 'closed';
     default:
@@ -154,8 +159,8 @@ export default function reducer(state = initialState, action) {
       };
     case FETCH_SERVICE_REQUEST_DETAILS:
       return setCurrentServiceRequest(state, action);
-    case RESOLVE_SERVICE_REQUEST_SUCCESS:
-      return updateCurrentServiceRequest(state, action);
+    // case RESOLVE_SERVICE_REQUEST_SUCCESS:
+    //   return updateCurrentServiceRequest(state, action);
     case SELECT_SERVICE_REQUEST: // Works offline
       return {
         ...state,
@@ -166,8 +171,8 @@ export default function reducer(state = initialState, action) {
         ...state,
         selectedResolutionCode: action.selectedResolutionCode,
       };
-    case UPDATE_ONSITE_STATUS_SUCCESS:
-      return updateCurrentServiceRequest(state, action);
+    // case UPDATE_ONSITE_STATUS_SUCCESS:
+    //   return updateCurrentServiceRequest(state, action);
     case ADD_CONTACT_TO_SERVICE_REQUEST:
       return {
         ...state,

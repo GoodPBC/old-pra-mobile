@@ -94,6 +94,10 @@ async function makeRequestAndDispatchResponse({ action, store }) {
     responseText = await response.text();
     const json = JSON.parse(responseText);
     // console.log('json response', json);
+    // console.log('response text', responseText);
+    if (json.Update_Status) {
+      console.log('Updating SR', json.Update_Status);
+    }
     if (response.ok && !(json.ErrorMessage && json.ErrorMessage.length)) {
       dispatchSuccess(json);
     } else {

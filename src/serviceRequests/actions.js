@@ -22,7 +22,7 @@ const STATUS_CODES = {
 };
 
 function momentToStr(momentDate) {
-  return momentDate.format('YYYY-MM-DD%20HH-mm-ss');
+  return momentDate.format('YYYY-MM-DD HH-mm-ss');
 }
 
 export function selectServiceRequestResolution(resolutionCode) {
@@ -104,16 +104,18 @@ export function updateOnsiteStatus(serviceRequest) {
   console.warn('FIXME: Need to fix onsite status update');
   return (dispatch, getState) => {
 
+
+    const { userId } = getState().user;
+
     const requestParams = [
       {
         SR_Number: serviceRequest.sr_number,
         ModifiedAt: momentToStr(moment()),
         PRASRStatusId: STATUS_CODES.on_site,
 
-        // FIXME: Need to use correct values here.
-        ModifiedBy: null,
-        PRASRResolutionCodeId: 1,
-        PRASRResolutionNote: 'Note content here',
+        ModifiedBy: userId,
+        PRASRResolutionCodeId: null,
+        // PRASRResolutionNote: 'Note content here',
       }
     ];
 
