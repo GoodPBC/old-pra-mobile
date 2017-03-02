@@ -92,6 +92,20 @@ function trim(str) {
   }
 }
 
+function transformStatus(status) {
+  switch (status) {
+    case 'Assigned': return 'assigned';
+    case 'In The Field': return 'in_the_field';
+    case 'On Site': return 'on_site';
+    case 'Visit Complete': return 'visit_complete';
+    case 'Closed': return 'closed';
+    default:
+      console.log('received SR with unknown status: ', status);
+  }
+
+  return status;
+}
+
 function transformStreetSmartServiceRequests(serviceRequests) {
   const convertedServiceRequests = serviceRequests.map(sr => ({
       address: trim(sr.Address),
@@ -104,14 +118,14 @@ function transformStreetSmartServiceRequests(serviceRequests) {
       sr_number: trim(sr.SR_Number),
       state: trim(sr.State),
       zip: trim(sr.Zip),
-
+      status: transformStatus(sr.SR_Status),
       // New fields
       email_data_id: trim(sr.EmailDataId),
       team: trim(sr.Assigned_Team),
       // Assigned_Provider
 
       // FIXME: Missing fields
-      status: 'in_the_field',
+
     }));
   return convertedServiceRequests;
 }

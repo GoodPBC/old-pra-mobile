@@ -14,8 +14,9 @@ const initialState = {
   email: null,
   firstName: null,
   lastName: null,
-  name: null,
+  name: 'vkaura', // FIXME: Update with the real user IDs.
   userId: null,
+  userIdString: 'vkaura', // NOTE: Need this for getuserteams endpoint.
   userIsAuthenticated: null,
 };
 

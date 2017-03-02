@@ -25,7 +25,7 @@ const logger = createLogger();
 export default function configureStore() {
   const store = createStore(
     reducer,
-    applyMiddleware(thunk, offlineSync, providerAPI, logger), // include 'logger' for debugging
+    applyMiddleware(thunk, offlineSync, providerAPI), // include 'logger' for debugging
     autoRehydrate()
   );
   persistStore(store, { storage: AsyncStorage });

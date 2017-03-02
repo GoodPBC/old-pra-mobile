@@ -3,8 +3,8 @@ import {
   FETCH_CURRENT_TEAM_SUCCESS,
   FETCH_TEAMS_SUCCESS,
   FETCH_TEAM_USERS_SUCCESS,
-  JOIN_TEAM_SUCCESS,
-  LEAVE_TEAM_SUCCESS,
+  JOIN_TEAM,
+  LEAVE_TEAM,
   SELECT_TEAM,
 } from './actionTypes';
 
@@ -43,6 +43,15 @@ function updateSelectedTeam(selectedTeam, state) {
     };
 }
 
+function transformTeamInfoFromStreetSmart(json) {
+  return json.Team_Info.map(teamJson => {
+    return {
+      id: teamJson.TeamId,
+      name: teamJson.Team_Name,
+    };
+  });
+}
+
 export default function reducer(state = initialState, action) {
   switch (action.type) {
   case CREATE_TEAM_SUCCESS:
@@ -59,19 +68,19 @@ export default function reducer(state = initialState, action) {
   case FETCH_TEAMS_SUCCESS:
     return {
       ...state,
-      teams: action.data.teams,
+      teams: transformTeamInfoFromStreetSmart(action.data),
     };
   case FETCH_TEAM_USERS_SUCCESS:
     return {
       ...state,
       teamUsers: action.data.users,
     };
-  case JOIN_TEAM_SUCCESS:
+  case JOIN_TEAM:
     return {
       ...state,
-      currentTeam: action.data.team,
+      currentTeam: action.team,
     };
-  case LEAVE_TEAM_SUCCESS:
+  case LEAVE_TEAM:
     return {
       ...state,
       currentTeam: null,

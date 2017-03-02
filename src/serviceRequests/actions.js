@@ -35,8 +35,9 @@ export function selectServiceRequestResolution(resolutionCode) {
 }
 
 export function fetchServiceRequests() {
-  const yesterday = momentToStr(moment().subtract(1, 'days'));
-
+  // FIXME: Uncomment this when we have updated data.
+  // const yesterday = momentToStr(moment().subtract(1, 'days'));
+  const yesterday = '2017-02-28%2010-10-10';
   return {
     type: API_REQUEST,
     actionName: FETCH_SERVICE_REQUESTS,

@@ -8,15 +8,21 @@ import {
 
 import { API_REQUEST } from '../shared';
 
+// FIXME: Duplicated.
+const PRA_BASE_PATH = 'dhsmobile/PRAService/SSPRAService.svc';
+
 // FIXME: Fetch teams for the actual user.
 export function fetchTeams() {
-  console.error('TODO: Fix team fetch, need a user ID that has teams');
-  return {
+  return (dispatch, getState) => {
+    const { userIdString } = getState().user;
+    console.log('fetch teams for: ', userIdString)
+    dispatch({
       type: API_REQUEST,
       actionName: FETCH_TEAMS,
       endpoint: 'getuserteams',
-      requestPath: `getuserteams/vkaura`,
+      requestPath: `${PRA_BASE_PATH}/getuserteams/${userIdString}`,
       requestMethod: 'GET',
+    });
   };
 }
 
@@ -31,23 +37,14 @@ export function fetchTeamUsers(team) {
 
 export function joinTeam(team) {
   return {
-    type: API_REQUEST,
-    actionName: JOIN_TEAM,
-    requestPath: 'me/team',
-    requestMethod: 'PUT',
-    requestParams: {
-      team,
-    }
+    type: JOIN_TEAM,
+    team,
   };
 }
 
 export function leaveTeam() {
   return {
-    type: API_REQUEST,
-    actionName: LEAVE_TEAM,
-    requestPath: 'me/team',
-    requestMethod: 'DELETE',
-    requestParams: {}
+    type: LEAVE_TEAM,
   };
 }
 

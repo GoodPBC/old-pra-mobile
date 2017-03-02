@@ -62,7 +62,7 @@ async function makeRequestAndDispatchResponse({ action, store }) {
       error,
     });
   }
-
+  console.log('url', url);
   let body = '';
   if (requestMethod === 'GET' || requestMethod === 'get') {
     // Otherwise fails on Android.
@@ -87,7 +87,10 @@ async function makeRequestAndDispatchResponse({ action, store }) {
   }
 
   try {
+    // const textBody = await response.text();
+    // console.log('body', textBody);
     const json = await response.json();
+    // console.log('json response', json);
     if (response.ok) {
       dispatchSuccess(json);
     } else {
@@ -95,7 +98,6 @@ async function makeRequestAndDispatchResponse({ action, store }) {
     }
   } catch (e) {
     dispatchFailure(e, response.status);
-    console.log(response.body);
   }
 }
 
