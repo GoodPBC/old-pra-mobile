@@ -1,6 +1,5 @@
 import {
   FETCH_TEAMS,
-  FETCH_TEAM_USERS,
   JOIN_TEAM,
   LEAVE_TEAM,
   SELECT_TEAM,
@@ -8,29 +7,16 @@ import {
 
 import { API_REQUEST } from '../shared';
 
-// FIXME: Duplicated.
-const PRA_BASE_PATH = 'dhsmobile/PRAService/SSPRAService.svc';
-
-// FIXME: Fetch teams for the actual user.
 export function fetchTeams() {
   return (dispatch, getState) => {
-    const { userIdString } = getState().user;
+    const { userAccountName } = getState().user;
     dispatch({
       type: API_REQUEST,
       actionName: FETCH_TEAMS,
       endpoint: 'getuserteams',
-      requestPath: `${PRA_BASE_PATH}/getuserteams/${userIdString}`,
+      requestPath: `getuserteams/${userAccountName}`,
       requestMethod: 'GET',
     });
-  };
-}
-
-export function fetchTeamUsers(team) {
-  return {
-    type: API_REQUEST,
-    actionName: FETCH_TEAM_USERS,
-    requestPath: `teams/${team.id}/users`,
-    requestMethod: 'GET',
   };
 }
 
