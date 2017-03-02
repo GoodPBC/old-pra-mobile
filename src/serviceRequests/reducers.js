@@ -107,6 +107,10 @@ function transformStatus(status) {
 }
 
 function transformStreetSmartServiceRequests(serviceRequests) {
+  if (!serviceRequests) {
+    return [];
+  }
+
   const convertedServiceRequests = serviceRequests.map(sr => ({
       address: trim(sr.Address),
       borough: trim(sr.Borough),

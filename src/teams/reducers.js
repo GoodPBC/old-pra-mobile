@@ -44,6 +44,10 @@ function updateSelectedTeam(selectedTeam, state) {
 }
 
 function transformTeamInfoFromStreetSmart(json) {
+  if (!json.Team_Info) {
+    return [];
+  }
+
   return json.Team_Info.map(teamJson => {
     return {
       id: teamJson.TeamId,
