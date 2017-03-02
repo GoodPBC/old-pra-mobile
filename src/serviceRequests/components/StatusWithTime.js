@@ -13,7 +13,8 @@ function timeDescriptor(serviceRequest) {
   switch (serviceRequest.status) {
     case 'in_the_field': return 'Received';
     case 'on_site':
-      name = serviceRequest.onsite_status.user.full_name;
+      // NOTE: This is not entirely accurate. We don't have the info about who in particular went onsite.
+      name = serviceRequest.updated_by;
       return `${name} went on-site`;
     case 'visit_complete':
       name = serviceRequest.resolution.user.full_name;
@@ -23,16 +24,21 @@ function timeDescriptor(serviceRequest) {
 }
 
 export default function StatusWithTime({ serviceRequest }) {
-  // NOTE: StreetSmart API does not hav
   let time = null;
+  let timeDescription = null;
   if (serviceRequest.status === 'on_site') {
-    time = parseTime(serviceRequest.actual_onsite_time);
+    console.log('actual onsite time', serviceRequest.actual_onsite_time);
+    if (serviceRequest.actual_onsite_time) {
+      time = parseTime(serviceRequest.actual_onsite_time);
+      timeDescription = time.from(moment());
+    } else {
+      // FIXME: Not sure what to display here. No ping response yet.
+      timeDescription = ', waiting for ping response';
+    }
+
   } else if (serviceRequest.updated_at) {
     time = parseTime(serviceRequest.updated_at);
+    timeDescription = time.from(moment());
   }
-  let timeAgo = null;
-  if (time) {
-    timeAgo = time.from(moment());
-  }
-  return <Text>{timeDescriptor(serviceRequest)} {timeAgo}</Text>;
+  return <Text>{timeDescriptor(serviceRequest)} {timeDescription}</Text>;
 }
