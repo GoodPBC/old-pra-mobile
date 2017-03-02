@@ -20,8 +20,8 @@ function authenticationHeaders(store) {
   const state = store.getState().user;
   if (state.userIsAuthenticated) {
     return {
-      'TokenString': state.authenticationToken,
-      'Id': state.userId,
+      token: state.authenticationToken,
+      userid: state.userId,
     };
   }
   return {};
@@ -94,7 +94,7 @@ async function makeRequestAndDispatchResponse({ action, store }) {
     responseText = await response.text();
     const json = JSON.parse(responseText);
     // console.log('json response', json);
-    if (response.ok && !json.ErrorMessage.length) {
+    if (response.ok && !(json.ErrorMessage && json.ErrorMessage.length)) {
       dispatchSuccess(json);
     } else {
       dispatchFailure(json.ErrorMessage, response.status);
