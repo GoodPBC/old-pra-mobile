@@ -94,10 +94,10 @@ async function makeRequestAndDispatchResponse({ action, store }) {
     responseText = await response.text();
     const json = JSON.parse(responseText);
     // console.log('json response', json);
-    if (response.ok) {
+    if (response.ok && !json.ErrorMessage.length) {
       dispatchSuccess(json);
     } else {
-      dispatchFailure(json.error, response.status);
+      dispatchFailure(json.ErrorMessage, response.status);
     }
   } catch (e) {
     console.log('response text', responseText);
