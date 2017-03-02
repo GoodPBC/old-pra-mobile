@@ -119,13 +119,13 @@ function transformStreetSmartServiceRequests(serviceRequests) {
       state: trim(sr.State),
       zip: trim(sr.Zip),
       status: transformStatus(sr.SR_Status),
-      // New fields
+
       email_data_id: trim(sr.EmailDataId),
       team: trim(sr.Assigned_Team),
-      // Assigned_Provider
-
-      // FIXME: Missing fields
-
+      updated_at: sr.Updated_At,
+      updated_by: sr.Updated_By,
+      actual_onsite_time: sr.Actual_Onsite_Time,
+      resolution_code: sr.ResolutionCode,
     }));
   return convertedServiceRequests;
 }

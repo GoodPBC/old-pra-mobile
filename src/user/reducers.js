@@ -6,6 +6,7 @@ import {
 import {
   LOGIN_USER_SUCCESS,
   LOGIN_USER_FAILURE,
+  LOGIN_USER,
   LOGOUT_USER,
 } from './actionTypes';
 
@@ -14,15 +15,23 @@ const initialState = {
   email: null,
   firstName: null,
   lastName: null,
-  name: 'vkaura', // FIXME: Update with the real user IDs.
+  name: null,
   userId: null,
-  userIdString: 'vkaura', // NOTE: Need this for getuserteams endpoint.
+  userIdString: null, // NOTE: Need this for getuserteams endpoint.
   userIsAuthenticated: null,
 };
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
+  case LOGIN_USER:
+    // FIXME: Remove this fake authentication.
+    return {
+      ...state,
+      userIdString: action.userIdString,
+      userIsAuthenticated: true,
+    };
   case LOGIN_USER_SUCCESS:
+    // FIXME: Test to make sure this is working once StreetSmart auth has been created.
     return {
       ...state,
       authenticationToken: action.data.Response.TokenString,

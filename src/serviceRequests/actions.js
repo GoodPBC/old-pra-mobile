@@ -107,27 +107,29 @@ export function updateOnsiteStatus(serviceRequest) {
   // }]
 
   console.warn('FIXME: Need to fix onsite status update');
-  return {
-    type: API_REQUEST,
-    actionName: UPDATE_ONSITE_STATUS,
-    requestPath: 'update311servicerequests',
-    endpoint: 'update311servicerequests',
-    requestMethod: 'POST',
-    requestParams: [
-      {
-        SR_Number: serviceRequest.sr_number,
-        ModifiedAt: momentToStr(moment()),
-        PRASRStatusId: STATUS_CODES.on_site,
+  return (dispatch, getState) => {
+    dispatch({
+      type: API_REQUEST,
+      actionName: UPDATE_ONSITE_STATUS,
+      requestPath: 'update311servicerequests',
+      endpoint: 'update311servicerequests',
+      requestMethod: 'POST',
+      requestParams: [
+        {
+          SR_Number: serviceRequest.sr_number,
+          ModifiedAt: momentToStr(moment()),
+          PRASRStatusId: STATUS_CODES.on_site,
 
-        // FIXME: Need to use correct values here.
-        AssignedTeamId: null,
-        ModifiedBy: null,
-        PRASRResolutionCodeId: 1,
-        PRASRResolutionNote: 'Note content here',
-        ProviderId: null,
-      }
-    ],
-    serviceRequest, // Needed for sync
+          // FIXME: Need to use correct values here.
+          AssignedTeamId: null,
+          ModifiedBy: null,
+          PRASRResolutionCodeId: 1,
+          PRASRResolutionNote: 'Note content here',
+          ProviderId: null,
+        }
+      ],
+      serviceRequest, // Needed for sync
+    });
   };
 }
 

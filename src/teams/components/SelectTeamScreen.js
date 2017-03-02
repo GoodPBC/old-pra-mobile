@@ -30,7 +30,10 @@ export default class SelectTeamScreen extends Component {
   _joinTeam() {
     this.props.joinTeam(this.props.selectedTeam);
 
-    this.props.navigator.pop();
+    // Select team modal may not have a navigator.
+    if (this.props.navigator) {
+      this.props.navigator.pop();
+    }
   }
 
   render() {

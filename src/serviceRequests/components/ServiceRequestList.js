@@ -121,11 +121,13 @@ export default class ServiceRequestList extends Component {
 
   // Runs as a filter predicate
   _includeServiceRequest(serviceRequest) {
-    if (this.state.currentFilter === FILTERS.ACTIVE) {
-      return serviceRequest.status === 'in_the_field' || serviceRequest.status === 'on_site';
-    }
+    // FIXME: Need to filter correctly
+    return true;
+    // if (this.state.currentFilter === FILTERS.ACTIVE) {
+    //   return serviceRequest.status === 'in_the_field' || serviceRequest.status === 'on_site';
+    // }
 
-    return serviceRequest.status === 'visit_complete' || serviceRequest.statue === 'closed';
+    // return serviceRequest.status === 'visit_complete' || serviceRequest.statue === 'closed';
   }
 
   _renderRow(rowData) {

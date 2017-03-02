@@ -2,10 +2,16 @@ import React from 'react';
 import {
   Text,
 } from 'react-native';
+import moment from 'moment';
+
+function parseTime(timeStr) {
+  return moment(timeStr, 'MMM D YYYY h:mmA');
+}
 
 function timeDescriptor(serviceRequest) {
   let name = null;
   switch (serviceRequest.status) {
+    case 'assigned': return 'Assigned to Provider';
     case 'in_the_field': return 'Received';
     case 'on_site':
       name = serviceRequest.onsite_status.user.full_name;
@@ -18,5 +24,16 @@ function timeDescriptor(serviceRequest) {
 }
 
 export default function StatusWithTime({ serviceRequest }) {
-  return <Text>{timeDescriptor(serviceRequest)} {serviceRequest.time_since_status_changed}</Text>;
+  // NOTE: StreetSmart API does not hav
+  let time = null;
+  if (serviceRequest.status === 'on_site') {
+    time = parseTime(serviceRequest.actual_onsite_time);
+  } else if (serviceRequest.updated_at) {
+    time = parseTime(serviceRequest.updated_at);
+  }
+  let timeAgo = null;
+  if (time) {
+    timeAgo = time.from(moment());
+  }
+  return <Text>{timeDescriptor(serviceRequest)} {timeAgo}</Text>;
 }

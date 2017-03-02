@@ -12,6 +12,7 @@ function mapStateToProps(state) {
   return {
     apiRequestInProgress: state.app.apiRequestInProgress,
     errorMessage: state.app.errorMessage,
+    hasSelectedTeam: !!state.teams.currentTeam,
     networkIsConnected: state.offline.networkIsConnected,
     userIsAuthenticated: state.user.userIsAuthenticated,
   };

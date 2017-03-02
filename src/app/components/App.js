@@ -12,7 +12,7 @@ import {
 import TabNavigator from 'react-native-tab-navigator';
 
 import { ServiceRequestNavigation } from '../../serviceRequests';
-import { TeamNavigation } from '../../teams';
+import { SelectTeamScreen, TeamNavigation } from '../../teams';
 import { OfflineBanner, SyncNavigation } from '../../offline';
 
 import { LoginScreen, LogoutScreen } from '../../user';
@@ -72,6 +72,22 @@ export default class App extends Component {
     );
   }
 
+  _renderTeamSelect() {
+    console.log('component', SelectTeamScreen);
+    return (
+      <View style={{ marginTop: 22 }}>
+        <Modal
+          animationType={'slide'}
+          transparent={false}
+          visible
+          onRequestClose={() => {}}
+        >
+          <SelectTeamScreen {...this.props} />
+        </Modal>
+      </View>
+    );
+  }
+
   _renderTabs() {
     return (
       <TabNavigator>
@@ -125,10 +141,12 @@ export default class App extends Component {
 
   render() {
     let content = null;
-    if (this.props.userIsAuthenticated) {
-      content = this._renderTabs();
-    } else {
+    if (!this.props.userIsAuthenticated) {
       content = this._renderLogin();
+    } else if (!this.props.hasSelectedTeam) {
+      content = this._renderTeamSelect();
+    } else {
+      content = this._renderTabs();
     }
     return (
       <View style={styles.container}>
