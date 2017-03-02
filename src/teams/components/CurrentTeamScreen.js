@@ -62,19 +62,14 @@ export default class CurrentTeamScreen extends Component {
 
   render() {
     const { currentTeam, userName } = this.props;
-    // const createTeamButton = <InvertButton onPress={this._goToCreateTeam}>Create a Team</InvertButton>;
-    const joinTeamButton = <InvertButton onPress={this._goToJoinTeam} withBorder>Join a Team</InvertButton>;
     const changeTeamButton = <InvertButton onPress={this._goToChangeTeam} withBorder>Change Team</InvertButton>;
-    const leaveTeamButton = <InvertButton onPress={this._leaveTeam} withBorder>Leave team</InvertButton>;
     const hasJoinedTeam = !!this.props.currentTeam;
     return (
       <View
         style={styles.container}>
         <CurrentTeamHeader currentTeam={currentTeam} userName={userName} />
         <View style={[styles.buttonsContainer, { height: this._buttonsContainerHeight() }]}>
-          {!hasJoinedTeam && joinTeamButton}
           {hasJoinedTeam && changeTeamButton}
-          {hasJoinedTeam && leaveTeamButton}
         </View>
       </View>
     );
