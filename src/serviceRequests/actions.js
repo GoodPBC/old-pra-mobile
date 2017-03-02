@@ -65,18 +65,29 @@ export function refreshCurrentServiceRequest() {
 export function resolveServiceRequest(serviceRequest, resolutionCode) {
   const reportedAtDate = Date();
 
-  return {
-    type: API_REQUEST,
-    actionName: RESOLVE_SERVICE_REQUEST,
-    requestPath: `service_requests/${serviceRequest.id}/resolution`,
-    requestMethod: 'POST',
-    requestParams: {
-      status: {
-        reported_at: reportedAtDate,
-        resolution_code: resolutionCode,
-      },
-    },
-    serviceRequest, // Needed for sync
+  return (dispatch, getState) => {
+    const { userId } = getState().user;
+
+    const requestParams = [
+      {
+        SR_Number: serviceRequest.sr_number,
+        ModifiedAt: momentToStr(moment()),
+        PRASRStatusId: STATUS_CODES.visit_complete,
+        ModifiedBy: userId,
+        PRASRResolutionCodeId: resolutionCode,
+        // PRASRResolutionNote: 'Note content here',
+      }
+    ];
+
+    dispatch({
+      type: API_REQUEST,
+      actionName: RESOLVE_SERVICE_REQUEST,
+      requestPath: 'update311servicerequests',
+      endpoint: 'update311servicerequests',
+      requestMethod: 'POST',
+      requestParams,
+      serviceRequest, // Needed for sync
+    });
   };
 }
 
@@ -88,23 +99,7 @@ export function selectServiceRequest(serviceRequest) {
 }
 
 export function updateOnsiteStatus(serviceRequest) {
-  const reportedAtDate = Date();
-
-  // [{
-  // 	"AssignedTeamId":2147483647,
-  // 	"ModifiedAt":"\/Date(928164000000-0400)\/",
-  // 	"ModifiedBy":2147483647,
-  // 	"PRASRResolutionCodeId":2147483647,
-  // 	"PRASRResolutionNote":"String content",
-  // 	"PRASRStatusId":2147483647,
-  // 	"ProviderId":2147483647,
-  // 	"SR_Number":"String content"
-  // }]
-
-  console.warn('FIXME: Need to fix onsite status update');
   return (dispatch, getState) => {
-
-
     const { userId } = getState().user;
 
     const requestParams = [
@@ -119,7 +114,6 @@ export function updateOnsiteStatus(serviceRequest) {
       }
     ];
 
-    console.log('onsite request params', requestParams);
     dispatch({
       type: API_REQUEST,
       actionName: UPDATE_ONSITE_STATUS,

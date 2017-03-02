@@ -103,7 +103,7 @@ function transformStatus(status) {
   switch (status) {
     case 'Assigned': return 'in_the_field';
     case 'Onsite': return 'on_site';
-    case 'Visit Complete': return 'visit_complete';
+    case 'Resolved': return 'visit_complete';
     case 'Closed': return 'closed';
     default:
       console.log('received SR with unknown status: ', status);

@@ -23,6 +23,18 @@ export default class ResolutionPicker extends React.Component {
     this.setIndexAndSelectResolution = this.setIndexAndSelectResolution.bind(this);
   }
 
+  resolutionCodeDisplayName(resolutionCode) {
+    switch (resolutionCode) {
+      case 'assistance_offered': return 'Assistance Offered';
+      case 'insufficient_information': return 'Insufficient Information';
+      case 'person_not_found': return 'Person not found';
+      case 'referred_to_911': return 'Referred to 911';
+      case 'refused_assistance': return 'Refused Assistance';
+      default:
+        return 'Unknown resolution code';
+    }
+  }
+
   setIndexAndSelectResolution(value, index) {
     this.props.selectServiceRequestResolution(value);
     this.setState({
@@ -31,20 +43,21 @@ export default class ResolutionPicker extends React.Component {
   }
 
   render() {
+    const resolutionCodeNames = Object.keys(this.props.resolutionCodes);
     return (
       <RadioForm animation={false} formHorizontal={false}>
         {
-          this.props.resolutionCodes.map((obj, i) => {
-            const that = this;
-            const is_selected = this.state.selectedIndex == i;
+          resolutionCodeNames.map((resolutionCodeName, i) => {
+            const isSelected = this.state.selectedIndex === i;
+            const labelWithValue = { label: this.resolutionCodeDisplayName(resolutionCodeName), value: this.props.resolutionCodes[resolutionCodeName] };
             return (
               <View key={i}>
                 <Separator />
                 <RadioButton key={i} style={styles.buttonWrapStyle} >
                   <RadioButtonInput
-                      obj={{ label: obj.display_name, value: obj.code }}
+                      obj={labelWithValue}
                       index={i}
-                      isSelected={ is_selected }
+                      isSelected={ isSelected }
                       onPress={(value, index) => { this.setIndexAndSelectResolution(value, index); }}
                       buttonInnerColor={DARK_BLUE}
                       buttonOuterColor={'lightgray'}
@@ -53,7 +66,7 @@ export default class ResolutionPicker extends React.Component {
                       buttonWrapStyle={{ marginLeft: 10 }}
                     />
                     <RadioButtonLabel
-                      obj={{ label: obj.display_name, value: obj.code }}
+                      obj={labelWithValue}
                       index={i}
                       labelHorizontal
                       onPress={(value, index) => { this.setIndexAndSelectResolution(value, index); }}
