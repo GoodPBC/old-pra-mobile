@@ -111,7 +111,6 @@ export function updateOnsiteStatus(serviceRequest) {
         PRASRStatusId: STATUS_CODES.on_site,
 
         // FIXME: Need to use correct values here.
-        AssignedTeamId: null,
         ModifiedBy: null,
         PRASRResolutionCodeId: 1,
         PRASRResolutionNote: 'Note content here',

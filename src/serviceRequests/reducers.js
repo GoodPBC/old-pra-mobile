@@ -93,9 +93,10 @@ function trim(str) {
 }
 
 function transformStatus(status) {
+  // NOTE: StreetSmart uses the 'Assigned' status instead of 'In The Field',
+  // so we'll map that to in_the_field for expediency here.
   switch (status) {
-    case 'Assigned': return 'assigned';
-    case 'In The Field': return 'in_the_field';
+    case 'Assigned': return 'in_the_field';
     case 'On Site': return 'on_site';
     case 'Visit Complete': return 'visit_complete';
     case 'Closed': return 'closed';
