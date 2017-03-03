@@ -117,6 +117,7 @@ function transformStreetSmartServiceRequests(serviceRequests) {
       updated_by: sr.Updated_By,
       actual_onsite_time: sr.Actual_Onsite_Time,
       resolution_code: sr.ResolutionCode,
+      provider_name: sr.Assigned_Provider,
     }));
   return convertedServiceRequests;
 }
