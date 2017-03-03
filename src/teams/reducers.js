@@ -48,12 +48,10 @@ function transformTeamInfoFromStreetSmart(json) {
     return [];
   }
 
-  return json.Team_Info.map(teamJson => {
-    return {
+  return json.Team_Info.map(teamJson => ({
       id: teamJson.TeamId,
       name: teamJson.Team_Name,
-    };
-  });
+    }));
 }
 
 export default function reducer(state = initialState, action) {

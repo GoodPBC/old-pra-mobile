@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 
 import {
   ScrollView,
@@ -15,26 +15,34 @@ import {
   Separator,
 } from '../../shared';
 
-export default function ServiceRequestDetailScreen(props) {
-  const canGoOnsite = props.serviceRequest.status === 'in_the_field';
+export default class ServiceRequestDetailScreen extends Component {
 
-  return (
-    <View style={styles.container}>
-      <ScrollView>
-        { canGoOnsite ?
-          (
-            <OnsiteSection {...props} />
-          ) : null
-        }
-        <ResolutionSection {...props} />
-        <DetailsSection serviceRequest={props.serviceRequest} />
-      </ScrollView>
-    </View>
-  );
+  componentWillUnmount() {
+    this.props.unselectServiceRequest();
+  }
+
+  render() {
+    const canGoOnsite = this.props.serviceRequest.status === 'in_the_field';
+
+    return (
+      <View style={styles.container}>
+        <ScrollView>
+          { canGoOnsite ?
+            (
+              <OnsiteSection {...this.props} />
+            ) : null
+          }
+          <ResolutionSection {...this.props} />
+          <DetailsSection serviceRequest={this.props.serviceRequest} />
+        </ScrollView>
+      </View>
+    );
+  }
 }
 
 ServiceRequestDetailScreen.propTypes = {
   serviceRequest: PropTypes.object.isRequired,
+  unselectServiceRequest: PropTypes.func.isRequired,
   updateOnsiteStatus: PropTypes.func.isRequired,
 };
 

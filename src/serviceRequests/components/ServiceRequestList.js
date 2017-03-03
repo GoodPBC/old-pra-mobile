@@ -68,7 +68,7 @@ export default class ServiceRequestList extends Component {
   }
 
   dismissUrgentServiceRequests(usr) {
-    this.props.updateServiceRequestsWithNotes(usr)
+    this.props.updateServiceRequestsWithNotes(usr);
     this.setState({
       urgentServiceRequests: []
     });

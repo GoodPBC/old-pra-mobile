@@ -6,10 +6,12 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import ServiceRequestDetailScreen from '../components/ServiceRequestDetailScreen';
 import * as ServiceRequestActions from '../actions';
+import { getCurrentServiceRequestUpdateStatus, getCurrentServiceRequest } from '../selectors';
 
 function mapStateToProps(state) {
   return {
-    serviceRequest: state.serviceRequests.currentServiceRequest,
+    updatePending: getCurrentServiceRequestUpdateStatus(state),
+    serviceRequest: getCurrentServiceRequest(state),
   };
 }
 

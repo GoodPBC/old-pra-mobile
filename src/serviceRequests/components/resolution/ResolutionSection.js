@@ -22,23 +22,22 @@ export default class ResolutionSection extends Component {
   }
 
   render() {
-    const { serviceRequest } = this.props;
-    if (serviceRequest.resolution) {
-      return null;
-    } else if (serviceRequest.pendingResolution) {
+    const { serviceRequest, updatePending } = this.props;
+    if (serviceRequest.status === 'on_site') {
+      return (
+        <ResolutionForm {...this.props} />
+      );
+    } else if (updatePending === 'resolved') {
       return (
         <ResolutionPending {...this.props} />
       );
-    } else if (serviceRequest.status !== 'on_site') {
+    } else {
       return null;
     }
-
-    return (
-      <ResolutionForm {...this.props} />
-    );
   }
 }
 
 ResolutionSection.propTypes = {
+  updatePending: PropTypes.string,
   serviceRequest: PropTypes.object.isRequired,
 };

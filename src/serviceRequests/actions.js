@@ -4,6 +4,7 @@ import {
     FETCH_SERVICE_REQUESTS,
     FETCH_SERVICE_REQUEST_DETAILS,
     RESOLVE_SERVICE_REQUEST,
+    MARK_PENDING_STATUS,
     SELECT_SERVICE_REQUEST,
     SELECT_SERVICE_REQUEST_RESOLUTION,
     UPDATE_ONSITE_STATUS,
@@ -32,7 +33,7 @@ export function selectServiceRequestResolution(resolutionCode) {
   };
 }
 
-export function fetchServiceRequests() {
+export function fetchServiceRequests(onSuccess) {
   const yesterday = momentToStr(moment().subtract(5, 'days'));
   // const yesterday = '2017-02-28%2010-10-10';
   return {
@@ -41,6 +42,7 @@ export function fetchServiceRequests() {
     requestPath: `Get311ServiceRequests/${encodeURIComponent(yesterday)}`,
     endpoint: 'Get311ServiceRequests',
     requestMethod: 'GET',
+    onSuccess,
   };
 }
 
@@ -55,15 +57,12 @@ export function fetchServiceRequestDetails(serviceRequest) {
 }
 
 export function refreshCurrentServiceRequest() {
-  return (dispatch, getState) => {
-    const currentServiceRequest = getState().serviceRequests.currentServiceRequest;
-    dispatch(fetchServiceRequestDetails(currentServiceRequest));
+  return (dispatch) => {
+    dispatch(fetchServiceRequests());
   };
 }
 
 export function resolveServiceRequest(serviceRequest, resolutionCode) {
-  const reportedAtDate = Date();
-
   return (dispatch, getState) => {
     const { userId } = getState().user;
 
@@ -79,6 +78,12 @@ export function resolveServiceRequest(serviceRequest, resolutionCode) {
     ];
 
     dispatch({
+      type: MARK_PENDING_STATUS,
+      serviceRequest,
+      pendingStatus: 'resolved',
+    });
+
+    dispatch({
       type: API_REQUEST,
       actionName: RESOLVE_SERVICE_REQUEST,
       requestPath: 'update311servicerequests',
@@ -86,6 +91,17 @@ export function resolveServiceRequest(serviceRequest, resolutionCode) {
       requestMethod: 'POST',
       requestParams,
       serviceRequest, // Needed for sync
+
+      // Refresh SRs after the update
+      onSuccess: () => {
+        dispatch(fetchServiceRequests(() => {
+          dispatch({
+            type: MARK_PENDING_STATUS,
+            serviceRequest,
+            pendingStatus: null,
+          });
+        }));
+      }
     });
   };
 }
@@ -94,6 +110,13 @@ export function selectServiceRequest(serviceRequest) {
   return {
     type: SELECT_SERVICE_REQUEST,
     serviceRequest,
+  };
+}
+
+export function unselectServiceRequest() {
+  return {
+    type: SELECT_SERVICE_REQUEST,
+    serviceRequest: null,
   };
 }
 
@@ -114,6 +137,12 @@ export function updateOnsiteStatus(serviceRequest) {
     ];
 
     dispatch({
+      type: MARK_PENDING_STATUS,
+      serviceRequest,
+      pendingStatus: 'onsite',
+    });
+
+    dispatch({
       type: API_REQUEST,
       actionName: UPDATE_ONSITE_STATUS,
       requestPath: 'update311servicerequests',
@@ -121,6 +150,17 @@ export function updateOnsiteStatus(serviceRequest) {
       requestMethod: 'POST',
       requestParams,
       serviceRequest, // Needed for sync
+
+      // Refresh SRs after the update
+      onSuccess: () => {
+        dispatch(fetchServiceRequests(() => {
+          dispatch({
+            type: MARK_PENDING_STATUS,
+            serviceRequest,
+            pendingStatus: null,
+          });
+        }));
+      }
     });
   };
 }

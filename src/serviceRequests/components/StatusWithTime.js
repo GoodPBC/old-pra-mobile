@@ -34,7 +34,6 @@ export default function StatusWithTime({ serviceRequest }) {
     } else {
       timeDescription = ', waiting for ping response';
     }
-
   } else if (serviceRequest.updated_at) {
     time = parseTime(serviceRequest.updated_at);
     timeDescription = time.from(moment());

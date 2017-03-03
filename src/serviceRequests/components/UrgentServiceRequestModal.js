@@ -29,9 +29,9 @@ export default class UrgentServiceRequestModal extends Component {
   }
 
   saveServiceRequestForUpdate(data) {
-    let usr = this.state.urgentServiceRequests;
+    const usr = this.state.urgentServiceRequests;
     let found = false;
-    for (var i = 0; i < usr.length; i++){
+    for (let i = 0; i < usr.length; i++){
       if (usr[i].sr_number == data.sr_number){
         found = true;
         break;
@@ -39,14 +39,13 @@ export default class UrgentServiceRequestModal extends Component {
     }
     if (!found) {
       usr.push(data);
-      this.setState({urgentServiceRequests: usr});
+      this.setState({ urgentServiceRequests: usr });
     }
   }
 
   dismissUrgentServiceRequests() {
     this.props.dismissUrgentServiceRequests(this.state.urgentServiceRequests);
   }
-
 
 
   /*

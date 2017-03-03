@@ -6,12 +6,17 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import ResolutionSection from '../components/resolution/ResolutionSection';
 import * as ServiceRequestActions from '../actions';
+import {
+  getCurrentServiceRequestUpdateStatus,
+  getCurrentServiceRequest,
+} from '../selectors';
 
 function mapStateToProps(state) {
   return {
+    updatePending: getCurrentServiceRequestUpdateStatus(state),
     resolutionCodes: state.serviceRequests.resolutionCodes,
     selectedResolutionCode: state.serviceRequests.selectedResolutionCode,
-    serviceRequest: state.serviceRequests.currentServiceRequest,
+    serviceRequest: getCurrentServiceRequest(state),
   };
 }
 

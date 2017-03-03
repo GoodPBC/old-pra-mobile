@@ -28,16 +28,19 @@ function authenticationHeaders(store) {
 }
 
 async function makeRequestAndDispatchResponse({ action, store }) {
-  const { requestMethod, requestParams, actionName } = action;
+  const { onSuccess, requestMethod, requestParams, actionName } = action;
   const url = `${Config.BASE_URL}${action.requestPath}`;
   function dispatchSuccess(json) {
     store.dispatch({
       type: API_REQUEST_SUCCESS,
     });
-    return store.dispatch({
+    store.dispatch({
       type: `${actionName}_SUCCESS`,
       data: json,
     });
+    if (onSuccess) {
+      onSuccess();
+    }
   }
 
   function dispatchNetworkFailure(error) {

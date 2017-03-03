@@ -68,13 +68,15 @@ function ResolvedState({ serviceRequest }) {
 
 export default class OnsiteButton extends Component {
   render() {
-    const { serviceRequest, updateOnsiteStatus } = this.props;
+    const { serviceRequest, updatePending, updateOnsiteStatus } = this.props;
     let content = null;
-    if (serviceRequest.resolution) {
-      content = <ResolvedState serviceRequest={serviceRequest} />;
-    } else if (serviceRequest.onsite_status) {
-      content = <OnState serviceRequest={serviceRequest} />;
-    } else if (serviceRequest.pendingOnsite) {
+
+    // NOTE: All states besides off and pending are hidden.
+    // if (serviceRequest.resolution) {
+    //   content = <ResolvedState serviceRequest={serviceRequest} />;
+    // } else if (serviceRequest.onsite_status) {
+    //   content = <OnState serviceRequest={serviceRequest} />;
+    if (updatePending) { // FIXME: Check for updatePending flag.
       content = <PendingState serviceRequest={serviceRequest} />;
     } else {
       content = <OffState serviceRequest={serviceRequest} updateOnsiteStatus={updateOnsiteStatus} />;
@@ -90,6 +92,7 @@ export default class OnsiteButton extends Component {
 
 OnsiteButton.propTypes = {
   serviceRequest: PropTypes.object.isRequired,
+  updatePending: PropTypes.string,
   updateOnsiteStatus: PropTypes.func.isRequired,
 };
 

@@ -51,7 +51,6 @@ LogoutScene.propTypes = {
 };
 
 export default function LogoutScreen({ logoutUser, name, email }) {
-
   const initialRoute = {
     title: 'User',
     index: 0,

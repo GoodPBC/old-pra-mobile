@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 import Button from './Button';
 import { LIGHT_BLUE } from '../constants';
 
-export default function InvertButton({ children, style, withBorder, ...props}) {
+export default function InvertButton({ children, style, withBorder, ...props }) {
   let borderStyles = {};
   if (withBorder) {
     borderStyles = {

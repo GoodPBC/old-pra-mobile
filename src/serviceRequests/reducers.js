@@ -3,13 +3,14 @@ import {
   FETCH_SERVICE_REQUESTS_SUCCESS,
   FETCH_SERVICE_REQUEST_DETAILS_SUCCESS,
   FETCH_SERVICE_REQUEST_DETAILS,
+  MARK_PENDING_STATUS,
   RESOLVE_SERVICE_REQUEST,
   RESOLVE_SERVICE_REQUEST_SUCCESS,
   SELECT_SERVICE_REQUEST,
   SELECT_SERVICE_REQUEST_RESOLUTION,
   UPDATE_ONSITE_STATUS,
   UPDATE_ONSITE_STATUS_SUCCESS,
-  ADD_CONTACT_TO_SERVICE_REQUEST
+  ADD_CONTACT_TO_SERVICE_REQUEST,
 } from './actionTypes';
 
 import {
@@ -17,7 +18,8 @@ import {
 } from '../shared';
 
 const initialState = {
-  currentServiceRequest: null,
+  currentSrNumber: null,
+  updatePending: {}, // FIXME: Update pending code
   resolutionCodes: {
     assistance_offered: 0,
     insufficient_information: 1,
@@ -30,63 +32,41 @@ const initialState = {
 };
 
 /**
- * Return SR from the list.
- */
-function lookupServiceRequest(serviceRequests, srNumber) {
-  return serviceRequests.find(sr => sr.sr_number === srNumber);
-}
-
-/**
  * After fetching SRs, convert them into a format usable by the app and update
  * the currently-selected SR if necessary.
  */
 function processServiceRequestFetch(state, action) {
-  const serviceRequests = transformStreetSmartServiceRequests(action.data.Service_Requests);
   return {
     ...state,
-    serviceRequests,
-    // currentServiceRequest: updateCurrentServiceRequest(state.currentServiceRequest, serviceRequests),
+    serviceRequests: transformStreetSmartServiceRequests(action.data.Service_Requests),
   };
 }
 
 /**
  * Set the currently-visible service request.
  */
-function setCurrentServiceRequest(state, action) {
-  const { srNumber } = action;
-
+function selectServiceRequest(state, action) {
+  const { serviceRequest } = action;
   return {
     ...state,
-    currentServiceRequest: lookupServiceRequest(state.serviceRequests, srNumber),
+    currentSrNumber: serviceRequest ? serviceRequest.sr_number : null,
   };
 }
 
-/**
- * Update the currently-visible SR after a recent API fetch.
- */
-function updateCurrentServiceRequest(state) {
-  let currentServiceRequest = state.currentServiceRequest;
-  if (currentServiceRequest) {
-    currentServiceRequest = lookupServiceRequest(state.serviceRequests, currentServiceRequest.sr_number);
+function updatePendingStatus(state, action) {
+  const { pendingStatus, serviceRequest } = action;
+  let { updatePending = {} } = state;
+  if (typeof updatePending !== 'object') {
+    updatePending = {};
   }
-
-  return {
+  updatePending[serviceRequest.sr_number] = pendingStatus;
+  const newState = {
     ...state,
-    currentServiceRequest,
-  };
-}
-
-function setFlagOnCurrentServiceRequest(state, flagName) {
-  // Send a pending flag to avoid running the action multiple times.
-  const { currentServiceRequest } = state;
-  // Kind of hack-y because it involves mutating state.
-  currentServiceRequest[flagName] = true;
-  return {
-    ...state,
-    currentServiceRequest: {
-      ...currentServiceRequest,
+    updatePending: {
+      ...updatePending,
     },
   };
+  return newState;
 }
 
 function trim(str) {
@@ -101,6 +81,7 @@ function transformStatus(status) {
   // NOTE: StreetSmart uses the 'Assigned' status instead of 'In The Field',
   // so we'll map that to in_the_field for expediency here.
   switch (status) {
+    case 'Unassigned': return 'in_process';
     case 'Assigned': return 'in_the_field';
     case 'Onsite': return 'on_site';
     case 'Resolved': return 'visit_complete';
@@ -142,41 +123,16 @@ function transformStreetSmartServiceRequests(serviceRequests) {
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
-    case API_REQUEST:
-      if (action.actionName === UPDATE_ONSITE_STATUS) {
-        return setFlagOnCurrentServiceRequest(state, 'pendingOnsite');
-      } else if (action.actionName === RESOLVE_SERVICE_REQUEST) {
-        return setFlagOnCurrentServiceRequest(state, 'pendingResolution');
-      }
-
-      return state;
     case FETCH_SERVICE_REQUESTS_SUCCESS:
       return processServiceRequestFetch(state, action);
-    case FETCH_RESOLUTION_CODES_SUCCESS:
-      return {
-        ...state,
-        resolutionCodes: action.data.resolutions,
-      };
-    case FETCH_SERVICE_REQUEST_DETAILS:
-      return setCurrentServiceRequest(state, action);
-    // case RESOLVE_SERVICE_REQUEST_SUCCESS:
-    //   return updateCurrentServiceRequest(state, action);
+    case MARK_PENDING_STATUS:
+      return updatePendingStatus(state, action);
     case SELECT_SERVICE_REQUEST: // Works offline
-      return {
-        ...state,
-        currentServiceRequest: action.serviceRequest,
-      };
+      return selectServiceRequest(state, action);
     case SELECT_SERVICE_REQUEST_RESOLUTION:
       return {
         ...state,
         selectedResolutionCode: action.selectedResolutionCode,
-      };
-    // case UPDATE_ONSITE_STATUS_SUCCESS:
-    //   return updateCurrentServiceRequest(state, action);
-    case ADD_CONTACT_TO_SERVICE_REQUEST:
-      return {
-        ...state,
-        currentServiceRequest: action.serviceRequest,
       };
     default:
       return state;

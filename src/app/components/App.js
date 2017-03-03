@@ -73,7 +73,6 @@ export default class App extends Component {
   }
 
   _renderTeamSelect() {
-    console.log('component', SelectTeamScreen);
     return (
       <View style={{ marginTop: 22 }}>
         <Modal
