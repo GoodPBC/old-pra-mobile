@@ -33,13 +33,12 @@ export function selectServiceRequestResolution(resolutionCode) {
 }
 
 export function fetchServiceRequests() {
-  // FIXME: Uncomment this when we have updated data.
-  // const yesterday = momentToStr(moment().subtract(1, 'days'));
-  const yesterday = '2017-02-28%2010-10-10';
+  const yesterday = momentToStr(moment().subtract(5, 'days'));
+  // const yesterday = '2017-02-28%2010-10-10';
   return {
     type: API_REQUEST,
     actionName: FETCH_SERVICE_REQUESTS,
-    requestPath: `Get311ServiceRequests/${yesterday}`,
+    requestPath: `Get311ServiceRequests/${encodeURIComponent(yesterday)}`,
     endpoint: 'Get311ServiceRequests',
     requestMethod: 'GET',
   };
