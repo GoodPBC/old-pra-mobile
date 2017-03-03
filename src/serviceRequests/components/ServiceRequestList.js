@@ -42,7 +42,6 @@ export default class ServiceRequestList extends Component {
       if (nextProps.serviceRequests) {
         this.filterServiceRequestsByUrgency();
       }
-      this._sortServiceRequests(nextProps.serviceRequests);
       this.setState({
         dataSource: this.state.dataSource.cloneWithRows(
           this._filteredServiceRequests(nextProps.serviceRequests)),
@@ -72,30 +71,6 @@ export default class ServiceRequestList extends Component {
     this.setState({
       urgentServiceRequests: []
     });
-  }
-
-
-  _sortServiceRequests(serviceRequests) {
-    function compare(a, b){
-      if (statusMap[a] < statusMap[b]) {
-        return -1;
-      }
-      if (statusMap[a] > statusMap[b]) {
-        return 1;
-      }
-      return 0;
-    }
-
-    let statusMap = {
-      on_site: 0,
-      in_the_field: 1,
-      visit_complete: 2,
-      closed: 3,
-      in_process: 4,
-      assigned: 5
-    };
-
-    return serviceRequests.sort(compare);
   }
 
   _selectServiceRequest(serviceRequest) {
