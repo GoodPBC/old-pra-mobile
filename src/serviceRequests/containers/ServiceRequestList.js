@@ -8,7 +8,6 @@ import serviceRequestList from '../components/ServiceRequestList';
 import * as ServiceRequestActions from '../actions';
 
 const DISPLAYABLE_STATUSES = [
-  'assigned', // FIXME: Showing assigned SRs as well until we get Street Smart access.
   'in_the_field',
   'on_site',
   'visit_complete',

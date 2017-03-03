@@ -32,7 +32,6 @@ export default function StatusWithTime({ serviceRequest }) {
       time = parseTime(serviceRequest.actual_onsite_time);
       timeDescription = time.from(moment());
     } else {
-      // FIXME: Not sure what to display here. No ping response yet.
       timeDescription = ', waiting for ping response';
     }
 
