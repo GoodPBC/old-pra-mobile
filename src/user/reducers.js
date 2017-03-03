@@ -6,7 +6,7 @@ import {
 import {
   LOGIN_USER_SUCCESS,
   LOGIN_USER_FAILURE,
-  LOGOUT_USER,
+  LOGOUT_USER_SUCCESS,
 } from './actionTypes';
 
 const initialState = {
@@ -51,7 +51,7 @@ export default function reducer(state = initialState, action) {
       };
     }
     return state;
-  case LOGOUT_USER:
+  case LOGOUT_USER_SUCCESS:
     return {
       ...state,
       authenticationToken: null,

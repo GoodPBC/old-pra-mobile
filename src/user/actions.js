@@ -2,6 +2,7 @@ import { LOGIN_USER, LOGOUT_USER } from './actionTypes';
 import { API_REQUEST } from '../shared';
 
 const USER_LOGIN_PATH = 'authenticateuser';
+const USER_LOGOUT_PATH = 'logoutuser';
 
 export function submitLoginCredentials(email, password) {
   return {
@@ -19,6 +20,10 @@ export function submitLoginCredentials(email, password) {
 
 export function logoutUser() {
   return {
-    type: LOGOUT_USER,
+    type: API_REQUEST,
+    actionName: LOGOUT_USER,
+    requestPath: USER_LOGOUT_PATH,
+    requestMethod: 'GET',
+    endpoint: 'login',
   };
 }
