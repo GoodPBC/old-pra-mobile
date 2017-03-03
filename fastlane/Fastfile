@@ -22,6 +22,7 @@ platform :ios do
     sigh(app_identifier: 'gov.nyc.dhs.providerresponse.staging')
     increment_build_number(xcodeproj: './ios/ProviderResponseApp.xcodeproj')
     gym(
+      clean: true,
       scheme: 'ProviderResponseApp-Staging',
       project: './ios/ProviderResponseApp.xcodeproj'
     )
