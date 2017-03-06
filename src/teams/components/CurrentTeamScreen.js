@@ -5,6 +5,7 @@ import {
   GradientBackground,
   InvertButton,
   X_AXIS_PADDING,
+  BODY_BACKGROUND,
 } from '../../shared';
 import CurrentTeamHeader from './CurrentTeamHeader';
 
@@ -88,7 +89,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   container: {
-    backgroundColor: '#FCFCFC',
+    backgroundColor: BODY_BACKGROUND,
     flex: 1,
     justifyContent: 'space-around',
     paddingLeft: X_AXIS_PADDING,

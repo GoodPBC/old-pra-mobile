@@ -2,6 +2,8 @@ import React, { Component, PropTypes } from 'react';
 
 import { StyleSheet, View, Text } from 'react-native';
 
+import { BODY_BACKGROUND } from '../../shared'
+
 export default class EmptyServiceRequestList extends Component {
 
   render() {
@@ -16,6 +18,7 @@ export default class EmptyServiceRequestList extends Component {
 const styles = StyleSheet.create({
   container: {
     paddingTop: 30,
+    backgroundColor: BODY_BACKGROUND
   },
   text: {
     textAlign: 'center'

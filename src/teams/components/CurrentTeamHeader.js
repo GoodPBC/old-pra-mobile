@@ -3,7 +3,12 @@ import { StyleSheet, Text, View } from 'react-native';
 import {
   Separator,
 } from '../../shared';
-import { GRAY_TEXT, LIGHT_BLUE } from '../../shared/constants';
+import {
+  GRAY_TEXT, 
+  LIGHT_BLUE,
+  CARD_BORDER 
+}
+   from '../../shared/constants';
 
 export default function CurrentTeamHeader({ currentTeam, userName }) {
   return (
@@ -45,6 +50,10 @@ const styles = StyleSheet.create({
     paddingTop: 40,
     paddingBottom: 40,
     backgroundColor: 'white',
+    borderRadius: 4,
+    borderWidth: 1,
+    borderColor: CARD_BORDER
+    /*
     shadowColor: 'black',
     shadowOffset: {
       width: 0,
@@ -52,5 +61,6 @@ const styles = StyleSheet.create({
     },
     shadowRadius: 8,
     shadowOpacity: 0.3,
+    */
   }
 });

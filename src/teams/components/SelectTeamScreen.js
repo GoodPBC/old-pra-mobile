@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import SelectTeamList from '../containers/SelectTeamList';
-import { LIGHT_BLUE } from '../../shared';
+import { LIGHT_BLUE, BODY_BACKGROUND } from '../../shared';
 
 import { RouteIndices } from './TeamNavigation';
 import JoinTeamButton from './JoinTeamButton';
@@ -57,7 +57,7 @@ SelectTeamScreen.propTypes = {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: BODY_BACKGROUND,
   },
   listContainer: {
     borderTopWidth: 1,

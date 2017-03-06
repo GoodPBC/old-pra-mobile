@@ -13,6 +13,8 @@ import {
   Navigation,
   Separator,
   LIGHT_BLUE,
+  BODY_BACKGROUND,
+  CARD_BORDER,
   X_AXIS_PADDING,
 } from '../../shared';
 
@@ -73,10 +75,10 @@ LogoutScreen.propTypes = {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'rgba(0,0,0,0)',
+    backgroundColor: BODY_BACKGROUND,
     flex: 1,
-    paddingLeft: X_AXIS_PADDING - 15,
-    paddingRight: X_AXIS_PADDING - 15,
+    paddingLeft: X_AXIS_PADDING,
+    paddingRight: X_AXIS_PADDING,
     justifyContent: 'space-around',
   },
   card: {
@@ -85,8 +87,11 @@ const styles = StyleSheet.create({
     paddingTop: 30,
     paddingBottom: 20,
     marginTop: 25,
-
-    backgroundColor: 'white',
+    borderRadius: 4,
+    borderColor: CARD_BORDER,
+    borderWidth: 1,
+    backgroundColor: 'white'
+    /*
     shadowColor: 'black',
     shadowOffset: {
       width: 0,
@@ -94,6 +99,7 @@ const styles = StyleSheet.create({
     },
     shadowRadius: 8,
     shadowOpacity: 0.3,
+    */
   },
   header: {
     alignSelf: 'center',

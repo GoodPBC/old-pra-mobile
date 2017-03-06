@@ -6,6 +6,7 @@ import SyncServiceRequestList from '../containers/SyncServiceRequestList';
 import SyncButton from '../containers/SyncButton';
 import {
   X_AXIS_PADDING,
+  BODY_BACKGROUND
 } from '../../shared';
 
 export default function SyncScreen({ navigator }) {
@@ -26,6 +27,7 @@ SyncScreen.propTypes = {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: BODY_BACKGROUND
   },
   buttonContainer: {
     paddingLeft: X_AXIS_PADDING,

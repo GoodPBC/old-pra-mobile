@@ -5,6 +5,8 @@ import { StyleSheet, View } from 'react-native';
 import ServiceRequestList from '../containers/ServiceRequestList';
 import EmptyServiceRequestList from './EmptyServiceRequestList';
 
+import { BODY_BACKGROUND } from '../../shared'
+
 export default class MyRequestsScreen extends Component {
 
   constructor(props) {
@@ -36,6 +38,7 @@ MyRequestsScreen.propTypes = {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: BODY_BACKGROUND
   },
   modal: {
     backgroundColor: 'white',

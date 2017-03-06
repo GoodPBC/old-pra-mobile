@@ -8,6 +8,8 @@ import {
   GRAY_TEXT,
   LIGHT_BLUE,
   DARK_BLUE,
+  BODY_BACKGROUND,
+  CARD_BORDER,
   FORBIDDEN_RESPONSE_STATUS,
   X_AXIS_PADDING,
 } from './constants';
@@ -30,6 +32,8 @@ export {
   GRAY_TEXT,
   LIGHT_BLUE,
   DARK_BLUE,
+  BODY_BACKGROUND,
+  CARD_BORDER,
   X_AXIS_PADDING,
   Button,
   Checkbox,
