@@ -28,6 +28,6 @@ export default function configureStore() {
     applyMiddleware(thunk, offlineSync, providerAPI), // include 'logger' for debugging
     autoRehydrate()
   );
-  persistStore(store, { storage: AsyncStorage });
+  persistStore(store, { storage: AsyncStorage }); // .purge() to reset
   return store;
 }

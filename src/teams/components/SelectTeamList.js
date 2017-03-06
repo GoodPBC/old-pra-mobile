@@ -18,6 +18,7 @@ export default class SelectTeamList extends Component {
 
   componentWillMount() {
     this.props.fetchTeams();
+    this.props.selectTeam(this.props.currentTeam);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -29,11 +30,13 @@ export default class SelectTeamList extends Component {
   }
 
   _renderRow(team) {
+    const isSelected = this.props.selectedTeam && this.props.selectedTeam.id === team.id;
+    console.log({ team, isSelected});
     return (
       <SelectTeamListItem
         team={team}
         onSelectTeam={this.props.selectTeam}
-        selected={team.selected}
+        selected={isSelected}
         onViewTeamDetails={this.props.onViewTeamDetails}
       />
     );
@@ -46,8 +49,11 @@ export default class SelectTeamList extends Component {
   }
 
   render() {
+    const { selectedTeam } = this.props;
+    const selectedTeamKey = selectedTeam ? selectedTeam.id : 0;
     return (
       <ListView
+        key={`list_${selectedTeamKey}`}
         dataSource={this.state.dataSource}
         renderRow={this._renderRow}
         renderSeparator={this._renderSeparator}
@@ -58,6 +64,7 @@ export default class SelectTeamList extends Component {
 }
 
 SelectTeamList.propTypes = {
+  currentTeam: PropTypes.object,
   fetchTeams: PropTypes.func.isRequired,
   selectTeam: PropTypes.func.isRequired,
   onViewTeamDetails: PropTypes.func.isRequired,

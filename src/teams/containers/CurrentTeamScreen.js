@@ -7,6 +7,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import CurrentTeamScreen from '../components/CurrentTeamScreen';
 import * as TeamsActions from '../actions';
+import { getCurrentTeam } from '../selectors';
 
 /**
  * Should be able to see the user's currently-assigned team.
@@ -14,7 +15,7 @@ import * as TeamsActions from '../actions';
 function mapStateToProps(state) {
   return {
     userName: state.user.name,
-    currentTeam: state.teams.currentTeam,
+    currentTeam: getCurrentTeam(state),
   };
 }
 

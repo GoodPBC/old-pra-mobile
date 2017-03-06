@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect';
+import { getCurrentTeam } from '../teams/selectors';
 
 const DISPLAYABLE_STATUSES = [
   'in_the_field',
@@ -12,7 +13,6 @@ const getAllServiceRequests = (state) => {
 };
 
 const getCurrentSRNumber = (state) => state.serviceRequests.currentSrNumber;
-const getCurrentTeam = (state) => state.teams.currentTeam;
 
 function sortServiceRequests(serviceRequests) {
   function compare(a, b){
@@ -41,7 +41,7 @@ export const getFilteredServiceRequests = createSelector(
   [getAllServiceRequests, getCurrentTeam],
   (serviceRequests, currentTeam) => {
     return serviceRequests.filter(sr => {
-      const isOnTeam = sr.team_id === currentTeam.id;
+      const isOnTeam = currentTeam && sr.team_id === currentTeam.id;
       const isDisplayable = DISPLAYABLE_STATUSES.indexOf(sr.status) !== -1;
 
       // FIXME: Filter based on the selected filter.

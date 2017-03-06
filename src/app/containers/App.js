@@ -7,12 +7,13 @@ import { connect } from 'react-redux';
 import App from '../components/App';
 import { clearErrorMessage } from '../actions';
 import { monitorNetworkChanges } from '../../offline/actions';
+import { getCurrentTeam } from '../../teams/selectors';
 
 function mapStateToProps(state) {
   return {
     apiRequestInProgress: state.app.apiRequestInProgress,
     errorMessage: state.app.errorMessage,
-    hasSelectedTeam: !!state.teams.currentTeam,
+    hasSelectedTeam: !!getCurrentTeam(state),
     networkIsConnected: state.offline.networkIsConnected,
     userIsAuthenticated: state.user.userIsAuthenticated,
   };

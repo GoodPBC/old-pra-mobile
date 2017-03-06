@@ -13,11 +13,6 @@ export default class SelectTeamScreen extends Component {
     this._joinTeam = this._joinTeam.bind(this);
   }
 
-  componentWillMount() {
-    // Clear any pre-existing selection when we show this screen.
-    this.props.selectTeam(null);
-  }
-
   _goToDetail(team) {
     const route = {
       index: RouteIndices.USER_LIST,

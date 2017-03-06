@@ -7,11 +7,13 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import SelectTeamList from '../components/SelectTeamList';
 import * as TeamsActions from '../actions';
+import { getCurrentTeam, getSelectedTeam, getTeams } from '../selectors';
 
 function mapStateToProps(state) {
   return {
-    selectedTeam: state.teams.selectedTeam,
-    teams: state.teams.teams,
+    currentTeam: getCurrentTeam(state),
+    selectedTeam: getSelectedTeam(state),
+    teams: getTeams(state),
   };
 }
 
