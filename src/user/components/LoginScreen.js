@@ -6,6 +6,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   View,
+  Text
 } from 'react-native';
 import {
   InvertButton,
@@ -16,6 +17,7 @@ import {
 } from '../../shared';
 import loginBackgroundImage from './img/LoginBackground.png';
 import logoImage from './img/NYC_DHS-Logo.png';
+import Separator from '../../shared/components/Separator';
 
 export default class LoginScreen extends Component {
   constructor(props) {
@@ -44,7 +46,7 @@ export default class LoginScreen extends Component {
       <View style={styles.container}>
         <Image source={loginBackgroundImage} style={styles.backgroundImage}>
           <View style={styles.wrapper}>
-            <Image source={logoImage} style={styles.logo} />
+            <Image resizeMode='contain' source={logoImage} style={styles.logo} />
             <KeyboardAvoidingView behavior="padding" style={styles.form}>
               <InvertTextInput
                 style={styles.loginModalInput}
@@ -100,7 +102,8 @@ const styles = StyleSheet.create({
   },
   logo: {
     alignSelf: 'center',
-    marginBottom: 50,
+    marginBottom: 40,
+    width: 300
   },
   showPassword: {
     flexDirection: 'row',
