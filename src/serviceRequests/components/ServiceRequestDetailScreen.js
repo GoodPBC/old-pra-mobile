@@ -13,6 +13,7 @@ import OnsiteSection from './OnsiteSection';
 import {
   DARK_BLUE,
   Separator,
+  BODY_BACKGROUND
 } from '../../shared';
 
 export default class ServiceRequestDetailScreen extends Component {
@@ -49,6 +50,7 @@ ServiceRequestDetailScreen.propTypes = {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: BODY_BACKGROUND
   },
   detailsContainer: {
     padding: 10,

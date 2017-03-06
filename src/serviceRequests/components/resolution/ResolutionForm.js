@@ -8,6 +8,7 @@ import {
   Separator,
   X_AXIS_PADDING,
   LIGHT_BLUE,
+  CARD_BORDER
 } from '../../../shared';
 
 export default function ResolutionForm(props) {
@@ -31,11 +32,15 @@ ResolutionForm.propTypes = {
 };
 const styles = StyleSheet.create({
   buttonContainer: {
-    backgroundColor: 'lightgray',
+    backgroundColor: 'white',
     paddingLeft: X_AXIS_PADDING,
     paddingRight: X_AXIS_PADDING,
     paddingTop: 20,
     paddingBottom: 30,
+    borderWidth: 1,
+    borderRadius: 4,
+    borderColor: CARD_BORDER,
+    marginTop: 5
   },
   srNumber: {
     textAlign: 'center',
