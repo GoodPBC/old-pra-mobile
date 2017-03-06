@@ -45,7 +45,6 @@ export default function reducer(state = initialState, action) {
   case SELECT_TEAM:
     const selectedTeam = action.team;
     const selectedTeamId = selectedTeam ? selectedTeam.id : null;
-    console.log({ selectedTeam, selectedTeamId });
     return {
       ...state,
       selectedTeamId,

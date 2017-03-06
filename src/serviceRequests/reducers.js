@@ -11,6 +11,9 @@ import {
   UPDATE_ONSITE_STATUS,
   UPDATE_ONSITE_STATUS_SUCCESS,
   ADD_CONTACT_TO_SERVICE_REQUEST,
+  UPDATE_RESOLUTION_NOTES,
+
+  RESOLUTION_CODES,
 } from './actionTypes';
 
 import {
@@ -21,14 +24,11 @@ const initialState = {
   currentSrNumber: null,
   updatePending: {}, // FIXME: Update pending code
   resolutionCodes: {
-    assistance_offered: 0,
-    insufficient_information: 1,
-    person_not_found: 2,
-    referred_to_911: 3,
-    refused_assistance: 4,
+    ...RESOLUTION_CODES,
   },
   serviceRequests: [],
   selectedResolutionCode: null,
+  resolutionNotes: null,
 };
 
 /**
@@ -50,6 +50,10 @@ function selectServiceRequest(state, action) {
   return {
     ...state,
     currentSrNumber: serviceRequest ? serviceRequest.sr_number : null,
+
+    // Clear out stale data from the last SR.
+    resolutionNotes: null,
+    selectedResolutionCode: null,
   };
 }
 
@@ -117,6 +121,7 @@ function transformStreetSmartServiceRequests(serviceRequests) {
       updated_by: sr.Updated_By,
       actual_onsite_time: sr.Actual_Onsite_Time,
       resolution_code: sr.ResolutionCode,
+      resolution_notes: sr.ResolutionNotes,
       provider_name: sr.Assigned_Provider,
     }));
   return convertedServiceRequests;
@@ -134,6 +139,14 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         selectedResolutionCode: action.selectedResolutionCode,
+        // Wipe this out so we don't accidentally send notes
+        // with res codes that don't need them.
+        resolutionNotes: null,
+      };
+    case UPDATE_RESOLUTION_NOTES:
+      return {
+        ...state,
+        resolutionNotes: action.notes ? action.notes.trim() : null,
       };
     default:
       return state;

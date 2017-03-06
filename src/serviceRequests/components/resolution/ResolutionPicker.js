@@ -8,6 +8,8 @@ import {
   Separator,
 } from '../../../shared';
 
+import { RESOLUTION_CODES } from '../../actionTypes';
+
 import RadioForm, { RadioButton, RadioButtonInput, RadioButtonLabel } from 'react-native-simple-radio-button';
 
 export default class ResolutionPicker extends React.Component {
@@ -48,7 +50,7 @@ export default class ResolutionPicker extends React.Component {
       <RadioForm animation={false} formHorizontal={false}>
         {
           resolutionCodeNames.map((resolutionCodeName, i) => {
-            const isSelected = this.state.selectedIndex === i;
+            const isSelected = this.props.selectedResolutionCode === this.props.resolutionCodes[resolutionCodeName];
             const labelWithValue = { label: this.resolutionCodeDisplayName(resolutionCodeName), value: this.props.resolutionCodes[resolutionCodeName] };
             return (
               <View key={i}>
@@ -101,7 +103,6 @@ const styles = StyleSheet.create({
 
 ResolutionPicker.propTypes = {
   serviceRequest: PropTypes.object.isRequired,
-  resolutionCodes: PropTypes.array.isRequired,
   selectedResolutionCode: PropTypes.any,
   selectServiceRequestResolution: PropTypes.func.isRequired,
 };

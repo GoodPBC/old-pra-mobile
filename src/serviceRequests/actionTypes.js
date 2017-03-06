@@ -22,3 +22,14 @@ export const ADD_CONTACT_TO_SERVICE_REQUEST = 'ADD_CONTACT_TO_SERVICE_REQUEST';
 export const FILTER_URGENT_SERVICE_REQUESTS = 'FILTER_URGENT_SERVICE_REQUESTS';
 export const MARK_URGENT_SERVICE_REQUEST_READ = 'MARK_URGENT_SERVICE_REQUEST_READ';
 export const UPDATE_SERVICE_REQUESTS_WITH_NOTES = 'UPDATE_SERVICE_REQUESTS_WITH_NOTES';
+
+export const UPDATE_RESOLUTION_NOTES = 'UPDATE_RESOLUTION_NOTES';
+
+
+export const RESOLUTION_CODES = {
+  assistance_offered: 0,
+  insufficient_information: 1,
+  person_not_found: 2,
+  referred_to_911: 3,
+  refused_assistance: 4,
+};
