@@ -11,7 +11,7 @@ import { logoutUser } from '../../user/actions';
 
 function mapStateToProps(state) {
   return {
-    // teams: getTeams(state),
+    teams: getTeams(state),
     userAccountName: state.user.userAccountName,
   };
 }
