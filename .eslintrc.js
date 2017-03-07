@@ -29,6 +29,7 @@ module.exports = {
         "react/jsx-indent-props": "off", // TODO: Add back later
         "react/forbid-prop-types": "off", // TODO: Add back
         "no-case-declarations": "off", // TODO: Add back
-        // "react/prop-types": "off", // TODO: Add this back
+        "react/prop-types": "off",
+        "react/require-default-props": "off",
     }
 };

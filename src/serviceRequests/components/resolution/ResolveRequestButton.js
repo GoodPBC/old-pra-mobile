@@ -19,7 +19,6 @@ export default function ResolveRequestButton({
   selectedResolutionCode,
   resolutionNotes,
   resolveServiceRequest }) {
-
   return (
     <Button
       disabled={!enableResolveButton(RESOLUTION_CODES, resolutionNotes, selectedResolutionCode)}

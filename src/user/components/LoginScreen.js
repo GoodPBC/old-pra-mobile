@@ -46,7 +46,7 @@ export default class LoginScreen extends Component {
       <View style={styles.container}>
         <Image source={loginBackgroundImage} style={styles.backgroundImage}>
           <View style={styles.wrapper}>
-            <Image resizeMode='contain' source={logoImage} style={styles.logo} />
+            <Image resizeMode="contain" source={logoImage} style={styles.logo} />
             <KeyboardAvoidingView behavior="padding" style={styles.form}>
               <InvertTextInput
                 style={styles.loginModalInput}

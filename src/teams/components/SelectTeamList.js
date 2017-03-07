@@ -31,7 +31,7 @@ export default class SelectTeamList extends Component {
 
   _renderRow(team) {
     const isSelected = this.props.selectedTeam && this.props.selectedTeam.id === team.id;
-    console.log({ team, isSelected});
+    console.log({ team, isSelected });
     return (
       <SelectTeamListItem
         team={team}

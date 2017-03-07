@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 
 import { StyleSheet, View, Text } from 'react-native';
 
-import { BODY_BACKGROUND } from '../../shared'
+import { BODY_BACKGROUND } from '../../shared';
 
 export default class EmptyServiceRequestList extends Component {
 

@@ -5,7 +5,7 @@ import { StyleSheet, View } from 'react-native';
 import ServiceRequestList from '../containers/ServiceRequestList';
 import EmptyServiceRequestList from './EmptyServiceRequestList';
 
-import { BODY_BACKGROUND } from '../../shared'
+import { BODY_BACKGROUND } from '../../shared';
 
 export default class MyRequestsScreen extends Component {
 

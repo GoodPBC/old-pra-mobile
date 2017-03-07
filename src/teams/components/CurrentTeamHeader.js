@@ -4,9 +4,9 @@ import {
   Separator,
 } from '../../shared';
 import {
-  GRAY_TEXT, 
+  GRAY_TEXT,
   LIGHT_BLUE,
-  CARD_BORDER 
+  CARD_BORDER
 }
    from '../../shared/constants';
 

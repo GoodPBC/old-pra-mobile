@@ -1,4 +1,5 @@
 /* global fetch */
+/** eslint no-console: 0 */
 import Config from 'react-native-config';
 
 import {
@@ -65,6 +66,7 @@ async function makeRequestAndDispatchResponse({ action, store }) {
       error,
     });
   }
+
   console.log('url', url);
   let body = '';
   if (requestMethod === 'GET' || requestMethod === 'get') {

@@ -9,7 +9,6 @@ import {
     SELECT_SERVICE_REQUEST_RESOLUTION,
     UPDATE_ONSITE_STATUS,
     ADD_CONTACT_TO_SERVICE_REQUEST,
-    UPDATE_SERVICE_REQUESTS_WITH_NOTES,
     UPDATE_RESOLUTION_NOTES,
 } from './actionTypes';
 import { API_REQUEST } from '../shared';
@@ -68,8 +67,7 @@ export function resolveServiceRequest(serviceRequest, resolutionCode) {
     const { userId } = getState().user;
     const { resolutionNotes } = getState().serviceRequests;
 
-
-    console.log(`Resolving SR #${serviceRequest.sr_number} with code: ${resolutionCode}`);
+    // console.log(`Resolving SR #${serviceRequest.sr_number} with code: ${resolutionCode}`);
     const requestParams = {
       SR_Number: serviceRequest.sr_number,
       ModifiedAt: momentToStr(moment()),
