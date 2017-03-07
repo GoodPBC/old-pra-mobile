@@ -7,16 +7,14 @@ import {
   SELECT_TEAM,
 } from './actionTypes';
 
+import {
+  LOGOUT_USER_SUCCESS,
+} from '../user/actionTypes';
+
 const initialState = {
   currentTeamId: null,
   selectedTeamId: null,
   teams: [],
-  get currentTeam() {
-
-    // const e = new Error('using old current team');
-    // console.log(e.stack);
-    // throw e;
-  }
 };
 
 function transformTeamInfoFromStreetSmart(json) {
@@ -42,10 +40,13 @@ export default function reducer(state = initialState, action) {
       ...state,
       currentTeamId: action.team.id,
     };
+  case LOGOUT_USER_SUCCESS:
+    return {
+      ...initialState,
+    };
   case SELECT_TEAM:
     const selectedTeam = action.team;
     const selectedTeamId = selectedTeam ? selectedTeam.id : null;
-    console.log({ selectedTeam, selectedTeamId });
     return {
       ...state,
       selectedTeamId,

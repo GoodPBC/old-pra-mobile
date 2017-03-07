@@ -12,7 +12,8 @@ import {
 import TabNavigator from 'react-native-tab-navigator';
 
 import { ServiceRequestNavigation } from '../../serviceRequests';
-import { SelectTeamScreen, TeamNavigation } from '../../teams';
+import { TeamNavigation } from '../../teams';
+import SelectTeamModal from '../../teams/containers/SelectTeamModal';
 import { OfflineBanner, SyncNavigation } from '../../offline';
 
 import { LoginScreen, LogoutScreen } from '../../user';
@@ -81,7 +82,7 @@ export default class App extends Component {
           visible
           onRequestClose={() => {}}
         >
-          <SelectTeamScreen {...this.props} />
+          <SelectTeamModal {...this.props} />
         </Modal>
       </View>
     );

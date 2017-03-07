@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 
 import { StyleSheet, Text, View } from 'react-native';
 
+import ResolutionNotesField from './ResolutionNotesField';
 import ResolutionPicker from './ResolutionPicker';
 import ResolveRequestButton from './ResolveRequestButton';
 import {
@@ -18,6 +19,7 @@ export default function ResolutionForm(props) {
         <Text style={styles.header}>Resolution</Text>
       </View>
         <ResolutionPicker {...props} />
+        <ResolutionNotesField {...props} />
         <Separator />
         <View style={styles.buttonContainer}>
           <Text style={styles.srNumber}>SR# {props.serviceRequest.sr_number}</Text>

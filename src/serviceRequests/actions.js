@@ -9,7 +9,8 @@ import {
     SELECT_SERVICE_REQUEST_RESOLUTION,
     UPDATE_ONSITE_STATUS,
     ADD_CONTACT_TO_SERVICE_REQUEST,
-    UPDATE_SERVICE_REQUESTS_WITH_NOTES
+    UPDATE_SERVICE_REQUESTS_WITH_NOTES,
+    UPDATE_RESOLUTION_NOTES,
 } from './actionTypes';
 import { API_REQUEST } from '../shared';
 
@@ -65,6 +66,7 @@ export function refreshCurrentServiceRequest() {
 export function resolveServiceRequest(serviceRequest, resolutionCode) {
   return (dispatch, getState) => {
     const { userId } = getState().user;
+    const { resolutionNotes } = getState().serviceRequests;
 
     const requestParams = [
       {
@@ -73,7 +75,7 @@ export function resolveServiceRequest(serviceRequest, resolutionCode) {
         PRASRStatusId: STATUS_CODES.visit_complete,
         ModifiedBy: userId,
         PRASRResolutionCodeId: resolutionCode,
-        // PRASRResolutionNote: 'Note content here',
+        PRASRResolutionNote: resolutionNotes,
       }
     ];
 
@@ -177,14 +179,9 @@ export function addContactToServiceRequest(contact) {
   };
 }
 
-export function updateServiceRequestsWithNotes(serviceRequests) {
+export function updateResolutionNotes(notes) {
   return {
-    type: API_REQUEST,
-    actionName: UPDATE_SERVICE_REQUESTS_WITH_NOTES,
-    requestMethod: 'POST',
-    requestPath: 'service_requests/create_notes',
-    requestParams: {
-      service_requests: serviceRequests
-    }
+    type: UPDATE_RESOLUTION_NOTES,
+    notes,
   };
 }

@@ -7,7 +7,6 @@ const getSelectedTeamId = (state) => state.teams.selectedTeamId;
 export const getCurrentTeam = createSelector(
   [getTeams, getCurrentTeamId],
   (teams, currentTeamId) => {
-    console.log({ teams, currentTeamId });
     return teams.find(team => team.id === currentTeamId);
   }
 );

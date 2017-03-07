@@ -27,7 +27,6 @@ export default function StatusWithTime({ serviceRequest }) {
   let time = null;
   let timeDescription = null;
   if (serviceRequest.status === 'on_site') {
-    console.log('actual onsite time', serviceRequest.actual_onsite_time);
     if (serviceRequest.actual_onsite_time) {
       time = parseTime(serviceRequest.actual_onsite_time);
       timeDescription = time.from(moment());

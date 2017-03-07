@@ -5,12 +5,12 @@ import { DARK_BLUE } from '../constants';
 export default function Button(props) {
   return (
     <TouchableHighlight
-      style={[styles.container, props.style]}
+      style={[styles.container, props.style, props.disabled ? styles.disabledContainer : null]}
       onPress={props.onPress}
       underlayColor={'gray'}
     >
       <View>
-        <Text style={[styles.text, props.textStyle]}>{props.children}</Text>
+        <Text style={[styles.text, props.textStyle, props.disabled ? styles.disabledText : null]}>{props.children}</Text>
       </View>
     </TouchableHighlight>
   );
@@ -32,6 +32,10 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     height: 60,
   },
+  disabledContainer: {
+    backgroundColor: 'gray',
+  },
+  disabledText: {},
   text: {
     textAlign: 'center',
     color: 'white',
