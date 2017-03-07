@@ -50,7 +50,7 @@ export default class SelectTeamScreen extends Component {
 
 SelectTeamScreen.propTypes = {
   joinTeam: PropTypes.func.isRequired,
-  navigator: PropTypes.object.isRequired,
+  navigator: PropTypes.object,
   selectedTeam: PropTypes.object,
 };
 

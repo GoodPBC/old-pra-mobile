@@ -22,10 +22,7 @@ import {
 
 const initialState = {
   currentSrNumber: null,
-  updatePending: {}, // FIXME: Update pending code
-  resolutionCodes: {
-    ...RESOLUTION_CODES,
-  },
+  updatePending: {},
   serviceRequests: [],
   selectedResolutionCode: null,
   resolutionNotes: null,
@@ -98,6 +95,7 @@ function transformStatus(status) {
 }
 
 function transformStreetSmartServiceRequests(serviceRequests) {
+  console.log(`Fetched ${serviceRequests.length} SRs`);
   if (!serviceRequests) {
     return [];
   }
@@ -146,7 +144,7 @@ export default function reducer(state = initialState, action) {
     case UPDATE_RESOLUTION_NOTES:
       return {
         ...state,
-        resolutionNotes: action.notes ? action.notes.trim() : null,
+        resolutionNotes: action.notes,
       };
     default:
       return state;

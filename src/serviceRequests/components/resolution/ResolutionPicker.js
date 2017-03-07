@@ -45,13 +45,14 @@ export default class ResolutionPicker extends React.Component {
   }
 
   render() {
-    const resolutionCodeNames = Object.keys(this.props.resolutionCodes);
+    const resolutionCodeNames = Object.keys(RESOLUTION_CODES);
+    console.log('resolution codes', RESOLUTION_CODES);
     return (
       <RadioForm animation={false} formHorizontal={false}>
         {
           resolutionCodeNames.map((resolutionCodeName, i) => {
-            const isSelected = this.props.selectedResolutionCode === this.props.resolutionCodes[resolutionCodeName];
-            const labelWithValue = { label: this.resolutionCodeDisplayName(resolutionCodeName), value: this.props.resolutionCodes[resolutionCodeName] };
+            const isSelected = this.props.selectedResolutionCode === RESOLUTION_CODES[resolutionCodeName];
+            const labelWithValue = { label: this.resolutionCodeDisplayName(resolutionCodeName), value: RESOLUTION_CODES[resolutionCodeName] };
             return (
               <View key={i}>
                 <Separator />

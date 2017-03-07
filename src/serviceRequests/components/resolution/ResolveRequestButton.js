@@ -4,6 +4,8 @@ import {
   Button,
 } from '../../../shared';
 
+import { RESOLUTION_CODES } from '../../actionTypes';
+
 function enableResolveButton(resolutionCodes, resolutionNotes, selectedResolutionCode) {
   const isPopulated = typeof selectedResolutionCode === 'number';
   const isInsufficient = resolutionCodes.insufficient_information === selectedResolutionCode;
@@ -15,13 +17,12 @@ function enableResolveButton(resolutionCodes, resolutionNotes, selectedResolutio
 export default function ResolveRequestButton({
   serviceRequest,
   selectedResolutionCode,
-  resolutionCodes,
   resolutionNotes,
   resolveServiceRequest }) {
 
   return (
     <Button
-      disabled={!enableResolveButton(resolutionCodes, resolutionNotes, selectedResolutionCode)}
+      disabled={!enableResolveButton(RESOLUTION_CODES, resolutionNotes, selectedResolutionCode)}
       onPress={() => resolveServiceRequest(serviceRequest, selectedResolutionCode) }
     >Submit</Button>
   );
@@ -29,6 +30,7 @@ export default function ResolveRequestButton({
 
 ResolveRequestButton.propTypes = {
   serviceRequest: PropTypes.object.isRequired,
-  selectedResolutionCode: PropTypes.string,
+  selectedResolutionCode: PropTypes.number,
+  resolutionNotes: PropTypes.string,
   resolveServiceRequest: PropTypes.func.isRequired,
 };
