@@ -6,14 +6,19 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import serviceRequestList from '../components/ServiceRequestList';
 import * as ServiceRequestActions from '../actions';
-import { getFilteredServiceRequests } from '../selectors';
+import {
+  getActiveServiceRequests,
+  getInactiveServiceRequests,
+  getDisplayableServiceRequests,
+} from '../selectors';
 
 /**
  * Map only necessary data for the 'Service Requests' list.
  */
 function mapStateToProps(state) {
   return {
-    serviceRequests: getFilteredServiceRequests(state),
+    activeServiceRequests: getActiveServiceRequests(state),
+    inactiveServiceRequests: getInactiveServiceRequests(state),
   };
 }
 

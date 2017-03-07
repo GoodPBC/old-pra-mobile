@@ -37,7 +37,7 @@ function sortServiceRequests(serviceRequests) {
   return serviceRequests.sort(compare);
 }
 
-export const getFilteredServiceRequests = createSelector(
+export const getDisplayableServiceRequests = createSelector(
   [getAllServiceRequests, getCurrentTeam],
   (serviceRequests, currentTeam) => {
     return serviceRequests.filter(sr => {
@@ -50,9 +50,19 @@ export const getFilteredServiceRequests = createSelector(
   }
 );
 
+export const getActiveServiceRequests = createSelector(
+  [getDisplayableServiceRequests],
+  (serviceRequests) => serviceRequests.filter(sr => sr.status === 'in_the_field' || sr.status === 'on_site')
+);
+
+export const getInactiveServiceRequests = createSelector(
+  [getDisplayableServiceRequests],
+  (serviceRequests) => serviceRequests.filter(sr => sr.status === 'visit_complete' || sr.status === 'closed')
+);
+
 
 export const getCurrentServiceRequest = createSelector(
-  [getFilteredServiceRequests, getCurrentSRNumber],
+  [getDisplayableServiceRequests, getCurrentSRNumber],
   (serviceRequests, currentSrNumber) => serviceRequests.find(sr => sr.sr_number === currentSrNumber)
 );
 
