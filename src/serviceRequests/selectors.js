@@ -8,7 +8,7 @@ const DISPLAYABLE_STATUSES = [
   'resolved',
 ];
 
-const getAllServiceRequests = (state) => sortServiceRequests(state.serviceRequests.serviceRequests);
+export const getAllServiceRequests = (state) => sortServiceRequests(state.serviceRequests.serviceRequests);
 
 const getCurrentSRNumber = (state) => state.serviceRequests.currentSrNumber;
 
