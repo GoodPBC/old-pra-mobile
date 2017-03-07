@@ -78,6 +78,28 @@ function trim(str) {
   }
 }
 
+/**
+ * NOTE: This is kind of a hack. The app has been using
+ * the integer resolution code and looking up the name when necessary.
+ *
+ * In this case, SS passes back the name directly. For now to keep continuity
+ * we transform it back into the integer representation.
+ */
+const RAW_RESOLUTION_TO_CODE = {
+  'Assistance Offered': RESOLUTION_CODES.assistance_offered,
+  'Insufficient Information': RESOLUTION_CODES.insufficient_information,
+  'Person Not Found': RESOLUTION_CODES.person_not_found,
+  'Referred to 911': RESOLUTION_CODES.referred_to_911,
+  'Refused Assistance': RESOLUTION_CODES.refused_assistance,
+}
+
+function transformResolutionCode(rawResolutionCode) {
+  if (rawResolutionCode) {
+    return RAW_RESOLUTION_TO_CODE[rawResolutionCode];
+  }
+  return null;
+}
+
 function transformStatus(status) {
   // NOTE: StreetSmart uses the 'Assigned' status instead of 'In The Field',
   // so we'll map that to in_the_field for expediency here.
@@ -118,7 +140,7 @@ function transformStreetSmartServiceRequests(serviceRequests) {
       updated_at: sr.Updated_At,
       updated_by: sr.Updated_By,
       actual_onsite_time: sr.Actual_Onsite_Time,
-      resolution_code: sr.ResolutionCode,
+      resolution_code: transformResolutionCode(sr.ResolutionCode),
       resolution_notes: sr.ResolutionNotes,
       provider_name: sr.Assigned_Provider,
     }));

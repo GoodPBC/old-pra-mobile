@@ -12,6 +12,8 @@ import { RESOLUTION_CODES } from '../../actionTypes';
 
 import RadioForm, { RadioButton, RadioButtonInput, RadioButtonLabel } from 'react-native-simple-radio-button';
 
+import { resolutionCodeDisplayName } from '../../helpers';
+
 export default class ResolutionPicker extends React.Component {
   // const options = resolutionCodes.map((obj) => <Picker.Item value={obj.code} label={obj.display_name} key={obj.code} />);
   // const options = resolutionCodes.map((obj) => <Picker.Item value={obj.code} label={obj.display_name} key={obj.code} />);
@@ -25,18 +27,6 @@ export default class ResolutionPicker extends React.Component {
     this.setIndexAndSelectResolution = this.setIndexAndSelectResolution.bind(this);
   }
 
-  resolutionCodeDisplayName(resolutionCode) {
-    switch (resolutionCode) {
-      case 'assistance_offered': return 'Assistance Offered';
-      case 'insufficient_information': return 'Insufficient Information';
-      case 'person_not_found': return 'Person not found';
-      case 'referred_to_911': return 'Referred to 911';
-      case 'refused_assistance': return 'Refused Assistance';
-      default:
-        return 'Unknown resolution code';
-    }
-  }
-
   setIndexAndSelectResolution(value, index) {
     this.props.selectServiceRequestResolution(value);
     this.setState({
@@ -45,14 +35,14 @@ export default class ResolutionPicker extends React.Component {
   }
 
   render() {
-    const resolutionCodeNames = Object.keys(RESOLUTION_CODES);
+    const resolutionCodes = Object.values(RESOLUTION_CODES);
     console.log('resolution codes', RESOLUTION_CODES);
     return (
       <RadioForm animation={false} formHorizontal={false}>
         {
-          resolutionCodeNames.map((resolutionCodeName, i) => {
-            const isSelected = this.props.selectedResolutionCode === RESOLUTION_CODES[resolutionCodeName];
-            const labelWithValue = { label: this.resolutionCodeDisplayName(resolutionCodeName), value: RESOLUTION_CODES[resolutionCodeName] };
+          resolutionCodes.map((resolutionCode, i) => {
+            const isSelected = this.props.selectedResolutionCode === resolutionCode;
+            const labelWithValue = { label: resolutionCodeDisplayName(resolutionCode), value: resolutionCode };
             return (
               <View key={i}>
                 <Separator />

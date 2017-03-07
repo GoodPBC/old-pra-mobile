@@ -8,13 +8,15 @@ import SectionWithIcon from './SectionWithIcon';
 import StatusWithTime from './StatusWithTime';
 import timeIcon from './img/time-icon-active.png';
 
+import { formattedStatus, resolutionCodeDisplayName } from '../helpers';
+
 export default function TimeSection({ serviceRequest }) {
   return (
     <SectionWithIcon icon={timeIcon}>
       <View>
-        <Text style={styles.header}>{serviceRequest.formatted_status}</Text>
+        <Text style={styles.header}>{formattedStatus(serviceRequest)}</Text>
         <StatusWithTime serviceRequest={serviceRequest} />
-        {serviceRequest.resolution && <Text style={{ fontWeight: 'bold' }}>{serviceRequest.resolution.display_name}</Text>}
+        {serviceRequest.resolution_code && <Text style={{ fontWeight: 'bold' }}>{resolutionCodeDisplayName(serviceRequest.resolution_code)}</Text>}
       </View>
     </SectionWithIcon>
   );

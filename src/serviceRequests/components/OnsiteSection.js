@@ -32,15 +32,3 @@ export default class OnsiteSection extends Component {
     );
   }
 }
-
-styles = StyleSheet.create({
-  banner: {
-    backgroundColor: DARK_BLUE,
-    color: 'white',
-    paddingTop: 10,
-    paddingBottom: 10,
-    textAlign: 'center',
-    fontSize: 16,
-    fontWeight: 'bold',
-  }
-});

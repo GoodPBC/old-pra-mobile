@@ -6,7 +6,7 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
-import { formatLocationData, prioritizeLocationData } from '../address';
+import { formatLocationData, prioritizeLocationData } from '../helpers';
 
 function mapsURL(serviceRequest) {
   return `http://maps.apple.com/?q=${encodeURIComponent(serviceRequest.address)}+${serviceRequest.city}`;
