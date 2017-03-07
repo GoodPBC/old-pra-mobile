@@ -16,6 +16,15 @@ import {
   BODY_BACKGROUND
 } from '../../shared';
 
+function BannerWithNumber({ serviceRequest }) {
+  return (
+    <View>
+      <Separator />
+      <Text style={styles.banner}>SR #{serviceRequest.sr_number}</Text>
+    </View>
+  );
+}
+
 export default class ServiceRequestDetailScreen extends Component {
 
   componentWillUnmount() {
@@ -27,6 +36,7 @@ export default class ServiceRequestDetailScreen extends Component {
 
     return (
       <View style={styles.container}>
+        <BannerWithNumber serviceRequest={this.props.serviceRequest} />
         <ScrollView>
           { canGoOnsite ?
             (
@@ -48,6 +58,15 @@ ServiceRequestDetailScreen.propTypes = {
 };
 
 const styles = StyleSheet.create({
+  banner: {
+    backgroundColor: DARK_BLUE,
+    color: 'white',
+    paddingTop: 10,
+    paddingBottom: 10,
+    textAlign: 'center',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
   container: {
     flex: 1,
     backgroundColor: BODY_BACKGROUND
