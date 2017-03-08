@@ -25,8 +25,7 @@ export default class ServiceRequestList extends Component {
       currentFilter: FILTERS.ACTIVE,
       urgentServiceRequests: []
     };
-
-    this.state.dataSource = ds.cloneWithRows(this._filteredServiceRequests(props.serviceRequests));
+    this.state.dataSource = ds.cloneWithRows(props.activeServiceRequests);
     this._changeFilter = this._changeFilter.bind(this);
     this._selectServiceRequest = this._selectServiceRequest.bind(this);
 
@@ -43,7 +42,7 @@ export default class ServiceRequestList extends Component {
       }
       this.setState({
         dataSource: this.state.dataSource.cloneWithRows(
-          this._filteredServiceRequests(nextProps.serviceRequests)),
+          this.state.currentFilter === FILTERS.ACTIVE ? nextProps.activeServiceRequests : nextProps.inactiveServiceRequests),
       });
   }
 

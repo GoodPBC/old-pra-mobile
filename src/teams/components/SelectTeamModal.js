@@ -9,7 +9,7 @@ export default class SelectTeamModal extends Component {
   }
 
   render() {
-    if (!(this.props.teams && this.props.teams.length)) {
+    if (!this.props.canSelectTeams) {
       return (
         <View style={styles.container}>
           <Text style={styles.warning}>You are unable to join a street team. You are currently logged in as {this.props.userAccountName}. Please contact a DHS

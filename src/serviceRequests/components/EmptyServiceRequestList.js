@@ -7,9 +7,10 @@ import { BODY_BACKGROUND } from '../../shared';
 export default class EmptyServiceRequestList extends Component {
 
   render() {
+    const { currentTeam } = this.props;
     return (
       <View style={styles.container}>
-        <Text style={styles.text}>You don't currently have any service request assignments. Please join a team to receive additional service requests.</Text>
+        <Text style={styles.text}>There are no active service requests for {currentTeam.name}.</Text>
       </View>
     );
   }

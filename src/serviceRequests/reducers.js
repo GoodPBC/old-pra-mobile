@@ -21,9 +21,15 @@ import {
 } from '../shared';
 
 const initialState = {
+  // Optimistic check for loading SRs
+  hasLoadedServiceRequests: false,
+  // Look up the SR to display on details
   currentSrNumber: null,
+  // If updating SRs while offline, keep track of all pending updates
   updatePending: {},
+  // All SRs that have been retrieved from the API
   serviceRequests: [],
+
   selectedResolutionCode: null,
   resolutionNotes: null,
 };
@@ -33,9 +39,11 @@ const initialState = {
  * the currently-selected SR if necessary.
  */
 function processServiceRequestFetch(state, action) {
+  const serviceRequests = transformStreetSmartServiceRequests(action.data.Service_Requests);
   return {
     ...state,
-    serviceRequests: transformStreetSmartServiceRequests(action.data.Service_Requests),
+    serviceRequests,
+    hasLoadedServiceRequests: true,
   };
 }
 

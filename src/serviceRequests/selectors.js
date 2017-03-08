@@ -56,6 +56,11 @@ export const getInactiveServiceRequests = createSelector(
   (serviceRequests) => serviceRequests.filter(sr => sr.status === 'visit_complete' || sr.status === 'closed')
 );
 
+const getOfflineSyncQueue = state => state.offline.syncQueue;
+export const getSyncableServiceRequests = createSelector(
+  [getOfflineSyncQueue], queue => queue.map(queuedAction => queuedAction.serviceRequest).filter(sr => !!sr)
+);
+
 
 export const getCurrentServiceRequest = createSelector(
   [getDisplayableServiceRequests, getCurrentSRNumber],
@@ -71,5 +76,16 @@ export const getCurrentServiceRequestUpdateStatus = createSelector(
       return null;
     }
     return updateStatuses[currentServiceRequest.sr_number];
+  }
+);
+
+const hasLoadedServiceRequests = state => state.serviceRequests.hasLoadedServiceRequests;
+export const showNoSRWarning = createSelector(
+  [
+    getActiveServiceRequests,
+    hasLoadedServiceRequests
+  ],
+  (activeServiceRequests, hasLoaded) => {
+    return hasLoaded && activeServiceRequests.length === 0;
   }
 );

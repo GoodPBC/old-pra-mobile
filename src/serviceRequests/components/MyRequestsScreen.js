@@ -8,23 +8,17 @@ import EmptyServiceRequestList from './EmptyServiceRequestList';
 import { BODY_BACKGROUND } from '../../shared';
 
 export default class MyRequestsScreen extends Component {
-
-  constructor(props) {
-    super(props);
-  }
-
   componentWillMount() {
     this.props.fetchServiceRequests();
     console.log(this.props.serviceRequests)
   }
 
-
   render() {
     return (
       <View style={styles.container}>
-      {this.props.serviceRequests === undefined || this.props.serviceRequests.length == 0 ?
-        <EmptyServiceRequestList />
-      : <ServiceRequestList navigator={this.props.navigator} enableFilters />
+      {this.props.showNoSRWarning ?
+        <EmptyServiceRequestList currentTeam={this.props.currentTeam} />
+        : <ServiceRequestList navigator={this.props.navigator} enableFilters />
       }
       </View>
     );

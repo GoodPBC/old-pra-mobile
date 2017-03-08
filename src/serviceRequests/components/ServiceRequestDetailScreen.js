@@ -32,7 +32,7 @@ export default class ServiceRequestDetailScreen extends Component {
   }
 
   render() {
-    const canGoOnsite = this.props.serviceRequest.status === 'in_the_field';
+    const canGoOnsite = this.props.serviceRequest && this.props.serviceRequest.status === 'in_the_field';
 
     return (
       <View style={styles.container}>
