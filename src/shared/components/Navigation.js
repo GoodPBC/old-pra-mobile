@@ -14,6 +14,7 @@ import { DARK_BLUE } from '../constants';
 import { GREY_TEXT } from '../constants';
 
 import refreshIcon from './img/refresh-icon.png';
+import backIcon from './img/back-icon.png';
 
 export default class Navigation extends Component {
   constructor(props) {
@@ -57,7 +58,7 @@ export default class Navigation extends Component {
       return (
         <View style={styles.navElement}>
           <TouchableOpacity onPress={() => this._refreshAndGoBack(navigator) }>
-            <Text style={styles.navHeader}>Back</Text>
+            <Image source={backIcon} />
           </TouchableOpacity>
         </View>
       );
