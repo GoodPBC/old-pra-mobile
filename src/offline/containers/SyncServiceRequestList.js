@@ -6,18 +6,11 @@ import {
   ServiceRequestList,
 } from '../../serviceRequests';
 import * as SyncActions from '../actions';
-
-function syncQueueServiceRequests(syncQueue) {
-  return syncQueue.map(queuedAction => queuedAction.serviceRequest)
-    .filter(sr => !!sr);
-}
+import { getSyncableServiceRequests } from '../../serviceRequests/selectors';
 
 function mapStateToProps(state) {
-  // Extract the list of pending service requests from the sync queue.
-  const serviceRequests = syncQueueServiceRequests(state.offline.syncQueue);
-
   return {
-    serviceRequests,
+    activeServiceRequests: getSyncableServiceRequests(state),
   };
 }
 
