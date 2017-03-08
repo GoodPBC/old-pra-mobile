@@ -78,3 +78,14 @@ export const getCurrentServiceRequestUpdateStatus = createSelector(
     return updateStatuses[currentServiceRequest.sr_number];
   }
 );
+
+const hasLoadedServiceRequests = state => state.serviceRequests.hasLoadedServiceRequests;
+export const showNoSRWarning = createSelector(
+  [
+    getActiveServiceRequests,
+    hasLoadedServiceRequests
+  ],
+  (activeServiceRequests, hasLoaded) => {
+    return hasLoaded && activeServiceRequests.length === 0;
+  }
+);
