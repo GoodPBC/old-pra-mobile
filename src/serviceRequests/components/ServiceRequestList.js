@@ -51,7 +51,6 @@ export default class ServiceRequestList extends Component {
     const urgentServiceRequests = this._filteredServiceRequests(FILTERS.ACTIVE).map((serviceRequest) => {
       if (serviceRequest.status === 'in_the_field') {
         const now = new Date();
-        // one minute for now for testing pursposes
         const one_hour = 60 * 1000;
         const sr_time = moment(serviceRequest.updated_at).valueOf();
         if (now - sr_time > one_hour && serviceRequest.has_alerted === false) {
