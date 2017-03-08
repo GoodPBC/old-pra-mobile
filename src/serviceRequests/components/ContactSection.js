@@ -3,11 +3,11 @@ import React, { Component, PropTypes } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import {
   Separator,
-  Button,
-  GRAY_TEXT,
   LIGHT_BLUE,
   InvertButton
 } from '../../shared';
+
+import ContactDetail from './ContactDetail';
 
 export default class ContactSection extends Component {
 
@@ -91,24 +91,3 @@ const styles = StyleSheet.create({
   }
 });
 
-class ContactDetail extends Component {
-
-  constructor(props){
-    super(props);
-  }
-
-  render(){
-    const contact = this.props.contact;
-
-    return (
-      <View>
-        <Text style={styles.contactWrapper}>Contact {contact.id}: {contact.description}</Text>
-        <Separator />
-      </View>
-    );
-  }
-}
-
-ContactDetail.propTypes = {
-  contact: PropTypes.object.isRequired,
-};

@@ -6,10 +6,6 @@ import {
   Separator,
 } from '../../shared';
 
-function BannerWithNumber({ serviceRequest }) {
-  return <Text style={styles.banner}>SR #{serviceRequest.sr_number}</Text>;
-}
-
 export default class OnsiteSection extends Component {
 
 
@@ -31,21 +27,8 @@ export default class OnsiteSection extends Component {
   render() {
     return (
       <Animated.View style={{ opacity: this.state.fadeAnim }}>
-        <BannerWithNumber serviceRequest={this.props.serviceRequest} />
         <OnsiteButton {...this.props} />
       </Animated.View>
     );
   }
 }
-
-styles = StyleSheet.create({
-  banner: {
-    backgroundColor: DARK_BLUE,
-    color: 'white',
-    paddingTop: 10,
-    paddingBottom: 10,
-    textAlign: 'center',
-    fontSize: 16,
-    fontWeight: 'bold',
-  }
-});

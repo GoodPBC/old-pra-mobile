@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { Text, StyleSheet, View } from 'react-native';
-import { formatLocationData, prioritizeLocationData } from '../address';
+import { formatLocationData, prioritizeLocationData } from '../helpers';
 
 export default function ShortFormLocation({ serviceRequest }) {
   const { primaryLocation, secondaryLocation } = prioritizeLocationData(serviceRequest);

@@ -6,14 +6,10 @@ const getSelectedTeamId = (state) => state.teams.selectedTeamId;
 
 export const getCurrentTeam = createSelector(
   [getTeams, getCurrentTeamId],
-  (teams, currentTeamId) => {
-    return teams.find(team => team.id === currentTeamId);
-  }
+  (teams, currentTeamId) => teams.find(team => team.id === currentTeamId)
 );
 
 export const getSelectedTeam = createSelector(
   [getTeams, getSelectedTeamId],
-  (teams, selectedTeamId) => {
-    return teams.find(team => team.id === selectedTeamId);
-  }
+  (teams, selectedTeamId) => teams.find(team => team.id === selectedTeamId)
 );

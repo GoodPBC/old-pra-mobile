@@ -26,7 +26,6 @@ export default class ServiceRequestList extends Component {
       urgentServiceRequests: []
     };
 
-    this._includeServiceRequest = this._includeServiceRequest.bind(this);
     this.state.dataSource = ds.cloneWithRows(this._filteredServiceRequests(props.serviceRequests));
     this._changeFilter = this._changeFilter.bind(this);
     this._selectServiceRequest = this._selectServiceRequest.bind(this);
@@ -49,7 +48,7 @@ export default class ServiceRequestList extends Component {
   }
 
   filterServiceRequestsByUrgency(){
-    const urgentServiceRequests = this.props.serviceRequests.map((serviceRequest) => {
+    const urgentServiceRequests = this._filteredServiceRequests(FILTERS.ACTIVE).map((serviceRequest) => {
       if (serviceRequest.status === 'in_the_field') {
         const now = new Date();
         // one minute for now for testing pursposes
@@ -85,22 +84,16 @@ export default class ServiceRequestList extends Component {
   _changeFilter(newFilter) {
       this.setState({ currentFilter: newFilter }, () => {
         this.setState({ dataSource: this.state.dataSource.cloneWithRows(
-          this._filteredServiceRequests(this.props.serviceRequests))
+          this._filteredServiceRequests())
         });
       });
   }
 
-  _filteredServiceRequests(serviceRequests) {
-    return serviceRequests.filter(sr => this._includeServiceRequest(sr));
-  }
-
-  // Runs as a filter predicate
-  _includeServiceRequest(serviceRequest) {
-    if (this.state.currentFilter === FILTERS.ACTIVE) {
-      return serviceRequest.status === 'in_the_field' || serviceRequest.status === 'on_site';
-    }
-
-    return serviceRequest.status === 'visit_complete' || serviceRequest.statue === 'closed';
+  _filteredServiceRequests(filter) {
+    const useFilter = filter || this.state.currentFilter;
+    return useFilter === FILTERS.ACTIVE
+         ? this.props.activeServiceRequests
+         : this.props.inactiveServiceRequests;
   }
 
   _renderRow(rowData) {
@@ -147,7 +140,6 @@ ServiceRequestList.propTypes = {
   enableFilters: PropTypes.bool,
   navigator: PropTypes.object.isRequired,
   selectServiceRequest: PropTypes.func.isRequired,
-  serviceRequests: PropTypes.array.isRequired,
 };
 
 const styles = StyleSheet.create({

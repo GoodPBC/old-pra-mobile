@@ -19,7 +19,7 @@ function OnState({ serviceRequest }) {
   return (
     <View style={styles.offContainer}>
       <View style={{ flexDirection: 'column', flex: 3 }}>
-        <Text style={styles.statusText}>On-Site</Text>
+        <Text style={styles.statusText}>On Site</Text>
         <StatusWithTime serviceRequest={serviceRequest} />
       </View>
       <View style={{ flex: 1 }}>
@@ -35,12 +35,13 @@ function OffState({ serviceRequest, updateOnsiteStatus }) {
   return (
     <View style={styles.offContainer}>
       <View style={{ flexDirection: 'column' }}>
-        <Text style={styles.onsiteText}>On-Site</Text>
+        <Text style={styles.statusText}>On Site</Text>
         <Text>Toggle when on-site</Text>
       </View>
       <Switch
+        style={styles.onsiteSwitch}
         onValueChange={() => updateOnsiteStatus(serviceRequest)}
-        disabled={serviceRequest.pendingOnsite} />
+      />
     </View>
   );
 }
@@ -50,8 +51,9 @@ function PendingState({ serviceRequest }) {
     <View style={styles.offContainer}>
       <Text>Pending</Text>
       <Switch
+        style={styles.onsiteSwitch}
         value
-        disabled={serviceRequest.pendingOnsite}
+        disabled
       />
     </View>
   );
@@ -107,13 +109,15 @@ const styles = StyleSheet.create({
   offContainer: {
     flex: 1,
     flexDirection: 'row',
-    alignItems: 'center',
     justifyContent: 'space-between',
     paddingLeft: 30,
+    paddingBottom: 10,
+  },
+  onsiteSwitch: {
+    height: 25,
   },
   statusText: {
     width: 100,
-    fontSize: 20,
-    fontWeight: 'bold',
+    fontSize: 24,
   }
 });

@@ -14,7 +14,6 @@ import {
 function mapStateToProps(state) {
   return {
     updatePending: getCurrentServiceRequestUpdateStatus(state),
-    resolutionCodes: state.serviceRequests.resolutionCodes,
     resolutionNotes: state.serviceRequests.resolutionNotes,
     selectedResolutionCode: state.serviceRequests.selectedResolutionCode,
     serviceRequest: getCurrentServiceRequest(state),

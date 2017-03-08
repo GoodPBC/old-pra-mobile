@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import App from '../components/App';
 import { clearErrorMessage } from '../actions';
 import { monitorNetworkChanges } from '../../offline/actions';
-import { getCurrentTeam, getTeams } from '../../teams/selectors';
+import { getCurrentTeam } from '../../teams/selectors';
 
 function mapStateToProps(state) {
   return {

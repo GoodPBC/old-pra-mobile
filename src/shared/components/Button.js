@@ -5,6 +5,7 @@ import { DARK_BLUE } from '../constants';
 export default function Button(props) {
   return (
     <TouchableHighlight
+      disabled={props.disabled}
       style={[styles.container, props.style, props.disabled ? styles.disabledContainer : null]}
       onPress={props.onPress}
       underlayColor={'gray'}

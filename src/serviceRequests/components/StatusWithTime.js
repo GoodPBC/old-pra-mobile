@@ -3,39 +3,15 @@ import {
   Text,
 } from 'react-native';
 import moment from 'moment';
-
-function parseTime(timeStr) {
-  return moment(timeStr, 'MMM D YYYY h:mmA');
-}
-
-function timeDescriptor(serviceRequest) {
-  let name = null;
-  switch (serviceRequest.status) {
-    case 'in_the_field': return 'Received';
-    case 'on_site':
-      // NOTE: This is not entirely accurate. We don't have the info about who in particular went onsite.
-      name = serviceRequest.updated_by;
-      return `${name} went on-site`;
-    case 'visit_complete':
-      name = serviceRequest.updated_by;
-      return `${name} resolved`;
-    default: return 'unknown';
-  }
-}
+import { lastUpdateTime, timeDescriptor } from '../helpers';
 
 export default function StatusWithTime({ serviceRequest }) {
-  let time = null;
+  const updatedAt = lastUpdateTime(serviceRequest);
   let timeDescription = null;
-  if (serviceRequest.status === 'on_site') {
-    if (serviceRequest.actual_onsite_time) {
-      time = parseTime(serviceRequest.actual_onsite_time);
-      timeDescription = time.from(moment());
-    } else {
-      timeDescription = ', waiting for ping response';
-    }
-  } else if (serviceRequest.updated_at) {
-    time = parseTime(serviceRequest.updated_at);
-    timeDescription = time.from(moment());
+  if (updatedAt) {
+    timeDescription = updatedAt.from(moment());
+  } else {
+    timeDescription = 'time unknown';
   }
   return <Text>{timeDescriptor(serviceRequest)} {timeDescription}</Text>;
 }

@@ -9,7 +9,6 @@ import {
     SELECT_SERVICE_REQUEST_RESOLUTION,
     UPDATE_ONSITE_STATUS,
     ADD_CONTACT_TO_SERVICE_REQUEST,
-    UPDATE_SERVICE_REQUESTS_WITH_NOTES,
     UPDATE_RESOLUTION_NOTES,
 } from './actionTypes';
 import { API_REQUEST } from '../shared';
@@ -68,16 +67,17 @@ export function resolveServiceRequest(serviceRequest, resolutionCode) {
     const { userId } = getState().user;
     const { resolutionNotes } = getState().serviceRequests;
 
-    const requestParams = [
-      {
-        SR_Number: serviceRequest.sr_number,
-        ModifiedAt: momentToStr(moment()),
-        PRASRStatusId: STATUS_CODES.visit_complete,
-        ModifiedBy: userId,
-        PRASRResolutionCodeId: resolutionCode,
-        PRASRResolutionNote: resolutionNotes,
-      }
-    ];
+    // console.log(`Resolving SR #${serviceRequest.sr_number} with code: ${resolutionCode}`);
+    const requestParams = {
+      SR_Number: serviceRequest.sr_number,
+      ModifiedAt: momentToStr(moment()),
+      PRASRStatusId: STATUS_CODES.visit_complete,
+      ModifiedBy: userId,
+      PRASRResolutionCodeId: resolutionCode,
+    };
+    if (resolutionNotes && resolutionNotes.trim().length) {
+      requestParams.PRASRResolutionNote = resolutionNotes;
+    }
 
     dispatch({
       type: MARK_PENDING_STATUS,
@@ -91,7 +91,7 @@ export function resolveServiceRequest(serviceRequest, resolutionCode) {
       requestPath: 'update311servicerequests',
       endpoint: 'update311servicerequests',
       requestMethod: 'POST',
-      requestParams,
+      requestParams: [requestParams],
       serviceRequest, // Needed for sync
 
       // Refresh SRs after the update
@@ -134,7 +134,6 @@ export function updateOnsiteStatus(serviceRequest) {
 
         ModifiedBy: userId,
         PRASRResolutionCodeId: null,
-        // PRASRResolutionNote: 'Note content here',
       }
     ];
 

@@ -8,7 +8,7 @@ import {
 } from '../../../shared';
 
 import StatusWithTime from '../StatusWithTime';
-
+import { resolutionCodeDisplayName } from '../../helpers';
 
 export default function CurrentResolution({ serviceRequest }) {
   return (
@@ -16,7 +16,7 @@ export default function CurrentResolution({ serviceRequest }) {
       <View style={styles.detailsContainerInner}>
         <Text style={styles.header}>Resolution</Text>
         <StatusWithTime serviceRequest={serviceRequest} />
-        <Text style={{ fontWeight: 'bold' }}>{serviceRequest.resolution.display_name}</Text>
+        <Text style={{ fontWeight: 'bold' }}>{resolutionCodeDisplayName(serviceRequest.resolution_code)}</Text>
       </View>
     </View>
   );

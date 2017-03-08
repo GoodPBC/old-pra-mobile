@@ -8,9 +8,7 @@ const DISPLAYABLE_STATUSES = [
   'resolved',
 ];
 
-const getAllServiceRequests = (state) => {
- return sortServiceRequests(state.serviceRequests.serviceRequests);
-};
+export const getAllServiceRequests = (state) => sortServiceRequests(state.serviceRequests.serviceRequests);
 
 const getCurrentSRNumber = (state) => state.serviceRequests.currentSrNumber;
 
@@ -37,22 +35,30 @@ function sortServiceRequests(serviceRequests) {
   return serviceRequests.sort(compare);
 }
 
-export const getFilteredServiceRequests = createSelector(
+export const getDisplayableServiceRequests = createSelector(
   [getAllServiceRequests, getCurrentTeam],
-  (serviceRequests, currentTeam) => {
-    return serviceRequests.filter(sr => {
+  (serviceRequests, currentTeam) => serviceRequests.filter(sr => {
       const isOnTeam = currentTeam && sr.team_id === currentTeam.id;
       const isDisplayable = DISPLAYABLE_STATUSES.indexOf(sr.status) !== -1;
 
       // FIXME: Filter based on the selected filter.
       return isOnTeam && isDisplayable;
-    });
-  }
+    })
+);
+
+export const getActiveServiceRequests = createSelector(
+  [getDisplayableServiceRequests],
+  (serviceRequests) => serviceRequests.filter(sr => sr.status === 'in_the_field' || sr.status === 'on_site')
+);
+
+export const getInactiveServiceRequests = createSelector(
+  [getDisplayableServiceRequests],
+  (serviceRequests) => serviceRequests.filter(sr => sr.status === 'visit_complete' || sr.status === 'closed')
 );
 
 
 export const getCurrentServiceRequest = createSelector(
-  [getFilteredServiceRequests, getCurrentSRNumber],
+  [getDisplayableServiceRequests, getCurrentSRNumber],
   (serviceRequests, currentSrNumber) => serviceRequests.find(sr => sr.sr_number === currentSrNumber)
 );
 
