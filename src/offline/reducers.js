@@ -13,7 +13,7 @@ import {
 
 const initialState = {
   syncQueue: [],
-  networkIsConnected: false,
+  networkIsConnected: true,
 };
 
 const QUEUEABLE_ACTIONS = [
