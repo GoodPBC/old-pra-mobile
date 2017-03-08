@@ -34,8 +34,8 @@ export function selectServiceRequestResolution(resolutionCode) {
 }
 
 export function fetchServiceRequests(onSuccess) {
-  // const yesterday = momentToStr(moment().subtract(5, 'days'));
-  const yesterday = '2017-03-06 09-10-10';
+  const yesterday = momentToStr(moment().subtract(1, 'days'));
+  // const yesterday = '2017-03-06 09-10-10';
   return {
     type: API_REQUEST,
     actionName: FETCH_SERVICE_REQUESTS,
