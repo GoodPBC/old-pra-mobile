@@ -12,6 +12,7 @@ import {
 } from '../user/actionTypes';
 
 const initialState = {
+  canSelectTeams: true, // Optimistic check for valid DHS account
   currentTeamId: null,
   selectedTeamId: null,
   teams: [],
@@ -31,9 +32,12 @@ function transformTeamInfoFromStreetSmart(json) {
 export default function reducer(state = initialState, action) {
   switch (action.type) {
   case FETCH_TEAMS_SUCCESS:
+    const teams = transformTeamInfoFromStreetSmart(action.data);
+    const canSelectTeams = teams.length > 0;
     return {
       ...state,
-      teams: transformTeamInfoFromStreetSmart(action.data),
+      canSelectTeams,
+      teams,
     };
   case JOIN_TEAM:
     return {
