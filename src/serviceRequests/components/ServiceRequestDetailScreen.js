@@ -6,6 +6,7 @@ import {
   Text,
   View,
 } from 'react-native';
+import BannerWithNumber from './BannerWithNumber';
 import ResolutionSection from './resolution/ResolutionSection';
 import ContactSection from '../containers/ContactSection';
 import DetailsSection from './DetailsSection';
@@ -16,14 +17,6 @@ import {
   BODY_BACKGROUND
 } from '../../shared';
 
-function BannerWithNumber({ serviceRequest }) {
-  return (
-    <View>
-      <Separator />
-      <Text style={styles.banner}>SR #{serviceRequest.sr_number}</Text>
-    </View>
-  );
-}
 
 export default class ServiceRequestDetailScreen extends Component {
 

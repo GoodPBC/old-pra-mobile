@@ -23,13 +23,12 @@ export default function ResolutionForm(props) {
   return (
     <View style={styles.detailsContainer}>
       <View style={styles.detailsContainerInner}>
-        <Text style={styles.header}>Resolution</Text>
+        <Text style={styles.header}>Select a Resolution Below</Text>
       </View>
         <ResolutionPicker {...props} />
         <ResolutionNotesField {...props} />
         <Separator />
         <View style={styles.buttonContainer}>
-          <Text style={styles.srNumber}>SR# {props.serviceRequest.sr_number}</Text>
           <ResolveRequestButton {...props} resolveServiceRequest={resolveAndGoBack(props)} />
         </View>
     </View>
@@ -41,14 +40,10 @@ ResolutionForm.propTypes = {
 };
 const styles = StyleSheet.create({
   buttonContainer: {
-    backgroundColor: 'white',
     paddingLeft: X_AXIS_PADDING,
     paddingRight: X_AXIS_PADDING,
     paddingTop: 20,
     paddingBottom: 30,
-    borderWidth: 1,
-    borderRadius: 4,
-    borderColor: CARD_BORDER,
     marginTop: 5
   },
   srNumber: {
@@ -62,6 +57,7 @@ const styles = StyleSheet.create({
   },
   detailsContainer: {
     padding: 10,
+    backgroundColor: 'white',
   },
   detailsContainerInner: {
     paddingLeft: 30,

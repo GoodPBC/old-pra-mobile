@@ -1,15 +1,19 @@
 import React, { Component } from 'react';
-import { StyleSheet, TextInput } from 'react-native';
+import {
+  StyleSheet,
+  TextInput,
+  View
+} from 'react-native';
 import { RESOLUTION_CODES } from '../../actionTypes';
+import {
+  Separator,
+  X_AXIS_PADDING,
+  LIGHT_BLUE,
+  CARD_BORDER
+} from '../../../shared';
 
 export default class ResolutionNotesField extends Component {
-  constructor(props) {
-    super(props);
-    // this.state = { notes: null };
-  }
-
   updateResolutionNotes(notes) {
-    // this.setState({ notes });
     this.props.updateResolutionNotes(notes);
   }
 
@@ -21,14 +25,17 @@ export default class ResolutionNotesField extends Component {
   render() {
     if (this.isEnabled()) {
       return (
-        <TextInput
-          style={styles.input}
-          onChangeText={notes => this.updateResolutionNotes(notes)}
-          autoCorrect={false}
-          autoCapitalize={'none'}
-          placeholder="Reason for Insufficient Information"
-          value={this.props.resolutionNotes}
-        />
+        <View style={styles.container}>
+          <TextInput
+            style={styles.input}
+            multiline
+            onChangeText={notes => this.updateResolutionNotes(notes)}
+            autoCorrect={false}
+            autoCapitalize={'none'}
+            placeholder="Reason for Insufficient Information*"
+            value={this.props.resolutionNotes}
+          />
+        </View>
       );
     } else {
       return null;
@@ -37,11 +44,17 @@ export default class ResolutionNotesField extends Component {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    paddingLeft: X_AXIS_PADDING,
+    paddingRight: X_AXIS_PADDING,
+    paddingBottom: 20,
+  },
   input: {
-    height: 40,
+    height: 80,
     borderWidth: 1,
-    borderRadius: 4,
     borderColor: 'gray',
-    paddingLeft: 20,
+    paddingLeft: 15,
+    paddingTop: 5,
+    fontSize: 14,
   }
 });

@@ -11,11 +11,19 @@ export default function InvertButton({ children, style, withBorder, ...props }) 
       borderColor: LIGHT_BLUE,
     };
   }
-  return <Button style={[styles.button, borderStyles, style]} textStyle={styles.text} {...props}>{children}</Button>;
+  return (
+    <Button
+      disabledContainerStyle={styles.disabledContainer}
+      style={[styles.button, borderStyles, style]}
+      textStyle={styles.text} {...props}>{children}</Button>
+  );
 }
 
 const styles = StyleSheet.create({
   button: {
+    backgroundColor: 'white',
+  },
+  disabledContainer: {
     backgroundColor: 'white',
   },
   text: {
