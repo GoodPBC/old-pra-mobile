@@ -19,11 +19,17 @@ export function submitLoginCredentials(email, password) {
 }
 
 export function logoutUser() {
-  return {
-    type: API_REQUEST,
-    actionName: LOGOUT_USER,
-    requestPath: USER_LOGOUT_PATH,
-    requestMethod: 'GET',
-    endpoint: 'login',
-  };
+  return (dispatch, getState) => {
+    dispatch({
+      type: API_REQUEST,
+      actionName: LOGOUT_USER,
+      requestPath: USER_LOGOUT_PATH,
+      requestMethod: 'GET',
+      endpoint: 'login',
+    });
+    // Works offline as well.
+    dispatch({
+      type: LOGOUT_USER,
+    });
+  }
 }
