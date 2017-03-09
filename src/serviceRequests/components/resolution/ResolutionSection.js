@@ -24,11 +24,13 @@ function ResolvedState({ serviceRequest }) {
 
 function UnresolvedState({ goToResolutionScreen }) {
     return (
-      <View style={{ padding: 10, flex: 1}}>
+      <View style={{ padding: 10}}>
         <SectionWithIcon icon={timeIcon}>
           <View style={{flexDirection: 'row'}}>
-            <Text style={{alignSelf: 'center', fontSize: 20, width: 100, flex: 2}}>Resolution</Text>
-            <View style={{flex: 1}}>
+            <View style={{flex: 1, alignSelf: 'center'}}>
+              <Text style={{fontSize: 20}}>Resolution</Text>
+            </View>
+            <View style={{alignSelf: 'flex-end'}}>
               <Button
                 style={{width: 50, height: 50, borderRadius: 25}}
                 textStyle={{fontSize: 25}}
