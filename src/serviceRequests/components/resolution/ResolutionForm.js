@@ -12,6 +12,13 @@ import {
   CARD_BORDER
 } from '../../../shared';
 
+function resolveAndGoBack({ resolveServiceRequest, navigator }) {
+  return (serviceRequest, selectedResolutionCode) => {
+    resolveServiceRequest(serviceRequest, selectedResolutionCode);
+    navigator.pop();
+  }
+}
+
 export default function ResolutionForm(props) {
   return (
     <View style={styles.detailsContainer}>
@@ -23,7 +30,7 @@ export default function ResolutionForm(props) {
         <Separator />
         <View style={styles.buttonContainer}>
           <Text style={styles.srNumber}>SR# {props.serviceRequest.sr_number}</Text>
-          <ResolveRequestButton {...props} />
+          <ResolveRequestButton {...props} resolveServiceRequest={resolveAndGoBack(props)} />
         </View>
     </View>
   );

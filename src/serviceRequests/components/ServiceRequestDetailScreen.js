@@ -6,7 +6,7 @@ import {
   Text,
   View,
 } from 'react-native';
-import ResolutionSection from '../containers/ResolutionSection';
+import ResolutionSection from './resolution/ResolutionSection';
 import ContactSection from '../containers/ContactSection';
 import DetailsSection from './DetailsSection';
 import OnsiteSection from './OnsiteSection';
