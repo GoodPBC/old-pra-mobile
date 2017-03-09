@@ -1,10 +1,11 @@
 import React, { PropTypes } from 'react';
 
-import { StyleSheet, Text, View } from 'react-native';
+import { Alert, StyleSheet, Text, View } from 'react-native';
 
 import ResolutionNotesField from './ResolutionNotesField';
 import ResolutionPicker from './ResolutionPicker';
 import ResolveRequestButton from './ResolveRequestButton';
+import { resolutionCodeDisplayName } from '../../helpers';
 import {
   Separator,
   X_AXIS_PADDING,
@@ -14,8 +15,23 @@ import {
 
 function resolveAndGoBack({ resolveServiceRequest, navigator }) {
   return (serviceRequest, selectedResolutionCode) => {
-    resolveServiceRequest(serviceRequest, selectedResolutionCode);
-    navigator.pop();
+    const description = `Are you sure you want to resolve this SR with status: ${resolutionCodeDisplayName(selectedResolutionCode)}`;
+    Alert.alert(
+      'Confirm Resolution',
+      description,
+      [
+        { text: 'Yes',
+          onPress: () => {
+            resolveServiceRequest(serviceRequest, selectedResolutionCode);
+            navigator.pop();
+        } },
+        { text: 'No',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel'
+        },
+      ],
+      { cancelable: true }
+    );
   }
 }
 
