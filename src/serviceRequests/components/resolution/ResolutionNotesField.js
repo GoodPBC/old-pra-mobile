@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {
+  Platform,
   StyleSheet,
   TextInput,
   View
@@ -52,9 +53,10 @@ const styles = StyleSheet.create({
   input: {
     height: 80,
     borderWidth: 1,
-    borderColor: 'gray',
-    paddingLeft: 15,
-    paddingTop: 5,
+    borderColor: 'lightgray',
+    paddingLeft: 5,
+    paddingTop: Platform.OS === 'ios' ? 5 : -40,
+    paddingBottom: 0,
     fontSize: 14,
   }
 });
