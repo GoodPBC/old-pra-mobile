@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import {
+  Alert,
   StyleSheet,
   View,
 } from 'react-native';
@@ -9,12 +10,35 @@ import {
   Separator
 } from '../../shared';
 
+function confirmAndUpdateStatus(serviceRequest, updateOnsiteStatus) {
+  const description = 'Are you sure you want to update this SR to status: on site?';
+  Alert.alert(
+    'Confirm On Site',
+    description,
+    [
+      { text: 'Yes',
+        onPress: () => {
+          updateOnsiteStatus(serviceRequest);
+      } },
+      { text: 'No',
+        onPress: () => console.log('Cancel Pressed'),
+        style: 'cancel'
+      },
+    ],
+    { cancelable: true }
+  );
+}
+
 export default class OnsiteButton extends Component {
   render() {
     const { serviceRequest, updatePending, updateOnsiteStatus } = this.props;
     let content = null;
 
-    content = <Button onPress={() => updateOnsiteStatus(serviceRequest)} disabled={updatePending}>Tap To Go On Site</Button>;
+    content = (
+      <Button
+        onPress={() => confirmAndUpdateStatus(serviceRequest, updateOnsiteStatus)}
+        disabled={updatePending}>Tap To Go On Site</Button>
+    );
     return (
       <View style={styles.container}>
         {content}
