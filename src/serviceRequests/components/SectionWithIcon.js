@@ -27,13 +27,13 @@ SectionWithIcon.propTypes = {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    paddingRight: X_AXIS_PADDING,
     marginBottom: 10,
   },
   header: {
     color: LIGHT_BLUE,
   },
   content: {
+    flex: 1,
     paddingLeft: 10,
   },
   text: {

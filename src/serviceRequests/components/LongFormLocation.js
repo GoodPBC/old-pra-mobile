@@ -9,7 +9,7 @@ import {
 import { formatLocationData, prioritizeLocationData } from '../helpers';
 
 function mapsURL(serviceRequest) {
-  return `http://maps.apple.com/?q=${encodeURIComponent(serviceRequest.address)}+${serviceRequest.city}`;
+  return `http://maps.apple.com/?q=${serviceRequest.address}+${serviceRequest.city}+${serviceRequest.state}`;
 }
 
 function onClickAddress(serviceRequest) {

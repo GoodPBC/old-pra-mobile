@@ -7,6 +7,7 @@ import TimeSection from './TimeSection';
 import {
   LIGHT_BLUE,
   DARK_BLUE,
+  X_AXIS_PADDING,
 } from '../../shared';
 
 
@@ -47,6 +48,7 @@ const styles = StyleSheet.create({
   content: {
     maxHeight: 250,
     padding: 5,
+    paddingRight: X_AXIS_PADDING,
     borderColor: 'lightgray',
     borderLeftWidth: 1,
     borderRightWidth: 1

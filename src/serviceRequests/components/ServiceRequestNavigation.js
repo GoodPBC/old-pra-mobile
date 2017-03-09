@@ -3,6 +3,7 @@ import React, { Component, PropTypes } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import MyRequestsScreen from '../containers/MyRequestsScreen';
+import ResolutionScreen from '../containers/ResolutionScreen';
 import ServiceRequestDetailScreen from '../containers/ServiceRequestDetailScreen';
 import ServiceRequestContactSelector from './ServiceRequestContactSelector';
 import ServiceRequestAddContact from '../containers/ServiceRequestAddContact';
@@ -37,6 +38,8 @@ export default class ServiceRequestNavigation extends Component {
       content = <ServiceRequestContactSelector navigator={navigator} />;
     } else if (route.index === 3) {
       content = <ServiceRequestAddContact navigator={navigator} />;
+    } else if (route.index === 4) {
+      content = <ResolutionScreen navigator={navigator} />;
     }
     return (
       <View style={styles.navAdjustment}>

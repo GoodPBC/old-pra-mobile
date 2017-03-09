@@ -63,7 +63,7 @@ export default class ResolutionPicker extends React.Component {
                       index={i}
                       labelHorizontal
                       onPress={(value, index) => { this.setIndexAndSelectResolution(value, index); }}
-                      labelStyle={{ fontSize: 16, color: GRAY_TEXT, fontWeight: 'bold' }}
+                      labelStyle={{ fontSize: 18, color: 'black' }}
                       labelWrapStyle={{}}
                     />
                 </RadioButton>
@@ -78,8 +78,8 @@ export default class ResolutionPicker extends React.Component {
 
 const styles = StyleSheet.create({
   buttonWrapStyle: {
-    marginTop: 15,
-    marginBottom: 15
+    marginTop: 20,
+    marginBottom: 20,
   },
   radioStyle: {
     borderBottomWidth: 1,

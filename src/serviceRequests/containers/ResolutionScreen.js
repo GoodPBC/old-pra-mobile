@@ -4,7 +4,7 @@
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import ResolutionSection from '../components/resolution/ResolutionSection';
+import ResolutionScreen from '../components/resolution/ResolutionScreen';
 import * as ServiceRequestActions from '../actions';
 import {
   getCurrentServiceRequestUpdateStatus,
@@ -24,4 +24,4 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(ServiceRequestActions, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ResolutionSection);
+export default connect(mapStateToProps, mapDispatchToProps)(ResolutionScreen);

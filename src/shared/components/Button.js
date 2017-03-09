@@ -3,10 +3,18 @@ import { TouchableHighlight, StyleSheet, Text, View } from 'react-native';
 import { DARK_BLUE } from '../constants';
 
 export default function Button(props) {
+  let disabledStyles = null;
+  if (props.disabled) {
+    if (props.disabledContainerStyle) {
+      disabledStyles = props.disabledContainerStyle;
+    } else {
+      disabledStyles = styles.disabledContainer;
+    }
+  }
   return (
     <TouchableHighlight
       disabled={props.disabled}
-      style={[styles.container, props.style, props.disabled ? styles.disabledContainer : null]}
+      style={[styles.container, props.style, disabledStyles]}
       onPress={props.onPress}
       underlayColor={'gray'}
     >

@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 
 import {
   Button,
+  InvertButton,
 } from '../../../shared';
 
 import { RESOLUTION_CODES } from '../../actionTypes';
@@ -20,10 +21,11 @@ export default function ResolveRequestButton({
   resolutionNotes,
   resolveServiceRequest }) {
   return (
-    <Button
+    <InvertButton
+      withBorder
       disabled={!enableResolveButton(RESOLUTION_CODES, resolutionNotes, selectedResolutionCode)}
       onPress={() => resolveServiceRequest(serviceRequest, selectedResolutionCode) }
-    >Submit</Button>
+    >Add Resolution</InvertButton>
   );
 }
 
