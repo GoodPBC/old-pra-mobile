@@ -17,6 +17,7 @@ export default function TimeSection({ serviceRequest }) {
         <Text style={styles.header}>{formattedStatus(serviceRequest)}</Text>
         <StatusWithTime serviceRequest={serviceRequest} />
         {serviceRequest.resolution_code && <Text style={{ fontWeight: 'bold' }}>{resolutionCodeDisplayName(serviceRequest.resolution_code)}</Text>}
+        {serviceRequest.resolution_notes && <Text>"{serviceRequest.resolution_notes}"</Text>}
       </View>
     </SectionWithIcon>
   );
