@@ -8,8 +8,27 @@ import EmptyServiceRequestList from './EmptyServiceRequestList';
 import { BODY_BACKGROUND } from '../../shared';
 
 export default class MyRequestsScreen extends Component {
+  constructor(props) {
+    super(props);
+
+    this.refreshTimer = null;
+  }
+
   componentWillMount() {
     this.props.fetchServiceRequests();
+  }
+
+  componentDidMount() {
+    // Refresh this screen every 60 seconds.
+    this.refreshTimer = setInterval(() => {
+      this.props.rerenderServiceRequests();
+    }, 60000);
+  }
+
+  componentWillUnmount() {
+    if (this.refreshTimer) {
+      clearInterval(this.refreshTimer);
+    }
   }
 
   render() {

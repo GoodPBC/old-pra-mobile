@@ -5,6 +5,7 @@ import {
     FETCH_SERVICE_REQUEST_DETAILS,
     RESOLVE_SERVICE_REQUEST,
     MARK_PENDING_STATUS,
+    RERENDER_SERVICE_REQUESTS,
     SELECT_SERVICE_REQUEST,
     SELECT_SERVICE_REQUEST_RESOLUTION,
     UPDATE_ONSITE_STATUS,
@@ -59,6 +60,12 @@ export function fetchServiceRequestDetails(serviceRequest) {
 export function refreshCurrentServiceRequest() {
   return (dispatch) => {
     dispatch(fetchServiceRequests());
+  };
+}
+
+export function rerenderServiceRequests() {
+  return {
+    type: RERENDER_SERVICE_REQUESTS,
   };
 }
 

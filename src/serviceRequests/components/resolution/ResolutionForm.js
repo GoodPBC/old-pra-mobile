@@ -10,7 +10,6 @@ import {
   Separator,
   X_AXIS_PADDING,
   LIGHT_BLUE,
-  CARD_BORDER
 } from '../../../shared';
 
 function resolveAndGoBack({ resolveServiceRequest, navigator }) {
@@ -32,7 +31,7 @@ function resolveAndGoBack({ resolveServiceRequest, navigator }) {
       ],
       { cancelable: true }
     );
-  }
+  };
 }
 
 export default function ResolutionForm(props) {

@@ -1,10 +1,9 @@
 import React, { PropTypes } from 'react';
 
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import {
   DARK_BLUE,
-  GRAY_TEXT,
   Separator,
 } from '../../../shared';
 

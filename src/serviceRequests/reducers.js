@@ -1,24 +1,13 @@
 import {
-  FETCH_RESOLUTION_CODES_SUCCESS,
   FETCH_SERVICE_REQUESTS_SUCCESS,
-  FETCH_SERVICE_REQUEST_DETAILS_SUCCESS,
-  FETCH_SERVICE_REQUEST_DETAILS,
   MARK_PENDING_STATUS,
-  RESOLVE_SERVICE_REQUEST,
-  RESOLVE_SERVICE_REQUEST_SUCCESS,
+  RERENDER_SERVICE_REQUESTS,
   SELECT_SERVICE_REQUEST,
   SELECT_SERVICE_REQUEST_RESOLUTION,
-  UPDATE_ONSITE_STATUS,
-  UPDATE_ONSITE_STATUS_SUCCESS,
-  ADD_CONTACT_TO_SERVICE_REQUEST,
   UPDATE_RESOLUTION_NOTES,
 
   RESOLUTION_CODES,
 } from './actionTypes';
-
-import {
-  API_REQUEST,
-} from '../shared';
 
 const initialState = {
   // Optimistic check for loading SRs
@@ -78,6 +67,14 @@ function updatePendingStatus(state, action) {
   return newState;
 }
 
+function touchAllServiceRequests(state) {
+  const touchedServiceRequests = state.serviceRequests.map(sr => ({ ...sr }));
+  return {
+    ...state,
+    serviceRequests: touchedServiceRequests,
+  };
+}
+
 function trim(str) {
   if (str && typeof str === 'string') {
     return str.trim();
@@ -99,7 +96,7 @@ const RAW_RESOLUTION_TO_CODE = {
   'Person Not Found': RESOLUTION_CODES.person_not_found,
   'Referred to 911': RESOLUTION_CODES.referred_to_911,
   'Refused Assistance': RESOLUTION_CODES.refused_assistance,
-}
+};
 
 function transformResolutionCode(rawResolutionCode) {
   if (rawResolutionCode) {
@@ -129,6 +126,7 @@ function transformStreetSmartServiceRequests(serviceRequests) {
   if (!serviceRequests) {
     return [];
   }
+
   const convertedServiceRequests = serviceRequests.map(sr => ({
       address: trim(sr.Address),
       borough: trim(sr.Borough),
@@ -151,6 +149,7 @@ function transformStreetSmartServiceRequests(serviceRequests) {
       resolution_code: transformResolutionCode(sr.ResolutionCode),
       resolution_notes: sr.ResolutionNotes,
       provider_name: sr.Assigned_Provider,
+      provider_assigned_time: sr.ProviderAssignedTime,
     }));
   return convertedServiceRequests;
 }
@@ -161,6 +160,8 @@ export default function reducer(state = initialState, action) {
       return processServiceRequestFetch(state, action);
     case MARK_PENDING_STATUS:
       return updatePendingStatus(state, action);
+    case RERENDER_SERVICE_REQUESTS:
+      return touchAllServiceRequests(state);
     case SELECT_SERVICE_REQUEST: // Works offline
       return selectServiceRequest(state, action);
     case SELECT_SERVICE_REQUEST_RESOLUTION:

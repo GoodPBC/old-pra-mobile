@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
-import { Animated, View, Text, StyleSheet } from 'react-native';
+import { Animated } from 'react-native';
 import OnsiteButton from './OnsiteButton';
-import {
-  DARK_BLUE,
-  Separator,
-} from '../../shared';
 
 export default class OnsiteSection extends Component {
 

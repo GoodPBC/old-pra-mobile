@@ -22,6 +22,8 @@ export function lastUpdateTime(serviceRequest) {
     if (serviceRequest.actual_onsite_time) {
       return parseTime(serviceRequest.actual_onsite_time);
     }
+  } else if (serviceRequest.status === 'in_the_field' && serviceRequest.provider_assigned_time) {
+    return parseTime(serviceRequest.provider_assigned_time);
   } else if (serviceRequest.updated_at) {
     return parseTime(serviceRequest.updated_at);
   }

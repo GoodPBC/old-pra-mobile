@@ -7,10 +7,7 @@ import {
 } from 'react-native';
 import { RESOLUTION_CODES } from '../../actionTypes';
 import {
-  Separator,
   X_AXIS_PADDING,
-  LIGHT_BLUE,
-  CARD_BORDER
 } from '../../../shared';
 
 export default class ResolutionNotesField extends Component {

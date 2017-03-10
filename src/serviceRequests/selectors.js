@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect';
 import { getCurrentTeam } from '../teams/selectors';
+import { lastUpdateTime } from './helpers';
 
 const DISPLAYABLE_STATUSES = [
   'in_the_field',
@@ -14,13 +15,21 @@ const getCurrentSRNumber = (state) => state.serviceRequests.currentSrNumber;
 
 function sortServiceRequests(serviceRequests) {
   function compare(a, b){
-    if (statusMap[a] < statusMap[b]) {
+    if (statusMap[a.status] < statusMap[b.status]) {
       return -1;
     }
-    if (statusMap[a] > statusMap[b]) {
+    if (statusMap[a.status] > statusMap[b.status]) {
       return 1;
     }
-    return 0;
+
+    const aTime = lastUpdateTime(a);
+    const bTime = lastUpdateTime(b);
+    // If either is null, no way to compare.
+    if (!(aTime && bTime)) {
+      return 0;
+    }
+    // Oldest first.
+    return aTime > bTime ? 1 : -1;
   }
 
   let statusMap = {
@@ -85,7 +94,5 @@ export const showNoSRWarning = createSelector(
     getActiveServiceRequests,
     hasLoadedServiceRequests
   ],
-  (activeServiceRequests, hasLoaded) => {
-    return hasLoaded && activeServiceRequests.length === 0;
-  }
+  (activeServiceRequests, hasLoaded) => hasLoaded && activeServiceRequests.length === 0
 );

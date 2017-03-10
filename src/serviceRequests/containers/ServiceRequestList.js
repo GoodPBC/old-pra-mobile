@@ -9,7 +9,6 @@ import * as ServiceRequestActions from '../actions';
 import {
   getActiveServiceRequests,
   getInactiveServiceRequests,
-  getDisplayableServiceRequests,
 } from '../selectors';
 
 /**
