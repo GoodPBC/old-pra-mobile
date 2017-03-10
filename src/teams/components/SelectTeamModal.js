@@ -1,7 +1,10 @@
 import React, { Component, PropTypes } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Platform, StyleSheet, Text, View } from 'react-native';
 import SelectTeamScreen from '../containers/SelectTeamScreen';
-import { Button } from '../../shared';
+import {
+  Button,
+  DARK_BLUE,
+} from '../../shared';
 
 export default class SelectTeamModal extends Component {
   componentWillMount() {
@@ -24,7 +27,9 @@ export default class SelectTeamModal extends Component {
     }
     return (
       <View style={styles.container}>
-        <Text style={styles.header}>Select a team</Text>
+        <View style={styles.nav}>
+          <Text style={styles.header}>Select a team</Text>
+        </View>
         <SelectTeamScreen />
       </View>
     );
@@ -34,14 +39,20 @@ export default class SelectTeamModal extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 20,
   },
   header: {
-    fontSize: 20,
+    fontSize: 18,
     alignSelf: 'center',
+    color: 'white',
+    fontWeight: 'bold',
   },
   logout: {
     marginTop: 40,
+  },
+  nav: {
+    backgroundColor: DARK_BLUE,
+    height: 64,
+    justifyContent: 'center',
   },
   warning: {
     alignSelf: 'center',
