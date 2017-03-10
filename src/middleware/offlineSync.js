@@ -23,9 +23,9 @@ function drainSyncQueue(store) {
   while (action = pendingActions.shift()) { // FIFO
     store.dispatch(action);
   }
-  // store.dispatch({
-  //   type: FINISH_SYNC,
-  // });
+  store.dispatch({
+    type: FINISH_SYNC,
+  });
 }
 
 /**
