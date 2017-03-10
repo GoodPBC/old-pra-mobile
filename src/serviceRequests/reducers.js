@@ -4,6 +4,7 @@ import {
   FETCH_SERVICE_REQUEST_DETAILS_SUCCESS,
   FETCH_SERVICE_REQUEST_DETAILS,
   MARK_PENDING_STATUS,
+  RERENDER_SERVICE_REQUESTS,
   RESOLVE_SERVICE_REQUEST,
   RESOLVE_SERVICE_REQUEST_SUCCESS,
   SELECT_SERVICE_REQUEST,
@@ -76,6 +77,14 @@ function updatePendingStatus(state, action) {
     },
   };
   return newState;
+}
+
+function touchAllServiceRequests(state) {
+  const touchedServiceRequests = state.serviceRequests.map(sr => ({ ...sr }));
+  return {
+    ...state,
+    serviceRequests: touchedServiceRequests,
+  };
 }
 
 function trim(str) {
@@ -161,6 +170,8 @@ export default function reducer(state = initialState, action) {
       return processServiceRequestFetch(state, action);
     case MARK_PENDING_STATUS:
       return updatePendingStatus(state, action);
+    case RERENDER_SERVICE_REQUESTS:
+      return touchAllServiceRequests(state);
     case SELECT_SERVICE_REQUEST: // Works offline
       return selectServiceRequest(state, action);
     case SELECT_SERVICE_REQUEST_RESOLUTION:
