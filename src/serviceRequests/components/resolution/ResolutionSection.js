@@ -5,20 +5,11 @@ import {
   Separator,
 } from '../../../shared';
 import resolutionIcon from '../img/icon-resolution.png';
-import { resolutionCodeDisplayName } from '../../helpers';
 
-
-function ResolvedState({ serviceRequest }) {
+function ResolvedState() {
   // TODO: Need to work this out. Resolution status already appears
   // below, do we need to display it differently here?
   return null;
-  /* return (
-    <View>
-      <Text>Resolution</Text>
-      <Text>{resolutionCodeDisplayName(serviceRequest.resolution_code)}</Text>
-      <Text>{serviceRequest.resolution_notes}</Text>
-    </View>
-  );*/
 }
 
 function UnresolvedState({ goToResolutionScreen }) {

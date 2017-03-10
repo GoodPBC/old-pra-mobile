@@ -1,25 +1,13 @@
 import {
-  FETCH_RESOLUTION_CODES_SUCCESS,
   FETCH_SERVICE_REQUESTS_SUCCESS,
-  FETCH_SERVICE_REQUEST_DETAILS_SUCCESS,
-  FETCH_SERVICE_REQUEST_DETAILS,
   MARK_PENDING_STATUS,
   RERENDER_SERVICE_REQUESTS,
-  RESOLVE_SERVICE_REQUEST,
-  RESOLVE_SERVICE_REQUEST_SUCCESS,
   SELECT_SERVICE_REQUEST,
   SELECT_SERVICE_REQUEST_RESOLUTION,
-  UPDATE_ONSITE_STATUS,
-  UPDATE_ONSITE_STATUS_SUCCESS,
-  ADD_CONTACT_TO_SERVICE_REQUEST,
   UPDATE_RESOLUTION_NOTES,
 
   RESOLUTION_CODES,
 } from './actionTypes';
-
-import {
-  API_REQUEST,
-} from '../shared';
 
 const initialState = {
   // Optimistic check for loading SRs
@@ -108,7 +96,7 @@ const RAW_RESOLUTION_TO_CODE = {
   'Person Not Found': RESOLUTION_CODES.person_not_found,
   'Referred to 911': RESOLUTION_CODES.referred_to_911,
   'Refused Assistance': RESOLUTION_CODES.refused_assistance,
-}
+};
 
 function transformResolutionCode(rawResolutionCode) {
   if (rawResolutionCode) {

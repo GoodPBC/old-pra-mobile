@@ -3,17 +3,14 @@ import React, { Component, PropTypes } from 'react';
 import {
   ScrollView,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import BannerWithNumber from './BannerWithNumber';
 import ResolutionSection from './resolution/ResolutionSection';
-import ContactSection from '../containers/ContactSection';
 import DetailsSection from './DetailsSection';
 import OnsiteSection from './OnsiteSection';
 import {
   DARK_BLUE,
-  Separator,
   BODY_BACKGROUND
 } from '../../shared';
 

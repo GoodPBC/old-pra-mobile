@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react';
 
 import {
-  Button,
   InvertButton,
 } from '../../../shared';
 

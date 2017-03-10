@@ -3,7 +3,6 @@ import { Image, StyleSheet, Text, View } from 'react-native';
 import {
   GRAY_TEXT,
   LIGHT_BLUE,
-  X_AXIS_PADDING,
 } from '../../shared';
 
 export default function SectionWithIcon({ icon, header, children }) {

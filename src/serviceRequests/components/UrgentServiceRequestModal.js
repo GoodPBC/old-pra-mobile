@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { StyleSheet, ScrollView, View, Text, Modal, TouchableHighlight } from 'react-native';
+import { StyleSheet, ScrollView, View, Text } from 'react-native';
 
 import UrgentServiceRequestModalItem from './UrgentServiceRequestModalItem';
 

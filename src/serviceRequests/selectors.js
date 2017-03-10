@@ -94,7 +94,5 @@ export const showNoSRWarning = createSelector(
     getActiveServiceRequests,
     hasLoadedServiceRequests
   ],
-  (activeServiceRequests, hasLoaded) => {
-    return hasLoaded && activeServiceRequests.length === 0;
-  }
+  (activeServiceRequests, hasLoaded) => hasLoaded && activeServiceRequests.length === 0
 );
