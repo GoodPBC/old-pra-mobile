@@ -31,8 +31,6 @@ function authenticationHeaders(store) {
 async function makeRequestAndDispatchResponse({ action, store }) {
   const { onSuccess, requestMethod, requestParams, actionName } = action;
   const url = `${Config.BASE_URL}${action.requestPath}`;
-  console.log(url);
-  console.log(action);
   function dispatchSuccess(json) {
     store.dispatch({
       type: API_REQUEST_SUCCESS,

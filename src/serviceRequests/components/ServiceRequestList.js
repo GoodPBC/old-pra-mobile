@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
-import { View, StyleSheet, ListView } from 'react-native';
+import { View, StyleSheet, ListView, AsyncStorage } from 'react-native';
 
 import moment from 'moment';
 
@@ -9,6 +9,17 @@ import Separator from '../../shared/components/Separator';
 import ServiceRequestListItem from './ServiceRequestListItem';
 import ServiceRequestFilters from './ServiceRequestFilters';
 import UrgentServiceRequestModal from './UrgentServiceRequestModal';
+
+import Storage from 'react-native-storage';
+
+// refactor this into a separate storage component
+var storage = new Storage({
+    size: 1000,
+    storageBackend: AsyncStorage,
+    defaultExpires: 1000 * 3600 * 24 * 30, //one month
+    enableCache: true,
+})  
+
 
 const FILTERS = {
   ACTIVE: 'active',
@@ -34,11 +45,14 @@ export default class ServiceRequestList extends Component {
 
     this.filterServiceRequestsByUrgency = this.filterServiceRequestsByUrgency.bind(this);
     this.dismissUrgentServiceRequests = this.dismissUrgentServiceRequests.bind(this);
+
+    this.checkStorageForDismissedSR = this.checkStorageForDismissedSR.bind(this);
+    this.checkStorageForDismissedSR();
   }
 
   componentWillReceiveProps(nextProps) {
-      if (nextProps.serviceRequests) {
-        this.filterServiceRequestsByUrgency();
+      if (nextProps.activeServiceRequests) {
+        this.filterServiceRequestsByUrgency(nextProps.activeServiceRequests);
       }
       this.setState({
         dataSource: this.state.dataSource.cloneWithRows(
@@ -46,13 +60,13 @@ export default class ServiceRequestList extends Component {
       });
   }
 
-  filterServiceRequestsByUrgency(){
-    const urgentServiceRequests = this._filteredServiceRequests(FILTERS.ACTIVE).map((serviceRequest) => {
-      if (serviceRequest.status === 'in_the_field') {
+  filterServiceRequestsByUrgency(serviceRequests){
+    const urgentServiceRequests = serviceRequests.map((serviceRequest) => {
+      if (serviceRequest.status === 'in_the_field' && this.state.resolvedUrgentServiceRequests.indexOf(serviceRequest.sr_number) === -1) {
         const now = new Date();
         const one_hour = 60 * 1000;
-        const sr_time = moment(serviceRequest.updated_at).valueOf();
-        if (now - sr_time > one_hour && serviceRequest.has_alerted === false) {
+        const sr_time = moment(serviceRequest.updated_at, "MMM-DD-YYYY hh:mm A").valueOf();
+        if (now - sr_time > one_hour) {
           return serviceRequest;
         }
       }
@@ -63,11 +77,45 @@ export default class ServiceRequestList extends Component {
     });
   }
 
+  checkStorageForDismissedSR(){
+    console.log('running check storage function')
+    storage.load({
+        key: 'resolvedUrgentServiceRequests',
+    }).then(ret => {
+      this.setState({
+        resolvedUrgentServiceRequests: ret
+      })
+    }).catch(err => {
+      storage.save({
+        key: 'resolvedUrgentServiceRequests', 
+        rawData: []   
+      });
+      this.setState({
+        resolvedUrgentServiceRequests: []
+      })
+    });
+  }
+
   dismissUrgentServiceRequests(usr) {
-    this.props.updateServiceRequestsWithNotes(usr);
+    let resolvedUrgentServiceRequests = this.state.resolvedUrgentServiceRequests;
+    for (var i = 0; i < usr.length; i++) {
+      resolvedUrgentServiceRequests.push(usr[i].sr_number);
+    }
+
+    this.setState({
+      resolvedUrgentServiceRequests: resolvedUrgentServiceRequests
+    })
+
+    storage.save({
+      key: 'resolvedUrgentServiceRequests', 
+      rawData: resolvedUrgentServiceRequests, 
+    });
+
+
     this.setState({
       urgentServiceRequests: []
     });
+
   }
 
   _selectServiceRequest(serviceRequest) {

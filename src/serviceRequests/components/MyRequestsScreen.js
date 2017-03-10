@@ -10,7 +10,6 @@ import { BODY_BACKGROUND } from '../../shared';
 export default class MyRequestsScreen extends Component {
   componentWillMount() {
     this.props.fetchServiceRequests();
-    console.log(this.props.serviceRequests)
   }
 
   render() {
