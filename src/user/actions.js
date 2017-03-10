@@ -5,7 +5,6 @@ const USER_LOGIN_PATH = 'authenticateuser';
 const USER_LOGOUT_PATH = 'logoutuser';
 
 export function submitLoginCredentials(email, password) {
-  console.log(email, password)
   return {
     type: API_REQUEST,
     actionName: LOGIN_USER,
