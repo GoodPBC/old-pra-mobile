@@ -12,6 +12,9 @@ import {
 } from '../../shared';
 
 export default function BannerWithNumber({ serviceRequest }) {
+  if (!serviceRequest) {
+    return null;
+  }
   return (
     <View>
       <Separator />

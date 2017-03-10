@@ -1,9 +1,11 @@
 import {
+  API_REQUEST,
   API_REQUEST_FAILURE,
   FORBIDDEN_RESPONSE_STATUS,
 } from '../shared';
 
 import {
+  LOGOUT_USER,
   LOGIN_USER_SUCCESS,
   LOGIN_USER_FAILURE,
   LOGOUT_USER_SUCCESS,
@@ -40,27 +42,17 @@ export default function reducer(state = initialState, action) {
   case API_REQUEST_FAILURE: // Reset the user auth status if necessary.
     if (action.status === FORBIDDEN_RESPONSE_STATUS) {
       return {
-        ...state,
-        userIsAuthenticated: false,
-        authenticationToken: null,
-        email: null,
-        firstName: null,
-        lastName: null,
-        name: null,
-        userId: null,
+        ...initialState,
       };
     }
     return state;
+  case LOGOUT_USER:
+    return {
+      ...initialState,
+    }
   case LOGOUT_USER_SUCCESS:
     return {
-      ...state,
-      authenticationToken: null,
-      email: null,
-      firstName: null,
-      lastName: null,
-      name: null,
-      userId: null,
-      userIsAuthenticated: false,
+      ...initialState,
     };
   default:
     return state;

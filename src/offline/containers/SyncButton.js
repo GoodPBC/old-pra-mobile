@@ -7,8 +7,10 @@ import { connect } from 'react-redux';
 import SyncButton from '../components/SyncButton';
 import * as SyncActions from '../actions';
 
-function mapStateToProps() {
-  return {};
+function mapStateToProps(state) {
+  return {
+    buttonEnabled: state.offline.networkIsConnected,
+  };
 }
 
 function mapDispatchToProps(dispatch) {

@@ -3,9 +3,17 @@ import {
 } from 'react-native';
 
 import {
+  ADD_TO_SYNC_QUEUE,
   NETWORK_STATUS_CHANGE,
   SYNC_SERVICE_REQUESTS,
 } from './actionTypes';
+
+export function addToSyncQueue(action) {
+  return {
+    type: ADD_TO_SYNC_QUEUE,
+    action,
+  };
+}
 
 export function syncServiceRequests() {
   return {
