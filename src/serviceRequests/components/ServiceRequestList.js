@@ -116,6 +116,7 @@ export default class ServiceRequestList extends Component {
       <View style={styles.container}>
         {this.props.enableFilters && <ServiceRequestFilters onFilterChange={this._changeFilter} />}
           <ListView
+            removeClippedSubviews={false}
             dataSource={this.state.dataSource}
             renderRow={this._renderRow}
             enableEmptySections
