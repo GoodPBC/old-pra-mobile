@@ -27,7 +27,7 @@ export default class SelectTeamModal extends Component {
     }
     return (
       <View style={styles.container}>
-        <View style={styles.nav}>
+        <View style={[styles.nav, Platform.OS === 'android' ? styles.androidNav : null]}>
           <Text style={styles.header}>Select a team</Text>
         </View>
         <SelectTeamScreen />
@@ -49,10 +49,14 @@ const styles = StyleSheet.create({
   logout: {
     marginTop: 40,
   },
+  androidNav: {
+    justifyContent: 'center',
+  },
   nav: {
     backgroundColor: DARK_BLUE,
     height: 64,
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
+    paddingBottom: 10,
   },
   warning: {
     alignSelf: 'center',
