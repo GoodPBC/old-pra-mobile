@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { StyleSheet, Text } from 'react-native';
 import SectionWithIcon from './SectionWithIcon';
 import { GRAY_TEXT } from '../../shared';
-import infoIcon from './img/info-icon-active.png';
+import infoIcon from './img/info-icon-inactive.png';
 
 export default function DescriptionSection({ serviceRequest, numberOfLines }) {
   return (

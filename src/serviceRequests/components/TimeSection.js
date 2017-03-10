@@ -6,7 +6,7 @@ import {
 } from 'react-native';
 import SectionWithIcon from './SectionWithIcon';
 import StatusWithTime from './StatusWithTime';
-import timeIcon from './img/time-icon-active.png';
+import timeIcon from './img/time-icon-inactive.png';
 
 import { formattedStatus, resolutionCodeDisplayName } from '../helpers';
 

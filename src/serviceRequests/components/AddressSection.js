@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import SectionWithIcon from './SectionWithIcon';
 import ShortFormLocation from './ShortFormLocation';
 import LongFormLocation from './LongFormLocation';
-import locationIcon from './img/location-icon-active.png';
+import locationIcon from './img/location-icon-inactive.png';
 
 export default function AddressSection({ serviceRequest, fullLength }) {
   return (
