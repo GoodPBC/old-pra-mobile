@@ -14,18 +14,31 @@ import {
   SYNC_SERVICE_REQUESTS,
 } from '../offline/actionTypes';
 
+import {
+  fetchServiceRequests,
+} from '../serviceRequests/actions';
+
 /**
  * Dispatch all actions that were stored in the queue.
  */
 function drainSyncQueue(store) {
-  const pendingActions = store.getState().offline.syncQueue;
+  const { networkIsConnected, syncQueue } = store.getState().offline;
+
+  // Emptying the queue when we're offline just drops requests on the floor.
+  if (!networkIsConnected) {
+    return;
+  }
+
   let action = null;
-  while (action = pendingActions.shift()) { // FIFO
+  while (action = syncQueue.shift()) { // FIFO
     store.dispatch(action);
   }
   store.dispatch({
     type: FINISH_SYNC,
   });
+
+  // Always refresh SRs after we've made all updates.
+  store.dispatch(fetchServiceRequests());
 }
 
 /**
@@ -59,7 +72,6 @@ export default store => next => action => {
   queueActionIfOffline(store, action, () => {
     next(action);
     const drainTriggerActions = [
-      API_REQUEST_SUCCESS, // Any successful API request
       SYNC_SERVICE_REQUESTS, // tapping the 'Sync' button
     ];
 
