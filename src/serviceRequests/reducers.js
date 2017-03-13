@@ -9,6 +9,10 @@ import {
   RESOLUTION_CODES,
 } from './actionTypes';
 
+import {
+  SYNC_SERVICE_REQUESTS,
+} from '../offline/actionTypes';
+
 const initialState = {
   // Optimistic check for loading SRs
   hasLoadedServiceRequests: false,
@@ -18,6 +22,9 @@ const initialState = {
   // updatePending: {},
   // All SRs that have been retrieved from the API
   serviceRequests: [],
+
+  // Display a spinner when refreshing.
+  isRefreshing: false,
 
   selectedResolutionCode: null,
   resolutionNotes: null,
@@ -33,6 +40,7 @@ function processServiceRequestFetch(state, action) {
     ...state,
     serviceRequests,
     hasLoadedServiceRequests: true,
+    isRefreshing: false,
   };
 }
 
@@ -155,6 +163,11 @@ export default function reducer(state = initialState, action) {
         // Wipe this out so we don't accidentally send notes
         // with res codes that don't need them.
         resolutionNotes: null,
+      };
+    case SYNC_SERVICE_REQUESTS:
+      return {
+        ...state,
+        isRefreshing: true,
       };
     case UPDATE_RESOLUTION_NOTES:
       return {

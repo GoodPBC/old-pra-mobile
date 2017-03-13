@@ -8,8 +8,10 @@ import ServiceRequestNavigation from '../components/ServiceRequestNavigation';
 import * as ServiceRequestActions from '../actions';
 import { syncServiceRequests } from '../../offline/actions';
 
-function mapStateToProps() {
-  return {};
+function mapStateToProps(state) {
+  return {
+    isRefreshing: state.serviceRequests.isRefreshing,
+  };
 }
 
 function mapDispatchToProps(dispatch) {
