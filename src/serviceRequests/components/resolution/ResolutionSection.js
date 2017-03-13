@@ -69,6 +69,5 @@ export default class ResolutionSection extends Component {
 
 ResolutionSection.propTypes = {
   navigator: PropTypes.object,
-  updatePending: PropTypes.string,
   serviceRequest: PropTypes.object.isRequired,
 };

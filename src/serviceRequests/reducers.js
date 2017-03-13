@@ -15,7 +15,7 @@ const initialState = {
   // Look up the SR to display on details
   currentSrNumber: null,
   // If updating SRs while offline, keep track of all pending updates
-  updatePending: {},
+  // updatePending: {},
   // All SRs that have been retrieved from the API
   serviceRequests: [],
 
@@ -49,22 +49,6 @@ function selectServiceRequest(state, action) {
     resolutionNotes: null,
     selectedResolutionCode: null,
   };
-}
-
-function updatePendingStatus(state, action) {
-  const { pendingStatus, serviceRequest } = action;
-  let { updatePending = {} } = state;
-  if (typeof updatePending !== 'object') {
-    updatePending = {};
-  }
-  updatePending[serviceRequest.sr_number] = pendingStatus;
-  const newState = {
-    ...state,
-    updatePending: {
-      ...updatePending,
-    },
-  };
-  return newState;
 }
 
 function touchAllServiceRequests(state) {
@@ -180,4 +164,42 @@ export default function reducer(state = initialState, action) {
     default:
       return state;
   }
+}
+
+function updatePendingStatus(state, action) {
+  const { pendingStatus, serviceRequest } = action;
+  const serviceRequests = [...state.serviceRequests];
+  const idx = serviceRequests.indexOf(serviceRequest);
+  if (idx === -1) {
+    throw 'invalid SR';
+  }
+  let updatedServiceRequest = null;
+  switch (pendingStatus) {
+    case 'resolved':
+      updatedServiceRequest = {
+        ...serviceRequest,
+        status: 'visit_complete',
+        updated_at: action.updatedAt.format('MMM D YYYY h:mmA'),
+        updated_by: action.name,
+        resolution_code: action.resolutionCode,
+        resolution_notes: action.resolutionNotes,
+      };
+      break;
+    case 'onsite':
+      updatedServiceRequest = {
+        ...serviceRequest,
+        status: 'on_site',
+        actual_onsite_time: action.updatedAt.format('MMM D YYYY h:mmA'),
+        updated_by: action.name,
+      };
+      break;
+    case null: throw 'invalid null status ';
+    default:
+      throw 'unknown pending status';
+  }
+  serviceRequests[idx] = updatedServiceRequest;
+  return {
+    ...state,
+    serviceRequests,
+  };
 }

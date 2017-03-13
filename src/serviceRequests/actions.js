@@ -71,13 +71,14 @@ export function rerenderServiceRequests() {
 
 export function resolveServiceRequest(serviceRequest, resolutionCode) {
   return (dispatch, getState) => {
-    const { userId } = getState().user;
+    const { name, userId } = getState().user;
     const { resolutionNotes } = getState().serviceRequests;
+    const updatedAt = moment();
 
     // console.log(`Resolving SR #${serviceRequest.sr_number} with code: ${resolutionCode}`);
     const requestParams = {
       SR_Number: serviceRequest.sr_number,
-      ModifiedAt: momentToStr(moment()),
+      ModifiedAt: momentToStr(updatedAt),
       PRASRStatusId: STATUS_CODES.visit_complete,
       ModifiedBy: userId,
       PRASRResolutionCodeId: resolutionCode,
@@ -90,6 +91,10 @@ export function resolveServiceRequest(serviceRequest, resolutionCode) {
       type: MARK_PENDING_STATUS,
       serviceRequest,
       pendingStatus: 'resolved',
+      updatedAt,
+      name,
+      resolutionNotes,
+      resolutionCode,
     });
 
     dispatch({
@@ -103,13 +108,7 @@ export function resolveServiceRequest(serviceRequest, resolutionCode) {
 
       // Refresh SRs after the update
       onSuccess: () => {
-        dispatch(fetchServiceRequests(() => {
-          dispatch({
-            type: MARK_PENDING_STATUS,
-            serviceRequest,
-            pendingStatus: null,
-          });
-        }));
+        dispatch(fetchServiceRequests());
       }
     });
   };
@@ -131,12 +130,13 @@ export function unselectServiceRequest() {
 
 export function updateOnsiteStatus(serviceRequest) {
   return (dispatch, getState) => {
-    const { userId } = getState().user;
+    const { name, userId } = getState().user;
+    const updatedAt = moment();
 
     const requestParams = [
       {
         SR_Number: serviceRequest.sr_number,
-        ModifiedAt: momentToStr(moment()),
+        ModifiedAt: momentToStr(updatedAt),
         PRASRStatusId: STATUS_CODES.on_site,
 
         ModifiedBy: userId,
@@ -148,6 +148,8 @@ export function updateOnsiteStatus(serviceRequest) {
       type: MARK_PENDING_STATUS,
       serviceRequest,
       pendingStatus: 'onsite',
+      updatedAt,
+      name,
     });
 
     dispatch({
@@ -161,13 +163,7 @@ export function updateOnsiteStatus(serviceRequest) {
 
       // Refresh SRs after the update
       onSuccess: () => {
-        dispatch(fetchServiceRequests(() => {
-          dispatch({
-            type: MARK_PENDING_STATUS,
-            serviceRequest,
-            pendingStatus: null,
-          });
-        }));
+        dispatch(fetchServiceRequests());
       }
     });
   };
