@@ -18,6 +18,7 @@ import {
 import loginBackgroundImage from './img/LoginBackground.png';
 import logoImage from './img/NYC_DHS-Logo.png';
 import Separator from '../../shared/components/Separator';
+import OfflineBanner from '../../offline/components/OfflineBanner';
 
 export default class LoginScreen extends Component {
   constructor(props) {
@@ -33,6 +34,12 @@ export default class LoginScreen extends Component {
     this._toggleShowPassword = this._toggleShowPassword.bind(this);
   }
 
+  _enableLoginButton() {
+    return (this.state.password && this.state.password.length)
+        && (this.state.email && this.state.email.length)
+        && (this.props.networkIsConnected);
+  }
+
   _toggleShowPassword() {
     this.setState({ showPassword: !this.state.showPassword });
   }
@@ -44,6 +51,7 @@ export default class LoginScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
+        {!this.props.networkIsConnected && <OfflineBanner />}
         <Image source={loginBackgroundImage} style={styles.backgroundImage}>
           <View style={styles.wrapper}>
             <Image resizeMode="contain" source={logoImage} style={styles.logo} />
@@ -72,7 +80,9 @@ export default class LoginScreen extends Component {
                 </TouchableOpacity>
                 <InvertText>Show Password</InvertText>
               </View>
-              <InvertButton onPress={this._submitForm}>
+              <InvertButton
+                disabled={!this._enableLoginButton()}
+                onPress={this._submitForm}>
                 Login
               </InvertButton>
             </KeyboardAvoidingView>
