@@ -8,6 +8,7 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
+import Fabric from 'react-native-fabric';
 
 import TabNavigator from 'react-native-tab-navigator';
 
@@ -29,6 +30,8 @@ import {
   DARK_BLUE,
   GRAY_TEXT,
 } from '../../shared';
+
+const { Crashlytics } = Fabric;
 
 const Tabs = {
   my_requests: 0,
