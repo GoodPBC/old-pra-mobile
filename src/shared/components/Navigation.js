@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
 import {
+  ActivityIndicator,
   BackAndroid,
   Image,
   Navigator,
@@ -45,6 +46,10 @@ export default class Navigation extends Component {
     return false;
   }
 
+  _handleRightButton(route, navigator, index) {
+    this.props.rightButtonAction(route, navigator, index);
+  }
+
   _refreshAndGoBack(navigator) {
     this.props.onBack();
     navigator.pop();
@@ -57,7 +62,10 @@ export default class Navigation extends Component {
     if (index > 0) {
       return (
         <View style={styles.navElement}>
-          <TouchableOpacity onPress={() => this._refreshAndGoBack(navigator) }>
+          <TouchableOpacity
+            onPress={() => this._refreshAndGoBack(navigator) }
+            hitSlop={{top: 50, bottom: 50, left: 50, right: 50}}
+          >
             <Image source={backIcon} />
           </TouchableOpacity>
         </View>
@@ -71,13 +79,23 @@ export default class Navigation extends Component {
    * Right button refreshes whichever screen you're on
    */
   _rightButton(route, navigator, index) {
-    const { rightButtonAction } = this.props;
+    const { isRefreshing, rightButtonAction } = this.props;
+    let content = null;
+    if (isRefreshing) {
+      content = (
+        <ActivityIndicator color="white" />
+      );
+    } else {
+      content = (
+        <TouchableOpacity onPress={() => this._handleRightButton(route, navigator, index)}>
+          <Image source={refreshIcon} />
+        </TouchableOpacity>
+      );
+    }
     if (rightButtonAction) {
       return (
         <View style={styles.navElement}>
-          <TouchableOpacity onPress={() => this.props.rightButtonAction(route, navigator, index)}>
-            <Image source={refreshIcon} />
-          </TouchableOpacity>
+          {content}
         </View>
       );
     }
@@ -133,6 +151,7 @@ export default class Navigation extends Component {
 }
 
 Navigation.propTypes = {
+  isRefreshing: PropTypes.bool,
   onBack: PropTypes.func.isRequired,
   renderScene: PropTypes.func.isRequired,
   rightButtonAction: PropTypes.func,

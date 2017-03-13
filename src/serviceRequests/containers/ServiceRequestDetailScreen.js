@@ -10,7 +10,6 @@ import { getCurrentServiceRequestUpdateStatus, getCurrentServiceRequest } from '
 
 function mapStateToProps(state) {
   return {
-    updatePending: getCurrentServiceRequestUpdateStatus(state),
     serviceRequest: getCurrentServiceRequest(state),
   };
 }

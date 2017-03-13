@@ -18,7 +18,6 @@ export default class ResolutionScreen extends Component {
 }
 
 ResolutionScreen.propTypes = {
-  updatePending: PropTypes.string,
   serviceRequest: PropTypes.object.isRequired,
 };
 

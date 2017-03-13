@@ -1,6 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 
-import { StyleSheet, View } from 'react-native';
+import {
+  StyleSheet,
+  View,
+} from 'react-native';
 
 import MyRequestsScreen from '../containers/MyRequestsScreen';
 import ResolutionScreen from '../containers/ResolutionScreen';
@@ -17,10 +20,8 @@ export default class ServiceRequestNavigation extends Component {
   }
 
   _refreshServiceRequests(route, navigator, index) {
-    if (index === 0) {
-      this.props.fetchServiceRequests();
-    } else if (index === 1) {
-      this.props.refreshCurrentServiceRequest();
+    if (index === 0 || index === 1) {
+      this.props.syncServiceRequests();
     }
   }
 
@@ -56,6 +57,7 @@ export default class ServiceRequestNavigation extends Component {
     return (
       <Navigation
         initialRoute={initialRoute}
+        isRefreshing={this.props.isRefreshing}
         renderScene={this._renderScene}
         onBack={this.props.fetchServiceRequests}
         rightButtonAction={this._refreshServiceRequests}
@@ -66,6 +68,7 @@ export default class ServiceRequestNavigation extends Component {
 
 ServiceRequestNavigation.propTypes = {
   fetchServiceRequests: PropTypes.func.isRequired,
+  isRefreshing: PropTypes.bool,
   refreshCurrentServiceRequest: PropTypes.func.isRequired,
 };
 

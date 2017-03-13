@@ -9,15 +9,22 @@ import {
   RESOLUTION_CODES,
 } from './actionTypes';
 
+import {
+  SYNC_SERVICE_REQUESTS,
+} from '../offline/actionTypes';
+
 const initialState = {
   // Optimistic check for loading SRs
   hasLoadedServiceRequests: false,
   // Look up the SR to display on details
   currentSrNumber: null,
   // If updating SRs while offline, keep track of all pending updates
-  updatePending: {},
+  // updatePending: {},
   // All SRs that have been retrieved from the API
   serviceRequests: [],
+
+  // Display a spinner when refreshing.
+  isRefreshing: false,
 
   selectedResolutionCode: null,
   resolutionNotes: null,
@@ -33,6 +40,7 @@ function processServiceRequestFetch(state, action) {
     ...state,
     serviceRequests,
     hasLoadedServiceRequests: true,
+    isRefreshing: false,
   };
 }
 
@@ -49,22 +57,6 @@ function selectServiceRequest(state, action) {
     resolutionNotes: null,
     selectedResolutionCode: null,
   };
-}
-
-function updatePendingStatus(state, action) {
-  const { pendingStatus, serviceRequest } = action;
-  let { updatePending = {} } = state;
-  if (typeof updatePending !== 'object') {
-    updatePending = {};
-  }
-  updatePending[serviceRequest.sr_number] = pendingStatus;
-  const newState = {
-    ...state,
-    updatePending: {
-      ...updatePending,
-    },
-  };
-  return newState;
 }
 
 function touchAllServiceRequests(state) {
@@ -172,6 +164,11 @@ export default function reducer(state = initialState, action) {
         // with res codes that don't need them.
         resolutionNotes: null,
       };
+    case SYNC_SERVICE_REQUESTS:
+      return {
+        ...state,
+        isRefreshing: true,
+      };
     case UPDATE_RESOLUTION_NOTES:
       return {
         ...state,
@@ -180,4 +177,42 @@ export default function reducer(state = initialState, action) {
     default:
       return state;
   }
+}
+
+function updatePendingStatus(state, action) {
+  const { pendingStatus, serviceRequest } = action;
+  const serviceRequests = [...state.serviceRequests];
+  const idx = serviceRequests.indexOf(serviceRequest);
+  if (idx === -1) {
+    throw 'invalid SR';
+  }
+  let updatedServiceRequest = null;
+  switch (pendingStatus) {
+    case 'resolved':
+      updatedServiceRequest = {
+        ...serviceRequest,
+        status: 'visit_complete',
+        updated_at: action.updatedAt.format('MMM D YYYY h:mmA'),
+        updated_by: action.name,
+        resolution_code: action.resolutionCode,
+        resolution_notes: action.resolutionNotes,
+      };
+      break;
+    case 'onsite':
+      updatedServiceRequest = {
+        ...serviceRequest,
+        status: 'on_site',
+        actual_onsite_time: action.updatedAt.format('MMM D YYYY h:mmA'),
+        updated_by: action.name,
+      };
+      break;
+    case null: throw 'invalid null status ';
+    default:
+      throw 'unknown pending status';
+  }
+  serviceRequests[idx] = updatedServiceRequest;
+  return {
+    ...state,
+    serviceRequests,
+  };
 }

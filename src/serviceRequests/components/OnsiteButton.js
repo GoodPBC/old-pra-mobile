@@ -36,8 +36,7 @@ export default class OnsiteButton extends Component {
 
     content = (
       <Button
-        onPress={() => confirmAndUpdateStatus(serviceRequest, updateOnsiteStatus)}
-        disabled={updatePending}>Tap To Go On Site</Button>
+        onPress={() => confirmAndUpdateStatus(serviceRequest, updateOnsiteStatus)}>Tap To Go On Site</Button>
     );
     return (
       <View style={styles.container}>
@@ -50,7 +49,6 @@ export default class OnsiteButton extends Component {
 
 OnsiteButton.propTypes = {
   serviceRequest: PropTypes.object.isRequired,
-  updatePending: PropTypes.string,
   updateOnsiteStatus: PropTypes.func.isRequired,
 };
 
