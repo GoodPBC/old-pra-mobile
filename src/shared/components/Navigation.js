@@ -62,7 +62,10 @@ export default class Navigation extends Component {
     if (index > 0) {
       return (
         <View style={styles.navElement}>
-          <TouchableOpacity onPress={() => this._refreshAndGoBack(navigator) }>
+          <TouchableOpacity
+            onPress={() => this._refreshAndGoBack(navigator) }
+            hitSlop={{top: 50, bottom: 50, left: 50, right: 50}}
+          >
             <Image source={backIcon} />
           </TouchableOpacity>
         </View>
