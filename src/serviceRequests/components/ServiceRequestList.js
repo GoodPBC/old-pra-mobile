@@ -78,7 +78,6 @@ export default class ServiceRequestList extends Component {
   }
 
   checkStorageForDismissedSR(){
-    console.log('running check storage function')
     storage.load({
         key: 'resolvedUrgentServiceRequests',
     }).then(ret => {
@@ -100,7 +99,19 @@ export default class ServiceRequestList extends Component {
     let resolvedUrgentServiceRequests = this.state.resolvedUrgentServiceRequests;
     for (var i = 0; i < usr.length; i++) {
       resolvedUrgentServiceRequests.push(usr[i].sr_number);
+      let pingResponse = {
+        actualOnsiteTime: usr.timeOnsite,
+        modifiedAt: Date.now(),
+        modifiedBy: pingResponse.modifiedBy,
+        pingNote: usr.reason,
+        reasonId: 0,
+        srNumber: usr.sr_number
+      }
+      console.log('sending ping response');
+      console.log(pingResponse);
+      this.props.updateServiceRequestPingResponse(pingResponse)
     }
+
 
     this.setState({
       resolvedUrgentServiceRequests: resolvedUrgentServiceRequests

@@ -11,6 +11,7 @@ import {
     UPDATE_ONSITE_STATUS,
     ADD_CONTACT_TO_SERVICE_REQUEST,
     UPDATE_RESOLUTION_NOTES,
+    UPDATE_PING_RESPONSE
 } from './actionTypes';
 import { API_REQUEST } from '../shared';
 
@@ -190,4 +191,21 @@ export function updateResolutionNotes(notes) {
     type: UPDATE_RESOLUTION_NOTES,
     notes,
   };
+}
+
+export function updateServiceRequestPingResponse(pingResponse) {
+  return {
+    type: API_REQUEST,
+    actionName: UPDATE_PING_RESPONSE,
+    requestMethod: 'POST',
+    requestPath: 'updatepingresponse',
+    requestParams: {
+      ActualOnsiteTime: pingResponse.actualOnsiteTime,
+      ModifiedAt: pingResponse.modifiedAt,
+      ModifiedBy: pingResponse.modifiedBy,
+      PingNote: pingResponse.pingNote,
+      ReasonId: pingResponse.reasonId,
+      SR_Number: pingResponse.srNumber
+    }
+  }
 }
