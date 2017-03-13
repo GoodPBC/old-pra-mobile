@@ -62,7 +62,7 @@ export default class App extends Component {
     return (
       <View style={{ marginTop: 22 }}>
         <Modal
-          animationType={'slide'}
+          animationType={'none'}
           transparent={false}
           visible={this.props.userIsAuthenticated !== true}
           onRequestClose={() => {}}
@@ -77,7 +77,7 @@ export default class App extends Component {
     return (
       <View style={{ marginTop: 22 }}>
         <Modal
-          animationType={'slide'}
+          animationType={'none'}
           transparent={false}
           visible
           onRequestClose={() => {}}
