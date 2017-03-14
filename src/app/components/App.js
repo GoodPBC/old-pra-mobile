@@ -8,14 +8,13 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
-import Fabric from 'react-native-fabric';
 
 import TabNavigator from 'react-native-tab-navigator';
 
 import { ServiceRequestNavigation } from '../../serviceRequests';
 import { TeamNavigation } from '../../teams';
 import SelectTeamModal from '../../teams/containers/SelectTeamModal';
-import { OfflineBanner, SyncNavigation } from '../../offline';
+import { OfflineBanner } from '../../offline';
 
 import { LoginScreen, LogoutScreen } from '../../user';
 
@@ -23,15 +22,11 @@ import myRequestsActiveIcon from './img/my-requests-icon-active.png';
 import myRequestsInactiveIcon from './img/my-requests-icon-inactive.png';
 import teamsActiveIcon from './img/teams-icon-active.png';
 import teamsInactiveIcon from './img/teams-icon-inactive.png';
-import syncActiveIcon from './img/sync-icon-active.png';
-import syncInactiveIcon from './img/sync-icon-inactive.png';
 
 import {
   DARK_BLUE,
   GRAY_TEXT,
 } from '../../shared';
-
-const { Crashlytics } = Fabric;
 
 const Tabs = {
   my_requests: 0,
@@ -115,17 +110,6 @@ export default class App extends Component {
           selectedTitleStyle={{ color: DARK_BLUE }}
         >
           <TeamNavigation />
-        </TabNavigator.Item>
-        <TabNavigator.Item
-          selected={this.state.selectedTab === Tabs.sync}
-          title="Sync"
-          renderIcon={() => <Image source={syncInactiveIcon} />}
-          renderSelectedIcon={() => <Image source={syncActiveIcon} />}
-          onPress={() => this.setState({ selectedTab: Tabs.sync })}
-          titleStyle={{ color: GRAY_TEXT }}
-          selectedTitleStyle={{ color: DARK_BLUE }}
-        >
-          <SyncNavigation />
         </TabNavigator.Item>
         <TabNavigator.Item
           selected={this.state.selectedTab === Tabs.logout}
