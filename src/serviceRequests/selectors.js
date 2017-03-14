@@ -9,7 +9,13 @@ const DISPLAYABLE_STATUSES = [
   'resolved',
 ];
 
-export const getAllServiceRequests = (state) => sortServiceRequests(state.serviceRequests.serviceRequests);
+
+export const getAllServiceRequests = (state) => state.serviceRequests.serviceRequests;
+
+export const getSortedServiceRequests = createSelector(
+  [getAllServiceRequests],
+  (serviceRequests) => sortServiceRequests(serviceRequests)
+);
 
 const getCurrentSRNumber = (state) => state.serviceRequests.currentSrNumber;
 
@@ -45,7 +51,7 @@ function sortServiceRequests(serviceRequests) {
 }
 
 export const getDisplayableServiceRequests = createSelector(
-  [getAllServiceRequests, getCurrentTeam],
+  [getSortedServiceRequests, getCurrentTeam],
   (serviceRequests, currentTeam) => serviceRequests.filter(sr => {
       const isOnTeam = currentTeam && sr.team_id === currentTeam.id;
       const isDisplayable = DISPLAYABLE_STATUSES.indexOf(sr.status) !== -1;
