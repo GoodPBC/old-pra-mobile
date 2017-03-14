@@ -61,6 +61,7 @@ export default class ServiceRequestNavigation extends Component {
       <Navigation
         initialRoute={initialRoute}
         isRefreshing={this.props.isRefreshing}
+        networkIsConnected={this.props.networkIsConnected}
         renderScene={this._renderScene}
         onBack={this.props.fetchServiceRequests}
         rightButtonAction={this._refreshServiceRequests}

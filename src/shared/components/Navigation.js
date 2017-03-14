@@ -85,15 +85,17 @@ export default class Navigation extends Component {
    * Right button refreshes whichever screen you're on
    */
   _rightButton(route, navigator, index) {
-    const { isRefreshing, rightButtonAction } = this.props;
+    const { isRefreshing, networkIsConnected, rightButtonAction } = this.props;
     let content = null;
-    if (isRefreshing) {
+    if (networkIsConnected && isRefreshing) {
       content = (
         <ActivityIndicator color="white" />
       );
     } else {
       content = (
-        <TouchableOpacity onPress={() => this._handleRightButton(route, navigator, index)}>
+        <TouchableOpacity
+          disabled={!this.props.networkIsConnected}
+          onPress={() => this._handleRightButton(route, navigator, index)}>
           <Image source={refreshIcon} />
         </TouchableOpacity>
       );
@@ -158,6 +160,7 @@ export default class Navigation extends Component {
 
 Navigation.propTypes = {
   isRefreshing: PropTypes.bool,
+  networkIsConnected: PropTypes.bool,
   onBack: PropTypes.func.isRequired,
   renderScene: PropTypes.func.isRequired,
   rightButtonAction: PropTypes.func,

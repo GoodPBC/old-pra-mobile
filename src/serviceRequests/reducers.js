@@ -196,6 +196,7 @@ function updatePendingStatus(state, action) {
         updated_by: action.name,
         resolution_code: action.resolutionCode,
         resolution_notes: action.resolutionNotes,
+        unsynced: true,
       };
       break;
     case 'onsite':
@@ -204,6 +205,7 @@ function updatePendingStatus(state, action) {
         status: 'on_site',
         actual_onsite_time: action.updatedAt.format('MMM D YYYY h:mmA'),
         updated_by: action.name,
+        unsynced: true,
       };
       break;
     case null: throw 'invalid null status ';

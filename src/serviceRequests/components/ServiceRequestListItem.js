@@ -10,6 +10,7 @@ import {
 import DescriptionSection from './DescriptionSection';
 import AddressSection from './AddressSection';
 import TimeSection from './TimeSection';
+import UnsyncedBanner from './UnsyncedBanner';
 import {
   LIGHT_BLUE,
   DARK_BLUE,
@@ -26,6 +27,7 @@ export default function ServiceRequestListItem({ serviceRequest, selectServiceRe
         <View style={styles.header}>
           <Text style={styles.headerText}>SR# {serviceRequest.sr_number}</Text>
         </View>
+        <UnsyncedBanner serviceRequest={serviceRequest} />
         <View style={styles.contentWithArrow}>
           <View style={styles.content}>
             <TimeSection serviceRequest={serviceRequest} />
