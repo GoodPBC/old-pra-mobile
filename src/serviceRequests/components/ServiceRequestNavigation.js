@@ -5,7 +5,6 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
-import slowlog from 'react-native-slowlog';
 
 import MyRequestsScreen from '../containers/MyRequestsScreen';
 import ResolutionScreen from '../containers/ResolutionScreen';
@@ -17,7 +16,6 @@ import { LIGHT_BLUE, Navigation } from '../../shared';
 export default class ServiceRequestNavigation extends Component {
   constructor(props) {
     super(props);
-    slowlog(this, /.*/);
     this._renderScene = this._renderScene.bind(this);
     this._refreshServiceRequests = this._refreshServiceRequests.bind(this);
   }

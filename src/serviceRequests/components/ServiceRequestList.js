@@ -8,8 +8,6 @@ import {
   AsyncStorage,
 } from 'react-native';
 
-import slowlog from 'react-native-slowlog';
-
 import moment from 'moment';
 
 import Separator from '../../shared/components/Separator';
@@ -37,7 +35,6 @@ const FILTERS = {
 export default class ServiceRequestList extends Component {
   constructor(props) {
     super(props);
-    slowlog(this, /.*/, { verbose: true });
     const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
 
     this.state = {

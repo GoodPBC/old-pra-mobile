@@ -7,7 +7,6 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
-import slowlog from 'react-native-slowlog';
 
 import BannerWithNumber from './BannerWithNumber';
 import ResolutionSection from './resolution/ResolutionSection';
@@ -20,11 +19,6 @@ import {
 
 
 export default class ServiceRequestDetailScreen extends Component {
-
-  constructor(props) {
-    super(props);
-    slowlog(this, /.*/);
-  }
 
   componentWillUnmount() {
     InteractionManager.runAfterInteractions(() => {

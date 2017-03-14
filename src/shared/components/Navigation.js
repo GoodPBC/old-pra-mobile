@@ -12,7 +12,6 @@ import {
   Text,
   View,
 } from 'react-native';
-import slowlog from 'react-native-slowlog';
 
 import { DARK_BLUE } from '../constants';
 import { GREY_TEXT } from '../constants';
@@ -23,7 +22,6 @@ import backIcon from './img/back-icon.png';
 export default class Navigation extends Component {
   constructor(props) {
     super(props);
-    slowlog(this, /.*/);
     this._leftButton = this._leftButton.bind(this);
     this._rightButton = this._rightButton.bind(this);
     this._title = this._title.bind(this);
