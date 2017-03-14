@@ -47,6 +47,7 @@ export default class ServiceRequestList extends Component {
     this.dismissUrgentServiceRequests = this.dismissUrgentServiceRequests.bind(this);
 
     this.checkStorageForDismissedSR = this.checkStorageForDismissedSR.bind(this);
+    this.removeRequestFromModal = this.removeRequestFromModal.bind(this);
     this.checkStorageForDismissedSR();
   }
 
@@ -65,7 +66,7 @@ export default class ServiceRequestList extends Component {
       if (serviceRequest.status === 'in_the_field' && this.state.resolvedUrgentServiceRequests.indexOf(serviceRequest.sr_number) === -1) {
         const now = new Date();
         const one_hour = 60 * 1000;
-        const sr_time = moment(serviceRequest.updated_at, "MMM-DD-YYYY hh:mm A").valueOf();
+        const sr_time = moment(serviceRequest.provider_assigned_time, "MMM-DD-YYYY hh:mm A").valueOf();
         if (now - sr_time > one_hour) {
           return serviceRequest;
         }
@@ -99,19 +100,16 @@ export default class ServiceRequestList extends Component {
     let resolvedUrgentServiceRequests = this.state.resolvedUrgentServiceRequests;
     for (var i = 0; i < usr.length; i++) {
       resolvedUrgentServiceRequests.push(usr[i].sr_number);
+      
       let pingResponse = {
-        actualOnsiteTime: usr.timeOnsite,
+        actualOnsiteTime: usr[i].timeOnsite,
         modifiedAt: Date.now(),
-        modifiedBy: pingResponse.modifiedBy,
-        pingNote: usr.reason,
+        pingNote: usr[i].reason,
         reasonId: 0,
-        srNumber: usr.sr_number
+        srNumber: usr[i].sr_number
       }
-      console.log('sending ping response');
-      console.log(pingResponse);
       this.props.updateServiceRequestPingResponse(pingResponse)
     }
-
 
     this.setState({
       resolvedUrgentServiceRequests: resolvedUrgentServiceRequests
@@ -122,11 +120,23 @@ export default class ServiceRequestList extends Component {
       rawData: resolvedUrgentServiceRequests, 
     });
 
-
     this.setState({
       urgentServiceRequests: []
     });
+  }
 
+  removeRequestFromModal(request){
+    let urgentServiceRequests = this.state.urgentServiceRequests;
+    for (var i = 0; i < urgentServiceRequests.length; i++ ) {
+      if (urgentServiceRequests[i].sr_number === request.sr_number) {
+        urgentServiceRequests.splice(i, 1)
+        this.setState({
+          urgentServiceRequests
+        })
+        break
+      }
+    }
+    //dismiss modal if empty
   }
 
   _selectServiceRequest(serviceRequest) {
@@ -185,6 +195,7 @@ export default class ServiceRequestList extends Component {
             style={styles.modal}
             urgentServiceRequests={this.state.urgentServiceRequests}
             dismissUrgentServiceRequests={this.dismissUrgentServiceRequests}
+            removeRequestFromModal={this.removeRequestFromModal}
             />
           : null
         }

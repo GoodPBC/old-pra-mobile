@@ -73,7 +73,6 @@ export default class UrgentServiceRequestModalItem extends Component {
         <Button
           onPress={this.saveServiceRequest}
           style={styles.button}
-          disabled={this.state.saved}
         >
           <Text>Save Service Request</Text>
         </Button>
