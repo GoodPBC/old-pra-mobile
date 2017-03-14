@@ -41,12 +41,12 @@ export default class UrgentServiceRequestModal extends Component {
       usr.push(data);
       this.setState({ urgentServiceRequests: usr });
     }
-    this.props.removeRequestFromModal(data);
-
     // if single SR in modal automatically send data to api
     if (this.props.urgentServiceRequests.length === 1) {
-      this.dismissUrgentServiceRequests(this.state.urgentServiceRequests);
+      this.dismissUrgentServiceRequests();
     }
+    //otherwise just remove that item
+    this.props.removeRequestFromModal(data);
   }
 
   dismissUrgentServiceRequests() {
