@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import {
   Linking,
   Text,
-  TouchableHighlight,
+  TouchableOpacity,
   StyleSheet,
   View,
 } from 'react-native';
@@ -44,9 +44,9 @@ export default function LongFormLocation({ serviceRequest }) {
   ;
   if (hasFullAddress(serviceRequest)) {
     return (
-      <TouchableHighlight onPress={() => onClickAddress(serviceRequest)}>
+      <TouchableOpacity onPress={() => onClickAddress(serviceRequest)}>
         {content}
-      </TouchableHighlight>
+      </TouchableOpacity>
     );
   }
 
