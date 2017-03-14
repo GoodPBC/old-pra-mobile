@@ -4212,6 +4212,10 @@ react-native-simple-radio-button@^2.4.0:
   version "2.4.2"
   resolved "https://registry.yarnpkg.com/react-native-simple-radio-button/-/react-native-simple-radio-button-2.4.2.tgz#9b901896f8252210b433d1977c373760dd89e905"
 
+react-native-slowlog@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/react-native-slowlog/-/react-native-slowlog-1.0.2.tgz#5520979e3ef9d5273495d431ff3be34f02e35c89"
+
 react-native-storage@^0.1.5:
   version "0.1.5"
   resolved "https://registry.yarnpkg.com/react-native-storage/-/react-native-storage-0.1.5.tgz#91d77560e41cc9e62d587b55a21b3d6ebaba5599"

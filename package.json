@@ -19,6 +19,7 @@
     "react-native-fabric-crashlytics": "^0.1.8",
     "react-native-linear-gradient": "^1.5.15",
     "react-native-simple-radio-button": "^2.4.0",
+    "react-native-slowlog": "^1.0.2",
     "react-native-storage": "^0.1.5",
     "react-native-tab-navigator": "^0.3.3",
     "react-redux": "^4.4.5",

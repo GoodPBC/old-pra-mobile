@@ -1,9 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 
 import {
+  InteractionManager,
   StyleSheet,
   View,
 } from 'react-native';
+import slowlog from 'react-native-slowlog';
 
 import MyRequestsScreen from '../containers/MyRequestsScreen';
 import ResolutionScreen from '../containers/ResolutionScreen';
@@ -15,13 +17,16 @@ import { LIGHT_BLUE, Navigation } from '../../shared';
 export default class ServiceRequestNavigation extends Component {
   constructor(props) {
     super(props);
+    slowlog(this, /.*/);
     this._renderScene = this._renderScene.bind(this);
     this._refreshServiceRequests = this._refreshServiceRequests.bind(this);
   }
 
   _refreshServiceRequests(route, navigator, index) {
     if (index === 0 || index === 1) {
-      this.props.syncServiceRequests();
+      InteractionManager.runAfterInteractions(() => {
+        this.props.syncServiceRequests();
+      });
     }
   }
 

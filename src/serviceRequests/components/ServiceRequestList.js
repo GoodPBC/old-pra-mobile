@@ -1,6 +1,14 @@
 import React, { Component, PropTypes } from 'react';
 
-import { View, StyleSheet, ListView, AsyncStorage } from 'react-native';
+import {
+  InteractionManager,
+  View,
+  StyleSheet,
+  ListView,
+  AsyncStorage,
+} from 'react-native';
+
+import slowlog from 'react-native-slowlog';
 
 import moment from 'moment';
 
@@ -18,7 +26,7 @@ var storage = new Storage({
     storageBackend: AsyncStorage,
     defaultExpires: 1000 * 3600 * 24 * 30, //one month
     enableCache: true,
-})  
+})
 
 
 const FILTERS = {
@@ -29,7 +37,7 @@ const FILTERS = {
 export default class ServiceRequestList extends Component {
   constructor(props) {
     super(props);
-
+    slowlog(this, /.*/, { verbose: true });
     const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
 
     this.state = {
@@ -87,8 +95,8 @@ export default class ServiceRequestList extends Component {
       })
     }).catch(err => {
       storage.save({
-        key: 'resolvedUrgentServiceRequests', 
-        rawData: []   
+        key: 'resolvedUrgentServiceRequests',
+        rawData: []
       });
       this.setState({
         resolvedUrgentServiceRequests: []
@@ -100,7 +108,7 @@ export default class ServiceRequestList extends Component {
     let resolvedUrgentServiceRequests = this.state.resolvedUrgentServiceRequests;
     for (var i = 0; i < usr.length; i++) {
       resolvedUrgentServiceRequests.push(usr[i].sr_number);
-      
+
       let pingResponse = {
         actualOnsiteTime: usr[i].timeOnsite,
         modifiedAt: Date.now(),
@@ -116,8 +124,8 @@ export default class ServiceRequestList extends Component {
     })
 
     storage.save({
-      key: 'resolvedUrgentServiceRequests', 
-      rawData: resolvedUrgentServiceRequests, 
+      key: 'resolvedUrgentServiceRequests',
+      rawData: resolvedUrgentServiceRequests,
     });
 
     this.setState({
@@ -140,8 +148,9 @@ export default class ServiceRequestList extends Component {
   }
 
   _selectServiceRequest(serviceRequest) {
-    this.props.selectServiceRequest(serviceRequest); // Select offline state.
-    this.props.fetchServiceRequestDetails(serviceRequest);
+    InteractionManager.runAfterInteractions(() => {
+      this.props.selectServiceRequest(serviceRequest); // Select offline state.
+    });
     this.props.navigator.push({ // Push navigation
       index: 1,
       title: 'Request Details',
