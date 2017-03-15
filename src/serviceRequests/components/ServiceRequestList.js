@@ -13,12 +13,14 @@ import UrgentServiceRequestModal from './UrgentServiceRequestModal';
 import Storage from 'react-native-storage';
 
 // refactor this into a separate storage component
+/*
 var storage = new Storage({
     size: 1000,
     storageBackend: AsyncStorage,
     defaultExpires: 1000 * 3600 * 24 * 30, //one month
     enableCache: true,
-})  
+}) 
+*/ 
 
 
 const FILTERS = {
@@ -46,9 +48,9 @@ export default class ServiceRequestList extends Component {
     this.filterServiceRequestsByUrgency = this.filterServiceRequestsByUrgency.bind(this);
     this.dismissUrgentServiceRequests = this.dismissUrgentServiceRequests.bind(this);
 
-    this.checkStorageForDismissedSR = this.checkStorageForDismissedSR.bind(this);
+    //this.checkStorageForDismissedSR = this.checkStorageForDismissedSR.bind(this);
     this.removeRequestFromModal = this.removeRequestFromModal.bind(this);
-    this.checkStorageForDismissedSR();
+    //this.checkStorageForDismissedSR();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -78,6 +80,7 @@ export default class ServiceRequestList extends Component {
     });
   }
 
+  /*
   checkStorageForDismissedSR(){
     storage.load({
         key: 'resolvedUrgentServiceRequests',
@@ -95,6 +98,7 @@ export default class ServiceRequestList extends Component {
       })
     });
   }
+  */
 
   dismissUrgentServiceRequests(usr) {
     let resolvedUrgentServiceRequests = this.state.resolvedUrgentServiceRequests;
@@ -115,10 +119,12 @@ export default class ServiceRequestList extends Component {
       resolvedUrgentServiceRequests: resolvedUrgentServiceRequests
     })
 
+    /*
     storage.save({
       key: 'resolvedUrgentServiceRequests', 
       rawData: resolvedUrgentServiceRequests, 
     });
+    */
 
     this.setState({
       urgentServiceRequests: []
