@@ -4,6 +4,7 @@ import {
   ActivityIndicator,
   BackAndroid,
   Image,
+  InteractionManager,
   Navigator,
   Platform,
   StyleSheet,
@@ -11,6 +12,7 @@ import {
   Text,
   View,
 } from 'react-native';
+
 import { DARK_BLUE } from '../constants';
 import { GREY_TEXT } from '../constants';
 
@@ -47,11 +49,15 @@ export default class Navigation extends Component {
   }
 
   _handleRightButton(route, navigator, index) {
-    this.props.rightButtonAction(route, navigator, index);
+    InteractionManager.runAfterInteractions(() => {
+      this.props.rightButtonAction(route, navigator, index);
+    });
   }
 
   _refreshAndGoBack(navigator) {
-    this.props.onBack();
+    InteractionManager.runAfterInteractions(() => {
+      this.props.onBack();
+    });
     navigator.pop();
   }
 
@@ -79,15 +85,17 @@ export default class Navigation extends Component {
    * Right button refreshes whichever screen you're on
    */
   _rightButton(route, navigator, index) {
-    const { isRefreshing, rightButtonAction } = this.props;
+    const { isRefreshing, networkIsConnected, rightButtonAction } = this.props;
     let content = null;
-    if (isRefreshing) {
+    if (networkIsConnected && isRefreshing) {
       content = (
         <ActivityIndicator color="white" />
       );
     } else {
       content = (
-        <TouchableOpacity onPress={() => this._handleRightButton(route, navigator, index)}>
+        <TouchableOpacity
+          disabled={!this.props.networkIsConnected}
+          onPress={() => this._handleRightButton(route, navigator, index)}>
           <Image source={refreshIcon} />
         </TouchableOpacity>
       );
@@ -152,6 +160,7 @@ export default class Navigation extends Component {
 
 Navigation.propTypes = {
   isRefreshing: PropTypes.bool,
+  networkIsConnected: PropTypes.bool,
   onBack: PropTypes.func.isRequired,
   renderScene: PropTypes.func.isRequired,
   rightButtonAction: PropTypes.func,

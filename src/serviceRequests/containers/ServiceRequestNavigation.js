@@ -11,6 +11,7 @@ import { syncServiceRequests } from '../../offline/actions';
 function mapStateToProps(state) {
   return {
     isRefreshing: state.serviceRequests.isRefreshing,
+    networkIsConnected: state.offline.networkIsConnected,
   };
 }
 

@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
 import {
+  InteractionManager,
   StyleSheet,
   View,
 } from 'react-native';
@@ -21,7 +22,9 @@ export default class ServiceRequestNavigation extends Component {
 
   _refreshServiceRequests(route, navigator, index) {
     if (index === 0 || index === 1) {
-      this.props.syncServiceRequests();
+      InteractionManager.runAfterInteractions(() => {
+        this.props.syncServiceRequests();
+      });
     }
   }
 
@@ -58,6 +61,7 @@ export default class ServiceRequestNavigation extends Component {
       <Navigation
         initialRoute={initialRoute}
         isRefreshing={this.props.isRefreshing}
+        networkIsConnected={this.props.networkIsConnected}
         renderScene={this._renderScene}
         onBack={this.props.fetchServiceRequests}
         rightButtonAction={this._refreshServiceRequests}

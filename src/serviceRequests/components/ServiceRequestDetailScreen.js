@@ -1,10 +1,13 @@
 import React, { Component, PropTypes } from 'react';
 
 import {
+  ActivityIndicator,
+  InteractionManager,
   ScrollView,
   StyleSheet,
   View,
 } from 'react-native';
+
 import BannerWithNumber from './BannerWithNumber';
 import ResolutionSection from './resolution/ResolutionSection';
 import DetailsSection from './DetailsSection';
@@ -18,10 +21,20 @@ import {
 export default class ServiceRequestDetailScreen extends Component {
 
   componentWillUnmount() {
-    this.props.unselectServiceRequest();
+    InteractionManager.runAfterInteractions(() => {
+      this.props.unselectServiceRequest();
+    });
   }
 
   render() {
+    if (!this.props.serviceRequest) {
+      return (
+        <View style={styles.loadingContainer}>
+          <ActivityIndicator style={styles.loading} />
+        </View>
+      );
+    }
+
     const canGoOnsite = this.props.serviceRequest && this.props.serviceRequest.status === 'in_the_field';
 
     return (
@@ -42,7 +55,7 @@ export default class ServiceRequestDetailScreen extends Component {
 }
 
 ServiceRequestDetailScreen.propTypes = {
-  serviceRequest: PropTypes.object.isRequired,
+  serviceRequest: PropTypes.object,
   unselectServiceRequest: PropTypes.func.isRequired,
   updateOnsiteStatus: PropTypes.func.isRequired,
 };
@@ -66,6 +79,13 @@ const styles = StyleSheet.create({
   },
   label: {
     fontWeight: 'bold',
+  },
+  loading: {
+    alignSelf: 'center',
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
   },
   sectionHeader: {
     color: 'gray',
