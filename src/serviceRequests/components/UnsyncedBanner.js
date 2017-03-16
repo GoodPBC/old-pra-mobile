@@ -13,7 +13,7 @@ import {
   Separator,
 } from '../../shared';
 
-import alertIcon from './img/info-icon-inactive.png';
+import notSyncedIcon from './img/icon-not-synced.png';
 
 export default function UnsyncedBanner({ serviceRequest }) {
   if (!(serviceRequest && serviceRequest.unsynced)) {
@@ -21,7 +21,7 @@ export default function UnsyncedBanner({ serviceRequest }) {
   }
   return (
     <View style={styles.container}>
-      <Image source={alertIcon} />
+      <Image source={notSyncedIcon} />
       <View style={styles.content}>
         <Text style={styles.banner}>Not Synced</Text>
       </View>
