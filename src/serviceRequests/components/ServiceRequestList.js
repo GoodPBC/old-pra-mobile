@@ -70,12 +70,14 @@ export default class ServiceRequestList extends Component {
 
   filterServiceRequestsByUrgency(serviceRequests){
     const urgentServiceRequests = serviceRequests.map((serviceRequest) => {
-      if (serviceRequest.status === 'in_the_field' && this.state.resolvedUrgentServiceRequests.indexOf(serviceRequest.sr_number) === -1) {
-        const now = new Date();
-        const one_hour = 60 * 1000;
-        const sr_time = moment(serviceRequest.provider_assigned_time, "MMM-DD-YYYY hh:mm A").valueOf();
-        if (now - sr_time > one_hour) {
-          return serviceRequest;
+      if (serviceRequest.status === 'in_the_field' && this.state.resolvedUrgentServiceRequests) {
+        if (this.state.resolvedUrgentServiceRequests.indexOf(serviceRequest.sr_number) === -1) {
+          const now = new Date();
+          const one_hour = 60 * 1000;
+          const sr_time = moment(serviceRequest.provider_assigned_time, "MMM-DD-YYYY hh:mm A").valueOf();
+          if (now - sr_time > one_hour) {
+            return serviceRequest;
+          }
         }
       }
     }).filter(Boolean);
