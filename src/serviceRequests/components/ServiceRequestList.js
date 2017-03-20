@@ -18,16 +18,13 @@ import UrgentServiceRequestModal from './UrgentServiceRequestModal';
 
 import Storage from 'react-native-storage';
 
-// refactor this into a separate storage component
-/*
+// store as redux
 var storage = new Storage({
     size: 1000,
     storageBackend: AsyncStorage,
     defaultExpires: 1000 * 3600 * 24 * 30, //one month
     enableCache: true,
 })
-*/ 
-
 
 const FILTERS = {
   ACTIVE: 'active',
@@ -53,9 +50,9 @@ export default class ServiceRequestList extends Component {
     this.filterServiceRequestsByUrgency = this.filterServiceRequestsByUrgency.bind(this);
     this.dismissUrgentServiceRequests = this.dismissUrgentServiceRequests.bind(this);
 
-    //this.checkStorageForDismissedSR = this.checkStorageForDismissedSR.bind(this);
+    this.checkStorageForDismissedSR = this.checkStorageForDismissedSR.bind(this);
     this.removeRequestFromModal = this.removeRequestFromModal.bind(this);
-    //this.checkStorageForDismissedSR();
+    this.checkStorageForDismissedSR();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -73,7 +70,7 @@ export default class ServiceRequestList extends Component {
       if (serviceRequest.status === 'in_the_field' && this.state.resolvedUrgentServiceRequests) {
         if (this.state.resolvedUrgentServiceRequests.indexOf(serviceRequest.sr_number) === -1) {
           const now = new Date();
-          const one_hour = 60 * 1000;
+          const one_hour = 60 * 60 * 1000;
           const sr_time = moment(serviceRequest.provider_assigned_time, "MMM-DD-YYYY hh:mm A").valueOf();
           if (now - sr_time > one_hour) {
             return serviceRequest;
@@ -126,12 +123,12 @@ export default class ServiceRequestList extends Component {
       resolvedUrgentServiceRequests: resolvedUrgentServiceRequests
     })
 
-    /*
+    
     storage.save({
       key: 'resolvedUrgentServiceRequests',
       rawData: resolvedUrgentServiceRequests,
     });
-    */
+    
 
     this.setState({
       urgentServiceRequests: []
