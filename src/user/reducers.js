@@ -33,11 +33,13 @@ export default function reducer(state = initialState, action) {
       name: action.data.UserName,
       userAccountName: action.data.UserAccountName,
       userIsAuthenticated: true,
+      isFetching: false
     };
   case LOGIN_USER_FAILURE:
     return {
       ...state,
       userIsAuthenticated: false,
+      isFetching: false
     };
   case API_REQUEST_FAILURE: // Reset the user auth status if necessary.
     if (action.status === FORBIDDEN_RESPONSE_STATUS) {

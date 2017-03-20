@@ -19,6 +19,7 @@ import loginBackgroundImage from './img/LoginBackground.png';
 import logoImage from './img/NYC_DHS-Logo.png';
 import Separator from '../../shared/components/Separator';
 import OfflineBanner from '../../offline/components/OfflineBanner';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 export default class LoginScreen extends Component {
   constructor(props) {
@@ -28,6 +29,7 @@ export default class LoginScreen extends Component {
       email: null,
       password: null,
       showPassword: false,
+      isFetching: false
     };
 
     this._submitForm = this._submitForm.bind(this);
@@ -46,11 +48,15 @@ export default class LoginScreen extends Component {
 
   _submitForm() {
     this.props.submitLoginCredentials(this.state.email, this.state.password);
+    this.setState({
+      isFetching: true
+    })
   }
 
   render() {
     return (
       <View style={styles.container}>
+        <Spinner visible={this.state.isFetching} />
         {!this.props.networkIsConnected && <OfflineBanner />}
         <Image source={loginBackgroundImage} style={styles.backgroundImage}>
           <View style={styles.wrapper}>
