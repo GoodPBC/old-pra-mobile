@@ -84,7 +84,7 @@ export default class ServiceRequestList extends Component {
     });
   }
 
-  /*
+  
   checkStorageForDismissedSR(){
     storage.load({
         key: 'resolvedUrgentServiceRequests',
@@ -102,7 +102,7 @@ export default class ServiceRequestList extends Component {
       })
     });
   }
-  */
+  
 
   dismissUrgentServiceRequests(usr) {
     let resolvedUrgentServiceRequests = this.state.resolvedUrgentServiceRequests;
