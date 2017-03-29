@@ -23,6 +23,8 @@ import myRequestsInactiveIcon from './img/my-requests-icon-inactive.png';
 import teamsActiveIcon from './img/teams-icon-active.png';
 import teamsInactiveIcon from './img/teams-icon-inactive.png';
 
+import Spinner from 'react-native-loading-spinner-overlay';
+
 import {
   DARK_BLUE,
   GRAY_TEXT,
@@ -41,6 +43,7 @@ export default class App extends Component {
 
     this.state = {
       selectedTab: Tabs.my_requests,
+      showLoginSpinner: false
     };
   }
 
@@ -66,6 +69,7 @@ export default class App extends Component {
           onRequestClose={() => {}}
         >
           <LoginScreen {...this.props} />
+          <Spinner visible={this.props.apiRequestInProgress} />
         </Modal>
       </View>
     );
