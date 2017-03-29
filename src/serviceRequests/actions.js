@@ -36,8 +36,8 @@ export function selectServiceRequestResolution(resolutionCode) {
 }
 
 export function fetchServiceRequests(onSuccess) {
-  const yesterday = momentToStr(moment().subtract(1, 'days'));
-  //const yesterday = '2017-03-10 09-10-10';
+  //const yesterday = momentToStr(moment().subtract(1, 'days'));
+  const yesterday = '2017-03-20 09-10-10';
   return {
     type: API_REQUEST,
     actionName: FETCH_SERVICE_REQUESTS,
@@ -192,6 +192,8 @@ export function updateResolutionNotes(notes) {
 export function updateServiceRequestPingResponse(pingResponse) {
   return (dispatch, getState) => {
     const { userId } = getState().user
+
+    console.log(pingResponse)
 
 
     const requestParams = { 
