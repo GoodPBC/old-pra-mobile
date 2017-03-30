@@ -19,6 +19,7 @@ import loginBackgroundImage from './img/LoginBackground.png';
 import logoImage from './img/NYC_DHS-Logo.png';
 import Separator from '../../shared/components/Separator';
 import OfflineBanner from '../../offline/components/OfflineBanner';
+import LoginSpinner from './LoginSpinner';
 
 export default class LoginScreen extends Component {
   constructor(props) {
@@ -49,11 +50,14 @@ export default class LoginScreen extends Component {
   }
 
   render() {
+    console.log('login screen props')
+    console.log(this.props)
     return (
       <View style={styles.container}>
         {!this.props.networkIsConnected && <OfflineBanner />}
         <Image source={loginBackgroundImage} style={styles.backgroundImage}>
           <View style={styles.wrapper}>
+          {this.props.apiRequestInProgress && !this.props.userIsAuthenticated ? <LoginSpinner /> : null}
             <Image resizeMode="contain" source={logoImage} style={styles.logo} />
             <KeyboardAvoidingView behavior="padding" style={styles.form}>
               <InvertTextInput
