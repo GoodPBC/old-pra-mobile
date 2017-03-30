@@ -50,8 +50,6 @@ export default class LoginScreen extends Component {
   }
 
   render() {
-    console.log('login screen props')
-    console.log(this.props)
     return (
       <View style={styles.container}>
         {!this.props.networkIsConnected && <OfflineBanner />}
@@ -66,7 +64,7 @@ export default class LoginScreen extends Component {
                 autoCorrect={false}
                 autoCapitalize={'none'}
                 keyboardType="email-address"
-                placeholder="Email"
+                placeholder="User ID"
                 value={this.state.email}
               />
               <InvertTextInput

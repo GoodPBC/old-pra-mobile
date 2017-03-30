@@ -43,6 +43,8 @@ export default class App extends Component {
     this.state = {
       selectedTab: Tabs.my_requests,
     };
+
+    this._resetNavigation = this._resetNavigation.bind(this);
   }
 
   componentWillMount() {
@@ -82,10 +84,16 @@ export default class App extends Component {
           visible
           onRequestClose={() => {}}
         >
-          <SelectTeamModal {...this.props} />
+          <SelectTeamModal {...this.props} resetNavigation={this._resetNavigation} />
         </Modal>
       </View>
     );
+  }
+
+  _resetNavigation() {
+    this.setState({
+      selectedTab: Tabs.my_requests,
+    })
   }
 
   _renderTabs() {

@@ -5,8 +5,11 @@ import {
   TouchableOpacity,
   StyleSheet,
   View,
+  Image
 } from 'react-native';
 import { formatLocationData, prioritizeLocationData } from '../helpers';
+
+import mapIcon from './img/icon-map.png'
 
 function mapsURL(serviceRequest) {
   return `http://maps.apple.com/?q=${serviceRequest.address}+${serviceRequest.city}+${serviceRequest.state}`;
@@ -37,9 +40,16 @@ export default function LongFormLocation({ serviceRequest }) {
   const textBlocks = remainingFields.map(fieldName => <Text key={fieldName}>{formatLocationData(serviceRequest, fieldName)}</Text>);
 
   const content = (
-    <View>
-      <Text style={styles.primary}>{formatLocationData(serviceRequest, primaryLocation)}</Text>
-      {textBlocks}
+    <View style={styles.addressWrapper}>
+      <View style={styles.content}>
+        <View style={{ flexDirection: 'row' }}>
+          <View style={{ flex: 1, alignSelf: 'flex-start' }}>
+            <Text style={styles.primary}>{formatLocationData(serviceRequest, primaryLocation)}</Text>
+            {textBlocks}
+          </View>
+          <Image source={mapIcon} style={{alignSelf: 'center'}}/>
+        </View>
+      </View>  
     </View>)
   ;
   if (hasFullAddress(serviceRequest)) {
@@ -63,4 +73,12 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   secondary: {},
+  addressWrapper: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  content: {
+    flex: 1
+  },
 });

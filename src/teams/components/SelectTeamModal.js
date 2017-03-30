@@ -9,9 +9,12 @@ import {
 export default class SelectTeamModal extends Component {
   componentWillMount() {
     this.props.fetchTeams();
+    this.props.resetNavigation();
   }
 
   render() {
+    console.log('props of select team modal')
+    console.log(this.props);
     if (!this.props.canSelectTeams) {
       return (
         <View style={styles.container}>

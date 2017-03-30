@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { StyleSheet, View, Text, Picker, TextInput } from 'react-native';
+import { StyleSheet, View, Text, Picker, TextInput, Platform } from 'react-native';
 
 import { Button } from '../../shared';
 
@@ -56,14 +56,13 @@ export default class UrgentServiceRequestModalItem extends Component {
         ? (
             <View>
               <View>
-                <Text style={styles.boldText}>Update SR:</Text>
-              </View>
-              <View>
-                <Text>Actual time on site</Text>
                 <TextInput
-                  style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+                  style={styles.input}
                   onChangeText={(text) => this.setState({ timeOnsite: text })}
                   value={this.state.timeOnsite}
+                  autoCorrect={false}
+                  multiline
+                  placeholder="Actual time you arrived on site"
                 />
               </View>
             </View>
@@ -105,6 +104,16 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     paddingRight: 20,
     marginBottom: 15,
-    marginTop: 5
+    marginTop: 25
   },
+  input: {
+    height: 80,
+    borderWidth: 1,
+    borderColor: 'lightgray',
+    paddingLeft: 5,
+    paddingTop: 10,
+    paddingBottom: 10,
+    fontSize: 14,
+
+  }
 });
