@@ -29,7 +29,7 @@
                                                       moduleName:@"ProviderResponseApp"
                                                initialProperties:nil
                                                    launchOptions:launchOptions];
-  rootView.backgroundColor = [[UIColor alloc] initWithRed:0x66 green:0x33 blue:0x99 alpha:1];
+  rootView.backgroundColor = [UIColor colorWithRed:0.18 green:0.55 blue:0.83 alpha:1.0];
 
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   UIViewController *rootViewController = [UIViewController new];
