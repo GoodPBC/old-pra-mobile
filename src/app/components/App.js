@@ -132,6 +132,7 @@ export default class App extends Component {
         >
           <LogoutScreen />
         </TabNavigator.Item>
+
       </TabNavigator>
     );
   }
