@@ -17,6 +17,7 @@ import SelectTeamModal from '../../teams/containers/SelectTeamModal';
 import { OfflineBanner } from '../../offline';
 
 import { LoginScreen, LogoutScreen } from '../../user';
+import { MapScreen } from '../../map';
 
 import myRequestsActiveIcon from './img/my-requests-icon-active.png';
 import myRequestsInactiveIcon from './img/my-requests-icon-inactive.png';
@@ -34,6 +35,7 @@ const Tabs = {
   sync: 1,
   teams: 2,
   logout: 3,
+  map: 4
 };
 
 export default class App extends Component {
@@ -109,6 +111,17 @@ export default class App extends Component {
           selectedTitleStyle={{ color: DARK_BLUE }}
         >
           <ServiceRequestNavigation />
+        </TabNavigator.Item>
+        <TabNavigator.Item
+          selected={this.state.selectedTab === Tabs.map}
+          title="Map"
+          renderIcon={() => <Image source={myRequestsInactiveIcon} />}
+          renderSelectedIcon={() => <Image source={myRequestsActiveIcon} />}
+          onPress={() => this.setState({ selectedTab: Tabs.map })}
+          titleStyle={{ color: GRAY_TEXT }}
+          selectedTitleStyle={{ color: DARK_BLUE }}
+        >
+          <MapScreen />
         </TabNavigator.Item>
         <TabNavigator.Item
           selected={this.state.selectedTab === Tabs.teams}
