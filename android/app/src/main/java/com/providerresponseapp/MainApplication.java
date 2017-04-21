@@ -11,8 +11,12 @@ import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
+
 import com.crashlytics.android.Crashlytics;
 import io.fabric.sdk.android.Fabric;
+
+
+import com.facebook.soloader.SoLoader;
 
 
 import java.util.Arrays;
@@ -45,6 +49,12 @@ public class MainApplication extends Application implements ReactApplication {
 
   @Override
   public ReactNativeHost getReactNativeHost() {
-      return mReactNativeHost;
+    return mReactNativeHost;
+  }
+
+  @Override
+  public void onCreate() {
+    super.onCreate();
+    SoLoader.init(this, /* native exopackage */ false);
   }
 }

@@ -38,6 +38,7 @@ npm-debug.log
 buck-out/
 \.buckd/
 android/app/libs
+<<<<<<< ours
 android/keystores/debug.keystore
 
 .vscode/
@@ -58,3 +59,6 @@ ProviderResponseApp.app.dSYM.zip
 
 tsconfig.json
 typings/
+=======
+*.keystore
+>>>>>>> theirs
