@@ -39,6 +39,7 @@ export default class MapScreen extends Component {
         latitudeDelta: 0.1,
         longitudeDelta: 0.1
       },
+      
       region: {
         latitude: 40.730610,
         longitude: -73.935242,
@@ -54,104 +55,33 @@ export default class MapScreen extends Component {
         sr_number:"1-1-1391897861",
         latitude: 40.7513057,
         longitude: -73.99237339999999
-      },
-      {
-        address:"145 EAST 9 STREET, N/A",
-        borough:"MANHATTAN",
-        city:"NEW YORK",
-        sr_number:"1-1-1391975431",
-        provider_assigned_time:"Apr 14 2017 12:20PM",
-        latitude: 40.7302352,
-        longitude: -73.9897468
-      },
-      {
-        address:"79 AVENUE A, N/A",
-        borough:"MANHATTAN",
-        city:"NEW YORK",
-        sr_number:"1-1-1391975631",
-        provider_assigned_time:"Apr 14 2017 12:20PM",
-        latitude: 40.7250967,
-        longitude: -73.9844859
-      },
-      {
-        address:"65 WEST 14 STREET, N/A",
-        borough:"MANHATTAN",
-        city:"NEW YORK",
-        sr_number:"1-1-1391968881",
-        provider_assigned_time:"Apr 14 2017 12:20PM",
-        latitude: 40.737357,
-        longitude: -73.9963655
-      },
-      {
-        address:"458 5 AVENUE, N/A",
-        borough:"MANHATTAN",
-        city:"NEW YORK",
-        sr_number:"1-1-1391951351",
-        provider_assigned_time:"Apr 14 2017 12:21PM",
-        latitude: 40.6687525,
-        longitude: -73.98685979999999 
-      },
-      {
-        address:"",
-        borough:"QUEENS",
-        city:"JAMAICA",
-        sr_number:"1-1-1392071821",
-        provider_assigned_time:"",
-        latitude: 40.702677,
-        longitude: -73.7889689
-      },
-      {
-        address:"100 WEST 92 STREET, N/A",
-        borough:"MANHATTAN",
-        city:"NEW YORK",
-        sr_number:"1-1-1392065881",
-        provider_assigned_time:"Apr 14 2017 12:21PM",
-        latitude: 40.7903625,
-        longitude: -73.9703497
-      },
-      {
-        address:"130 WEST 34 STREET, N/A",
-        borough:"MANHATTAN",
-        city:"NEW YORK",
-        sr_number:"1-1-1392085191",
-        provider_assigned_time:"Apr 14 2017 12:21PM",
-        latitude: 40.75015,
-        longitude: -73.98939480000001
-      },
-      {
-        address:"",
-        borough:"MANHATTAN",
-        city:"NEW YORK",
-        sr_number:"1-1-1392090331",
-        provider_assigned_time:"Apr 14 2017 12:22PM",
-        latitude: 40.7830603,
-        longitude: -73.9712488
-      },
-      {
-        address:"40.7528859",
-        borough:"MANHATTAN",
-        city:"NEW YORK",
-        sr_number:"1-1-1391950381",
-        provider_assigned_time:"Apr 14 2017 12:22PM",
-        latitude: 40.7528859,
-        longitude: -74.005797 
       }]
     };
 
     this.onRegionChange = this.onRegionChange.bind(this);
+    this.setStateWithActiveServiceRequests = this.setStateWithActiveServiceRequests.bind(this);
   }
 
   onRegionChange(region) {
     this.setState({ region });
   }
 
+  setStateWithActiveServiceRequests(activeServiceRequests) {
+    console.log('active service requests in callback function');
+    console.log(activeServiceRequests)
+    this.setState({
+      activeServiceRequests: activeServiceRequests
+    })
+    console.log(this.state)
+  }
+
   componentDidMount() {
 
-    /*
+    
     for (var i = 0; i < this.props.activeServiceRequests.length; i++) {
-      getLatLong(this.props.activeServiceRequests[i], i, this.props.activeServiceRequests.length)
+      getLatLong(this.props.activeServiceRequests[i], i, this.props.activeServiceRequests.length, this.setStateWithActiveServiceRequests)
     }
-    */
+    
 
     navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -176,7 +106,7 @@ export default class MapScreen extends Component {
     let activeServiceRequests = [];
 
 
-    async function getLatLong(marker, index, arrLength){
+    async function getLatLong(marker, index, arrLength, successCallback){
       let address = `${marker.address}, ${marker.borough}, ${marker.city}`;
       let key = 'AIzaSyDSBuRHnbhlXOMvW1j6xG0rZIZBbesp0V0'
       let url = `https://maps.googleapis.com/maps/api/geocode/json?key=${key}&address=${address}`
@@ -210,6 +140,7 @@ export default class MapScreen extends Component {
           let longitude = json.results[0].geometry.location.lng;
           marker.latitude = latitude;
           marker.longitude = longitude;
+          marker.formattedAddress = `${json.results[0].address_components[0].long_name} ${json.results[0].address_components[1].long_name}`
 
           activeServiceRequests.push(marker);
           
@@ -220,6 +151,7 @@ export default class MapScreen extends Component {
               activeServiceRequests: activeServiceRequests
             })
             */
+            successCallback(activeServiceRequests);
           }
           //return marker
           
@@ -289,7 +221,7 @@ export default class MapScreen extends Component {
           }}
         >
           {/*<MapView.Marker coordinate={this.state.initialRegion} />*/}
-          {this.state.sampleActiveServiceRequests ? this.state.sampleActiveServiceRequests.map((marker, key) => {
+          {this.state.activeServiceRequests ? this.state.activeServiceRequests.map((marker, key) => {
             let pinColor = 'red'
 
             // add time checking for pin colors back in once async add pins is working properly
@@ -304,7 +236,7 @@ export default class MapScreen extends Component {
                   style={{ flex: 1, position: 'relative' }}
                 >
                   <View>
-                  <Text>{marker.address}</Text>
+                  <Text>{marker.formattedAddress}</Text>
                   </View>
                 </MapView.Callout>
               </MapView.Marker>

@@ -714,7 +714,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = J58DBXYSS4;
+						DevelopmentTeam = 4F2N2E6UU5;
 						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.Push = {
@@ -1155,7 +1155,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CURRENT_PROJECT_VERSION = 58;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = J58DBXYSS4;
+				DEVELOPMENT_TEAM = 4F2N2E6UU5;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1182,10 +1182,11 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "--RN-CONFIG-PRODUCT-BUNDLE-IDENTIFIER";
+				PRODUCT_BUNDLE_IDENTIFIER = "--RC-PRODUCT-BUNDLE-IDENTIFIER";
 				PRODUCT_NAME = ProviderResponseApp;
-				PROVISIONING_PROFILE = "81295cab-8041-4f55-a633-24d9327bad8b";
-				PROVISIONING_PROFILE_SPECIFIER = "XC iOS: *";
+				PROVISIONING_PROFILE = "175646f3-f222-4a91-847d-8333184417f3";
+				PROVISIONING_PROFILE_SPECIFIER = "XC iOS: gov.nyc.dhs.providerresponse.staging";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -1226,10 +1227,11 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "--RN-CONFIG-PRODUCT-BUNDLE-IDENTIFIER";
+				PRODUCT_BUNDLE_IDENTIFIER = "--RC-PRODUCT-BUNDLE-IDENTIFIER";
 				PRODUCT_NAME = ProviderResponseApp;
 				PROVISIONING_PROFILE = "b11bca8f-8f2e-4c50-b5f8-162792fae31d";
 				PROVISIONING_PROFILE_SPECIFIER = "gov.nyc.dhs.providerresponse.staging AppStore";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
