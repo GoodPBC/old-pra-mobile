@@ -107,7 +107,13 @@ export default class MapScreen extends Component {
 
 
     async function getLatLong(marker, index, arrLength, successCallback){
-      let address = `${marker.address}, ${marker.borough}, ${marker.city}`;
+      let address;
+      if (marker.address === '') {
+        address = `${marker.cross_streets}, ${marker.borough}, ${marker.city}`;
+      } else {
+        address = `${marker.address}, ${marker.borough}, ${marker.city}`;
+      }
+
       let key = 'AIzaSyDSBuRHnbhlXOMvW1j6xG0rZIZBbesp0V0'
       let url = `https://maps.googleapis.com/maps/api/geocode/json?key=${key}&address=${address}`
       // looking for res.results[0].geometry.location.lat
