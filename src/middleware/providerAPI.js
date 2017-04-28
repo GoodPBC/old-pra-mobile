@@ -29,8 +29,8 @@ function authenticationHeaders(store) {
 }
 
 async function makeRequestAndDispatchResponse({ action, store }) {
-  const { onSuccess, requestMethod, requestParams, actionName } = action;
-  const url = `${Config.BASE_URL}${action.requestPath}`;
+  const { onSuccess, requestMethod, requestParams, actionName, requestType } = action;
+
   function dispatchSuccess(json) {
     console.log('request succesful');
     console.log(json);
@@ -68,53 +68,58 @@ async function makeRequestAndDispatchResponse({ action, store }) {
       error,
     });
   }
-
-  console.log('url', url);
-  let body = '';
-  if (requestMethod === 'GET' || requestMethod === 'get') {
-    // Otherwise fails on Android.
-    body = null;
-  } else if (requestParams) {
-    body = JSON.stringify(requestParams);
-  }
-  const headers = {
-    'Content-Type': 'application/json',
-  };
-  Object.assign(headers, authenticationHeaders(store));
-  let response = null;
-  try {
-    response = await fetch(url, {
-      method: requestMethod,
-      body,
-      headers,
-    });
-  } catch (e) {
-    dispatchNetworkFailure(e);
-    return;
-  }
-
-  let responseText = null;
-
-  try {
-    // const textBody = await response.text();
-    // console.log('body', textBody);
-    responseText = await response.text();
-    const json = JSON.parse(responseText);
-    // console.log('json response', json);
-    // console.log('response text', responseText);
-    if (json.Update_Status) {
-      console.log('Updating SR', json.Update_Status);
+  //if (requestType && requestType === 'external'){
+  //  console.log('hitting external api');
+  //} else {
+    const url = `${Config.BASE_URL}${action.requestPath}`;
+    console.log('url', url);
+    let body = '';
+    if (requestMethod === 'GET' || requestMethod === 'get') {
+      // Otherwise fails on Android.
+      body = null;
+    } else if (requestParams) {
+      body = JSON.stringify(requestParams);
     }
-    if (response.ok && !(json.ErrorMessage && json.ErrorMessage.length)) {
-      dispatchSuccess(json);
-    } else {
-      dispatchFailure(json.ErrorMessage, response.status);
+    const headers = {
+      'Content-Type': 'application/json',
+    };
+    Object.assign(headers, authenticationHeaders(store));
+    let response = null;
+    try {
+      response = await fetch(url, {
+        method: requestMethod,
+        body,
+        headers,
+      });
+    } catch (e) {
+      dispatchNetworkFailure(e);
+      return;
     }
-  } catch (e) {
-    console.log('response text', responseText);
-    dispatchFailure(e, response.status);
-  }
+
+    let responseText = null;
+
+    try {
+      // const textBody = await response.text();
+      // console.log('body', textBody);
+      responseText = await response.text();
+      const json = JSON.parse(responseText);
+      // console.log('json response', json);
+      // console.log('response text', responseText);
+      if (json.Update_Status) {
+        console.log('Updating SR', json.Update_Status);
+      }
+      if (response.ok && !(json.ErrorMessage && json.ErrorMessage.length)) {
+        dispatchSuccess(json);
+      } else {
+        dispatchFailure(json.ErrorMessage, response.status);
+      }
+    } catch (e) {
+      console.log('response text', responseText);
+      dispatchFailure(e, response.status);
+    }
+  //}
 }
+  
 
 export default store => next => action => {
   next(action);

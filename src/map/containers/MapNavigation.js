@@ -4,7 +4,7 @@
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import MapScreen from '../components/MapScreen';
+import MapNavigation from '../components/MapNavigation';
 import * as MapActions from '../actions';
 import * as ServiceRequestActions from '../../serviceRequests/actions';
 import {
@@ -26,4 +26,4 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(MapActions, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MapScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(MapNavigation);

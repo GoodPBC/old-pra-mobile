@@ -714,11 +714,11 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = 4F2N2E6UU5;
+						DevelopmentTeam = J58DBXYSS4;
 						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.Push = {
-								enabled = 1;
+								enabled = 0;
 							};
 						};
 					};
@@ -1114,6 +1114,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -1132,6 +1133,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = ProviderResponseAppTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1149,11 +1151,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_ENTITLEMENTS = ProviderResponseApp/ProviderResponseApp.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 53;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: NYC Department of Homeless Services (4F2N2E6UU5)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CURRENT_PROJECT_VERSION = 58;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = 4F2N2E6UU5;
+				DEVELOPMENT_TEAM = J58DBXYSS4;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1173,16 +1175,17 @@
 				INFOPLIST_OTHER_PREPROCESSOR_FLAGS = "-traditional";
 				INFOPLIST_PREFIX_HEADER = "${CONFIGURATION_BUILD_DIR}/GeneratedInfoPlistDotEnv.h";
 				INFOPLIST_PREPROCESS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = gov.nyc.dhs.providerresponse;
+				PRODUCT_BUNDLE_IDENTIFIER = "--RN-CONFIG-PRODUCT-BUNDLE-IDENTIFIER";
 				PRODUCT_NAME = ProviderResponseApp;
-				PROVISIONING_PROFILE = "1da7a9c0-caf5-4d6a-b5ae-1a7c0e633f50";
-				PROVISIONING_PROFILE_SPECIFIER = "gov.nyc.dhs.providerresponse Development";
+				PROVISIONING_PROFILE = "81295cab-8041-4f55-a633-24d9327bad8b";
+				PROVISIONING_PROFILE_SPECIFIER = "XC iOS: *";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -1193,9 +1196,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_ENTITLEMENTS = ProviderResponseApp/ProviderResponseApp.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: NYC Department of Homeless Services (4F2N2E6UU5)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CURRENT_PROJECT_VERSION = 53;
+				CURRENT_PROJECT_VERSION = 58;
 				DEVELOPMENT_TEAM = 4F2N2E6UU5;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1216,16 +1219,17 @@
 				INFOPLIST_OTHER_PREPROCESSOR_FLAGS = "-traditional";
 				INFOPLIST_PREFIX_HEADER = "${CONFIGURATION_BUILD_DIR}/GeneratedInfoPlistDotEnv.h";
 				INFOPLIST_PREPROCESS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = gov.nyc.dhs.providerresponse;
+				PRODUCT_BUNDLE_IDENTIFIER = "--RN-CONFIG-PRODUCT-BUNDLE-IDENTIFIER";
 				PRODUCT_NAME = ProviderResponseApp;
-				PROVISIONING_PROFILE = "85fdd766-0c50-4ffa-8334-f2771ff5b8c0";
-				PROVISIONING_PROFILE_SPECIFIER = "XC iOS: gov.nyc.dhs.providerresponse";
+				PROVISIONING_PROFILE = "b11bca8f-8f2e-4c50-b5f8-162792fae31d";
+				PROVISIONING_PROFILE_SPECIFIER = "gov.nyc.dhs.providerresponse.staging AppStore";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
@@ -1249,6 +1253,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: NYC Department of Homeless Services (4F2N2E6UU5)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1303,6 +1308,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: NYC Department of Homeless Services (4F2N2E6UU5)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;

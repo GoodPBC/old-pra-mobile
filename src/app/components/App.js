@@ -17,7 +17,7 @@ import SelectTeamModal from '../../teams/containers/SelectTeamModal';
 import { OfflineBanner } from '../../offline';
 
 import { LoginScreen, LogoutScreen } from '../../user';
-import { MapScreen } from '../../map';
+import { MapNavigation } from '../../map';
 
 import myRequestsActiveIcon from './img/my-requests-icon-active.png';
 import myRequestsInactiveIcon from './img/my-requests-icon-inactive.png';
@@ -121,7 +121,7 @@ export default class App extends Component {
           titleStyle={{ color: GRAY_TEXT }}
           selectedTitleStyle={{ color: DARK_BLUE }}
         >
-          <MapScreen />
+          <MapNavigation />
         </TabNavigator.Item>
         <TabNavigator.Item
           selected={this.state.selectedTab === Tabs.teams}

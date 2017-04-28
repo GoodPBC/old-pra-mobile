@@ -1,3 +1,4 @@
+import MapNavigation from './containers/MapNavigation';
 import MapScreen from './containers/MapScreen';
 
-export { MapScreen };
+export { MapNavigation, MapScreen };
