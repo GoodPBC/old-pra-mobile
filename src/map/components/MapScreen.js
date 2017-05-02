@@ -67,8 +67,6 @@ export default class MapScreen extends Component {
   }
 
   setStateWithActiveServiceRequests(activeServiceRequests) {
-    console.log('active service requests in callback function');
-    console.log(activeServiceRequests)
     this.setState({
       activeServiceRequests: activeServiceRequests
     })
@@ -76,7 +74,6 @@ export default class MapScreen extends Component {
   }
 
   componentDidMount() {
-
     
     for (var i = 0; i < this.props.activeServiceRequests.length; i++) {
       getLatLong(this.props.activeServiceRequests[i], i, this.props.activeServiceRequests.length, this.setStateWithActiveServiceRequests)
@@ -108,6 +105,7 @@ export default class MapScreen extends Component {
 
     async function getLatLong(marker, index, arrLength, successCallback){
       let address;
+      // use cross streets if address is blank
       if (marker.address === '') {
         address = `${marker.cross_streets}, ${marker.borough}, ${marker.city}`;
       } else {
@@ -116,8 +114,7 @@ export default class MapScreen extends Component {
 
       let key = 'AIzaSyDSBuRHnbhlXOMvW1j6xG0rZIZBbesp0V0'
       let url = `https://maps.googleapis.com/maps/api/geocode/json?key=${key}&address=${address}`
-      // looking for res.results[0].geometry.location.lat
-      // res.results[0].geometry.location.lng
+
       //console.log(url)
       let body = ''
 
@@ -133,15 +130,11 @@ export default class MapScreen extends Component {
       let responseText = null;
 
       try {
-        // const textBody = await response.text();
-        // console.log('body', textBody);
         responseText = await response.text();
         const json = JSON.parse(responseText);
-        // console.log('json response', json);
-        // console.log('response text', responseText);
 
         if (response.ok && !(json.ErrorMessage && json.ErrorMessage.length)) {
-          //dispatchSuccess(json);
+
           let latitude = json.results[0].geometry.location.lat;
           let longitude = json.results[0].geometry.location.lng;
           marker.latitude = latitude;
@@ -151,24 +144,18 @@ export default class MapScreen extends Component {
           activeServiceRequests.push(marker);
           
           if ( index == arrLength - 1 ){
-            console.log('all done');
-            /*
-            this.setState({
-              activeServiceRequests: activeServiceRequests
-            })
-            */
+            // run callback function to get access to this.setState()
             successCallback(activeServiceRequests);
           }
           //return marker
           
         } else {
-          console.log('request failure');
+          console.log('Request Failure');
           console.log(json.ErrorMessage);
-          //dispatchFailure(json.ErrorMessage, response.status);
         }
       } catch (e) {
-        console.log('response text', responseText);
-        console.log("other failure");
+        console.log(responseText);
+        console.log('Unspecified failure');
       }
     }
   }
@@ -191,26 +178,6 @@ export default class MapScreen extends Component {
       longitudeDelta: 0.1
     }
 
-    const sampleActiveServiceRequests = [{
-      address: "250 WEST 34 STREET, N A",
-      borough: "MANHATTAN",
-      city: "NEW YORK",
-      provider_assigned_time:"Apr 14 2017 12:22PM",
-      sr_number:"1-1-1391897861",
-      latitude: 40.7513057,
-      longitude: -73.99237339999999
-    },
-    {
-      address:"145 EAST 9 STREET, N/A",
-      borough:"MANHATTAN",
-      city:"NEW YORK",
-      sr_number:"1-1-1391975431",
-      provider_assigned_time:"Apr 14 2017 12:20PM",
-      latitude: 40.7302352,
-      longitude: -73.9897468
-    }]
-
-
     return (
       <View style={styles.container}>
         <MapView
@@ -228,7 +195,23 @@ export default class MapScreen extends Component {
         >
           {/*<MapView.Marker coordinate={this.state.initialRegion} />*/}
           {this.state.activeServiceRequests ? this.state.activeServiceRequests.map((marker, key) => {
-            let pinColor = 'red'
+            let pinColor = 'green'
+            let age = moment(marker.provider_assigned_time, 'MMM DD YYYY hh:mmA');
+            age = age.unix() / 60;
+            let now = moment(Date.now()).unix() / 60;
+            let diff = Math.floor(now - age);
+            console.log(diff)
+            if (diff > 20 && diff <= 40){
+              pinColor = 'yellow';
+            } else if (diff > 40) {
+              pinColor = 'red';
+            }
+
+            
+            // 0-20 mintues old = green
+            // 21-40 mintues old = yello
+            // >40 minutes old = red
+
 
             // add time checking for pin colors back in once async add pins is working properly
 

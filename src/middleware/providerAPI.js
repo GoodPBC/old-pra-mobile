@@ -32,8 +32,6 @@ async function makeRequestAndDispatchResponse({ action, store }) {
   const { onSuccess, requestMethod, requestParams, actionName, requestType } = action;
 
   function dispatchSuccess(json) {
-    console.log('request succesful');
-    console.log(json);
     store.dispatch({
       type: API_REQUEST_SUCCESS,
     });
