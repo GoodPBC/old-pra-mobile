@@ -77,7 +77,7 @@ export default class LoginScreen extends Component {
                 value={this.state.password}
               />
               <View style={styles.showPassword}>
-                <TouchableOpacity onPress={this._toggleShowPassword}>
+                <TouchableOpacity style={styles.showPasswordRadio} onPress={this._toggleShowPassword}>
                   <Radio checked={this.state.showPassword} />
                 </TouchableOpacity>
                 <InvertText>Show Password</InvertText>
@@ -121,6 +121,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 20,
+  },
+  showPasswordRadio: {
+    marginRight: 7
   },
   wrapper: { // Transparent wrapper for the text
     flex: 1,

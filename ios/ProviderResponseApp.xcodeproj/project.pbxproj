@@ -26,7 +26,6 @@
 		2BF7F9771E773CA200AEDEE6 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BF7F9751E773CA200AEDEE6 /* Crashlytics.framework */; };
 		2BF7F9781E773CA200AEDEE6 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BF7F9761E773CA200AEDEE6 /* Fabric.framework */; };
 		5383158D4932434B8692BC89 /* libReactNativeConfig.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6979A7C2958549D999A033D2 /* libReactNativeConfig.a */; };
-		70225A8F1E6D9D3F00F96B3C /* Images-2.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 70225A8E1E6D9D3F00F96B3C /* Images-2.xcassets */; };
 		70F759321EA9F76000AEFA16 /* AIRGMSMarker.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F758EC1EA9F75F00AEFA16 /* AIRGMSMarker.m */; };
 		70F759331EA9F76000AEFA16 /* AIRGoogleMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F758EE1EA9F75F00AEFA16 /* AIRGoogleMap.m */; };
 		70F759341EA9F76000AEFA16 /* AIRGoogleMapCallout.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F758F01EA9F75F00AEFA16 /* AIRGoogleMapCallout.m */; };
@@ -241,7 +240,6 @@
 		2BF7F9761E773CA200AEDEE6 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		50CEA6235BD647A1BAC21C4B /* SMXCrashlytics.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = SMXCrashlytics.xcodeproj; path = "../node_modules/react-native-fabric/ios/SMXCrashlytics.xcodeproj"; sourceTree = "<group>"; };
 		6979A7C2958549D999A033D2 /* libReactNativeConfig.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libReactNativeConfig.a; sourceTree = "<group>"; };
-		70225A8E1E6D9D3F00F96B3C /* Images-2.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = "Images-2.xcassets"; path = "ProviderResponseApp/Images-2.xcassets"; sourceTree = "<group>"; };
 		70F758EB1EA9F75F00AEFA16 /* AIRGMSMarker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIRGMSMarker.h; sourceTree = "<group>"; };
 		70F758EC1EA9F75F00AEFA16 /* AIRGMSMarker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIRGMSMarker.m; sourceTree = "<group>"; };
 		70F758ED1EA9F75F00AEFA16 /* AIRGoogleMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIRGoogleMap.h; sourceTree = "<group>"; };
@@ -444,7 +442,6 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
-				70225A8E1E6D9D3F00F96B3C /* Images-2.xcassets */,
 			);
 			name = ProviderResponseApp;
 			sourceTree = "<group>";
@@ -952,7 +949,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				70225A8F1E6D9D3F00F96B3C /* Images-2.xcassets in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 			);
@@ -1182,7 +1178,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "--RC-PRODUCT-BUNDLE-IDENTIFIER";
+				PRODUCT_BUNDLE_IDENTIFIER = gov.nyc.dhs.providerresponse.staging;
 				PRODUCT_NAME = ProviderResponseApp;
 				PROVISIONING_PROFILE = "175646f3-f222-4a91-847d-8333184417f3";
 				PROVISIONING_PROFILE_SPECIFIER = "XC iOS: gov.nyc.dhs.providerresponse.staging";
@@ -1227,7 +1223,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "--RC-PRODUCT-BUNDLE-IDENTIFIER";
+				PRODUCT_BUNDLE_IDENTIFIER = gov.nyc.dhs.providerresponse.staging;
 				PRODUCT_NAME = ProviderResponseApp;
 				PROVISIONING_PROFILE = "b11bca8f-8f2e-4c50-b5f8-162792fae31d";
 				PROVISIONING_PROFILE_SPECIFIER = "gov.nyc.dhs.providerresponse.staging AppStore";

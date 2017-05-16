@@ -2,7 +2,12 @@ import React, { Component } from 'react';
 
 import { StyleSheet, View, Text, Picker, TextInput, Platform } from 'react-native';
 
+import RadioForm, { RadioButton, RadioButtonInput, RadioButtonLabel } from 'react-native-simple-radio-button';
+
+
 import { Button } from '../../shared';
+
+import UrgentServiceRequestModalItemResolutionPicker from './UrgentServiceRequestModalItemResolutionPicker';
 
 
 export default class UrgentServiceRequestModalItem extends Component {
@@ -15,6 +20,7 @@ export default class UrgentServiceRequestModalItem extends Component {
       timeOnsite: null,
     };
     this.saveServiceRequest = this.saveServiceRequest.bind(this);
+    this.updateServiceRequestReason = this.updateServiceRequestReason.bind(this);
   }
 
   saveServiceRequest() {
@@ -27,6 +33,16 @@ export default class UrgentServiceRequestModalItem extends Component {
       timeOnsite: this.state.timeOnsite
     };
     this.props.update(data);
+    this.setState({
+      reason: 'enroute',
+      timeOnsite: null
+    })
+  }
+
+  updateServiceRequestReason(reason) {
+    this.setState({
+      reason: reason
+    });
   }
 
   render() {
@@ -42,7 +58,12 @@ export default class UrgentServiceRequestModalItem extends Component {
         <Text style={styles.textItem}>
           <Text style={styles.boldText}>Description: </Text>{serviceRequest.address}
         </Text>
-        <Text style={styles.textItem}>What's your status?</Text>
+        <Text style={styles.statusTextItem}>What's your status?</Text>
+        <UrgentServiceRequestModalItemResolutionPicker 
+          updateServiceRequestReason={this.updateServiceRequestReason}
+          selectedReason={this.state.reason}
+        />
+        {/*
         <Picker
           selectedValue={this.state.reason}
           onValueChange={(reas) => this.setState({ reason: reas })}
@@ -52,6 +73,7 @@ export default class UrgentServiceRequestModalItem extends Component {
           <Picker.Item label="Stuck in Traffic" value="traffic" />
           <Picker.Item label="Forgot to Update" value="forgot" />
         </Picker>
+        */}
         {this.state.reason === 'forgot'
         ? (
             <View>
@@ -87,7 +109,12 @@ const styles = StyleSheet.create({
   },
   textItem: {
     marginTop: 3,
-    marginBottom: 3
+    marginBottom: 3,
+  },
+  statusTextItem: {
+    fontWeight: 'bold',
+    marginTop: 5,
+    marginBottom: 5
   },
   boldText: {
     fontWeight: 'bold'
