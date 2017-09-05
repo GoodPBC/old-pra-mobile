@@ -30,6 +30,8 @@ function authenticationHeaders(store) {
 
 async function makeRequestAndDispatchResponse({ action, store }) {
   const { onSuccess, requestMethod, requestParams, actionName, requestType } = action;
+  console.log('making request');
+  console.log(action);
 
   function dispatchSuccess(json) {
     store.dispatch({
@@ -112,7 +114,6 @@ async function makeRequestAndDispatchResponse({ action, store }) {
         dispatchFailure(json.ErrorMessage, response.status);
       }
     } catch (e) {
-      console.log('response text', responseText);
       dispatchFailure(e, response.status);
     }
   //}

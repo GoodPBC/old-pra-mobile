@@ -29,7 +29,7 @@ export default class ServiceRequestNavigation extends Component {
   }
 
   /**
-   * 2 screens: My Requests and the details screen
+     * 2 screens: My Requests and the details screen
     +2 screens: Contacts selection and add contacts
    */
   _renderScene(route, navigator) {

@@ -18,6 +18,7 @@
 #import <GoogleMaps/GoogleMaps.h>
 
 @implementation AppDelegate
+@synthesize oneSignal = _oneSignal;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -25,6 +26,9 @@
   NSURL *jsCodeLocation;
 
   jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
+
+  self.oneSignal = [[RCTOneSignal alloc] initWithLaunchOptions:launchOptions
+                                                       appId:@"2988a4bf-744f-4339-aae9-8c95795fb5ca"];
 
   [GMSServices provideAPIKey:@"AIzaSyDSBuRHnbhlXOMvW1j6xG0rZIZBbesp0V0"];
 
@@ -49,6 +53,12 @@
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
   return YES;
+}
+
+
+// Required for the notification event.
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)notification {
+    [RCTOneSignal didReceiveRemoteNotification:notification];
 }
 
 @end

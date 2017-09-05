@@ -63,6 +63,7 @@
 		7B30A861F0F5493CAFDC6786 /* libBVLinearGradient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CBD2BA82F67B40C1BEFCAFCF /* libBVLinearGradient.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		919720F21ABB1C2B48C43623 /* libPods-ProviderResponseApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F37AD4099CEE45972ADDB0D7 /* libPods-ProviderResponseApp.a */; };
+		E47436167AFA4E259C585A2E /* libRCTOneSignal.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A5ACDB46B5C747A88302E911 /* libRCTOneSignal.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -199,6 +200,13 @@
 			remoteGlobalIDString = 134814201AA4EA6300B7C361;
 			remoteInfo = BVLinearGradient;
 		};
+		7049825E1EF31D75000BAA0B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 344F5DE6DCF347419156CBFB /* RCTOneSignal.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 3245CDED1BFEE35C00EABF68;
+			remoteInfo = RCTOneSignal;
+		};
 		78C398B81ACF4ADC00677621 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */;
@@ -238,6 +246,7 @@
 		2B9ADF391DCB946D000D2F8A /* ProviderResponseApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = ProviderResponseApp.entitlements; path = ProviderResponseApp/ProviderResponseApp.entitlements; sourceTree = "<group>"; };
 		2BF7F9751E773CA200AEDEE6 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		2BF7F9761E773CA200AEDEE6 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		344F5DE6DCF347419156CBFB /* RCTOneSignal.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTOneSignal.xcodeproj; path = "../node_modules/react-native-onesignal/ios/RCTOneSignal.xcodeproj"; sourceTree = "<group>"; };
 		50CEA6235BD647A1BAC21C4B /* SMXCrashlytics.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = SMXCrashlytics.xcodeproj; path = "../node_modules/react-native-fabric/ios/SMXCrashlytics.xcodeproj"; sourceTree = "<group>"; };
 		6979A7C2958549D999A033D2 /* libReactNativeConfig.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libReactNativeConfig.a; sourceTree = "<group>"; };
 		70F758EB1EA9F75F00AEFA16 /* AIRGMSMarker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIRGMSMarker.h; sourceTree = "<group>"; };
@@ -313,7 +322,9 @@
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		97B5A80337D548DCB6122054 /* ReactNativeConfig.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = ReactNativeConfig.xcodeproj; path = "../node_modules/react-native-config/ios/ReactNativeConfig.xcodeproj"; sourceTree = "<group>"; };
+		A5ACDB46B5C747A88302E911 /* libRCTOneSignal.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTOneSignal.a; sourceTree = "<group>"; };
 		CBD2BA82F67B40C1BEFCAFCF /* libBVLinearGradient.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libBVLinearGradient.a; sourceTree = "<group>"; };
+		E5EF9376A5924F56E655E943 /* libPods-ProviderResponseAppTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ProviderResponseAppTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F37AD4099CEE45972ADDB0D7 /* libPods-ProviderResponseApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ProviderResponseApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F727D966F9894F97A2EFD305 /* BVLinearGradient.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = BVLinearGradient.xcodeproj; path = "../node_modules/react-native-linear-gradient/BVLinearGradient.xcodeproj"; sourceTree = "<group>"; };
 		FD2F332898526C5FED1CDCCA /* Pods-ProviderResponseApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProviderResponseApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ProviderResponseApp/Pods-ProviderResponseApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -348,6 +359,7 @@
 				2BF7F9611E773A9700AEDEE6 /* libSMXCrashlytics.a in Frameworks */,
 				7B30A861F0F5493CAFDC6786 /* libBVLinearGradient.a in Frameworks */,
 				919720F21ABB1C2B48C43623 /* libPods-ProviderResponseApp.a in Frameworks */,
+				E47436167AFA4E259C585A2E /* libRCTOneSignal.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -479,6 +491,24 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		702EFFE71F5EFB5B00A21FF7 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				6979A7C2958549D999A033D2 /* libReactNativeConfig.a */,
+				CBD2BA82F67B40C1BEFCAFCF /* libBVLinearGradient.a */,
+				A5ACDB46B5C747A88302E911 /* libRCTOneSignal.a */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
+		704982521EF31D75000BAA0B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7049825F1EF31D75000BAA0B /* libRCTOneSignal.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		70F758EA1EA9F75F00AEFA16 /* AirGoogleMaps */ = {
 			isa = PBXGroup;
 			children = (
@@ -597,6 +627,7 @@
 				97B5A80337D548DCB6122054 /* ReactNativeConfig.xcodeproj */,
 				F727D966F9894F97A2EFD305 /* BVLinearGradient.xcodeproj */,
 				50CEA6235BD647A1BAC21C4B /* SMXCrashlytics.xcodeproj */,
+				344F5DE6DCF347419156CBFB /* RCTOneSignal.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -623,6 +654,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				DB386EEA46EFE9F934EE09DC /* Pods */,
 				E8A53B825A40D7478A9991BB /* Frameworks */,
+				702EFFE71F5EFB5B00A21FF7 /* Recovered References */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -650,6 +682,7 @@
 			isa = PBXGroup;
 			children = (
 				F37AD4099CEE45972ADDB0D7 /* libPods-ProviderResponseApp.a */,
+				E5EF9376A5924F56E655E943 /* libPods-ProviderResponseAppTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -712,10 +745,10 @@
 					};
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = 4F2N2E6UU5;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Push = {
-								enabled = 0;
+								enabled = 1;
 							};
 						};
 					};
@@ -756,6 +789,10 @@
 				{
 					ProductGroup = 00C302D41ABCB9D200DB3ED1 /* Products */;
 					ProjectRef = 00C302D31ABCB9D200DB3ED1 /* RCTNetwork.xcodeproj */;
+				},
+				{
+					ProductGroup = 704982521EF31D75000BAA0B /* Products */;
+					ProjectRef = 344F5DE6DCF347419156CBFB /* RCTOneSignal.xcodeproj */;
 				},
 				{
 					ProductGroup = 139105B71AF99BAD00B5F7CC /* Products */;
@@ -919,6 +956,13 @@
 			fileType = archive.ar;
 			path = libBVLinearGradient.a;
 			remoteRef = 2B96CCE21DDF9FC1003152B8 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7049825F1EF31D75000BAA0B /* libRCTOneSignal.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTOneSignal.a;
+			remoteRef = 7049825E1EF31D75000BAA0B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		78C398B91ACF4ADC00677621 /* libRCTLinking.a */ = {
@@ -1118,7 +1162,10 @@
 				INFOPLIST_FILE = ProviderResponseAppTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ProviderResponseApp.app/ProviderResponseApp";
@@ -1134,7 +1181,10 @@
 				INFOPLIST_FILE = ProviderResponseAppTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ProviderResponseApp.app/ProviderResponseApp";
@@ -1147,14 +1197,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = ProviderResponseApp/ProviderResponseApp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: NYC Department of Homeless Services (4F2N2E6UU5)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 58;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = 4F2N2E6UU5;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Pods/OneSignal/iOS_SDK/Framework/**",
+					"$(PROJECT_DIR)/Pods/OneSignal/iOS_SDK/Framework",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1166,6 +1220,8 @@
 					"$(SRCROOT)/../node_modules/react-native/Libraries/LinkingIOS",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
 					"$(SRCROOT)/../node_modules/react-native/Libraries/Image/**",
+					"$(SRCROOT)/../node_modules/react-native-onesignal/**",
+					"$(SRCROOT)/../node_modules/react-native-onesignal/ios/RCTOneSignal/**",
 				);
 				INFOPLIST_FILE = ProviderResponseApp/Info.plist;
 				INFOPLIST_OTHER_PREPROCESSOR_FLAGS = "-traditional";
@@ -1180,8 +1236,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = gov.nyc.dhs.providerresponse.staging;
 				PRODUCT_NAME = ProviderResponseApp;
-				PROVISIONING_PROFILE = "175646f3-f222-4a91-847d-8333184417f3";
-				PROVISIONING_PROFILE_SPECIFIER = "XC iOS: gov.nyc.dhs.providerresponse.staging";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1193,13 +1249,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = ProviderResponseApp/ProviderResponseApp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: NYC Department of Homeless Services (4F2N2E6UU5)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 58;
 				DEVELOPMENT_TEAM = 4F2N2E6UU5;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Pods/OneSignal/iOS_SDK/Framework/**",
+					"$(PROJECT_DIR)/Pods/OneSignal/iOS_SDK/Framework",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1211,6 +1271,8 @@
 					"$(SRCROOT)/../node_modules/react-native/Libraries/LinkingIOS",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
 					"$(SRCROOT)/../node_modules/react-native/Libraries/Image/**",
+					"$(SRCROOT)/../node_modules/react-native-onesignal/**",
+					"$(SRCROOT)/../node_modules/react-native-onesignal/ios/RCTOneSignal/**",
 				);
 				INFOPLIST_FILE = ProviderResponseApp/Info.plist;
 				INFOPLIST_OTHER_PREPROCESSOR_FLAGS = "-traditional";
@@ -1225,8 +1287,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = gov.nyc.dhs.providerresponse.staging;
 				PRODUCT_NAME = ProviderResponseApp;
-				PROVISIONING_PROFILE = "b11bca8f-8f2e-4c50-b5f8-162792fae31d";
-				PROVISIONING_PROFILE_SPECIFIER = "gov.nyc.dhs.providerresponse.staging AppStore";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1279,6 +1341,8 @@
 					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
 					"$(SRCROOT)/../node_modules/react-native-fabric/ios/SMXCrashlytics",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-onesignal/**",
+					"$(SRCROOT)/../node_modules/react-native-onesignal/ios/RCTOneSignal/**",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -1327,6 +1391,8 @@
 					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
 					"$(SRCROOT)/../node_modules/react-native-fabric/ios/SMXCrashlytics",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-onesignal/**",
+					"$(SRCROOT)/../node_modules/react-native-onesignal/ios/RCTOneSignal/**",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;

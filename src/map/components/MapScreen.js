@@ -193,27 +193,22 @@ export default class MapScreen extends Component {
             initialRegion
           }}
         >
-          {/*<MapView.Marker coordinate={this.state.initialRegion} />*/}
           {this.state.activeServiceRequests ? this.state.activeServiceRequests.map((marker, key) => {
+            
+            // 0-20 mintues old = green
+            // 21-40 mintues old = yellow
+            // >40 minutes old = red
+            
             let pinColor = 'green'
             let age = moment(marker.provider_assigned_time, 'MMM DD YYYY hh:mmA');
             age = age.unix() / 60;
             let now = moment(Date.now()).unix() / 60;
             let diff = Math.floor(now - age);
-            console.log(diff)
             if (diff > 20 && diff <= 40){
               pinColor = 'yellow';
             } else if (diff > 40) {
               pinColor = 'red';
             }
-
-            
-            // 0-20 mintues old = green
-            // 21-40 mintues old = yello
-            // >40 minutes old = red
-
-
-            // add time checking for pin colors back in once async add pins is working properly
 
             return(
               <MapView.Marker

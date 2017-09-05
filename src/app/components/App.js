@@ -24,6 +24,8 @@ import myRequestsInactiveIcon from './img/my-requests-icon-inactive.png';
 import teamsActiveIcon from './img/teams-icon-active.png';
 import teamsInactiveIcon from './img/teams-icon-inactive.png';
 
+import OneSignal from 'react-native-onesignal';
+
 
 import {
   DARK_BLUE,
@@ -51,6 +53,10 @@ export default class App extends Component {
 
   componentWillMount() {
     this.props.monitorNetworkChanges();
+  }
+
+  componentDidMount() {
+    OneSignal.configure({});
   }
 
   componentWillReceiveProps(newProps) {

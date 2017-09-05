@@ -41,7 +41,8 @@ export function fetchServiceRequests(onSuccess) {
   return {
     type: API_REQUEST,
     actionName: FETCH_SERVICE_REQUESTS,
-    requestPath: `Get311ServiceRequests/${encodeURIComponent(yesterday)}`,
+    requestPath: `Get311
+    ServiceRequests/${encodeURIComponent(yesterday)}`,
     endpoint: 'Get311ServiceRequests',
     requestMethod: 'GET',
     onSuccess,
