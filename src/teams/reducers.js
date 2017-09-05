@@ -19,6 +19,7 @@ const initialState = {
 };
 
 function transformTeamInfoFromStreetSmart(json) {
+  console.log("json supposed to contain street team info: " + JSON.stringify(json));
   if (!json.Team_Info) {
     return [];
   }
