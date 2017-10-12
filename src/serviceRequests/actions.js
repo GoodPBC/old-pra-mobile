@@ -40,8 +40,7 @@ export function fetchServiceRequests(onSuccess) {
   return {
     type: API_REQUEST,
     actionName: FETCH_SERVICE_REQUESTS,
-    requestPath: `Get311
-    ServiceRequests/${encodeURIComponent(yesterday)}`,
+    requestPath: `Get311ServiceRequests/${encodeURIComponent(yesterday)}`,
     endpoint: 'Get311ServiceRequests',
     requestMethod: 'GET',
     onSuccess,
@@ -193,7 +192,7 @@ export function updateServiceRequestPingResponse(pingResponse) {
   return (dispatch, getState) => {
     const { userId } = getState().user
 
-    const requestParams = { 
+    const requestParams = {
       ActualOnsiteTime: pingResponse.actualOnsiteTime,
       ModifiedAt: pingResponse.modifiedAt,
       ModifiedBy: userId,
@@ -201,7 +200,7 @@ export function updateServiceRequestPingResponse(pingResponse) {
       ReasonId: pingResponse.reasonId,
       SR_Number: pingResponse.srNumber
     }
-    
+
     dispatch({
       type: API_REQUEST,
       actionName: UPDATE_PING_RESPONSE,
