@@ -72,7 +72,6 @@ async function makeRequestAndDispatchResponse({ action, store }) {
   //  console.log('hitting external api');
   //} else {
     const url = `${Config.BASE_URL}${action.requestPath}`;
-    console.log('url', url);
     let body = '';
     if (requestMethod === 'GET' || requestMethod === 'get') {
       // Otherwise fails on Android.
@@ -84,6 +83,13 @@ async function makeRequestAndDispatchResponse({ action, store }) {
       'Content-Type': 'application/json',
     };
     Object.assign(headers, authenticationHeaders(store));
+
+    console.group('SENDING API REQUEST');
+    console.log(`${requestMethod} ${url}`);
+    console.log('Headers: ', headers);
+    console.log(`Body: ${body}`);
+    console.groupEnd('SENDING API REQUEST');
+
     let response = null;
     try {
       response = await fetch(url, {
@@ -118,7 +124,7 @@ async function makeRequestAndDispatchResponse({ action, store }) {
     }
   //}
 }
-  
+
 
 export default store => next => action => {
   next(action);
