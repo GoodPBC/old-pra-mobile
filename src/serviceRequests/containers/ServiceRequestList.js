@@ -10,12 +10,14 @@ import {
   getActiveServiceRequests,
   getInactiveServiceRequests,
 } from '../selectors';
+import { getCurrentTeam } from '../../teams/selectors';
 
 /**
  * Map only necessary data for the 'Service Requests' list.
  */
 function mapStateToProps(state) {
   return {
+    currentTeam: getCurrentTeam(state),
     activeServiceRequests: getActiveServiceRequests(state),
     inactiveServiceRequests: getInactiveServiceRequests(state),
   };

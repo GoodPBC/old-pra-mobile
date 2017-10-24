@@ -7,10 +7,16 @@ import { BODY_BACKGROUND } from '../../shared';
 export default class EmptyServiceRequestList extends Component {
 
   render() {
-    const { currentTeam } = this.props;
+    const { type, currentTeam } = this.props;
     return (
       <View style={styles.container}>
-        <Text style={styles.text}>There are no active service requests for {currentTeam.name}.</Text>
+        {
+          type ? (
+            <Text style={styles.text}>There are no {type} service requests for {currentTeam.name}.</Text>
+          ) : (
+            <Text style={styles.text}>There are no service requests for {currentTeam.name}.</Text>
+          )
+        }
       </View>
     );
   }

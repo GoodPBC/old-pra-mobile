@@ -15,6 +15,7 @@ import Separator from '../../shared/components/Separator';
 import ServiceRequestListItem from './ServiceRequestListItem';
 import ServiceRequestFilters from './ServiceRequestFilters';
 import UrgentServiceRequestModal from './UrgentServiceRequestModal';
+import EmptyServiceRequestList from './EmptyServiceRequestList';
 
 import Storage from 'react-native-storage';
 
@@ -194,20 +195,30 @@ export default class ServiceRequestList extends Component {
     return (
       <View style={styles.container}>
         {this.props.enableFilters && <ServiceRequestFilters onFilterChange={this._changeFilter} />}
-          <ListView
-            removeClippedSubviews={false}
-            dataSource={this.state.dataSource}
-            renderRow={this._renderRow}
-            enableEmptySections
-          />
-          {
-            this.state.urgentServiceRequests.length > 0 ?
+        {
+          this.state.currentFilter === FILTERS.ACTIVE &&
+          !this.props.activeServiceRequests.length &&
+          <EmptyServiceRequestList type="active" currentTeam={this.props.currentTeam} />
+        }
+        {
+          this.state.currentFilter === FILTERS.INACTIVE &&
+          !this.props.inactiveServiceRequests.length &&
+          <EmptyServiceRequestList type="closed" currentTeam={this.props.currentTeam} />
+        }
+        <ListView
+          removeClippedSubviews={false}
+          dataSource={this.state.dataSource}
+          renderRow={this._renderRow}
+          enableEmptySections
+        />
+        {
+          this.state.urgentServiceRequests.length > 0 ?
           <UrgentServiceRequestModal
             style={styles.modal}
             urgentServiceRequests={this.state.urgentServiceRequests}
             dismissUrgentServiceRequests={this.dismissUrgentServiceRequests}
             removeRequestFromModal={this.removeRequestFromModal}
-            />
+          />
           : null
         }
       </View>

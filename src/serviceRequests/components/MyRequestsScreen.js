@@ -34,10 +34,11 @@ export default class MyRequestsScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-      {this.props.showNoSRWarning ?
-        <EmptyServiceRequestList currentTeam={this.props.currentTeam} />
-        : <ServiceRequestList navigator={this.props.navigator} enableFilters />
-      }
+        {
+          this.props.showNoSRWarning
+          ? <EmptyServiceRequestList currentTeam={this.props.currentTeam} />
+          : <ServiceRequestList navigator={this.props.navigator} enableFilters />
+        }
       </View>
     );
   }
