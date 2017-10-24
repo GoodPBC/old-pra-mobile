@@ -32,6 +32,9 @@ export default function reducer(state = initialState, action) {
     // Stop the network activity indicator
     // Display an error message if necessary.
     case API_REQUEST_FAILURE:
+      console.group("REQUEST_FAIL!!");
+      console.log("action: ", action);
+      console.groupEnd("REQUEST_FAIL!!");
       const newState = {
         ...state,
         apiRequestInProgress: false,
