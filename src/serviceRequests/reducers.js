@@ -192,7 +192,7 @@ function updatePendingStatus(state, action) {
       updatedServiceRequest = {
         ...serviceRequest,
         status: 'visit_complete',
-        updated_at: action.updatedAt.format('MMM D YYYY h:mmA'),
+        updated_at: action.updatedAt.format('YYYY-MM-DD HH:mm:ss.SSS'),
         updated_by: action.name,
         resolution_code: action.resolutionCode,
         resolution_notes: action.resolutionNotes,
@@ -203,7 +203,7 @@ function updatePendingStatus(state, action) {
       updatedServiceRequest = {
         ...serviceRequest,
         status: 'on_site',
-        actual_onsite_time: action.updatedAt.format('MMM D YYYY h:mmA'),
+        actual_onsite_time: action.updatedAt.format('YYYY-MM-DD HH:mm:ss.SSS'),
         updated_by: action.name,
         unsynced: true,
       };
