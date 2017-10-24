@@ -31,7 +31,8 @@ export function lastUpdateTime(serviceRequest) {
 }
 
 export function parseTime(timeStr) {
-  return moment(timeStr, 'MMM D YYYY h:mmA');
+  // timeStr: 2017-04-14 12:22:02.817
+  return moment(timeStr, 'YYYY-MM-DD HH:mm:ss.SSS');
 }
 
 export function prioritizeLocationData(serviceRequest) {
