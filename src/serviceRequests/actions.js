@@ -76,13 +76,13 @@ export function resolveServiceRequest(serviceRequest, resolutionCode) {
     const updatedAt = moment();
 
     // console.log(`Resolving SR #${serviceRequest.sr_number} with code: ${resolutionCode}`);
-    const requestParams = {
+    const requestParams = [{
       SR_Number: serviceRequest.sr_number,
       ModifiedAt: momentToStr(updatedAt),
       PRASRStatusId: STATUS_CODES.visit_complete,
       ModifiedBy: userId,
       PRASRResolutionCodeId: resolutionCode,
-    };
+    }];
     if (resolutionNotes && resolutionNotes.trim().length) {
       requestParams.PRASRResolutionNote = resolutionNotes;
     }
@@ -103,7 +103,7 @@ export function resolveServiceRequest(serviceRequest, resolutionCode) {
       requestPath: 'update311servicerequests',
       endpoint: 'update311servicerequests',
       requestMethod: 'POST',
-      requestParams: [requestParams],
+      requestParams,
       serviceRequest, // Needed for sync
 
       // Refresh SRs after the update
@@ -133,16 +133,14 @@ export function updateOnsiteStatus(serviceRequest) {
     const { name, userId } = getState().user;
     const updatedAt = moment();
 
-    const requestParams = [
-      {
+    const requestParams = [{
         SR_Number: serviceRequest.sr_number,
         ModifiedAt: momentToStr(updatedAt),
         PRASRStatusId: STATUS_CODES.on_site,
 
         ModifiedBy: userId,
         PRASRResolutionCodeId: null,
-      }
-    ];
+    }];
 
     dispatch({
       type: MARK_PENDING_STATUS,
@@ -207,7 +205,7 @@ export function updateServiceRequestPingResponse(pingResponse) {
       requestMethod: 'POST',
       requestPath: 'updatepingresponse',
       endpoint: 'updatepingresponse',
-      requestParams: requestParams
+      requestParams,
     });
   }
 }
