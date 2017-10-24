@@ -71,7 +71,7 @@ export default class ServiceRequestList extends Component {
         if (this.state.resolvedUrgentServiceRequests.indexOf(serviceRequest.sr_number) === -1) {
           const now = new Date();
           const one_hour = 60 * 60 * 1000;
-          const sr_time = moment(serviceRequest.provider_assigned_time, "MMM-DD-YYYY hh:mm A").valueOf();
+          const sr_time = moment(serviceRequest.provider_assigned_time, "YYYY-MM-DD HH:mm:ss.SSS").valueOf();
           if (now - sr_time > one_hour) {
             return serviceRequest;
           }
@@ -84,7 +84,7 @@ export default class ServiceRequestList extends Component {
     });
   }
 
-  
+
   checkStorageForDismissedSR(){
     storage.load({
         key: 'resolvedUrgentServiceRequests',
@@ -102,7 +102,7 @@ export default class ServiceRequestList extends Component {
       })
     });
   }
-  
+
 
   dismissUrgentServiceRequests(usr) {
     let resolvedUrgentServiceRequests = this.state.resolvedUrgentServiceRequests;
@@ -123,12 +123,12 @@ export default class ServiceRequestList extends Component {
       resolvedUrgentServiceRequests: resolvedUrgentServiceRequests
     })
 
-    
+
     storage.save({
       key: 'resolvedUrgentServiceRequests',
       rawData: resolvedUrgentServiceRequests,
     });
-    
+
 
     this.setState({
       urgentServiceRequests: []
