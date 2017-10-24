@@ -63,7 +63,6 @@ export default class LoginScreen extends Component {
                 onChangeText={(email) => this.setState({ email })}
                 autoCorrect={false}
                 autoCapitalize={'none'}
-                keyboardType="email-address"
                 placeholder="User ID"
                 value={this.state.email}
               />
