@@ -32,14 +32,14 @@ export default class MapScreen extends Component {
     this.state = {
       //initialPosition: 'unknown',
       //lastPosition: 'unknown',
-      
+
       region: {
         latitude: 40.730610,
         longitude: -73.935242,
         latitudeDelta: 0.1,
         longitudeDelta: 0.1
       },
-      
+
       region: {
         latitude: 40.730610,
         longitude: -73.935242,
@@ -74,11 +74,11 @@ export default class MapScreen extends Component {
   }
 
   componentDidMount() {
-    
+
     for (var i = 0; i < this.props.activeServiceRequests.length; i++) {
       getLatLong(this.props.activeServiceRequests[i], i, this.props.activeServiceRequests.length, this.setStateWithActiveServiceRequests)
     }
-    
+
 
     navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -142,13 +142,13 @@ export default class MapScreen extends Component {
           marker.formattedAddress = `${json.results[0].address_components[0].long_name} ${json.results[0].address_components[1].long_name}`
 
           activeServiceRequests.push(marker);
-          
+
           if ( index == arrLength - 1 ){
             // run callback function to get access to this.setState()
             successCallback(activeServiceRequests);
           }
           //return marker
-          
+
         } else {
           console.log('Request Failure');
           console.log(json.ErrorMessage);
@@ -194,13 +194,13 @@ export default class MapScreen extends Component {
           }}
         >
           {this.state.activeServiceRequests ? this.state.activeServiceRequests.map((marker, key) => {
-            
+
             // 0-20 mintues old = green
             // 21-40 mintues old = yellow
             // >40 minutes old = red
-            
+
             let pinColor = 'green'
-            let age = moment(marker.provider_assigned_time, 'MMM DD YYYY hh:mmA');
+            let age = moment(marker.provider_assigned_time, 'YYYY-MM-DD HH:mm:ss.SSS');
             age = age.unix() / 60;
             let now = moment(Date.now()).unix() / 60;
             let diff = Math.floor(now - age);
