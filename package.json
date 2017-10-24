@@ -37,6 +37,7 @@
   },
   "devDependencies": {
     "babel-jest": "16.0.0",
+    "babel-plugin-transform-remove-console": "^6.8.5",
     "babel-preset-react-native": "1.9.0",
     "eslint": "^3.10.2",
     "eslint-config-airbnb": "^13.0.0",
