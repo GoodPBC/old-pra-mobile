@@ -5,4 +5,6 @@ target 'ProviderResponseApp' do
   # use_frameworks!
   # Pods for ReactNativeMapsExample
   pod 'GoogleMaps', '2.1.1'
+  pod 'Fabric'
+  pod 'Crashlytics'
 end

@@ -26,7 +26,6 @@ import teamsInactiveIcon from './img/teams-icon-inactive.png';
 
 import OneSignal from 'react-native-onesignal';
 
-
 import {
   DARK_BLUE,
   GRAY_TEXT,

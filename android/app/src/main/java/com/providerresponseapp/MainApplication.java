@@ -4,6 +4,7 @@ import android.app.Application;
 import android.util.Log;
 
 import com.facebook.react.ReactApplication;
+import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import com.geektime.rnonesignalandroid.ReactNativeOneSignalPackage;
 import com.smixx.fabric.FabricPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
@@ -41,6 +42,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNDeviceInfo(),
             new ReactNativeOneSignalPackage(),
             new FabricPackage(),
             new LinearGradientPackage(),

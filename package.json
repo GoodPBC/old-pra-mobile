@@ -15,6 +15,7 @@
     "react": "~15.4.0-rc.4",
     "react-native": "0.38.0",
     "react-native-config": "^0.2.1",
+    "react-native-device-info": "^0.12.1",
     "react-native-fabric": "^0.3.2",
     "react-native-fabric-crashlytics": "^0.1.8",
     "react-native-linear-gradient": "^1.5.15",
