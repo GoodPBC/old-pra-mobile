@@ -65,7 +65,6 @@
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		919720F21ABB1C2B48C43623 /* libPods-ProviderResponseApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F37AD4099CEE45972ADDB0D7 /* libPods-ProviderResponseApp.a */; };
 		A0042D2F1F8FD25200B936F8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A0042D191F8FD21F00B936F8 /* libRCTAnimation.a */; };
-		A9794D0EC93B4CCB8F4A0942 /* libRNDeviceInfo-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9697D30E7F1647DCBF76B61C /* libRNDeviceInfo-tvOS.a */; };
 		E47436167AFA4E259C585A2E /* libRCTOneSignal.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A5ACDB46B5C747A88302E911 /* libRCTOneSignal.a */; };
 /* End PBXBuildFile section */
 
@@ -397,7 +396,6 @@
 				919720F21ABB1C2B48C43623 /* libPods-ProviderResponseApp.a in Frameworks */,
 				E47436167AFA4E259C585A2E /* libRCTOneSignal.a in Frameworks */,
 				6B38450ABA3A466A851BF038 /* libRNDeviceInfo.a in Frameworks */,
-				A9794D0EC93B4CCB8F4A0942 /* libRNDeviceInfo-tvOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
