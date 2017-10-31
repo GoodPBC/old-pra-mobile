@@ -25,9 +25,9 @@ import teamsActiveIcon from './img/teams-icon-active.png';
 import teamsInactiveIcon from './img/teams-icon-inactive.png';
 
 import OneSignal from 'react-native-onesignal';
-import { Answers } from 'react-native-fabric';
+import { Crashlytics, Answers } from 'react-native-fabric';
 
-import tracker from '../../googleAnalytics'
+import GoogleAnalytics from '../../analytics/googleAnalytics'
 
 import {
   DARK_BLUE,
@@ -59,11 +59,9 @@ export default class App extends Component {
 
   componentDidMount() {
     OneSignal.configure({});
-    console.log("APP MOUNTED");
-    console.log(tracker)
-    tracker.trackScreenView('App-EC');
-    //logContentView: function (contentName, contentType, contentId, customAttributes)
-    Answers.logContentView('App', 'App::Open', 'app-open111xw', { userId: 93 });
+    // GoogleAnalytics.trackScreenView('TEST');
+    // Crashlytics.log("TEST MESSAGE!!!! - EC");
+    // Answers.logCustom('Performed a custom event', { what: "hello" });
   }
 
   componentWillReceiveProps(newProps) {
