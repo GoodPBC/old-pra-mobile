@@ -2,7 +2,7 @@ apply plugin: "com.android.application"
 
 project.ext.envConfigFiles = [
     debug: ".env.development",
-    staging: ".env.staging",
+    releaseStaging: ".env.staging",
     release: ".env.production",
 ]
 
@@ -95,7 +95,7 @@ import com.android.build.OutputFile
  */
 
 project.ext.react = [
-    bundleInStaging: true
+    bundleInReleaseStaging: true
 ]
 
 apply from: "../../node_modules/react-native/react.gradle"
@@ -131,7 +131,7 @@ android {
         resValue "string", "build_config_package", "com.providerresponseapp"
     }
     signingConfigs {
-        staging {
+        releaseStaging {
             storeFile file('DHS_PRA_RELEASE_STORE_FILE')
             storePassword 'DHS_PRA_RELEASE_STORE_PASSWORD'
             keyAlias 'DHS_PRA_RELEASE_KEY_ALIAS'
@@ -156,7 +156,7 @@ android {
         debug {
             manifestPlaceholders = [excludeSystemAlertWindowPermission: "false"]
         }
-        staging {
+        releaseStaging {
             applicationIdSuffix ".staging"
             signingConfig signingConfigs.staging
             minifyEnabled enableProguardInReleaseBuilds
