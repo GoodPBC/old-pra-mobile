@@ -81,23 +81,23 @@ export default class MapScreen extends Component {
 
 
     navigator.geolocation.getCurrentPosition(
-        (position) => {
-          var initialPosition = JSON.stringify(position);
-          let region = {
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-            latitudeDelta: 0.1,
-            longitudeDelta: 0.1
-          }
-          this.setState({initialRegion: region})
-          this.setState({region});
-        },
-        (error) => alert(JSON.stringify(error)),
-        {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
-      );
-      this.watchID = navigator.geolocation.watchPosition((position) => {
-        var lastPosition = JSON.stringify(position);
-        //this.setState({lastPosition});
+      (position) => {
+        var initialPosition = JSON.stringify(position);
+        let region = {
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+          latitudeDelta: 0.1,
+          longitudeDelta: 0.1
+        }
+        this.setState({initialRegion: region})
+        this.setState({region});
+      },
+      (error) => alert(JSON.stringify(error)),
+      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+    );
+    this.watchID = navigator.geolocation.watchPosition((position) => {
+      var lastPosition = JSON.stringify(position);
+      //this.setState({lastPosition});
     });
 
     let activeServiceRequests = [];
@@ -112,7 +112,7 @@ export default class MapScreen extends Component {
         address = `${marker.address}, ${marker.borough}, ${marker.city}`;
       }
 
-      let key = 'AIzaSyDSBuRHnbhlXOMvW1j6xG0rZIZBbesp0V0'
+      let key = 'AIzaSyDDXSqDsclRyA0WAQu1wpGdldnGnBh3oWw'
       let url = `https://maps.googleapis.com/maps/api/geocode/json?key=${key}&address=${address}`
 
       //console.log(url)

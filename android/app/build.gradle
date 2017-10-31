@@ -2,7 +2,7 @@ apply plugin: "com.android.application"
 
 project.ext.envConfigFiles = [
     debug: ".env.development",
-    releaseStaging: ".env.staging",
+    releasestaging: ".env.staging",
     release: ".env.production",
 ]
 
@@ -158,7 +158,7 @@ android {
         }
         releaseStaging {
             applicationIdSuffix ".staging"
-            signingConfig signingConfigs.staging
+            signingConfig signingConfigs.releaseStaging
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
             manifestPlaceholders = [excludeSystemAlertWindowPermission: "true"]
