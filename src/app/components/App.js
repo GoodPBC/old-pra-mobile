@@ -24,7 +24,6 @@ import myRequestsInactiveIcon from './img/my-requests-icon-inactive.png';
 import teamsActiveIcon from './img/teams-icon-active.png';
 import teamsInactiveIcon from './img/teams-icon-inactive.png';
 
-import OneSignal from 'react-native-onesignal';
 import { Crashlytics, Answers } from 'react-native-fabric';
 
 import GoogleAnalytics from '../../analytics/googleAnalytics'
@@ -58,7 +57,6 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    OneSignal.configure({});
     // GoogleAnalytics.trackScreenView('TEST');
     // Crashlytics.log("TEST MESSAGE!!!! - EC");
     // Answers.logCustom('Performed a custom event', { what: "hello" });

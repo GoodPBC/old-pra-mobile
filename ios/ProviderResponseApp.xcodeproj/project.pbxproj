@@ -25,6 +25,7 @@
 		2BF7F9611E773A9700AEDEE6 /* libSMXCrashlytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B45345A1DEF706A007B2682 /* libSMXCrashlytics.a */; };
 		2BF7F9771E773CA200AEDEE6 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BF7F9751E773CA200AEDEE6 /* Crashlytics.framework */; };
 		2BF7F9781E773CA200AEDEE6 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BF7F9761E773CA200AEDEE6 /* Fabric.framework */; };
+		526DFC819E984D2F92D20BDC /* libAirMaps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2692A053B48444C9BC1AB65 /* libAirMaps.a */; };
 		5383158D4932434B8692BC89 /* libReactNativeConfig.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6979A7C2958549D999A033D2 /* libReactNativeConfig.a */; };
 		6B38450ABA3A466A851BF038 /* libRNDeviceInfo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F061DE1A97DA48DB896B3441 /* libRNDeviceInfo.a */; };
 		70F759321EA9F76000AEFA16 /* AIRGMSMarker.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F758EC1EA9F75F00AEFA16 /* AIRGMSMarker.m */; };
@@ -70,7 +71,6 @@
 		A0A5BAD51FA7DCE800C96355 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0A5BAD41FA7DCE800C96355 /* SystemConfiguration.framework */; };
 		A0A5BAD71FA7DCF400C96355 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A0A5BAD61FA7DCF400C96355 /* libz.tbd */; };
 		A0A5BAD91FA7DCFA00C96355 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A0A5BAD81FA7DCFA00C96355 /* libsqlite3.0.tbd */; };
-		E47436167AFA4E259C585A2E /* libRCTOneSignal.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A5ACDB46B5C747A88302E911 /* libRCTOneSignal.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -207,13 +207,6 @@
 			remoteGlobalIDString = 134814201AA4EA6300B7C361;
 			remoteInfo = BVLinearGradient;
 		};
-		7049825E1EF31D75000BAA0B /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 344F5DE6DCF347419156CBFB /* RCTOneSignal.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 3245CDED1BFEE35C00EABF68;
-			remoteInfo = RCTOneSignal;
-		};
 		78C398B81ACF4ADC00677621 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */;
@@ -241,6 +234,13 @@
 			proxyType = 2;
 			remoteGlobalIDString = 2D2A28201D9B03D100D4039D;
 			remoteInfo = "RCTAnimation-tvOS";
+		};
+		A08C55EF1FA9066F002A32A2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 39F8223927B64E7189431DDF /* AirMaps.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 11FA5C511C4A1296003AC2EE;
+			remoteInfo = AirMaps;
 		};
 		A0A5BAA01FA7C5B500C96355 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -288,7 +288,7 @@
 		2B9ADF391DCB946D000D2F8A /* ProviderResponseApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = ProviderResponseApp.entitlements; path = ProviderResponseApp/ProviderResponseApp.entitlements; sourceTree = "<group>"; };
 		2BF7F9751E773CA200AEDEE6 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		2BF7F9761E773CA200AEDEE6 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
-		344F5DE6DCF347419156CBFB /* RCTOneSignal.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTOneSignal.xcodeproj; path = "../node_modules/react-native-onesignal/ios/RCTOneSignal.xcodeproj"; sourceTree = "<group>"; };
+		39F8223927B64E7189431DDF /* AirMaps.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = AirMaps.xcodeproj; path = "../node_modules/react-native-maps/ios/AirMaps.xcodeproj"; sourceTree = "<group>"; };
 		50CEA6235BD647A1BAC21C4B /* SMXCrashlytics.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = SMXCrashlytics.xcodeproj; path = "../node_modules/react-native-fabric/ios/SMXCrashlytics.xcodeproj"; sourceTree = "<group>"; };
 		6979A7C2958549D999A033D2 /* libReactNativeConfig.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libReactNativeConfig.a; sourceTree = "<group>"; };
 		70F758EB1EA9F75F00AEFA16 /* AIRGMSMarker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIRGMSMarker.h; sourceTree = "<group>"; };
@@ -371,10 +371,10 @@
 		A0A5BAD41FA7DCE800C96355 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		A0A5BAD61FA7DCF400C96355 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		A0A5BAD81FA7DCFA00C96355 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
-		A5ACDB46B5C747A88302E911 /* libRCTOneSignal.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTOneSignal.a; sourceTree = "<group>"; };
 		CBD2BA82F67B40C1BEFCAFCF /* libBVLinearGradient.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libBVLinearGradient.a; sourceTree = "<group>"; };
 		D09A60A6315C491987752BE3 /* libRCTGoogleAnalyticsBridge.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTGoogleAnalyticsBridge.a; sourceTree = "<group>"; };
 		D256B2C92106423983346C2D /* RCTGoogleAnalyticsBridge.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTGoogleAnalyticsBridge.xcodeproj; path = "../node_modules/react-native-google-analytics-bridge/ios/RCTGoogleAnalyticsBridge/RCTGoogleAnalyticsBridge.xcodeproj"; sourceTree = "<group>"; };
+		E2692A053B48444C9BC1AB65 /* libAirMaps.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libAirMaps.a; sourceTree = "<group>"; };
 		E5EF9376A5924F56E655E943 /* libPods-ProviderResponseAppTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ProviderResponseAppTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F061DE1A97DA48DB896B3441 /* libRNDeviceInfo.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNDeviceInfo.a; sourceTree = "<group>"; };
 		F37AD4099CEE45972ADDB0D7 /* libPods-ProviderResponseApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ProviderResponseApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -416,9 +416,9 @@
 				2BF7F9611E773A9700AEDEE6 /* libSMXCrashlytics.a in Frameworks */,
 				7B30A861F0F5493CAFDC6786 /* libBVLinearGradient.a in Frameworks */,
 				919720F21ABB1C2B48C43623 /* libPods-ProviderResponseApp.a in Frameworks */,
-				E47436167AFA4E259C585A2E /* libRCTOneSignal.a in Frameworks */,
 				6B38450ABA3A466A851BF038 /* libRNDeviceInfo.a in Frameworks */,
 				9FCE1EB36ECF418F84084439 /* libRCTGoogleAnalyticsBridge.a in Frameworks */,
+				526DFC819E984D2F92D20BDC /* libAirMaps.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -555,20 +555,12 @@
 			children = (
 				6979A7C2958549D999A033D2 /* libReactNativeConfig.a */,
 				CBD2BA82F67B40C1BEFCAFCF /* libBVLinearGradient.a */,
-				A5ACDB46B5C747A88302E911 /* libRCTOneSignal.a */,
 				F061DE1A97DA48DB896B3441 /* libRNDeviceInfo.a */,
 				9697D30E7F1647DCBF76B61C /* libRNDeviceInfo-tvOS.a */,
 				D09A60A6315C491987752BE3 /* libRCTGoogleAnalyticsBridge.a */,
+				E2692A053B48444C9BC1AB65 /* libAirMaps.a */,
 			);
 			name = "Recovered References";
-			sourceTree = "<group>";
-		};
-		704982521EF31D75000BAA0B /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				7049825F1EF31D75000BAA0B /* libRCTOneSignal.a */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		70F758EA1EA9F75F00AEFA16 /* AirGoogleMaps */ = {
@@ -690,9 +682,9 @@
 				97B5A80337D548DCB6122054 /* ReactNativeConfig.xcodeproj */,
 				F727D966F9894F97A2EFD305 /* BVLinearGradient.xcodeproj */,
 				50CEA6235BD647A1BAC21C4B /* SMXCrashlytics.xcodeproj */,
-				344F5DE6DCF347419156CBFB /* RCTOneSignal.xcodeproj */,
 				9E15A592D88F4A17A08EC91D /* RNDeviceInfo.xcodeproj */,
 				D256B2C92106423983346C2D /* RCTGoogleAnalyticsBridge.xcodeproj */,
+				39F8223927B64E7189431DDF /* AirMaps.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -739,6 +731,14 @@
 			children = (
 				A0042D191F8FD21F00B936F8 /* libRCTAnimation.a */,
 				A0042D1B1F8FD21F00B936F8 /* libRCTAnimation-tvOS.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A08C55EC1FA9066F002A32A2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A08C55F01FA9066F002A32A2 /* libAirMaps.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -843,7 +843,7 @@
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Push = {
-								enabled = 1;
+								enabled = 0;
 							};
 						};
 					};
@@ -861,6 +861,10 @@
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
 			projectReferences = (
+				{
+					ProductGroup = A08C55EC1FA9066F002A32A2 /* Products */;
+					ProjectRef = 39F8223927B64E7189431DDF /* AirMaps.xcodeproj */;
+				},
 				{
 					ProductGroup = 2B96CCDF1DDF9FC1003152B8 /* Products */;
 					ProjectRef = F727D966F9894F97A2EFD305 /* BVLinearGradient.xcodeproj */;
@@ -892,10 +896,6 @@
 				{
 					ProductGroup = 00C302D41ABCB9D200DB3ED1 /* Products */;
 					ProjectRef = 00C302D31ABCB9D200DB3ED1 /* RCTNetwork.xcodeproj */;
-				},
-				{
-					ProductGroup = 704982521EF31D75000BAA0B /* Products */;
-					ProjectRef = 344F5DE6DCF347419156CBFB /* RCTOneSignal.xcodeproj */;
 				},
 				{
 					ProductGroup = 139105B71AF99BAD00B5F7CC /* Products */;
@@ -1065,13 +1065,6 @@
 			remoteRef = 2B96CCE21DDF9FC1003152B8 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		7049825F1EF31D75000BAA0B /* libRCTOneSignal.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRCTOneSignal.a;
-			remoteRef = 7049825E1EF31D75000BAA0B /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		78C398B91ACF4ADC00677621 /* libRCTLinking.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1098,6 +1091,13 @@
 			fileType = archive.ar;
 			path = "libRCTAnimation-tvOS.a";
 			remoteRef = A0042D1A1F8FD21F00B936F8 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		A08C55F01FA9066F002A32A2 /* libAirMaps.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libAirMaps.a;
+			remoteRef = A08C55EF1FA9066F002A32A2 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		A0A5BAA11FA7C5B500C96355 /* libRNDeviceInfo.a */ = {
@@ -1313,8 +1313,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1334,8 +1332,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1349,7 +1345,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_ENTITLEMENTS = ProviderResponseApp/ProviderResponseApp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: NYC Department of Homeless Services (4F2N2E6UU5)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -1372,10 +1367,9 @@
 					"$(SRCROOT)/../node_modules/react-native/Libraries/LinkingIOS",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
 					"$(SRCROOT)/../node_modules/react-native/Libraries/Image/**",
-					"$(SRCROOT)/../node_modules/react-native-onesignal/**",
-					"$(SRCROOT)/../node_modules/react-native-onesignal/ios/RCTOneSignal/**",
 					"$(SRCROOT)/../node_modules/react-native-device-info/RNDeviceInfo",
 					"$(SRCROOT)/../node_modules/react-native-google-analytics-bridge/ios/RCTGoogleAnalyticsBridge/**",
+					"$(SRCROOT)/../node_modules/react-native-maps/ios/**",
 				);
 				INFOPLIST_FILE = ProviderResponseApp/Info.plist;
 				INFOPLIST_OTHER_PREPROCESSOR_FLAGS = "-traditional";
@@ -1403,7 +1397,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_ENTITLEMENTS = ProviderResponseApp/ProviderResponseApp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: NYC Department of Homeless Services (4F2N2E6UU5)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -1425,10 +1418,9 @@
 					"$(SRCROOT)/../node_modules/react-native/Libraries/LinkingIOS",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
 					"$(SRCROOT)/../node_modules/react-native/Libraries/Image/**",
-					"$(SRCROOT)/../node_modules/react-native-onesignal/**",
-					"$(SRCROOT)/../node_modules/react-native-onesignal/ios/RCTOneSignal/**",
 					"$(SRCROOT)/../node_modules/react-native-device-info/RNDeviceInfo",
 					"$(SRCROOT)/../node_modules/react-native-google-analytics-bridge/ios/RCTGoogleAnalyticsBridge/**",
+					"$(SRCROOT)/../node_modules/react-native-maps/ios/**",
 				);
 				INFOPLIST_FILE = ProviderResponseApp/Info.plist;
 				INFOPLIST_OTHER_PREPROCESSOR_FLAGS = "-traditional";
@@ -1498,9 +1490,9 @@
 					"$(SRCROOT)/../node_modules/react-native-fabric/ios/SMXCrashlytics",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-onesignal/**",
-					"$(SRCROOT)/../node_modules/react-native-onesignal/ios/RCTOneSignal/**",
 					"$(SRCROOT)/../node_modules/react-native-device-info/RNDeviceInfo",
 					"$(SRCROOT)/../node_modules/react-native-google-analytics-bridge/ios/RCTGoogleAnalyticsBridge/**",
+					"$(SRCROOT)/../node_modules/react-native-maps/ios/**",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -1550,9 +1542,9 @@
 					"$(SRCROOT)/../node_modules/react-native-fabric/ios/SMXCrashlytics",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-onesignal/**",
-					"$(SRCROOT)/../node_modules/react-native-onesignal/ios/RCTOneSignal/**",
 					"$(SRCROOT)/../node_modules/react-native-device-info/RNDeviceInfo",
 					"$(SRCROOT)/../node_modules/react-native-google-analytics-bridge/ios/RCTGoogleAnalyticsBridge/**",
+					"$(SRCROOT)/../node_modules/react-native-maps/ios/**",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;

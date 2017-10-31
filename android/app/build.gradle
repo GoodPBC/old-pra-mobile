@@ -117,7 +117,7 @@ def enableProguardInReleaseBuilds = false
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.1"
+    buildToolsVersion "23.0.3"
 
     defaultConfig {
         applicationId "com.providerresponseapp"
@@ -132,16 +132,16 @@ android {
     }
     signingConfigs {
         staging {
-            storeFile file(DHS_PRA_RELEASE_STORE_FILE)
-            storePassword DHS_PRA_RELEASE_STORE_PASSWORD
-            keyAlias DHS_PRA_RELEASE_KEY_ALIAS
-            keyPassword DHS_PRA_RELEASE_KEY_PASSWORD
+            storeFile file('DHS_PRA_RELEASE_STORE_FILE')
+            storePassword 'DHS_PRA_RELEASE_STORE_PASSWORD'
+            keyAlias 'DHS_PRA_RELEASE_KEY_ALIAS'
+            keyPassword 'DHS_PRA_RELEASE_KEY_PASSWORD'
         }
         release {
-            storeFile file(DHS_PRA_RELEASE_STORE_FILE)
-            storePassword DHS_PRA_RELEASE_STORE_PASSWORD
-            keyAlias DHS_PRA_RELEASE_KEY_ALIAS
-            keyPassword DHS_PRA_RELEASE_KEY_PASSWORD
+            storeFile file('DHS_PRA_RELEASE_STORE_FILE')
+            storePassword 'DHS_PRA_RELEASE_STORE_PASSWORD'
+            keyAlias 'DHS_PRA_RELEASE_KEY_ALIAS'
+            keyPassword 'DHS_PRA_RELEASE_KEY_PASSWORD'
         }
     }
     splits {
@@ -187,9 +187,9 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-maps')
     compile project(':react-native-google-analytics-bridge')
     compile project(':react-native-device-info')
-    compile project(':react-native-onesignal')
     compile project(':react-native-fabric')
     compile project(':react-native-linear-gradient')
     compile project(':react-native-config')
@@ -199,6 +199,8 @@ dependencies {
     compile('com.crashlytics.sdk.android:crashlytics:2.6.5@aar') {
       transitive = true;
     }
+    compile "com.google.android.gms:play-services-base:+"
+    compile "com.google.android.gms:play-services-maps:+"
 }
 
 // Run this once to be able to run the application with BUCK

@@ -4,9 +4,9 @@ import android.app.Application;
 import android.util.Log;
 
 import com.facebook.react.ReactApplication;
+import com.airbnb.android.react.maps.MapsPackage;
 import com.idehub.GoogleAnalyticsBridge.GoogleAnalyticsBridgePackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
-import com.geektime.rnonesignalandroid.ReactNativeOneSignalPackage;
 import com.smixx.fabric.FabricPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
 import com.lugg.ReactNativeConfig.ReactNativeConfigPackage;
@@ -27,12 +27,6 @@ import java.util.List;
 
 public class MainApplication extends Application implements ReactApplication {
 
-  @Override
-  public void onCreate() {
-      super.onCreate();
-      Fabric.with(this, new Crashlytics());
-  }
-
   private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
     @Override
     protected boolean getUseDeveloperSupport() {
@@ -43,9 +37,9 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new MapsPackage(),
             new GoogleAnalyticsBridgePackage(),
             new RNDeviceInfo(),
-            new ReactNativeOneSignalPackage(),
             new FabricPackage(),
             new LinearGradientPackage(),
             new ReactNativeConfigPackage()
@@ -62,5 +56,6 @@ public class MainApplication extends Application implements ReactApplication {
   public void onCreate() {
     super.onCreate();
     SoLoader.init(this, /* native exopackage */ false);
+    Fabric.with(this, new Crashlytics());
   }
 }

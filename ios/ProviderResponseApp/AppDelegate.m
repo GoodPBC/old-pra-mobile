@@ -18,7 +18,6 @@
 #import <GoogleMaps/GoogleMaps.h>
 
 @implementation AppDelegate
-@synthesize oneSignal = _oneSignal;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -27,8 +26,6 @@
 
   jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
 
-  self.oneSignal = [[RCTOneSignal alloc] initWithLaunchOptions:launchOptions
-                                                       appId:@"2988a4bf-744f-4339-aae9-8c95795fb5ca"];
 
   [GMSServices provideAPIKey:@"AIzaSyDSBuRHnbhlXOMvW1j6xG0rZIZBbesp0V0"];
 
