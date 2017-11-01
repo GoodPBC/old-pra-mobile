@@ -132,16 +132,16 @@ android {
     }
     signingConfigs {
         releaseStaging {
-            storeFile file('DHS_PRA_RELEASE_STORE_FILE')
-            storePassword 'DHS_PRA_RELEASE_STORE_PASSWORD'
-            keyAlias 'DHS_PRA_RELEASE_KEY_ALIAS'
-            keyPassword 'DHS_PRA_RELEASE_KEY_PASSWORD'
+          storeFile file("androidKeystore.jks")
+          storePassword "dhspass1"
+          keyAlias "qcKey"
+          keyPassword "qcpass1"
         }
         release {
-            storeFile file('DHS_PRA_RELEASE_STORE_FILE')
-            storePassword 'DHS_PRA_RELEASE_STORE_PASSWORD'
-            keyAlias 'DHS_PRA_RELEASE_KEY_ALIAS'
-            keyPassword 'DHS_PRA_RELEASE_KEY_PASSWORD'
+          storeFile file("androidKeystore.jks")
+          storePassword "dhspass1"
+          keyAlias "qcKey"
+          keyPassword "qcpass1"
         }
     }
     splits {
