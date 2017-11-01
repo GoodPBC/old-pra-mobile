@@ -138,18 +138,18 @@ export default class Navigation extends Component {
       <Navigator
         {...this.props}
         configureScene={() => ({
-            ...Navigator.SceneConfigs.HorizontalSwipeJump,
-            // This prevents left/right swiping on the navigation
-            gestures: {
-              pop: {},
-            },
-          })}
+          ...Navigator.SceneConfigs.HorizontalSwipeJump,
+          // This prevents left/right swiping on the navigation
+          gestures: {
+            pop: {},
+          },
+        })}
         ref={(nav) => { this.navigator = nav; }}
         navigationBar={
           <Navigator.NavigationBar
-          routeMapper={routeMapper}
-          navigationStyles={navigationStyles}
-          style={styles.navBar}
+            routeMapper={routeMapper}
+            navigationStyles={navigationStyles}
+            style={styles.navBar}
           />
         }
         style={navigatorStyles}
@@ -178,7 +178,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     paddingRight: 10,
-    paddingLeft: 10
+    paddingLeft: 10,
   },
   navHeader: {
     color: 'white',

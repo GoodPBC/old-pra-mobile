@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { Navigator } from 'react-native';
 import moment from 'moment';
 
 import {
@@ -23,30 +24,20 @@ import {
 
 import MapView from 'react-native-maps';
 
+const LATITUDE_DELTA = 0.1
+const LONGITUDE_DELTA = 0.1
 
 export default class MapScreen extends Component {
 
   constructor(props) {
     super(props);
-
     this.state = {
-      //initialPosition: 'unknown',
-      //lastPosition: 'unknown',
-
       region: {
         latitude: 40.730610,
         longitude: -73.935242,
-        latitudeDelta: 0.1,
-        longitudeDelta: 0.1
+        latitudeDelta: LATITUDE_DELTA,
+        longitudeDelta: LONGITUDE_DELTA,
       },
-
-      region: {
-        latitude: 40.730610,
-        longitude: -73.935242,
-        latitudeDelta: 0.1,
-        longitudeDelta: 0.1
-      },
-
       sampleActiveServiceRequests: [{
         address: "250 WEST 34 STREET, N A",
         borough: "MANHATTAN",
@@ -60,6 +51,7 @@ export default class MapScreen extends Component {
 
     this.onRegionChange = this.onRegionChange.bind(this);
     this.setStateWithActiveServiceRequests = this.setStateWithActiveServiceRequests.bind(this);
+    this.renderActiveServiceRequestMarkers = this.renderActiveServiceRequestMarkers.bind(this);
   }
 
   onRegionChange(region) {
@@ -67,36 +59,30 @@ export default class MapScreen extends Component {
   }
 
   setStateWithActiveServiceRequests(activeServiceRequests) {
-    this.setState({
-      activeServiceRequests: activeServiceRequests
-    })
+    this.setState({ activeServiceRequests });
     console.log(this.state)
   }
 
   componentDidMount() {
-
     for (var i = 0; i < this.props.activeServiceRequests.length; i++) {
       getLatLong(this.props.activeServiceRequests[i], i, this.props.activeServiceRequests.length, this.setStateWithActiveServiceRequests)
     }
 
-
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        var initialPosition = JSON.stringify(position);
-        let region = {
+        const region = {
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
-          latitudeDelta: 0.1,
-          longitudeDelta: 0.1
+          latitudeDelta: LATITUDE_DELTA,
+          longitudeDelta: LONGITUDE_DELTA,
         }
-        this.setState({initialRegion: region})
-        this.setState({region});
+        this.setState({ region });
       },
       (error) => alert(JSON.stringify(error)),
       {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
     );
     this.watchID = navigator.geolocation.watchPosition((position) => {
-      var lastPosition = JSON.stringify(position);
+      // var lastPosition = JSON.stringify(position);
       //this.setState({lastPosition});
     });
 
@@ -164,68 +150,64 @@ export default class MapScreen extends Component {
     navigator.geolocation.clearWatch(this.watchID);
   }
 
+  renderActiveServiceRequestMarkers() {
+    const { activeServiceRequests } = this.state;
+    return (
+      activeServiceRequests &&
+      activeServiceRequests.map((marker, key) => {
+
+        // 0-20 mintues old = green
+        // 21-40 mintues old = yellow
+        // >40 minutes old = red
+
+        let pinColor = 'green'
+        let age = moment(marker.provider_assigned_time, 'YYYY-MM-DD HH:mm:ss.SSS');
+        age = age.unix() / 60;
+        let now = moment(Date.now()).unix() / 60;
+        let diff = Math.floor(now - age);
+        if (diff > 20 && diff <= 40){
+          pinColor = 'yellow';
+        } else if (diff > 40) {
+          pinColor = 'red';
+        }
+
+        return(
+          <MapView.Marker
+            coordinate={{latitude: marker.latitude, longitude: marker.longitude}}
+            key={key}
+            pinColor={pinColor}
+          >
+            <MapView.Callout
+              style={{ flex: 1, position: 'relative' }}
+            >
+              <View>
+                <Text>{marker.formattedAddress}</Text>
+              </View>
+            </MapView.Callout>
+          </MapView.Marker>
+        )
+      })
+    );
+  }
 
   render() {
-    const initialRoute = {
-      title: 'Nearby Requests',
-      index: 0,
-    };
-
-    const initialRegion = {
-      latitude: 40.730610,
-      longitude: -73.935242,
-      latitudeDelta: 0.1,
-      longitudeDelta: 0.1
-    }
+    const { initialRegion, region } = this.state;
 
     return (
       <View style={styles.container}>
         <MapView
           provider={MapView.PROVIDER_GOOGLE}
           style={styles.map}
-          region={this.state.region}
+          region={region}
           onRegionChange={this.onRegionChange}
           showsUserLocation={true}
           showsMyLocationButton={true}
           showsCompass={true}
           showsScale={true}
-          initalRegion={{
-            initialRegion
-          }}
+          loadingEnabled={true}
+          initalRegion={initialRegion}
         >
-          {this.state.activeServiceRequests ? this.state.activeServiceRequests.map((marker, key) => {
-
-            // 0-20 mintues old = green
-            // 21-40 mintues old = yellow
-            // >40 minutes old = red
-
-            let pinColor = 'green'
-            let age = moment(marker.provider_assigned_time, 'YYYY-MM-DD HH:mm:ss.SSS');
-            age = age.unix() / 60;
-            let now = moment(Date.now()).unix() / 60;
-            let diff = Math.floor(now - age);
-            if (diff > 20 && diff <= 40){
-              pinColor = 'yellow';
-            } else if (diff > 40) {
-              pinColor = 'red';
-            }
-
-            return(
-              <MapView.Marker
-                coordinate={{latitude: marker.latitude, longitude: marker.longitude}}
-                key={key}
-                pinColor={pinColor}
-              >
-                <MapView.Callout
-                  style={{ flex: 1, position: 'relative' }}
-                >
-                  <View>
-                  <Text>{marker.formattedAddress}</Text>
-                  </View>
-                </MapView.Callout>
-              </MapView.Marker>
-            )
-            }) : null }
+          {this.renderActiveServiceRequestMarkers()}
         </MapView>
       </View>
     );
@@ -235,14 +217,13 @@ export default class MapScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: BODY_BACKGROUND,
-    flex: 1
+    flex: 1,
+    marginTop: Navigator.NavigationBar.Styles.General.TotalNavHeight,
   },
   modal: {
     backgroundColor: 'white',
   },
   map: {
     flex: 1,
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height
   }
 });

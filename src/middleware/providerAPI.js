@@ -82,11 +82,18 @@ async function makeRequestAndDispatchResponse({ action, store }) {
     };
     Object.assign(headers, authenticationHeaders(store));
 
-    console.group('SENDING API REQUEST');
-    console.log(`${requestMethod} ${url}`);
-    console.log('Headers: ', headers);
-    console.log(`Body: ${body}`);
-    console.groupEnd('SENDING API REQUEST');
+    try {
+      console.group('SENDING API REQUEST');
+      console.log(`${requestMethod} ${url}`);
+      console.log('Headers: ', headers);
+      console.log(`Body: ${body}`);
+      console.groupEnd('SENDING API REQUEST');
+    } catch (e) {
+      console.log('%cSENDING API REQUEST', 'color: red; font-style: bold;');
+      console.log(`${requestMethod} ${url}`);
+      console.log('Headers: ', headers);
+      console.log(`Body: ${body}`);
+    }
 
     let response = null;
     try {

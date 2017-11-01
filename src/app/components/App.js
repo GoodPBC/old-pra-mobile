@@ -172,6 +172,7 @@ export default class App extends Component {
       <View style={styles.container}>
         <StatusBar
           translucent
+          hidden={false}
           barStyle="light-content"
           networkActivityIndicatorVisible={this.props.apiRequestInProgress}
         />
