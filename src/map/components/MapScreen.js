@@ -24,17 +24,23 @@ import {
 
 import MapView from 'react-native-maps';
 
-const LATITUDE_DELTA = 0.1
-const LONGITUDE_DELTA = 0.1
+const INITIAL_LATITUDE = 40.705342;
+const INITIAL_LONGITUDE = -74.012035;
+const LATITUDE_DELTA = 0.1;
+const LONGITUDE_DELTA = 0.1;
 
 export default class MapScreen extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
+      lastPosition: {
+        latitude: INITIAL_LATITUDE,
+        longitude: INITIAL_LONGITUDE,
+      },
       region: {
-        latitude: 40.730610,
-        longitude: -73.935242,
+        latitude: INITIAL_LATITUDE,
+        longitude: INITIAL_LONGITUDE,
         latitudeDelta: LATITUDE_DELTA,
         longitudeDelta: LONGITUDE_DELTA,
       },
@@ -52,6 +58,7 @@ export default class MapScreen extends Component {
     this.onRegionChange = this.onRegionChange.bind(this);
     this.setStateWithActiveServiceRequests = this.setStateWithActiveServiceRequests.bind(this);
     this.renderActiveServiceRequestMarkers = this.renderActiveServiceRequestMarkers.bind(this);
+    this.getMapBoundaries = this.getMapBoundaries.bind(this);
   }
 
   onRegionChange(region) {
@@ -59,24 +66,60 @@ export default class MapScreen extends Component {
   }
 
   setStateWithActiveServiceRequests(activeServiceRequests) {
-    this.setState({ activeServiceRequests });
-    console.log(this.state)
+    const region = this.getMapBoundaries(activeServiceRequests);
+    this.setState({ activeServiceRequests, region });
   }
 
-  componentDidMount() {
+  getMapBoundaries(activeServiceRequests) {
+    const { lastPosition } = this.state;
+
+    if (!activeServiceRequests) {
+      return this.state.region;
+    }
+
+    const lats = activeServiceRequests.reduce((acc, serviceRequest) => {
+      return serviceRequest.latitude ? [ ...acc, serviceRequest.latitude] : acc
+    }, [lastPosition.latitude]);
+    const lngs = activeServiceRequests.reduce((acc, serviceRequest) => {
+      return serviceRequest.longitude ? [ ...acc, serviceRequest.longitude] : acc
+    }, [lastPosition.longitude]);
+
+    const minLng = Math.min(...lngs);
+    const maxLng = Math.max(...lngs);
+    const minLat = Math.min(...lats);
+    const maxLat = Math.max(...lats);
+
+    return {
+      latitude: (maxLat + minLat) / 2,
+      longitude: (maxLng + minLng) / 2,
+      latitudeDelta: (maxLat - minLat + 0.001) * 1.25,
+      longitudeDelta: (maxLng - minLng + 0.001) * 1.25,
+    }
+  }
+
+  componentWillMount() {
     for (var i = 0; i < this.props.activeServiceRequests.length; i++) {
-      getLatLong(this.props.activeServiceRequests[i], i, this.props.activeServiceRequests.length, this.setStateWithActiveServiceRequests)
+      getLatLong(
+        this.props.activeServiceRequests[i],
+        i,
+        this.props.activeServiceRequests.length,
+        this.setStateWithActiveServiceRequests
+      )
     }
 
     navigator.geolocation.getCurrentPosition(
       (position) => {
+        const { latitude, longitude } = position.coords;
         const region = {
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
+          latitude,
+          longitude,
           latitudeDelta: LATITUDE_DELTA,
           longitudeDelta: LONGITUDE_DELTA,
         }
-        this.setState({ region });
+        this.setState({
+          lastPosition: { latitude, longitude },
+          region,
+        });
       },
       (error) => alert(JSON.stringify(error)),
       {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
@@ -152,6 +195,7 @@ export default class MapScreen extends Component {
 
   renderActiveServiceRequestMarkers() {
     const { activeServiceRequests } = this.state;
+
     return (
       activeServiceRequests &&
       activeServiceRequests.map((marker, key) => {
@@ -191,7 +235,7 @@ export default class MapScreen extends Component {
   }
 
   render() {
-    const { initialRegion, region } = this.state;
+    const { region } = this.state;
 
     return (
       <View style={styles.container}>
@@ -205,7 +249,7 @@ export default class MapScreen extends Component {
           showsCompass={true}
           showsScale={true}
           loadingEnabled={true}
-          initalRegion={initialRegion}
+          initialRegion={region}
         >
           {this.renderActiveServiceRequestMarkers()}
         </MapView>
