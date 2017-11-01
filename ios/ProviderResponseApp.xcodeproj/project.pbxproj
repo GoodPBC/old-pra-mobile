@@ -25,7 +25,6 @@
 		2BF7F9611E773A9700AEDEE6 /* libSMXCrashlytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B45345A1DEF706A007B2682 /* libSMXCrashlytics.a */; };
 		2BF7F9771E773CA200AEDEE6 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BF7F9751E773CA200AEDEE6 /* Crashlytics.framework */; };
 		2BF7F9781E773CA200AEDEE6 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BF7F9761E773CA200AEDEE6 /* Fabric.framework */; };
-		526DFC819E984D2F92D20BDC /* libAirMaps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2692A053B48444C9BC1AB65 /* libAirMaps.a */; };
 		5383158D4932434B8692BC89 /* libReactNativeConfig.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6979A7C2958549D999A033D2 /* libReactNativeConfig.a */; };
 		6B38450ABA3A466A851BF038 /* libRNDeviceInfo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F061DE1A97DA48DB896B3441 /* libRNDeviceInfo.a */; };
 		70F759321EA9F76000AEFA16 /* AIRGMSMarker.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F758EC1EA9F75F00AEFA16 /* AIRGMSMarker.m */; };
@@ -418,7 +417,6 @@
 				919720F21ABB1C2B48C43623 /* libPods-ProviderResponseApp.a in Frameworks */,
 				6B38450ABA3A466A851BF038 /* libRNDeviceInfo.a in Frameworks */,
 				9FCE1EB36ECF418F84084439 /* libRCTGoogleAnalyticsBridge.a in Frameworks */,
-				526DFC819E984D2F92D20BDC /* libAirMaps.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1210,7 +1208,7 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-ProviderResponseApp/Pods-ProviderResponseApp-resources.sh",
-				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle",
+				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
