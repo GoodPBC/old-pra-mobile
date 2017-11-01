@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 
 import {
   Alert,
+  Dimensions,
   Image,
   Modal,
   StatusBar,
@@ -10,6 +11,8 @@ import {
 } from 'react-native';
 
 import TabNavigator from 'react-native-tab-navigator';
+
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { ServiceRequestNavigation } from '../../serviceRequests';
 import { TeamNavigation } from '../../teams';
@@ -40,6 +43,8 @@ const Tabs = {
   logout: 3,
   map: 4
 };
+
+const ICON_SIZE = 22;
 
 export default class App extends Component {
   constructor(props) {
@@ -113,8 +118,8 @@ export default class App extends Component {
         <TabNavigator.Item
           selected={this.state.selectedTab === Tabs.my_requests}
           title="My Requests"
-          renderIcon={() => <Image source={myRequestsInactiveIcon} />}
-          renderSelectedIcon={() => <Image source={myRequestsActiveIcon} />}
+          renderIcon={() => <Icon name="list-ul" size={ICON_SIZE} color={GRAY_TEXT}/>}
+          renderSelectedIcon={() => <Icon name="list-ul" size={ICON_SIZE} color={DARK_BLUE}/>}
           onPress={() => this.setState({ selectedTab: Tabs.my_requests })}
           titleStyle={{ color: GRAY_TEXT }}
           selectedTitleStyle={{ color: DARK_BLUE }}
@@ -124,8 +129,8 @@ export default class App extends Component {
         <TabNavigator.Item
           selected={this.state.selectedTab === Tabs.map}
           title="Map"
-          renderIcon={() => <Image source={myRequestsInactiveIcon} />}
-          renderSelectedIcon={() => <Image source={myRequestsActiveIcon} />}
+          renderIcon={() => <Icon name="map-marker" size={ICON_SIZE}  color={GRAY_TEXT}/>}
+          renderSelectedIcon={() => <Icon name="map-marker" size={ICON_SIZE}  color={DARK_BLUE}/>}
           onPress={() => this.setState({ selectedTab: Tabs.map })}
           titleStyle={{ color: GRAY_TEXT }}
           selectedTitleStyle={{ color: DARK_BLUE }}
@@ -135,8 +140,8 @@ export default class App extends Component {
         <TabNavigator.Item
           selected={this.state.selectedTab === Tabs.teams}
           title="Teams"
-          renderIcon={() => <Image source={teamsInactiveIcon} />}
-          renderSelectedIcon={() => <Image source={teamsActiveIcon} />}
+          renderIcon={() => <Icon name="group" size={ICON_SIZE}  color={GRAY_TEXT}/>}
+          renderSelectedIcon={() => <Icon name="group" size={ICON_SIZE}  color={DARK_BLUE}/>}
           onPress={() => this.setState({ selectedTab: Tabs.teams })}
           titleStyle={{ color: GRAY_TEXT }}
           selectedTitleStyle={{ color: DARK_BLUE }}
@@ -146,8 +151,8 @@ export default class App extends Component {
         <TabNavigator.Item
           selected={this.state.selectedTab === Tabs.logout}
           title="Logout"
-          renderIcon={() => <Image source={myRequestsInactiveIcon} />}
-          renderSelectedIcon={() => <Image source={myRequestsActiveIcon} />}
+          renderIcon={() => <Icon name="sign-out" size={ICON_SIZE}  color={GRAY_TEXT}/>}
+          renderSelectedIcon={() => <Icon name="sign-out" size={ICON_SIZE}  color={DARK_BLUE}/>}
           onPress={() => this.setState({ selectedTab: Tabs.logout })}
           titleStyle={{ color: GRAY_TEXT }}
           selectedTitleStyle={{ color: DARK_BLUE }}
