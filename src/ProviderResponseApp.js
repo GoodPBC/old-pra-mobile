@@ -23,7 +23,6 @@ class ProviderResponseApp extends React.Component {
       codepushed: false,
       downloadProgress: 0,
     };
-    this.resetState = this.resetState.bind(this);
     this.handleAppStateChange = this.handleAppStateChange.bind(this);
   }
 
@@ -36,17 +35,14 @@ class ProviderResponseApp extends React.Component {
   }
 
   handleAppStateChange(nextAppState) {
-    const { appState } = this.state;
-    console.log(`[AppStateChange] ${appState} -> ${nextAppState}`);
-    if (appState === 'background' && nextAppState === 'active') {
-      this.resetState();
-    }
     this.setState({ appState: nextAppState });
   }
 
   codePushStatusDidChange(status) {
-    console.log("CODE_PUSH_STATUS:", status)
+    console.log("CODE_PUSH_STATUS:", status);
     switch(status) {
+      case codePush.SyncStatus.CHECKING_FOR_UPDATE:
+        this.setState({ codepushed: false });
       case codePush.SyncStatus.UPDATE_INSTALLED:
         this.setState({ downloadProgress: 0 });
       case codePush.SyncStatus.UP_TO_DATE:
@@ -59,13 +55,6 @@ class ProviderResponseApp extends React.Component {
   codePushDownloadDidProgress(progress) {
     const { receivedBytes, totalBytes } = progress;
     this.setState({ downloadProgress: receivedBytes / totalBytes });
-  }
-
-  resetState() {
-    this.setState({
-      codepushed: false,
-      downloadProgress: 0,
-    });
   }
 
   render() {
