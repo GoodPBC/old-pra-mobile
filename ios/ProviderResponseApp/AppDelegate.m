@@ -8,6 +8,7 @@
  */
 
 #import "AppDelegate.h"
+#import <CodePush/CodePush.h>
 
 #import "RCTBundleURLProvider.h"
 #import "RCTRootView.h"
@@ -24,7 +25,12 @@
   [Fabric with:@[[Crashlytics class]]];
   NSURL *jsCodeLocation;
 
-  jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
+  
+#ifdef DEBUG
+    jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
+#else
+    jsCodeLocation = [CodePush bundleURL];
+#endif
 
 
   [GMSServices provideAPIKey:@"AIzaSyDSBuRHnbhlXOMvW1j6xG0rZIZBbesp0V0"];

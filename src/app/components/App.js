@@ -11,7 +11,6 @@ import {
 } from 'react-native';
 
 import TabNavigator from 'react-native-tab-navigator';
-
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { ServiceRequestNavigation } from '../../serviceRequests';

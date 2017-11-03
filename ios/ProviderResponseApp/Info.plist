@@ -25,7 +25,7 @@
     <key>CFBundleSignature</key>
     <string>????</string>
     <key>CFBundleVersion</key>
-    <string>80</string>
+    <string>84</string>
     <key>Fabric</key>
     <dict>
       <key>APIKey</key>
@@ -87,5 +87,7 @@
       <string>SimpleLineIcons.ttf</string>
       <string>Zocial.ttf</string>
     </array>
+    <key>CodePushDeploymentKey</key>
+    <string>deployment-key-here</string>
   </dict>
 </plist>
