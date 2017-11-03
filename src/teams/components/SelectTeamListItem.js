@@ -4,6 +4,13 @@ import detailArrowImage from '../../serviceRequests/components/img/details-arrow
 import { LIGHT_BLUE, Radio } from '../../shared';
 
 export default function SelectTeamListItem({ selected, onSelectTeam, onViewTeamDetails, team }) {
+  // Add this button for Team Detail Screen
+  // <TouchableOpacity style={styles.detailsLink} onPress={() => onViewTeamDetails(team)}>
+  //   <View>
+  //     <Image source={detailArrowImage} />
+  //   </View>
+  // </TouchableOpacity>
+
   return (
     <View key={team.id} style={styles.container}>
       <TouchableOpacity
@@ -15,11 +22,6 @@ export default function SelectTeamListItem({ selected, onSelectTeam, onViewTeamD
             <Radio checked={selected} />
           </View>
           <Text style={styles.teamName}>{team.name}</Text>
-        </View>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.detailsLink} onPress={() => onViewTeamDetails(team)}>
-        <View>
-          <Image source={detailArrowImage} />
         </View>
       </TouchableOpacity>
     </View>
@@ -41,8 +43,6 @@ const styles = StyleSheet.create({
   },
   container: {
     flexDirection: 'row',
-    paddingTop: 20,
-    paddingBottom: 20,
     alignItems: 'center',
   },
   detailsLink: {
@@ -51,6 +51,7 @@ const styles = StyleSheet.create({
   },
   selectableName: {
     flex: 1,
+    paddingVertical: 20,
   },
   teamName: {
     color: LIGHT_BLUE,
