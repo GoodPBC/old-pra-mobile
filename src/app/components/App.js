@@ -27,7 +27,6 @@ import teamsActiveIcon from './img/teams-icon-active.png';
 import teamsInactiveIcon from './img/teams-icon-inactive.png';
 
 import { Crashlytics, Answers } from 'react-native-fabric';
-
 import GoogleAnalytics from '../../analytics/googleAnalytics'
 
 import {
@@ -36,23 +35,26 @@ import {
 } from '../../shared';
 
 const Tabs = {
-  my_requests: 0,
-  sync: 1,
-  teams: 2,
-  logout: 3,
-  map: 4
+  MY_REQUESTS: 0,
+  SYNC: 1,
+  TEAMS: 2,
+  LOGOUT: 3,
+  MAP: 4
 };
 
 const ICON_SIZE = 22;
+
+const getKeyByValue = (obj, val) => Object.keys(obj).find(key => obj[key] === val);
 
 export default class App extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      selectedTab: Tabs.my_requests,
+      selectedTab: Tabs.MY_REQUESTS,
     };
 
+    this.handlePress = this.handlePress.bind(this);
     this._resetNavigation = this._resetNavigation.bind(this);
   }
 
@@ -71,6 +73,14 @@ export default class App extends Component {
       Alert.alert('Error', newProps.errorMessage, [
         { text: 'OK', onPress: this.props.clearErrorMessage },
       ]);
+    }
+  }
+
+  handlePress(selectedTab) {
+    return () => {
+      const screenName = getKeyByValue(Tabs, selectedTab);
+      GoogleAnalytics.trackScreenView(screenName);
+      this.setState({ selectedTab })
     }
   }
 
@@ -106,8 +116,9 @@ export default class App extends Component {
   }
 
   _resetNavigation() {
+    GoogleAnalytics.trackScreenView('MY_REQUESTS');
     this.setState({
-      selectedTab: Tabs.my_requests,
+      selectedTab: Tabs.MY_REQUESTS,
     })
   }
 
@@ -115,44 +126,44 @@ export default class App extends Component {
     return (
       <TabNavigator>
         <TabNavigator.Item
-          selected={this.state.selectedTab === Tabs.my_requests}
+          selected={this.state.selectedTab === Tabs.MY_REQUESTS}
           title="My Requests"
           renderIcon={() => <Icon name="list-ul" size={ICON_SIZE} color={GRAY_TEXT}/>}
           renderSelectedIcon={() => <Icon name="list-ul" size={ICON_SIZE} color={DARK_BLUE}/>}
-          onPress={() => this.setState({ selectedTab: Tabs.my_requests })}
+          onPress={this.handlePress(Tabs.MY_REQUESTS)}
           titleStyle={{ color: GRAY_TEXT }}
           selectedTitleStyle={{ color: DARK_BLUE }}
         >
           <ServiceRequestNavigation />
         </TabNavigator.Item>
         <TabNavigator.Item
-          selected={this.state.selectedTab === Tabs.map}
+          selected={this.state.selectedTab === Tabs.MAP}
           title="Map"
           renderIcon={() => <Icon name="map-marker" size={ICON_SIZE}  color={GRAY_TEXT}/>}
           renderSelectedIcon={() => <Icon name="map-marker" size={ICON_SIZE}  color={DARK_BLUE}/>}
-          onPress={() => this.setState({ selectedTab: Tabs.map })}
+          onPress={this.handlePress(Tabs.MAP)}
           titleStyle={{ color: GRAY_TEXT }}
           selectedTitleStyle={{ color: DARK_BLUE }}
         >
           <MapNavigation />
         </TabNavigator.Item>
         <TabNavigator.Item
-          selected={this.state.selectedTab === Tabs.teams}
+          selected={this.state.selectedTab === Tabs.TEAMS}
           title="Teams"
           renderIcon={() => <Icon name="group" size={ICON_SIZE}  color={GRAY_TEXT}/>}
           renderSelectedIcon={() => <Icon name="group" size={ICON_SIZE}  color={DARK_BLUE}/>}
-          onPress={() => this.setState({ selectedTab: Tabs.teams })}
+          onPress={this.handlePress(Tabs.TEAMS)}
           titleStyle={{ color: GRAY_TEXT }}
           selectedTitleStyle={{ color: DARK_BLUE }}
         >
           <TeamNavigation />
         </TabNavigator.Item>
         <TabNavigator.Item
-          selected={this.state.selectedTab === Tabs.logout}
+          selected={this.state.selectedTab === Tabs.LOGOUT}
           title="Logout"
           renderIcon={() => <Icon name="sign-out" size={ICON_SIZE}  color={GRAY_TEXT}/>}
           renderSelectedIcon={() => <Icon name="sign-out" size={ICON_SIZE}  color={DARK_BLUE}/>}
-          onPress={() => this.setState({ selectedTab: Tabs.logout })}
+          onPress={this.handlePress(Tabs.LOGOUT)}
           titleStyle={{ color: GRAY_TEXT }}
           selectedTitleStyle={{ color: DARK_BLUE }}
         >
