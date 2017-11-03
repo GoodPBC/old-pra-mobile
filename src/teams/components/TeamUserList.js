@@ -55,4 +55,3 @@ TeamUserList.propTypes = {
   users: PropTypes.array.isRequired,
   team: PropTypes.object.isRequired,
 };
-
