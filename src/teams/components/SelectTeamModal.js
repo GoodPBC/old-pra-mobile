@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { Platform, StyleSheet, Text, View } from 'react-native';
+import { StatusBar, Platform, StyleSheet, Text, View } from 'react-native';
 import SelectTeamScreen from '../containers/SelectTeamScreen';
 import {
   Button,
@@ -7,27 +7,39 @@ import {
 } from '../../shared';
 
 export default class SelectTeamModal extends Component {
+  constructor() {
+    super();
+    this.handleLogout = this.handleLogout.bind(this);
+  }
+
   componentWillMount() {
     this.props.fetchTeams();
     this.props.resetNavigation();
   }
 
+  handleLogout() {
+    const { logoutUser, user } = this.props;
+    logoutUser(user);
+  }
+
   render() {
-    console.log('props of select team modal')
-    console.log(this.props);
+    const { user } = this.props;
+
     if (!this.props.canSelectTeams) {
       return (
-        <View style={styles.container}>
-          <Text style={styles.warning}>You are unable to join a street team. You are currently logged in as {this.props.userAccountName}. Please contact a DHS
+        <View style={[styles.container, {padding: 20, justifyContent: 'center'}]}>
+          <StatusBar barStyle="dark-content" />
+          <Text style={styles.warning}>You are unable to join a street team. You are currently logged in as {user.userAccountName}. Please contact a DHS
             administrator if you believe that you should
             have a provider account with Street Smart.</Text>
           <Button
-            onPress={this.props.logoutUser}
+            onPress={this.handleLogout}
             style={styles.logout}
           >Log Out</Button>
         </View>
       );
     }
+
     return (
       <View style={styles.container}>
         <View style={[styles.nav, Platform.OS === 'android' ? styles.androidNav : null]}>

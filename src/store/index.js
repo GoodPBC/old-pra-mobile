@@ -5,6 +5,7 @@ import createLogger from 'redux-logger';
 import { AsyncStorage } from 'react-native';
 import providerAPI from '../middleware/providerAPI';
 import offlineSync from '../middleware/offlineSync';
+import googleAnalytics from '../middleware/googleAnalytics';
 
 import app from '../app/reducers';
 import offline from '../offline/reducers';
@@ -25,7 +26,7 @@ const logger = createLogger();
 export default function configureStore() {
   const store = createStore(
     reducer,
-    applyMiddleware(thunk, offlineSync, providerAPI), // include 'logger' for debugging
+    applyMiddleware(thunk, googleAnalytics, offlineSync, providerAPI), // include 'logger' for debugging
     autoRehydrate()
   );
   persistStore(store, { storage: AsyncStorage }); // .purge() to reset

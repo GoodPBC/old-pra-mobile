@@ -13,7 +13,7 @@ function mapStateToProps(state) {
   return {
     canSelectTeams: state.teams.canSelectTeams,
     teams: getTeams(state),
-    userAccountName: state.user.userAccountName,
+    user: state.user,
   };
 }
 

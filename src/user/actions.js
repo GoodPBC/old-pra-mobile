@@ -18,7 +18,7 @@ export function submitLoginCredentials(email, password) {
   };
 }
 
-export function logoutUser() {
+export function logoutUser(user) {
   return (dispatch, getState) => {
     dispatch({
       type: API_REQUEST,
@@ -30,6 +30,7 @@ export function logoutUser() {
     // Works offline as well.
     dispatch({
       type: LOGOUT_USER,
+      user,
     });
   }
 }

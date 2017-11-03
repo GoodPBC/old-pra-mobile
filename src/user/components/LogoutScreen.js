@@ -21,38 +21,52 @@ import {
 import iconName from './img/icon_logout_name.png';
 import iconEmail from './img/icon_logout_email.png';
 
-function LogoutScene({ logoutUser, name, email }) {
-  return (
-    <View style={styles.container}>
-      <View style={styles.card}>
-        <View>
-          <Text style={[styles.text, styles.header]}>Logged In</Text>
+import GoogleAnalytics from '../../analytics/googleAnalytics';
+
+class LogoutScene extends React.Component {
+  constructor() {
+    super();
+    this.handleLogout = this.handleLogout.bind(this);
+  }
+
+  handleLogout() {
+    const { logoutUser, user } = this.props;
+    logoutUser(user);
+  }
+
+  render() {
+    const { user } = this.props;
+    return (
+      <View style={styles.container}>
+        <View style={styles.card}>
+          <View>
+            <Text style={[styles.text, styles.header]}>Logged In</Text>
+          </View>
+          <View style={styles.row}>
+            <Image source={iconName} />
+            <InvertText style={styles.text}>{user.name}</InvertText>
+          </View>
+          <Separator style={styles.separator} />
+          <View style={styles.row}>
+            <Image source={iconEmail} />
+            <InvertText style={styles.text}>{user.email}</InvertText>
+          </View>
+          <Separator style={styles.separator} />
         </View>
-        <View style={styles.row}>
-          <Image source={iconName} />
-          <InvertText style={styles.text}>{name}</InvertText>
-        </View>
-        <Separator style={styles.separator} />
-        <View style={styles.row}>
-          <Image source={iconEmail} />
-          <InvertText style={styles.text}>{email}</InvertText>
-        </View>
-        <Separator style={styles.separator} />
+        <InvertButton onPress={this.handleLogout} withBorder>
+          Log Out
+        </InvertButton>
       </View>
-      <InvertButton onPress={logoutUser} withBorder>
-        Log Out
-      </InvertButton>
-    </View>
-  );
+    );
+  }
 }
 
 LogoutScene.propTypes = {
-  email: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
+  user: PropTypes.object.isRequired,
   logoutUser: PropTypes.func.isRequired,
 };
 
-export default function LogoutScreen({ logoutUser, name, email }) {
+export default function LogoutScreen({ logoutUser, user }) {
   const initialRoute = {
     title: 'User',
     index: 0,
@@ -61,15 +75,14 @@ export default function LogoutScreen({ logoutUser, name, email }) {
   return (
     <Navigation
       initialRoute={initialRoute}
-      renderScene={() => <LogoutScene logoutUser={logoutUser} name={name} email={email} />}
+      renderScene={() => <LogoutScene logoutUser={logoutUser} user={user} />}
       onBack={() => {}}
     />
   );
 }
 
 LogoutScreen.propTypes = {
-  email: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
+  user: PropTypes.object.isRequired,
   logoutUser: PropTypes.func.isRequired,
 };
 
@@ -116,7 +129,6 @@ const styles = StyleSheet.create({
     backgroundColor: LIGHT_BLUE,
   },
   text: {
-    paddingLeft: 20,
     fontSize: 16,
     color: LIGHT_BLUE,
   }

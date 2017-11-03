@@ -9,8 +9,7 @@ import * as UserActions from '../actions';
 
 function mapStateToProps(state) {
   return {
-    name: state.user.name,
-    email: state.user.email,
+    user: state.user,
   };
 }
 
