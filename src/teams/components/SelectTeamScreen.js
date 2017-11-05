@@ -25,8 +25,9 @@ export default class SelectTeamScreen extends Component {
   }
 
   _joinTeam() {
-    const { selectedTeam, currentTeam }
-    this.props.joinTeam(selectedTeam, currentTeam);
+    const { joinTeam, selectedTeam, currentTeam } = this.props;
+
+    joinTeam(selectedTeam, currentTeam);
 
     // Select team modal may not have a navigator.
     if (this.props.navigator) {
