@@ -24,13 +24,13 @@ const googleAnalytics = store => next => action => {
         GoogleAnalytics.trackEvent(
           Categories.TEAMS,
           Actions.CHANGE,
-          { label: `${oldTeam} -> ${team}` }
+          { label: `${oldTeam.name} -> ${team.name}` }
         )
       } else {
         GoogleAnalytics.trackEvent(
           Categories.TEAMS,
           Actions.JOIN,
-          { label: team }
+          { label: team.name }
         )
       }
       return next(action);
