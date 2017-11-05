@@ -20,10 +20,11 @@ export function fetchTeams() {
   };
 }
 
-export function joinTeam(team) {
+export function joinTeam(team, oldTeam = null) {
   return {
     type: JOIN_TEAM,
     team,
+    oldTeam,
   };
 }
 

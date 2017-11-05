@@ -12,6 +12,7 @@ export default class SelectTeamDetailScreen extends Component {
   }
 
   _onJoinTeam() {
+    // TODO: add current team as second param if it's changing team.
     this.props.joinTeam(this.props.team);
     this.props.navigator.popToTop();
   }

@@ -25,27 +25,13 @@ export default class SelectTeamScreen extends Component {
   }
 
   _joinTeam() {
-    this.props.joinTeam(this.props.selectedTeam);
-    this.logTeamEvent();
+    const { selectedTeam, currentTeam }
+    this.props.joinTeam(selectedTeam, currentTeam);
+
     // Select team modal may not have a navigator.
     if (this.props.navigator) {
       this.props.navigator.pop();
     }
-  }
-
-  logTeamEvent() {
-    const { currentTeam, selectedTeam } = this.props;
-
-    const eventCategory = 'Teams';
-    let eventAction = 'Joined';
-    let eventLabel = selectedTeam.name;
-
-    if (currentTeam) {
-      eventAction = 'Changed';
-      eventLabel = `${currentTeam.name} -> ${selectedTeam.name}`;
-    }
-
-    GoogleAnalytics.trackEvent(eventCategory, eventAction, { label: eventLabel });
   }
 
   render() {
