@@ -62,6 +62,7 @@ async function makeRequestAndDispatchResponse({ action, store }) {
 
     return store.dispatch({
       type: `${actionName}_FAILURE`,
+      request: action,
       status,
       error,
     });

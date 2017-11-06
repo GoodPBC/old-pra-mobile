@@ -3,16 +3,24 @@ import Config from 'react-native-config';
 import titleCase from 'title-case';
 
 import { GA_TRACK_EVENT, GA_TRACK_SCREEN_VIEW } from '../../app/actionTypes';
-import { LOGIN_USER_SUCCESS, LOGOUT_USER } from '../../user/actionTypes';
+import {
+  LOGIN_USER_SUCCESS,
+  LOGIN_USER_FAILURE,
+  LOGOUT_USER,
+} from '../../user/actionTypes';
 import { JOIN_TEAM } from '../../teams/actionTypes';
 import {
   FETCH_SERVICE_REQUESTS_SUCCESS,
+  FETCH_SERVICE_REQUESTS_FAILURE,
   UPDATE_ONSITE_STATUS_SUCCESS,
+  UPDATE_ONSITE_STATUS_FAILURE,
   RESOLVE_SERVICE_REQUEST_SUCCESS,
+  RESOLVE_SERVICE_REQUEST_FAILURE,
   RESOLUTION_CODES,
   SELECT_SERVICE_REQUEST,
 } from '../../serviceRequests/actionTypes';
 import { SYNC_SERVICE_REQUESTS } from '../../offline/actionTypes';
+import { API_REQUEST_NETWORK_ERROR } from '../../shared/actionTypes';
 
 const GoogleAnalytics = new GoogleAnalyticsTracker(Config.GOOGLE_ANALYTICS_TRACKING_ID);
 
@@ -55,6 +63,21 @@ const Actions = {
 
 const googleAnalytics = store => next => action => {
   switch (action.type) {
+    case API_REQUEST_NETWORK_ERROR: {
+      const { action: { requestMethod, requestPath }, error } = action;
+      const errorMessage = `${requestMethod} /${requestPath} "${error.message}"`
+      GoogleAnalytics.trackException(errorMessage, false)
+      return next(action);
+    }
+    case FETCH_SERVICE_REQUESTS_FAILURE:
+    case UPDATE_ONSITE_STATUS_FAILURE:
+    case RESOLVE_SERVICE_REQUEST_FAILURE:
+    case LOGIN_USER_FAILURE: {
+      const { request: { requestMethod, requestPath }, status, error } = action;
+      const errorMessage = `${requestMethod} /${requestPath} ${status} "${error}"`
+      GoogleAnalytics.trackException(errorMessage, false);
+      return next(action);
+    }
     case GA_TRACK_EVENT: {
       const { eventCategory, eventAction, eventLabel } = action;
       GoogleAnalytics.trackEvent(
