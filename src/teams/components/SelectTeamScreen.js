@@ -6,8 +6,6 @@ import { LIGHT_BLUE, BODY_BACKGROUND } from '../../shared';
 import { RouteIndices } from './TeamNavigation';
 import JoinTeamButton from './JoinTeamButton';
 
-import GoogleAnalytics from '../../analytics/googleAnalytics';
-
 export default class SelectTeamScreen extends Component {
   constructor(props){
     super(props);

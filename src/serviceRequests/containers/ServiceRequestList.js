@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import serviceRequestList from '../components/ServiceRequestList';
 import * as ServiceRequestActions from '../actions';
+import { gaTrackEvent } from '../../app/actions';
 import {
   getActiveServiceRequests,
   getInactiveServiceRequests,
@@ -24,7 +25,10 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators(ServiceRequestActions, dispatch);
+  return bindActionCreators({
+    gaTrackEvent,
+    ...ServiceRequestActions
+  }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(serviceRequestList);

@@ -21,8 +21,6 @@ import {
 import iconName from './img/icon_logout_name.png';
 import iconEmail from './img/icon_logout_email.png';
 
-import GoogleAnalytics from '../../analytics/googleAnalytics';
-
 class LogoutScene extends React.Component {
   constructor() {
     super();

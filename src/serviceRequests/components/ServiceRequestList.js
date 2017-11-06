@@ -161,11 +161,16 @@ export default class ServiceRequestList extends Component {
   }
 
   _changeFilter(newFilter) {
-      this.setState({ currentFilter: newFilter }, () => {
-        this.setState({ dataSource: this.state.dataSource.cloneWithRows(
-          this._filteredServiceRequests())
-        });
+    this.props.gaTrackEvent(
+      'Interactions',
+      'Filtered By',
+      newFilter === FILTERS.ACTIVE ? 'Active' : 'Closed'
+    )
+    this.setState({ currentFilter: newFilter }, () => {
+      this.setState({ dataSource: this.state.dataSource.cloneWithRows(
+        this._filteredServiceRequests())
       });
+    });
   }
 
   _filteredServiceRequests(filter) {
@@ -231,6 +236,7 @@ ServiceRequestList.propTypes = {
   enableFilters: PropTypes.bool,
   navigator: PropTypes.object.isRequired,
   selectServiceRequest: PropTypes.func.isRequired,
+  gaTrackEvent: PropTypes.func.isRequired,
 };
 
 const styles = StyleSheet.create({

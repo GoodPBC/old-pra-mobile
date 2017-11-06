@@ -12,6 +12,7 @@ import {
 
 import TabNavigator from 'react-native-tab-navigator';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import titleCase from 'title-case';
 
 import { ServiceRequestNavigation } from '../../serviceRequests';
 import { TeamNavigation } from '../../teams';
@@ -27,7 +28,6 @@ import teamsActiveIcon from './img/teams-icon-active.png';
 import teamsInactiveIcon from './img/teams-icon-inactive.png';
 
 import { Crashlytics, Answers } from 'react-native-fabric';
-import GoogleAnalytics from '../../analytics/googleAnalytics'
 
 import {
   DARK_BLUE,
@@ -63,9 +63,8 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    // GoogleAnalytics.trackScreenView('TEST');
-    // Crashlytics.log("TEST MESSAGE!!!! - EC");
-    // Answers.logCustom('Performed a custom event', { what: "hello" });
+    const screenName = titleCase(getKeyByValue(Tabs, this.state.selectedTab));
+    this.props.gaTrackScreenView(screenName);
   }
 
   componentWillReceiveProps(newProps) {
@@ -78,8 +77,8 @@ export default class App extends Component {
 
   handlePress(selectedTab) {
     return () => {
-      const screenName = getKeyByValue(Tabs, selectedTab);
-      GoogleAnalytics.trackScreenView(screenName);
+      const screenName = titleCase(getKeyByValue(Tabs, selectedTab));
+      this.props.gaTrackScreenView(screenName);
       this.setState({ selectedTab })
     }
   }
@@ -116,7 +115,7 @@ export default class App extends Component {
   }
 
   _resetNavigation() {
-    GoogleAnalytics.trackScreenView('MY_REQUESTS');
+    this.props.gaTrackScreenView('My Requests');
     this.setState({
       selectedTab: Tabs.MY_REQUESTS,
     })
@@ -201,6 +200,7 @@ export default class App extends Component {
 App.propTypes = {
   apiRequestInProgress: PropTypes.bool.isRequired,
   clearErrorMessage: PropTypes.func.isRequired,
+  gaTrackScreenView: PropTypes.func.isRequired,
   errorMessage: PropTypes.string,
   monitorNetworkChanges: PropTypes.func.isRequired,
   networkIsConnected: PropTypes.bool,

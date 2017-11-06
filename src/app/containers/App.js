@@ -5,7 +5,7 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import App from '../components/App';
-import { clearErrorMessage } from '../actions';
+import { gaTrackScreenView, clearErrorMessage } from '../actions';
 import { monitorNetworkChanges } from '../../offline/actions';
 import { getCurrentTeam } from '../../teams/selectors';
 
@@ -24,6 +24,7 @@ function mapStateToProps(state) {
  */
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
+    gaTrackScreenView,
     clearErrorMessage,
     monitorNetworkChanges,
   }, dispatch);
