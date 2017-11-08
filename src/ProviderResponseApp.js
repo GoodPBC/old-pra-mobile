@@ -19,7 +19,6 @@ const { width, height } = Dimensions.get('window');
 class ProviderResponseApp extends React.Component {
   constructor() {
     super();
-    console.log(Config)
     this.state = {
       appState: AppState.currentState,
       codepushed: false,
