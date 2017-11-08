@@ -1,10 +1,11 @@
 import React from 'react';
-import { View, Platform, Dimensions, AppState } from 'react-native';
+import { View, Platform, Dimensions, AppState, NativeModules } from 'react-native';
 import { Provider } from 'react-redux';
 import crashlytics from 'react-native-fabric-crashlytics';
 import Config from 'react-native-config';
 import codePush from 'react-native-code-push';
 import * as Progress from 'react-native-progress';
+import Instabug from 'instabug-reactnative';
 
 import App from './app/containers/App';
 import configureStore from './store';
@@ -18,6 +19,7 @@ const { width, height } = Dimensions.get('window');
 class ProviderResponseApp extends React.Component {
   constructor() {
     super();
+    console.log(Config)
     this.state = {
       appState: AppState.currentState,
       codepushed: false,
@@ -26,12 +28,20 @@ class ProviderResponseApp extends React.Component {
     this.handleAppStateChange = this.handleAppStateChange.bind(this);
   }
 
+  componentWillMount() {
+    this.initializeInstabug();
+  }
+
   componentDidMount() {
     AppState.addEventListener('change', this.handleAppStateChange);
   }
 
   componentWillUnmount() {
     AppState.removeEventListener('change', this.handleAppStateChange);
+  }
+
+  initializeInstabug() {
+    Instabug.startWithToken('IOS_APP_TOKEN', Instabug.invocationEvent.shake)
   }
 
   handleAppStateChange(nextAppState) {

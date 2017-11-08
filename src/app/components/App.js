@@ -175,13 +175,13 @@ export default class App extends Component {
 
   render() {
     let content = null;
-    if (!this.props.userIsAuthenticated) {
-      content = this._renderLogin();
-    } else if (!this.props.hasSelectedTeam) {
-      content = this._renderTeamSelect();
-    } else {
+    // if (!this.props.userIsAuthenticated) {
+      // content = this._renderLogin();
+    // } else if (!this.props.hasSelectedTeam) {
+      // content = this._renderTeamSelect();
+    // } else {
       content = this._renderTabs();
-    }
+    // }
     return (
       <View style={styles.container}>
         <StatusBar

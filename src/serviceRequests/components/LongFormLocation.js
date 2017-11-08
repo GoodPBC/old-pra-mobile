@@ -5,7 +5,9 @@ import {
   TouchableOpacity,
   StyleSheet,
   View,
-  Image
+  Image,
+  Platform,
+  ActionSheetIOS,
 } from 'react-native';
 import { formatLocationData, prioritizeLocationData } from '../helpers';
 
@@ -16,6 +18,24 @@ function mapsURL(serviceRequest) {
 }
 
 function onClickAddress(serviceRequest) {
+  // if (Platform.OS === 'ios') {
+  //   ActionSheetIOS.showActionSheetWithOptions({
+  //     options: [
+  //       'Cancel',
+  //       'View on Map',
+  //       'Get Directions',
+  //     ],
+  //     cancelButtonIndex: 0,
+  //     title: 'TITLE',
+  //     message: 'Memememessage',
+  //   }, (buttonIndex) => {
+  //     console.log(buttonIndex);
+  //   })
+  // }
+  console.log(serviceRequest)
+  return null;
+  if (!hasFullAddress(serviceRequest)) {
+  }
   const url = mapsURL(serviceRequest);
   Linking.canOpenURL(url).then(supported => {
     if (supported) {
@@ -30,37 +50,48 @@ function hasFullAddress(serviceRequest) {
   return serviceRequest.address && serviceRequest.city && serviceRequest.state && serviceRequest.zip;
 }
 
-export default function LongFormLocation({ serviceRequest }) {
-  /**
-   * Display all available location fields, excluding those without data.
-   */
-  const { primaryLocation } = prioritizeLocationData(serviceRequest);
-  const fieldNames = ['cross_streets', 'city', 'state', 'zip', 'borough', 'location_details'];
-  const remainingFields = fieldNames.filter(fieldName => !!serviceRequest[fieldName] && fieldName !== primaryLocation);
-  const textBlocks = remainingFields.map(fieldName => <Text key={fieldName}>{formatLocationData(serviceRequest, fieldName)}</Text>);
-
-  const content = (
-    <View style={styles.addressWrapper}>
-      <View style={styles.content}>
-        <View style={{ flexDirection: 'row' }}>
-          <View style={{ flex: 1, alignSelf: 'flex-start' }}>
-            <Text style={styles.primary}>{formatLocationData(serviceRequest, primaryLocation)}</Text>
-            {textBlocks}
-          </View>
-          <Image source={mapIcon} style={{alignSelf: 'center'}}/>
-        </View>
-      </View>  
-    </View>)
-  ;
-  if (hasFullAddress(serviceRequest)) {
-    return (
-      <TouchableOpacity onPress={() => onClickAddress(serviceRequest)}>
-        {content}
-      </TouchableOpacity>
-    );
+export default class LongFormLocation extends React.Component {
+  constructor() {
+    super();
   }
 
-  return content;
+  render() {
+    const { serviceRequest } = this.props;
+    /**
+    * Display all available location fields, excluding those without data.
+    */
+    const { primaryLocation } = prioritizeLocationData(serviceRequest);
+    const fieldNames = [
+      'cross_streets',
+      'city',
+      'state',
+      'zip',
+      'borough',
+      'location_details'
+    ];
+    const remainingFields = fieldNames.filter(fieldName => !!serviceRequest[fieldName] && fieldName !== primaryLocation);
+    const textBlocks = remainingFields.map(fieldName => <Text key={fieldName}>{formatLocationData(serviceRequest, fieldName)}</Text>);
+
+    return (
+      <View style={styles.addressWrapper}>
+        <View style={styles.content}>
+          <View style={{ flexDirection: 'row' }}>
+            <View style={{ flex: 1, alignSelf: 'flex-start' }}>
+              <Text style={styles.primary}>{formatLocationData(serviceRequest, primaryLocation)}</Text>
+              {textBlocks}
+            </View>
+            <TouchableOpacity
+              disabled
+              style={{ justifyContent: 'center' }}
+              onPress={() => onClickAddress(serviceRequest)}
+            >
+              <Image source={mapIcon} style={{alignSelf: 'center'}}/>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </View>
+    );
+  }
 }
 
 LongFormLocation.propTypes = {

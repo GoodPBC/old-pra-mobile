@@ -1,27 +1,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="com.providerresponseapp"
     android:versionCode="1"
     android:versionName="1.0">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" tools:remove="${excludeSystemAlertWindowPermission}"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" tools:node="remove" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" tools:node="remove" />
-    <uses-permission android:name="android.permission.PHONE" tools:node="remove"/>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" tools:node="remove" />
-    <uses-permission android:name="android.permission.READ_CALL_LOG" tools:node="remove" />
-    <uses-permission android:name="android.permission.WRITE_CALL_LOG" tools:node="remove" />
-    <uses-permission android:name="android.permission.CALL_PHONE" tools:node="remove" />
-    <uses-permission android:name="android.permission.ADD_VOICEMAIL" tools:node="remove" />
-    <uses-permission android:name="android.permission.USE_SIP" tools:node="remove" />
-    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" tools:node="remove" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
 
     <uses-sdk
         android:minSdkVersion="16"
-        android:targetSdkVersion="23" />
+        android:targetSdkVersion="22" />
 
     <application
       android:name=".MainApplication"
@@ -39,13 +26,6 @@
         </intent-filter>
       </activity>
       <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
-      <meta-data
-          android:name="io.fabric.ApiKey"
-          android:value="3612185d6dfe9c1be2a7032aab794c7dff837e13"
-      />
-      <meta-data
-        android:name="com.google.android.geo.API_KEY"
-        android:value="AIzaSyBTOq93Ii6izz5mJG-neVwq2SqC4fF-INA"
-      />
     </application>
+
 </manifest>
