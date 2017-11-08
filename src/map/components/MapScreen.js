@@ -97,7 +97,7 @@ export default class MapScreen extends Component {
     }
   }
 
-  componentWillMount() {
+  componentDidMount() {
     for (var i = 0; i < this.props.activeServiceRequests.length; i++) {
       getLatLong(
         this.props.activeServiceRequests[i],
