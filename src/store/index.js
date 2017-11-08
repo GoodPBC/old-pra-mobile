@@ -21,12 +21,20 @@ const reducer = combineReducers({
   user,
 });
 
+// include 'logger' for debugging
+const middleware = applyMiddleware(
+  thunk,
+  googleAnalytics,
+  offlineSync,
+  providerAPI
+);
+
 const logger = createLogger();
 
 export default function configureStore() {
   const store = createStore(
     reducer,
-    applyMiddleware(thunk, googleAnalytics, offlineSync, providerAPI), // include 'logger' for debugging
+    middleware,
     autoRehydrate()
   );
   persistStore(store, { storage: AsyncStorage }); // .purge() to reset
