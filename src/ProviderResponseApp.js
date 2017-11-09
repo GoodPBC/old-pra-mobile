@@ -75,11 +75,12 @@ class ProviderResponseApp extends React.Component {
     const circleSize = Math.min(width, height) * 0.5;
 
     if (!this.state.codepushed) {
+      //TODO Use background Image during the loading.
       return (
-        <View style={{flex: 1, backgroundColor: 'pink', justifyContent: 'center', alignItems: 'center'}}>
+        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
           <Progress.Circle
             indeterminate={!downloadProgress}
-            color="#000000"
+            color="#FF0000"
             progress={downloadProgress}
             showsText={true}
             size={circleSize}
