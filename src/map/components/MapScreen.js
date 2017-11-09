@@ -22,7 +22,7 @@ import {
   X_AXIS_PADDING,
 } from '../../shared';
 
-import MapView from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 
 const INITIAL_LATITUDE = 40.705342;
 const INITIAL_LONGITUDE = -74.012035;
@@ -240,7 +240,7 @@ export default class MapScreen extends Component {
     return (
       <View style={styles.container}>
         <MapView
-          provider={MapView.PROVIDER_GOOGLE}
+          provider={PROVIDER_GOOGLE}
           style={styles.map}
           region={region}
           onRegionChange={this.onRegionChange}
