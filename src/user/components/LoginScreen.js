@@ -13,11 +13,13 @@ import {
   InvertText,
   InvertTextInput,
   Radio,
+  ImageContainer,
+  Separator,
   X_AXIS_PADDING,
 } from '../../shared';
+
 import loginBackgroundImage from './img/LoginBackground.png';
 import logoImage from './img/NYC_DHS-Logo.png';
-import Separator from '../../shared/components/Separator';
 import OfflineBanner from '../../offline/components/OfflineBanner';
 import LoginSpinner from './LoginSpinner';
 
@@ -51,45 +53,43 @@ export default class LoginScreen extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <ImageContainer>
         {!this.props.networkIsConnected && <OfflineBanner />}
-        <Image source={loginBackgroundImage} style={styles.backgroundImage}>
-          <View style={styles.wrapper}>
-          {this.props.apiRequestInProgress && !this.props.userIsAuthenticated ? <LoginSpinner /> : null}
-            <Image resizeMode="contain" source={logoImage} style={styles.logo} />
-            <KeyboardAvoidingView behavior="padding" style={styles.form}>
-              <InvertTextInput
-                style={styles.loginModalInput}
-                onChangeText={(email) => this.setState({ email })}
-                autoCorrect={false}
-                autoCapitalize={'none'}
-                placeholder="User ID"
-                value={this.state.email}
-              />
-              <InvertTextInput
-                style={styles.loginModalInput}
-                onChangeText={(password) => this.setState({ password })}
-                autoCorrect={false}
-                autoCapitalize={'none'}
-                secureTextEntry={!this.state.showPassword}
-                placeholder="Password"
-                value={this.state.password}
-              />
-              <View style={styles.showPassword}>
-                <TouchableOpacity style={styles.showPasswordRadio} onPress={this._toggleShowPassword}>
-                  <Radio checked={this.state.showPassword} />
-                </TouchableOpacity>
-                <InvertText>Show Password</InvertText>
-              </View>
-              <InvertButton
-                disabled={!this._enableLoginButton()}
-                onPress={this._submitForm}>
-                Login
-              </InvertButton>
-            </KeyboardAvoidingView>
-          </View>
-        </Image>
-      </View>
+        <View style={styles.wrapper}>
+        {this.props.apiRequestInProgress && !this.props.userIsAuthenticated ? <LoginSpinner /> : null}
+          <Image resizeMode="contain" source={logoImage} style={styles.logo} />
+          <KeyboardAvoidingView behavior="padding" style={styles.form}>
+            <InvertTextInput
+              style={styles.loginModalInput}
+              onChangeText={(email) => this.setState({ email })}
+              autoCorrect={false}
+              autoCapitalize={'none'}
+              placeholder="User ID"
+              value={this.state.email}
+            />
+            <InvertTextInput
+              style={styles.loginModalInput}
+              onChangeText={(password) => this.setState({ password })}
+              autoCorrect={false}
+              autoCapitalize={'none'}
+              secureTextEntry={!this.state.showPassword}
+              placeholder="Password"
+              value={this.state.password}
+            />
+            <View style={styles.showPassword}>
+              <TouchableOpacity style={styles.showPasswordRadio} onPress={this._toggleShowPassword}>
+                <Radio checked={this.state.showPassword} />
+              </TouchableOpacity>
+              <InvertText>Show Password</InvertText>
+            </View>
+            <InvertButton
+              disabled={!this._enableLoginButton()}
+              onPress={this._submitForm}>
+              Login
+            </InvertButton>
+          </KeyboardAvoidingView>
+        </View>
+      </ImageContainer>
     );
   }
 }
@@ -99,14 +99,6 @@ LoginScreen.propTypes = {
 };
 
 const styles = StyleSheet.create({
-  backgroundImage: {
-    flex: 1,
-    width: null,
-    height: null,
-  },
-  container: {
-    flex: 1,
-  },
   form: {},
   loginModalInput: {
     marginBottom: 15,

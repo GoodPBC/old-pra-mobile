@@ -23,6 +23,7 @@ import InvertTextInput from './components/InvertTextInput';
 import Navigation from './components/Navigation';
 import Radio from './components/Radio';
 import Separator from './components/Separator';
+import ImageContainer from './components/ImageContainer';
 
 export {
   API_REQUEST,
@@ -46,4 +47,5 @@ export {
   Navigation,
   Radio,
   Separator,
+  ImageContainer,
 };

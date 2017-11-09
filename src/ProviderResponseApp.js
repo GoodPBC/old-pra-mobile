@@ -8,6 +8,7 @@ import * as Progress from 'react-native-progress';
 import Instabug from 'instabug-reactnative';
 
 import App from './app/containers/App';
+import { ImageContainer } from './shared';
 import configureStore from './store';
 
 crashlytics.init();
@@ -23,8 +24,10 @@ class ProviderResponseApp extends React.Component {
       appState: AppState.currentState,
       codepushed: false,
       downloadProgress: 0,
+      backgroundImageLoaded: false,
     };
     this.handleAppStateChange = this.handleAppStateChange.bind(this);
+    this.setBackgroundImageLoaded = this.setBackgroundImageLoaded.bind(this);
   }
 
   componentWillMount() {
@@ -43,7 +46,7 @@ class ProviderResponseApp extends React.Component {
     Instabug.setPromptOptionsEnabled(false, true, true);
     Instabug.startWithToken(
       Config[`INSTABUG_TOKEN_${Platform.OS.toUpperCase()}`],
-      Instabug.invocationEvent.shake
+      Instabug.invocationEvent.none
     )
   }
 
@@ -70,23 +73,33 @@ class ProviderResponseApp extends React.Component {
     this.setState({ downloadProgress: receivedBytes / totalBytes });
   }
 
+  setBackgroundImageLoaded(bool) {
+    return () => this.setState({ backgroundImageLoaded: bool });
+  }
+
   render() {
     const { downloadProgress } = this.state;
 
     const circleSize = Math.min(width, height) * 0.5;
 
     if (!this.state.codepushed) {
-      //TODO Use background Image during the loading.
       return (
-        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-          <Progress.Circle
-            indeterminate={!downloadProgress}
-            color="#FF0000"
-            progress={downloadProgress}
-            showsText={true}
-            size={circleSize}
-          />
-        </View>
+        <ImageContainer onLoadEnd={this.setBackgroundImageLoaded(true)}>
+          <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+            {
+              this.state.backgroundImageLoaded && (
+                <Progress.Circle
+                  hidden
+                  indeterminate={!downloadProgress}
+                  color="#FFFFFF"
+                  progress={downloadProgress}
+                  showsText={true}
+                  size={circleSize}
+                />
+              )
+            }
+          </View>
+        </ImageContainer>
       )
     }
 
