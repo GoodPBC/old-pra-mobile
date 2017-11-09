@@ -40,6 +40,7 @@ class ProviderResponseApp extends React.Component {
   }
 
   initializeInstabug() {
+    Instabug.setPromptOptionsEnabled(false, true, true);
     Instabug.startWithToken(
       Config[`INSTABUG_TOKEN_${Platform.OS.toUpperCase()}`],
       Instabug.invocationEvent.shake

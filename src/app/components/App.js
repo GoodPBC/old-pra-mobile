@@ -22,11 +22,6 @@ import { OfflineBanner } from '../../offline';
 import { LoginScreen, LogoutScreen } from '../../user';
 import { MapNavigation } from '../../map';
 
-import myRequestsActiveIcon from './img/my-requests-icon-active.png';
-import myRequestsInactiveIcon from './img/my-requests-icon-inactive.png';
-import teamsActiveIcon from './img/teams-icon-active.png';
-import teamsInactiveIcon from './img/teams-icon-inactive.png';
-
 import { Crashlytics, Answers } from 'react-native-fabric';
 
 import {

@@ -16,10 +16,12 @@ import {
   BODY_BACKGROUND,
   CARD_BORDER,
   X_AXIS_PADDING,
+  LIGHT_GRAY,
 } from '../../shared';
 
-import iconName from './img/icon_logout_name.png';
-import iconEmail from './img/icon_logout_email.png';
+import Icon from 'react-native-vector-icons/FontAwesome';
+
+const ICON_SIZE = 22;
 
 class LogoutScene extends React.Component {
   constructor() {
@@ -41,12 +43,12 @@ class LogoutScene extends React.Component {
             <Text style={[styles.text, styles.header]}>Logged In</Text>
           </View>
           <View style={styles.row}>
-            <Image source={iconName} />
+            <Icon style={styles.icon} name="bars" />
             <InvertText style={styles.text}>{user.name}</InvertText>
           </View>
           <Separator style={styles.separator} />
           <View style={styles.row}>
-            <Image source={iconEmail} />
+            <Icon style={styles.icon} name="envelope-o" />
             <InvertText style={styles.text}>{user.email}</InvertText>
           </View>
           <Separator style={styles.separator} />
@@ -120,6 +122,11 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  icon: {
+    fontSize: ICON_SIZE,
+    color: LIGHT_GRAY,
+    marginRight: 15,
   },
   separator: {
     marginBottom: 30,
