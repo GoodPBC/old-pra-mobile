@@ -76,7 +76,7 @@ class ProviderResponseApp extends React.Component {
         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
           <Progress.Circle
             indeterminate={!downloadProgress}
-            color="#FFFFFF"
+            color="#000000"
             progress={downloadProgress}
             showsText={true}
             size={circleSize}
