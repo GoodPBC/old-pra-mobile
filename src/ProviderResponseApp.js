@@ -40,7 +40,10 @@ class ProviderResponseApp extends React.Component {
   }
 
   initializeInstabug() {
-    Instabug.startWithToken('IOS_APP_TOKEN', Instabug.invocationEvent.shake)
+    Instabug.startWithToken(
+      Config[`INSTABUG_TOKEN_${Platform.OS.toUpperCase()}`],
+      Instabug.invocationEvent.shake
+    )
   }
 
   handleAppStateChange(nextAppState) {
@@ -73,7 +76,7 @@ class ProviderResponseApp extends React.Component {
 
     if (!this.state.codepushed) {
       return (
-        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <View style={{flex: 1, backgroundColor: 'pink', justifyContent: 'center', alignItems: 'center'}}>
           <Progress.Circle
             indeterminate={!downloadProgress}
             color="#000000"
