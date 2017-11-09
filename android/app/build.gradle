@@ -130,6 +130,7 @@ android {
             abiFilters "armeabi-v7a", "x86"
         }
         resValue "string", "build_config_package", "com.providerresponseapp"
+        multiDexEnabled true
     }
     signingConfigs {
         releaseStaging {

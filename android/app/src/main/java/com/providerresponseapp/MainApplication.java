@@ -51,7 +51,7 @@ public class MainApplication extends Application implements ReactApplication {
             new RNDeviceInfo(),
             new ReactNativeConfigPackage(),
             new CodePush(null, getApplicationContext(), BuildConfig.DEBUG),
-            		new RNInstabugReactnativePackage.Builder("YOUR_ANDROID_APPLICATION_TOKEN",MainApplication.this)
+        		new RNInstabugReactnativePackage.Builder(BuildConfig.INSTABUG_TOKEN_ANDROID,MainApplication.this)
 							.setInvocationEvent("shake")
 							.setPrimaryColor("#1D82DC")
 							.setFloatingEdge("left")
