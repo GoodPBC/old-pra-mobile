@@ -18,7 +18,6 @@ import {
   X_AXIS_PADDING,
 } from '../../shared';
 
-import loginBackgroundImage from './img/LoginBackground.png';
 import logoImage from './img/NYC_DHS-Logo.png';
 import OfflineBanner from '../../offline/components/OfflineBanner';
 import LoginSpinner from './LoginSpinner';
