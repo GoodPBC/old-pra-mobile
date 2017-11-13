@@ -50,6 +50,7 @@ class ProviderResponseApp extends React.Component {
   }
 
   initializeInstabug() {
+    console.log(Instabug)
     Instabug.setIntroMessageEnabled(false);
     Instabug.setPromptOptionsEnabled(false, true, true);
     Instabug.setPrimaryColor(processColor('#DE6053'));
