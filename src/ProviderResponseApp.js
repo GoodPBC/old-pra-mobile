@@ -1,5 +1,12 @@
 import React from 'react';
-import { View, Platform, Dimensions, AppState, NativeModules } from 'react-native';
+import {
+  View,
+  Platform,
+  Dimensions,
+  AppState,
+  processColor,
+  NativeModules,
+} from 'react-native';
 import { Provider } from 'react-redux';
 import crashlytics from 'react-native-fabric-crashlytics';
 import Config from 'react-native-config';
@@ -43,10 +50,13 @@ class ProviderResponseApp extends React.Component {
   }
 
   initializeInstabug() {
+    Instabug.setIntroMessageEnabled(false);
     Instabug.setPromptOptionsEnabled(false, true, true);
+    Instabug.setPrimaryColor(processColor('#DE6053'));
+    Instabug.setFloatingButtonEdge(Instabug.floatingButtonEdge.right, height - 120);
     Instabug.startWithToken(
       Config[`INSTABUG_TOKEN_${Platform.OS.toUpperCase()}`],
-      Instabug.invocationEvent.shake
+      Instabug.invocationEvent.floatingButton
     )
   }
 

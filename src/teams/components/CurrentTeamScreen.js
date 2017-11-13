@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Navigator } from 'react-native';
 import { RouteIndices } from './TeamNavigation';
 import {
   GradientBackground,
@@ -55,7 +55,7 @@ export default class CurrentTeamScreen extends Component {
     const hasJoinedTeam = !!this.props.currentTeam;
     const buttonSpace = 75;
     if (hasJoinedTeam) { // 3 buttons
-      return buttonSpace * 3;
+      // return buttonSpace * 3;
     }
 
     return buttonSpace * 2;
@@ -66,10 +66,9 @@ export default class CurrentTeamScreen extends Component {
     const changeTeamButton = <InvertButton onPress={this._goToChangeTeam} withBorder>Change Team</InvertButton>;
     const hasJoinedTeam = !!this.props.currentTeam;
     return (
-      <View
-        style={styles.container}>
+      <View style={styles.container}>
         <CurrentTeamHeader currentTeam={currentTeam} userName={userName} />
-        <View style={[styles.buttonsContainer, { height: this._buttonsContainerHeight() }]}>
+        <View style={[styles.buttonsContainer]}>
           {hasJoinedTeam && changeTeamButton}
         </View>
       </View>
@@ -85,15 +84,17 @@ CurrentTeamScreen.propTypes = {
 
 const styles = StyleSheet.create({
   buttonsContainer: {
-    height: 150,
+    // flex: 1,
+    // height: 150,
     justifyContent: 'space-between',
   },
   container: {
     backgroundColor: BODY_BACKGROUND,
     flex: 1,
-    justifyContent: 'space-around',
+    // justifyContent: 'space-around',
     paddingLeft: X_AXIS_PADDING,
     paddingRight: X_AXIS_PADDING,
+    // marginTop: Navigator.NavigationBar.Styles.General.TotalNavHeight,
   },
   teamName: {
     fontStyle: 'italic',

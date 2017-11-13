@@ -1,10 +1,10 @@
 import React, { PropTypes } from 'react';
-
 import {
   Image,
   StyleSheet,
   Text,
   View,
+  Navigator,
 } from 'react-native';
 import {
   InvertButton,
@@ -88,22 +88,21 @@ LogoutScreen.propTypes = {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: BODY_BACKGROUND,
     flex: 1,
-    paddingLeft: X_AXIS_PADDING,
-    paddingRight: X_AXIS_PADDING,
-    justifyContent: 'space-around',
+    backgroundColor: BODY_BACKGROUND,
+    paddingHorizontal: X_AXIS_PADDING,
+    marginTop: Navigator.NavigationBar.Styles.General.TotalNavHeight,
   },
   card: {
-    paddingLeft: 30,
-    paddingRight: 30,
+    marginTop: 30,
+    marginBottom: 20,
+    paddingHorizontal: 30,
     paddingTop: 30,
     paddingBottom: 20,
-    marginTop: 25,
     borderRadius: 4,
     borderColor: CARD_BORDER,
     borderWidth: 1,
-    backgroundColor: 'white'
+    backgroundColor: 'white',
     /*
     shadowColor: 'black',
     shadowOffset: {
@@ -117,7 +116,7 @@ const styles = StyleSheet.create({
   header: {
     alignSelf: 'center',
     fontSize: 25,
-    paddingBottom: 40,
+    paddingBottom: 30,
   },
   row: {
     flexDirection: 'row',
@@ -129,7 +128,7 @@ const styles = StyleSheet.create({
     marginRight: 15,
   },
   separator: {
-    marginBottom: 30,
+    marginBottom: 20,
     marginTop: 10,
     backgroundColor: LIGHT_BLUE,
   },

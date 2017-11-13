@@ -39,7 +39,7 @@ SelectTeamListItem.propTypes = {
 const styles = StyleSheet.create({
   checkboxContainer: {
     paddingLeft: 20,
-    paddingRight: 5,
+    paddingRight: 10,
   },
   container: {
     flexDirection: 'row',

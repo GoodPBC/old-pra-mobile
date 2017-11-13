@@ -5,6 +5,7 @@ import {
 } from '../../shared';
 import {
   GRAY_TEXT,
+  LIGHT_GRAY,
   LIGHT_BLUE,
   CARD_BORDER
 }
@@ -13,32 +14,31 @@ import {
 export default function CurrentTeamHeader({ currentTeam, userName }) {
   return (
     <View style={styles.container}>
-      <Text style={styles.tinyHeader}>TEAM</Text>
-      <Text style={styles.teamName}>{currentTeam ? currentTeam.name : 'Unassigned'}</Text>
+      <Text style={styles.tinyHeader}>CURRENT TEAM</Text>
+      <Text style={[styles.text, styles.teamName]}>{currentTeam ? currentTeam.name : 'Unassigned'}</Text>
       <Separator style={styles.separator} />
       <Text style={styles.tinyHeader}>MEMBER</Text>
-      <Text style={styles.userName}>{userName}</Text>
+      <Text style={[styles.text, styles.userName]}>{userName}</Text>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  text: {
+    color: LIGHT_GRAY,
+    textAlign: 'center',
+    marginTop: 10,
+  },
   teamName: {
-    fontStyle: 'italic',
     fontSize: 28,
-    color: LIGHT_BLUE,
   },
   userName: {
     fontSize: 22,
-    textAlign: 'center',
-    color: '#A8A8A8',
-    marginTop: 10,
   },
   separator: {
     backgroundColor: LIGHT_BLUE,
     width: 200,
-    marginTop: 25,
-    marginBottom: 25,
+    marginVertical: 25,
   },
   tinyHeader: {
     fontSize: 14,
@@ -47,12 +47,13 @@ const styles = StyleSheet.create({
   },
   container: {
     alignItems: 'center',
-    paddingTop: 40,
-    paddingBottom: 40,
+    marginTop: 40,
+    marginBottom: 20,
+    paddingVertical: 30,
     backgroundColor: 'white',
     borderRadius: 4,
     borderWidth: 1,
-    borderColor: CARD_BORDER
+    borderColor: CARD_BORDER,
     /*
     shadowColor: 'black',
     shadowOffset: {
