@@ -44,24 +44,15 @@ export default class MapScreen extends Component {
         latitudeDelta: LATITUDE_DELTA,
         longitudeDelta: LONGITUDE_DELTA,
       },
-      sampleActiveServiceRequests: [{
-        address: "250 WEST 34 STREET, N A",
-        borough: "MANHATTAN",
-        city: "NEW YORK",
-        provider_assigned_time:"Apr 14 2017 12:22PM",
-        sr_number:"1-1-1391897861",
-        latitude: 40.7513057,
-        longitude: -73.99237339999999
-      }]
     };
 
-    this.onRegionChange = this.onRegionChange.bind(this);
+    this.onRegionChangeComplete = this.onRegionChangeComplete.bind(this);
     this.setStateWithActiveServiceRequests = this.setStateWithActiveServiceRequests.bind(this);
     this.renderActiveServiceRequestMarkers = this.renderActiveServiceRequestMarkers.bind(this);
     this.getMapBoundaries = this.getMapBoundaries.bind(this);
   }
 
-  onRegionChange(region) {
+  onRegionChangeComplete(region) {
     this.setState({ region });
   }
 
@@ -236,14 +227,12 @@ export default class MapScreen extends Component {
 
   render() {
     const { region } = this.state;
-
     return (
       <View style={styles.container}>
         <MapView
-          provider={PROVIDER_GOOGLE}
           style={styles.map}
           region={region}
-          onRegionChange={this.onRegionChange}
+          onRegionChangeComplete={this.onRegionChangeComplete}
           showsUserLocation={true}
           showsMyLocationButton={true}
           showsCompass={true}
