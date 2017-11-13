@@ -72,7 +72,7 @@ async function makeRequestAndDispatchResponse({ action, store }) {
   //} else {
     const url = `${Config.BASE_URL}${action.requestPath}`;
     let body = '';
-    if (requestMethod === 'GET' || requestMethod === 'get') {
+    if (requestMethod.toUpperCase() === 'GET') {
       // Otherwise fails on Android.
       body = null;
     } else if (requestParams) {
