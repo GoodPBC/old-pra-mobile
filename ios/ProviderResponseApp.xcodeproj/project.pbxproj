@@ -1818,7 +1818,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = gov.nyc.dhs.providerresponse.staging;
+				PRODUCT_BUNDLE_IDENTIFIER = gov.nyc.dhs.providerresponse;
 				PRODUCT_NAME = ProviderResponseApp;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1875,7 +1875,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = gov.nyc.dhs.providerresponse.staging;
+				PRODUCT_BUNDLE_IDENTIFIER = gov.nyc.dhs.providerresponse;
 				PRODUCT_NAME = ProviderResponseApp;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";

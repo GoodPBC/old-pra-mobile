@@ -56,7 +56,7 @@ class ProviderResponseApp extends React.Component {
     Instabug.setFloatingButtonEdge(Instabug.floatingButtonEdge.right, height - 120);
     Instabug.startWithToken(
       Config[`INSTABUG_TOKEN_${Platform.OS.toUpperCase()}`],
-      Instabug.invocationEvent.none
+      Instabug.invocationEvent.floatingButton
     )
   }
 

@@ -13,7 +13,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>$(PRODUCT_NAME)</string>
+	<string>__RN_CONFIG_BUNDLE_DISPLAY_NAME</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -56,9 +56,9 @@
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>$(__RN_CONFIG_BUNDLE_DISPLAY_NAME) needs access to the microphone to be able to attach voice notes.</string>
+	<string>We need access to the microphone to be able to attach voice notes.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>$(__RN_CONFIG_BUNDLE_DISPLAY_NAME) needs access to your photo library for you to be able to attach images.</string>
+	<string>We need access to your photo library for you to be able to attach images.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Entypo.ttf</string>

@@ -1,4 +1,14 @@
-app_identifier 'gov.nyc.dhs.providerresponse'
+# app_identifier 'gov.nyc.dhs.providerresponse'
 team_id '4F2N2E6UU5'
 itc_team_id '118090205'
 apple_id ENV["USERNAME"]
+
+for_platform :ios do
+  for_lane :staging do
+    app_identifier 'gov.nyc.dhs.providerresponse.staging'
+  end
+
+  for_lane :beta do
+    app_identifier 'gov.nyc.dhs.providerresponse'
+  end
+end

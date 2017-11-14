@@ -18,19 +18,18 @@ default_platform :ios
 platform :ios do
   desc 'Staging Builds'
   lane :staging do
-    ensure_git_status_clean
     cert
     sigh(app_identifier: 'gov.nyc.dhs.providerresponse.staging')
     increment_build_number(
       build_number: latest_testflight_build_number + 1,
       xcodeproj: './ios/ProviderResponseApp.xcodeproj'
     )
-    commit_version_bump
     gym(
       clean: true,
       scheme: 'ProviderResponseApp-Staging',
       #project: './ios/ProviderResponseApp.xcodeproj',
-      workspace: './ios/ProviderResponseApp.xcworkspace'
+      workspace: './ios/ProviderResponseApp.xcworkspace',
+      export_xcargs: "-allowProvisioningUpdates"
     )
     pilot(
       skip_waiting_for_build_processing: true,
@@ -41,22 +40,20 @@ platform :ios do
 
   desc 'Beta Builds'
   lane :beta do
-    ensure_git_status_clean
     cert
-    sigh
+    sigh(app_identifier: 'gov.nyc.dhs.providerresponse')
     increment_build_number(
       build_number: latest_testflight_build_number + 1,
       xcodeproj: './ios/ProviderResponseApp.xcodeproj'
     )
-    commit_version_bump
     gym(
       clean: true,
       scheme: 'ProviderResponseApp-Production',
       # project: './ios/ProviderResponseApp.xcodeproj'
-      workspace: './ios/ProviderResponseApp.xcworkspace'
+      workspace: './ios/ProviderResponseApp.xcworkspace',
+      export_xcargs: "-allowProvisioningUpdates"
     )
     pilot(skip_waiting_for_build_processing: true)
-    push_to_git_remote
   end
 end
 
