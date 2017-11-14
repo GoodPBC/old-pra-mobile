@@ -26,6 +26,7 @@ platform :ios do
       xcodeproj: './ios/ProviderResponseApp.xcodeproj'
     )
     commit_version_bump(
+      force: true,
       xcodeproj: './ios/ProviderResponseApp.xcodeproj'
     )
     gym(
@@ -51,6 +52,7 @@ platform :ios do
       xcodeproj: './ios/ProviderResponseApp.xcodeproj'
     )
     commit_version_bump(
+      force: true,
       xcodeproj: './ios/ProviderResponseApp.xcodeproj'
     )
     gym(
