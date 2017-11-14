@@ -25,6 +25,7 @@
     "react-native-loading-spinner-overlay": "^0.4.2",
     "react-native-maps": "^0.17.1",
     "react-native-progress": "^3.4.0",
+    "react-native-safe-area": "^0.2.1",
     "react-native-simple-radio-button": "^2.4.0",
     "react-native-slowlog": "^1.0.2",
     "react-native-storage": "^0.1.5",

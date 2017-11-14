@@ -18,7 +18,6 @@ import { ServiceRequestNavigation } from '../../serviceRequests';
 import { TeamNavigation } from '../../teams';
 import SelectTeamModal from '../../teams/containers/SelectTeamModal';
 import { OfflineBanner } from '../../offline';
-
 import { LoginScreen, LogoutScreen } from '../../user';
 import { MapNavigation } from '../../map';
 
@@ -27,6 +26,7 @@ import { Crashlytics, Answers } from 'react-native-fabric';
 import {
   DARK_BLUE,
   GRAY_TEXT,
+  selectStyle,
 } from '../../shared';
 
 const Tabs = {
@@ -44,11 +44,11 @@ const getKeyByValue = (obj, val) => Object.keys(obj).find(key => obj[key] === va
 export default class App extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       selectedTab: Tabs.MY_REQUESTS,
     };
 
+    this.onLayout = this.onLayout.bind(this);
     this.handlePress = this.handlePress.bind(this);
     this._resetNavigation = this._resetNavigation.bind(this);
   }
@@ -68,6 +68,15 @@ export default class App extends Component {
         { text: 'OK', onPress: this.props.clearErrorMessage },
       ]);
     }
+  }
+
+  onLayout(e) {
+    const { width, height } = e.nativeEvent.layout;
+    this.props.updateDeviceInfo({
+      width,
+      height,
+      orientation: height >= width ? 'portrait' : 'landscape',
+    })
   }
 
   handlePress(selectedTab) {
@@ -117,8 +126,22 @@ export default class App extends Component {
   }
 
   _renderTabs() {
+    const tabBarStyle = selectStyle({
+      'iPhone X': {
+        'portrait': {
+          height: 49 + 34,
+          paddingBottom: 34,
+        },
+        'landscape': {
+          height: 49 + 21,
+          paddingBottom: 21,
+          paddingHorizontal: 44,
+        },
+      },
+    }, this.props.deviceInfo.orientation);
+
     return (
-      <TabNavigator>
+      <TabNavigator tabBarStyle={tabBarStyle}>
         <TabNavigator.Item
           selected={this.state.selectedTab === Tabs.MY_REQUESTS}
           title="My Requests"
@@ -177,8 +200,24 @@ export default class App extends Component {
     } else {
       content = this._renderTabs();
     }
+
+    const iPhoneXStyle = selectStyle({
+      'iPhone X': {
+        'portrait': {
+          borderTopWidth: 24,
+          borderTopColor: DARK_BLUE,
+        },
+        'landscape': {
+          marginTop: -20,
+        },
+      },
+    }, this.props.deviceInfo.orientation);
+
     return (
-      <View style={styles.container}>
+      <View
+        onLayout={this.onLayout}
+        style={[styles.container, iPhoneXStyle]}
+      >
         <StatusBar
           translucent
           hidden={false}

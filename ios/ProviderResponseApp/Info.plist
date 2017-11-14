@@ -2,12 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>$(__RN_CONFIG_BUNDLE_DISPLAY_NAME) needs access to the microphone to be able to attach voice notes.</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>$(__RN_CONFIG_BUNDLE_DISPLAY_NAME) needs access to your photo library for you to be able to attach images.</string>
-	<key>LSApplicationCategoryType</key>
-	<string></string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -44,6 +38,8 @@
 	</dict>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
+	<key>LSApplicationCategoryType</key>
+	<string></string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -59,6 +55,10 @@
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>$(__RN_CONFIG_BUNDLE_DISPLAY_NAME) needs access to the microphone to be able to attach voice notes.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>$(__RN_CONFIG_BUNDLE_DISPLAY_NAME) needs access to your photo library for you to be able to attach images.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Entypo.ttf</string>
@@ -86,8 +86,6 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>

@@ -5,12 +5,17 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import App from '../components/App';
-import { gaTrackScreenView, clearErrorMessage } from '../actions';
+import {
+  updateDeviceInfo,
+  gaTrackScreenView,
+  clearErrorMessage
+} from '../actions';
 import { monitorNetworkChanges } from '../../offline/actions';
 import { getCurrentTeam } from '../../teams/selectors';
 
 function mapStateToProps(state) {
   return {
+    deviceInfo: state.app.deviceInfo,
     apiRequestInProgress: state.app.apiRequestInProgress,
     errorMessage: state.app.errorMessage,
     hasSelectedTeam: !!getCurrentTeam(state),
@@ -24,6 +29,7 @@ function mapStateToProps(state) {
  */
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
+    updateDeviceInfo,
     gaTrackScreenView,
     clearErrorMessage,
     monitorNetworkChanges,

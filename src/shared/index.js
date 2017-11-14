@@ -14,6 +14,7 @@ import {
   FORBIDDEN_RESPONSE_STATUS,
   X_AXIS_PADDING,
 } from './constants';
+
 import Button from './components/Button';
 import Checkbox from './components/Checkbox';
 import GradientBackground from './components/GradientBackground';
@@ -24,6 +25,8 @@ import Navigation from './components/Navigation';
 import Radio from './components/Radio';
 import Separator from './components/Separator';
 import ImageContainer from './components/ImageContainer';
+
+import selectStyle from './helpers/selectStyle';
 
 export {
   API_REQUEST,
@@ -48,4 +51,5 @@ export {
   Radio,
   Separator,
   ImageContainer,
+  selectStyle,
 };

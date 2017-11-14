@@ -7,16 +7,24 @@ import {
 } from '../shared';
 
 import {
+  UPDATE_DEVICE_INFO,
   CLEAR_ERROR_MESSAGE,
 } from './actionTypes';
 
 const initialState = {
+  deviceInfo: {},
   apiRequestInProgress: false,
   errorMessage: null,
 };
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
+    case UPDATE_DEVICE_INFO: {
+      return {
+        ...state,
+        deviceInfo: { ...state.deviceInfo, ...action.deviceInfo },
+      }
+    }
     // Start the network activity indicator
     case API_REQUEST:
       return {
