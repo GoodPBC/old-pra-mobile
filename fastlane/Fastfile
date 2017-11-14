@@ -25,10 +25,7 @@ platform :ios do
       build_number: latest_testflight_build_number + 1,
       xcodeproj: './ios/ProviderResponseApp.xcodeproj'
     )
-    commit_version_bump(
-      force: true,
-      xcodeproj: './ios/ProviderResponseApp.xcodeproj'
-    )
+    commit_version_bump
     gym(
       clean: true,
       scheme: 'ProviderResponseApp-Staging',
@@ -51,10 +48,7 @@ platform :ios do
       build_number: latest_testflight_build_number + 1,
       xcodeproj: './ios/ProviderResponseApp.xcodeproj'
     )
-    commit_version_bump(
-      force: true,
-      xcodeproj: './ios/ProviderResponseApp.xcodeproj'
-    )
+    commit_version_bump
     gym(
       clean: true,
       scheme: 'ProviderResponseApp-Production',
