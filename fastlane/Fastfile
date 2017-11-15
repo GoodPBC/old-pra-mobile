@@ -32,7 +32,7 @@ platform :ios do
     )
     build_number = get_build_number(xcodeproj: './ios/ProviderResponseApp.xcodeproj')
     add_badge(
-      glob: "./ios/ProviderResponseApp/Images.scassets/AppIcon.appiconset/*.{png,PNG}",
+      glob: "/ios/ProviderResponseApp/Images.xcassets/AppIcon.appiconset/*.{png,PNG}",
       shield: "Staging-#{build_number}-brightgreen",
       no_badge: true
     )
@@ -42,7 +42,7 @@ platform :ios do
       #project: './ios/ProviderResponseApp.xcodeproj',
       workspace: './ios/ProviderResponseApp.xcworkspace',
     )
-    sh 'git checkout -- ios/ProviderResponseApp/Images.xcassets'
+    sh 'git checkout -- ../ios/ProviderResponseApp/Images.xcassets'
     pilot(
       skip_waiting_for_build_processing: true,
       app_identifier: 'gov.nyc.dhs.providerresponse.staging'
