@@ -99,31 +99,23 @@ platform :android do
 
   desc 'Android Staging Build'
   lane :staging do
-    # Read version_code
-    version_file = '../android/version_code'
-    version_code = File.read(version_file).to_i
-    version_code += 1
+    version_code = google_play_track_version_codes(track: 'alpha')
+    version_code = version_code[0] + 1
+    gradle(
+      project_dir: 'android',
+      task: 'assemble',
+      build_type: 'ReleaseStaging',
+      properties: {
+        versionCode: version_code
+      }
+    )
+    supply(
+      track: 'alpha'
+    )
+  end
 
-    google_play_track_version_codes
-
-    # Deploy to Google Play
-    # gradle(
-    #   project_dir: 'android',
-    #   task: 'assemble',
-    #   build_type: 'ReleaseStaging',
-    #   properties: {
-    #     versionCode: version_code
-    #   }
-    # )
-    #
-    # supply(
-    #   track: 'alpha'
-    # )
-
-    # Save incremented version_code
-    # f = File.new(version_file, 'w')
-    # f.write(version_code)
-    # f.close
+  lane :beta do
+    
   end
 
   # desc 'Deploy to crashlytics (production)'
