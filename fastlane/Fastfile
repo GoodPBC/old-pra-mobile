@@ -19,22 +19,22 @@ platform :ios do
 
   desc 'Staging Builds'
   lane :staging do
-    new_build_number = latest_testflight_build_number + 1
     update_app_identifier(
       xcodeproj: './ios/ProviderResponseApp.xcodeproj',
       plist_path: './ProviderResponseApp/Info.plist',
       app_identifier: 'gov.nyc.dhs.providerresponse.staging'
     )
-    add_badge(
-      glob: "./ios/ProviderResponseApp/Images.scassets/AppIcon.appiconset/*.{png,PNG}",
-      shield: "Staging-#{new_build_number}-brightgreen",
-      no_badge: true
-    )
     cert
     sigh(app_identifier: 'gov.nyc.dhs.providerresponse.staging')
     increment_build_number(
-      build_number: new_build_number,
+      build_number: latest_testflight_build_number + 1,
       xcodeproj: './ios/ProviderResponseApp.xcodeproj'
+    )
+    build_number = get_build_number(xcodeproj: './ios/ProviderResponseApp.xcodeproj')
+    add_badge(
+      glob: "./ios/ProviderResponseApp/Images.scassets/AppIcon.appiconset/*.{png,PNG}",
+      shield: "Staging-#{build_number}-brightgreen",
+      no_badge: true
     )
     gym(
       clean: true,
@@ -42,6 +42,7 @@ platform :ios do
       #project: './ios/ProviderResponseApp.xcodeproj',
       workspace: './ios/ProviderResponseApp.xcworkspace',
     )
+    sh 'git checkout -- ios/ProviderResponseApp/Images.xcassets'
     pilot(
       skip_waiting_for_build_processing: true,
       app_identifier: 'gov.nyc.dhs.providerresponse.staging'
@@ -68,7 +69,6 @@ platform :ios do
       workspace: './ios/ProviderResponseApp.xcworkspace',
     )
     pilot(skip_waiting_for_build_processing: true)
-    sh 'git checkout -- ios/ProviderResponseApp/Images.xcassets'
   end
 end
 
