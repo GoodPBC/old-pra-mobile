@@ -11,17 +11,29 @@
 
 # This is the minimum version number required.
 # Update this, if you use features of a newer version
-fastlane_version '2.3.0'
+fastlane_version '2.64.1'
 
 default_platform :ios
 
 platform :ios do
+
   desc 'Staging Builds'
   lane :staging do
+    new_build_number = latest_testflight_build_number + 1
+    update_app_identifier(
+      xcodeproj: './ios/ProviderResponseApp.xcodeproj',
+      plist_path: './ProviderResponseApp/Info.plist',
+      app_identifier: 'gov.nyc.dhs.providerresponse.staging'
+    )
+    add_badge(
+      glob: "./ios/ProviderResponseApp/Images.scassets/AppIcon.appiconset/*.{png,PNG}",
+      shield: "Staging-#{new_build_number}-brightgreen",
+      no_badge: true
+    )
     cert
     sigh(app_identifier: 'gov.nyc.dhs.providerresponse.staging')
     increment_build_number(
-      build_number: latest_testflight_build_number + 1,
+      build_number: new_build_number,
       xcodeproj: './ios/ProviderResponseApp.xcodeproj'
     )
     gym(
@@ -29,7 +41,6 @@ platform :ios do
       scheme: 'ProviderResponseApp-Staging',
       #project: './ios/ProviderResponseApp.xcodeproj',
       workspace: './ios/ProviderResponseApp.xcworkspace',
-      export_xcargs: "-allowProvisioningUpdates"
     )
     pilot(
       skip_waiting_for_build_processing: true,
@@ -37,9 +48,13 @@ platform :ios do
     )
   end
 
-
   desc 'Beta Builds'
   lane :beta do
+    update_app_identifier(
+      xcodeproj: './ios/ProviderResponseApp.xcodeproj',
+      plist_path: './ProviderResponseApp/Info.plist',
+      app_identifier: 'gov.nyc.dhs.providerresponse'
+    )
     cert
     sigh(app_identifier: 'gov.nyc.dhs.providerresponse')
     increment_build_number(
@@ -51,9 +66,9 @@ platform :ios do
       scheme: 'ProviderResponseApp-Production',
       # project: './ios/ProviderResponseApp.xcodeproj'
       workspace: './ios/ProviderResponseApp.xcworkspace',
-      export_xcargs: "-allowProvisioningUpdates"
     )
     pilot(skip_waiting_for_build_processing: true)
+    sh 'git checkout -- ios/ProviderResponseApp/Images.xcassets'
   end
 end
 

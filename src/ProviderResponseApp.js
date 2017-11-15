@@ -38,7 +38,6 @@ class ProviderResponseApp extends React.Component {
   }
 
   componentWillMount() {
-    this.initializeInstabug();
   }
 
   componentDidMount() {
@@ -73,6 +72,7 @@ class ProviderResponseApp extends React.Component {
         this.setState({ downloadProgress: 0 });
       case codePush.SyncStatus.UP_TO_DATE:
       case codePush.SyncStatus.UNKNOWN_ERROR:
+        this.initializeInstabug();
         this.setState({ codepushed: true });
         break;
     }
