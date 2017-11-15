@@ -41,6 +41,7 @@ class ProviderResponseApp extends React.Component {
   }
 
   componentDidMount() {
+    this.initializeInstabug();
     AppState.addEventListener('change', this.handleAppStateChange);
   }
 
@@ -55,8 +56,14 @@ class ProviderResponseApp extends React.Component {
     Instabug.setFloatingButtonEdge(Instabug.floatingButtonEdge.right, height - 120);
     Instabug.startWithToken(
       Config[`INSTABUG_TOKEN_${Platform.OS.toUpperCase()}`],
-      Instabug.invocationEvent.floatingButton
+      Instabug.invocationEvent.none
     )
+    setTimeout(() => {
+      Instabug.startWithToken(
+        Config[`INSTABUG_TOKEN_${Platform.OS.toUpperCase()}`],
+        Instabug.invocationEvent.floatingButton
+      )
+    }, 3000)
   }
 
   handleAppStateChange(nextAppState) {
