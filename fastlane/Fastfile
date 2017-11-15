@@ -19,6 +19,7 @@ platform :ios do
 
   desc 'Staging Builds'
   lane :staging do
+    build_number = latest_testflight_build_number + 1
     update_app_identifier(
       xcodeproj: './ios/ProviderResponseApp.xcodeproj',
       plist_path: './ProviderResponseApp/Info.plist',
@@ -27,10 +28,9 @@ platform :ios do
     cert
     sigh(app_identifier: 'gov.nyc.dhs.providerresponse.staging')
     increment_build_number(
-      build_number: latest_testflight_build_number + 1,
+      build_number: build_number,
       xcodeproj: './ios/ProviderResponseApp.xcodeproj'
     )
-    build_number = get_build_number(xcodeproj: './ios/ProviderResponseApp.xcodeproj')
     add_badge(
       glob: "/ios/ProviderResponseApp/Images.xcassets/AppIcon.appiconset/*.{png,PNG}",
       shield: "Staging-#{build_number}-brightgreen",
@@ -51,6 +51,7 @@ platform :ios do
 
   desc 'Beta Builds'
   lane :beta do
+    build_number = latest_testflight_build_number + 1
     update_app_identifier(
       xcodeproj: './ios/ProviderResponseApp.xcodeproj',
       plist_path: './ProviderResponseApp/Info.plist',
@@ -59,7 +60,7 @@ platform :ios do
     cert
     sigh(app_identifier: 'gov.nyc.dhs.providerresponse')
     increment_build_number(
-      build_number: latest_testflight_build_number + 1,
+      build_number: build_number,
       xcodeproj: './ios/ProviderResponseApp.xcodeproj'
     )
     gym(
@@ -73,49 +74,78 @@ platform :ios do
 end
 
 platform :android do
-  desc 'Deploy to crashlytics (staging)'
+  # desc 'Deploy to crashlytics (staging)'
+  # lane :staging do
+  #   version_file = '../android/version_code'
+  #   version_code = File.read(version_file).to_i
+  #   version_code += 1
+  #
+  #   f = File.new(version_file, 'w')
+  #   f.write(version_code)
+  #   f.close
+  #
+  #   gradle(
+  #     project_dir: 'android',
+  #     task: 'assemble',
+  #     build_type: 'Staging',
+  #     properties: { versionCode: version_code }
+  #   )
+  #   crashlytics(
+  #     groups: ['testers'],
+  #     api_token: ENV['CRASHLYTICS_API_TOKEN'],
+  #     build_secret: ENV['CRASHLYTICS_BUILD_SECRET']
+  #   )
+  # end
+
+  desc 'Android Staging Build'
   lane :staging do
+    # Read version_code
     version_file = '../android/version_code'
     version_code = File.read(version_file).to_i
     version_code += 1
 
-    f = File.new(version_file, 'w')
-    f.write(version_code)
-    f.close
+    google_play_track_version_codes
 
-    gradle(
-      project_dir: 'android',
-      task: 'assemble',
-      build_type: 'Staging',
-      properties: { versionCode: version_code }
-    )
-    crashlytics(
-      groups: ['testers'],
-      api_token: ENV['CRASHLYTICS_API_TOKEN'],
-      build_secret: ENV['CRASHLYTICS_BUILD_SECRET']
-    )
+    # Deploy to Google Play
+    # gradle(
+    #   project_dir: 'android',
+    #   task: 'assemble',
+    #   build_type: 'ReleaseStaging',
+    #   properties: {
+    #     versionCode: version_code
+    #   }
+    # )
+    #
+    # supply(
+    #   track: 'alpha'
+    # )
+
+    # Save incremented version_code
+    # f = File.new(version_file, 'w')
+    # f.write(version_code)
+    # f.close
   end
 
-  desc 'Deploy to crashlytics (production)'
-  lane :beta do
-    version_file = '../android/version_code'
-    version_code = File.read(version_file).to_i
-    version_code += 1
-
-    f = File.new(version_file, 'w')
-    f.write(version_code)
-    f.close
-
-    gradle(
-      project_dir: 'android',
-      task: 'assemble',
-      build_type: 'Release',
-      properties: { versionCode: version_code }
-    )
-    crashlytics(
-      groups: ['testers'],
-      api_token: ENV['CRASHLYTICS_API_TOKEN'],
-      build_secret: ENV['CRASHLYTICS_BUILD_SECRET']
-    )
-  end
+  # desc 'Deploy to crashlytics (production)'
+  # lane :beta do
+  #   version_file = '../android/version_code'
+  #   version_code = File.read(version_file).to_i
+  #   version_code += 1
+  #
+  #   f = File.new(version_file, 'w')
+  #   f.write(version_code)
+  #   f.close
+  #
+  #   gradle(
+  #     project_dir: 'android',
+  #     task: 'assemble',
+  #     build_type: 'Release',
+  #     properties: { versionCode: version_code }
+  #   )
+  #   crashlytics(
+  #     groups: ['testers'],
+  #     api_token: ENV['CRASHLYTICS_API_TOKEN'],
+  #     build_secret: ENV['CRASHLYTICS_BUILD_SECRET']
+  #   )
+  # end
 end

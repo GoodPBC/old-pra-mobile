@@ -48,12 +48,7 @@ Beta Builds
 ```
 fastlane android staging
 ```
-Deploy to crashlytics (staging)
-### android beta
-```
-fastlane android beta
-```
-Deploy to crashlytics (production)
+Android Staging Build
 
 ----
 

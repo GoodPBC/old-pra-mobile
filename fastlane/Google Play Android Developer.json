@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "api-7043864182232842622-383900",
+  "private_key_id": "ee97e1e2decb3903bc27c6176986729a3be04684",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEuwIBADANBgkqhkiG9w0BAQEFAASCBKUwggShAgEAAoIBAQC/NGvjZWARwYvZ\nGTIEZ3BnanYqOST+pZaVCA+WgXl+JVPMBqPngokQIiSaV0japCwQymY48qdQ3NCy\nKfaqr8VQhWwNpGvJ4s4AlDIook42EHZXKljtIPLNu7NofsHBIsPJyLDH89yZbkK6\njZcwSyK7kKpufx4kmJqWxFxieP4yFommXD3MZeAYnFHCcw7+MlZAaOjQflifD9Ik\nyWVD69C5SbiNB3puTCrOF09Uh1Rk6p7DKYy8UKXKmyy9F17GbLc6odASugfZEklr\nK0lbznibf20b3qfNLzvmpsETs53pcx4GvudVdZv68uGQqWibXfN8H2r0vJwssv5q\ng6IepQw/AgMBAAECgf8WD88AlU9svQ+0mpYXJxNbAsZQ3dDwzAMKG23YZgRjnXTS\ns1PnYorkPfiYwrSRmXN8LbcAPZzpQX2X/Wbu6GzIQCatuw/v7LGw6UEvIFANT2LO\nXSg0W5jjhp17mIcRcxjVaqFxXSgXAivElczcFGzZ1RJywSRqdwnVb0jq2LxUbXSd\nK7ktPghUmVi157pVDXzBJkDRfOsQJAOKS0FNioa+6/AWKHbP3Y5hkPhJqlf/W9rg\nsdiGOxedUQz0urFnNu4PDrfB8+5umM8DqWrCcD/SO5wumx5L5VrnmjmObnV38IFc\nb4VHQ3DP4PlMaGyJ0p0dPTQ2KeV+ID80GNUKqAECgYEA6v2fXSadLcW+TMw6BSrz\nnC7htY2i+/DKsQwxA+rv+ituv0Qdc9prARwhSMdzZwwtGezmFXBk046TWXvJzhJQ\nZ9U+OIJp85NvwfuRZlB1tQBaApUxd3HetEhE/0C6LItGD/fdUPFJ3l9C8ib9hEBJ\nFVuaWqhJHCjhDBXyfHZTCkcCgYEA0EyknvgU4ga6JvIKkm8ln71XzN/ET+fCdodC\n0iy//BFOYeFqliuwo47mUSY9Hu9Rdsl/3LtBz5MnZOSLRjjpbFwqMdUqxkUOcXjb\ne2SZWrBNAu4jQIkw4gNqonKepOa5SB658jQK157rH+Bc9tJG4gHLo7nukFOgNCRA\n1nTA8kkCgYAFA0ABBq/XqB41GS4rqgzkSgO6kbjmUu6f9DifcsWHuqF0JwnRzNj3\nfxgeq1KE4jecE/ecgXdFJAd0ozVc1fstG9ll7zI/Zee+ZZVmb1TzdXx2DaSufZlY\nkyoVn9XY2We3M3xfG6aNvc55x+ckiRKGCBw0zt4wYZbbYSR5DzUaRQKBgQCwUnB3\ncKCcw/0HwpNYaWV71pdgAXr3+MMP+meB6geJpEypZlsHS2x2xxwHTUsnyIU4/FCT\n1J9cyr/qE9whUUOmSk4daMiQlRwoyZlg1kNKFTrbZCHLG1aZuzKk2EmaZQQqHHhi\nodMbupZloVKQTGdcIRD0QwvCeEeAW7/WyXYaoQKBgB/LTB8Y8J1lFVSo2YhTQESM\nJMAKeWF4yX9q+sOLo11ieh58Zb8IOqiy+r/b5S6cNgWKTGPP44Kauy9y/6x3oA/t\nWLsOY6U20y/zmFMhq6+G/duSZRvUqB7Nm1TUcyZ9W2fmkkHuZXIkK2syuTfVsfR+\nZUYNO6xOZm6QCx+QEgVJ\n-----END PRIVATE KEY-----\n",
+  "client_email": "nyc-provider-response@api-7043864182232842622-383900.iam.gserviceaccount.com",
+  "client_id": "105350516489450044053",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/nyc-provider-response%40api-7043864182232842622-383900.iam.gserviceaccount.com"
+}
