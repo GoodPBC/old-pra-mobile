@@ -74,33 +74,11 @@ platform :ios do
 end
 
 platform :android do
-  # desc 'Deploy to crashlytics (staging)'
-  # lane :staging do
-  #   version_file = '../android/version_code'
-  #   version_code = File.read(version_file).to_i
-  #   version_code += 1
-  #
-  #   f = File.new(version_file, 'w')
-  #   f.write(version_code)
-  #   f.close
-  #
-  #   gradle(
-  #     project_dir: 'android',
-  #     task: 'assemble',
-  #     build_type: 'Staging',
-  #     properties: { versionCode: version_code }
-  #   )
-  #   crashlytics(
-  #     groups: ['testers'],
-  #     api_token: ENV['CRASHLYTICS_API_TOKEN'],
-  #     build_secret: ENV['CRASHLYTICS_BUILD_SECRET']
-  #   )
-  # end
-
   desc 'Android Staging Build'
   lane :staging do
     version_code = google_play_track_version_codes(track: 'alpha')
     version_code = version_code[0] + 1
+
     gradle(
       project_dir: 'android',
       task: 'assemble',
@@ -109,35 +87,30 @@ platform :android do
         versionCode: version_code
       }
     )
+
     supply(
-      track: 'alpha'
+      track: 'alpha',
+      apk: './android/app/build/outputs/apk/app-releaseStaging.apk'
     )
   end
 
+  desc 'Android Beta Build'
   lane :beta do
-    
-  end
+    version_code = google_play_track_version_codes(track: 'beta')
+    version_code = version_code[0] + 1
 
-  # desc 'Deploy to crashlytics (production)'
-  # lane :beta do
-  #   version_file = '../android/version_code'
-  #   version_code = File.read(version_file).to_i
-  #   version_code += 1
-  #
-  #   f = File.new(version_file, 'w')
-  #   f.write(version_code)
-  #   f.close
-  #
-  #   gradle(
-  #     project_dir: 'android',
-  #     task: 'assemble',
-  #     build_type: 'Release',
-  #     properties: { versionCode: version_code }
-  #   )
-  #   crashlytics(
-  #     groups: ['testers'],
-  #     api_token: ENV['CRASHLYTICS_API_TOKEN'],
-  #     build_secret: ENV['CRASHLYTICS_BUILD_SECRET']
-  #   )
-  # end
+    gradle(
+      project_dir: 'android',
+      task: 'assemble',
+      build_type: 'Release',
+      properties: {
+        versionCode: version_code
+      }
+    )
+
+    supply(
+      track: 'beta',
+      apk: './android/app/build/outputs/apk/app-release.apk'
+    )
+  end
 end

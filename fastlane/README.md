@@ -49,6 +49,11 @@ Beta Builds
 fastlane android staging
 ```
 Android Staging Build
+### android beta
+```
+fastlane android beta
+```
+
 
 ----
 
