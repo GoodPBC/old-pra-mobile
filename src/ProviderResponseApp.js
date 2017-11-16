@@ -37,11 +37,7 @@ class ProviderResponseApp extends React.Component {
     this.setBackgroundImageLoaded = this.setBackgroundImageLoaded.bind(this);
   }
 
-  componentWillMount() {
-  }
-
   componentDidMount() {
-    this.initializeInstabug();
     AppState.addEventListener('change', this.handleAppStateChange);
   }
 
