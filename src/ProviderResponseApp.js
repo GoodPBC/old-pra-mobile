@@ -67,6 +67,9 @@ class ProviderResponseApp extends React.Component {
   }
 
   handleAppStateChange(nextAppState) {
+    if (this.state.appState === 'active' && nextAppState.match(/inactive|background/)) {
+      this.setState({ codepushed: false })
+    }
     this.setState({ appState: nextAppState });
   }
 

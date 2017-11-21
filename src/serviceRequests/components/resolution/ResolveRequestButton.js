@@ -19,10 +19,11 @@ export default function ResolveRequestButton({
   selectedResolutionCode,
   resolutionNotes,
   resolveServiceRequest }) {
+  const disabled = !enableResolveButton(RESOLUTION_CODES, resolutionNotes, selectedResolutionCode);
   return (
-    <InvertButton
+    !disabled && <InvertButton
       withBorder
-      disabled={!enableResolveButton(RESOLUTION_CODES, resolutionNotes, selectedResolutionCode)}
+      disabled={disabled}
       onPress={() => resolveServiceRequest(serviceRequest, selectedResolutionCode) }
     >Add Resolution</InvertButton>
   );

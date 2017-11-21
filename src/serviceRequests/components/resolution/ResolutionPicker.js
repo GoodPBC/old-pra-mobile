@@ -47,24 +47,24 @@ export default class ResolutionPicker extends React.Component {
                 <Separator />
                 <RadioButton key={i} style={styles.buttonWrapStyle} >
                   <RadioButtonInput
-                      obj={labelWithValue}
-                      index={i}
-                      isSelected={ isSelected }
-                      onPress={(value, index) => { this.setIndexAndSelectResolution(value, index); }}
-                      buttonInnerColor={DARK_BLUE}
-                      buttonOuterColor={'lightgray'}
-                      buttonSize={10}
-                      buttonStyle={{}}
-                      buttonWrapStyle={{ marginLeft: 10 }}
-                    />
-                    <RadioButtonLabel
-                      obj={labelWithValue}
-                      index={i}
-                      labelHorizontal
-                      onPress={(value, index) => { this.setIndexAndSelectResolution(value, index); }}
-                      labelStyle={{ fontSize: 18, color: 'black' }}
-                      labelWrapStyle={{}}
-                    />
+                    obj={labelWithValue}
+                    index={i}
+                    isSelected={ isSelected }
+                    onPress={(value, index) => { this.setIndexAndSelectResolution(value, index); }}
+                    buttonInnerColor={DARK_BLUE}
+                    buttonOuterColor={'lightgray'}
+                    buttonSize={10}
+                    buttonStyle={{}}
+                    buttonWrapStyle={{ marginRight: 10 }}
+                  />
+                  <RadioButtonLabel
+                    obj={labelWithValue}
+                    index={i}
+                    labelHorizontal
+                    onPress={(value, index) => { this.setIndexAndSelectResolution(value, index); }}
+                    labelStyle={{ fontSize: 18, color: 'black' }}
+                    labelWrapStyle={{}}
+                  />
                 </RadioButton>
               </View>
             );
@@ -79,6 +79,8 @@ const styles = StyleSheet.create({
   buttonWrapStyle: {
     marginTop: 20,
     marginBottom: 20,
+    marginHorizontal: 10,
+    alignSelf: 'flex-start',
   },
   radioStyle: {
     borderBottomWidth: 1,

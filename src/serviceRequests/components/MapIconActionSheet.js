@@ -14,6 +14,8 @@ import {
   ActionSheetIOS,
 } from 'react-native';
 
+import { LIGHT_GRAY } from '../../shared';
+
 import mapIcon from './img/icon-map.png';
 
 const styles = StyleSheet.create({
@@ -62,8 +64,16 @@ export default class MapIconActionSheet extends React.Component {
     this.state = {
       modalVisible: false,
     };
+    this.hideModal = this.hideModal.bind(this);
+    this.showModal = this.showModal.bind(this);
     this.setModalVisible = this.setModalVisible.bind(this);
+    this.showServiceRequest = this.showServiceRequest.bind(this);
+    this.getDirection = this.getDirection.bind(this);
+    this.onClickMapIcon = this.onClickMapIcon.bind(this);
+    this.showActionSheetIOS = this.showActionSheetIOS.bind(this);
     this.getActionSheetOptions = this.getActionSheetOptions.bind(this);
+    this.showActionSheetAndroid = this.showActionSheetAndroid.bind(this);
+    this.renderActionButtons = this.renderActionButtons.bind(this);
   }
 
   hideModal() {
@@ -88,7 +98,7 @@ export default class MapIconActionSheet extends React.Component {
       if (supported) {
         Alert.alert(
           'You are now leaving the application. Would you like to continue?',
-          null,
+          '',
           [
             {text: 'Cancel'},
             {text: 'Continue', onPress: () => Linking.openURL(url)},
@@ -100,23 +110,25 @@ export default class MapIconActionSheet extends React.Component {
     })
   }
 
-
   onClickMapIcon() {
-    Platform.OS === 'ios' ? this.showActionSheetIOS() : this.showActionSheetAndroid();
+    if (Platform.OS === 'ios') {
+      this.showActionSheetIOS();
+    } else {
+      this.showActionSheetAndroid();
+    }
   }
 
   showActionSheetIOS() {
     const optionList = this.getActionSheetOptions();
 
     const options = optionList.map(option => option.text);
-    const cancelButtonIndex = optionList.findIndex(option => option.text === 'Cancel');
-    const callbacks = optionList.map(option => option.callback);
+    const cancelButtonIndex = options.findIndex(option => option === 'Cancel');
 
     ActionSheetIOS.showActionSheetWithOptions({
       options,
       cancelButtonIndex,
     }, (buttonIndex) => {
-      callbacks[buttonIndex]();
+      optionList[buttonIndex].callback();
     })
   }
 
@@ -151,7 +163,7 @@ export default class MapIconActionSheet extends React.Component {
             return (
               <TouchableHighlight
                 key={i}
-                underlayColor="papayawhip"
+                underlayColor="#EEE"
                 onPress={option.callback}
                 style={styles.actionButton}
               >

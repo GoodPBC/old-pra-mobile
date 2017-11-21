@@ -40,12 +40,12 @@ export default function ResolutionForm(props) {
       <View style={styles.detailsContainerInner}>
         <Text style={styles.header}>Select a Resolution Below</Text>
       </View>
-        <ResolutionPicker {...props} />
-        <ResolutionNotesField {...props} />
-        <Separator />
-        <View style={styles.buttonContainer}>
-          <ResolveRequestButton {...props} resolveServiceRequest={resolveAndGoBack(props)} />
-        </View>
+      <ResolutionPicker {...props} />
+      <ResolutionNotesField {...props} />
+      <Separator />
+      <View style={styles.buttonContainer}>
+        <ResolveRequestButton {...props} resolveServiceRequest={resolveAndGoBack(props)} />
+      </View>
     </View>
   );
 }
