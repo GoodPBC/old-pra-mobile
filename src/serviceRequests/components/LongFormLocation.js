@@ -8,16 +8,17 @@ import {
   Image,
   Platform,
   ActionSheetIOS,
+  Alert,
+  Modal,
 } from 'react-native';
 import { formatLocationData, prioritizeLocationData } from '../helpers';
-
-import mapIcon from './img/icon-map.png'
+import MapIconActionSheet from './MapIconActionSheet';
 
 function mapsURL(serviceRequest) {
   return `http://maps.apple.com/?q=${serviceRequest.address}+${serviceRequest.city}+${serviceRequest.state}`;
 }
 
-function onClickAddress(serviceRequest) {
+function onClickMapIcon(serviceRequest) {
   // if (Platform.OS === 'ios') {
   //   ActionSheetIOS.showActionSheetWithOptions({
   //     options: [
@@ -80,13 +81,7 @@ export default class LongFormLocation extends React.Component {
               <Text style={styles.primary}>{formatLocationData(serviceRequest, primaryLocation)}</Text>
               {textBlocks}
             </View>
-            <TouchableOpacity
-              disabled
-              style={{ justifyContent: 'center' }}
-              onPress={() => onClickAddress(serviceRequest)}
-            >
-              <Image source={mapIcon} style={{alignSelf: 'center'}}/>
-            </TouchableOpacity>
+            <MapIconActionSheet serviceRequest={serviceRequest} />
           </View>
         </View>
       </View>

@@ -18,6 +18,8 @@ import App from './app/containers/App';
 import { ImageContainer } from './shared';
 import configureStore from './store';
 
+console.disableYellowBox = true;
+
 crashlytics.init();
 
 const store = configureStore();
@@ -46,20 +48,22 @@ class ProviderResponseApp extends React.Component {
   }
 
   initializeInstabug() {
-    Instabug.setIntroMessageEnabled(false);
-    Instabug.setPromptOptionsEnabled(false, true, true);
-    Instabug.setPrimaryColor(processColor('#DE6053'));
-    Instabug.setFloatingButtonEdge(Instabug.floatingButtonEdge.right, height - 120);
-    Instabug.startWithToken(
-      Config[`INSTABUG_TOKEN_${Platform.OS.toUpperCase()}`],
-      Instabug.invocationEvent.none
-    )
-    setTimeout(() => {
+    if (!__DEV__) {
+      Instabug.setIntroMessageEnabled(false);
+      Instabug.setPromptOptionsEnabled(false, true, true);
+      Instabug.setPrimaryColor(processColor('#DE6053'));
+      Instabug.setFloatingButtonEdge(Instabug.floatingButtonEdge.right, height - 120);
       Instabug.startWithToken(
         Config[`INSTABUG_TOKEN_${Platform.OS.toUpperCase()}`],
-        Instabug.invocationEvent.floatingButton
+        Instabug.invocationEvent.none
       )
-    }, 3000)
+      setTimeout(() => {
+        Instabug.startWithToken(
+          Config[`INSTABUG_TOKEN_${Platform.OS.toUpperCase()}`],
+          Instabug.invocationEvent.floatingButton
+        )
+      }, 3000)
+    }
   }
 
   handleAppStateChange(nextAppState) {
