@@ -92,7 +92,7 @@ export default class MapIconActionSheet extends React.Component {
   }
 
   showServiceRequest(serviceRequest) {
-    this.props.selectTab(Tabs.MAP);
+    this.props.selectTab(Tabs.MAP, serviceRequest.sr_number);
     this.hideModal();
   }
 

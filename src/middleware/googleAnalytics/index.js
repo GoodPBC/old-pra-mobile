@@ -2,7 +2,12 @@ import { GoogleAnalyticsTracker } from 'react-native-google-analytics-bridge';
 import Config from 'react-native-config';
 import titleCase from 'title-case';
 
-import { GA_TRACK_EVENT, GA_TRACK_SCREEN_VIEW } from '../../app/actionTypes';
+import {
+  SELECT_TAB,
+  GA_TRACK_EVENT,
+  GA_TRACK_SCREEN_VIEW,
+} from '../../app/actionTypes';
+
 import {
   LOGIN_USER_SUCCESS,
   LOGIN_USER_FAILURE,
@@ -21,6 +26,12 @@ import {
 } from '../../serviceRequests/actionTypes';
 import { SYNC_SERVICE_REQUESTS } from '../../offline/actionTypes';
 import { API_REQUEST_NETWORK_ERROR } from '../../shared/actionTypes';
+
+import { Tabs } from '../../shared';
+
+function getKeyByValue(obj, val) {
+  return Object.keys(obj).find(key => obj[key] === val);
+}
 
 const GoogleAnalytics = new GoogleAnalyticsTracker(Config.GOOGLE_ANALYTICS_TRACKING_ID);
 
@@ -91,6 +102,11 @@ const googleAnalytics = store => next => action => {
       const { screenName } = action;
       GoogleAnalytics.trackScreenView(screenName);
       break;
+    }
+    case SELECT_TAB: {
+      const screenName = titleCase(getKeyByValue(Tabs, action.selectedTab))
+      GoogleAnalytics.trackScreenView(screenName);
+      return next(action);
     }
     case SELECT_SERVICE_REQUEST: {
       if (action.serviceRequest) {

@@ -15,6 +15,7 @@ import {
 
 const initialState = {
   selectedTab: Tabs.MY_REQUESTS,
+  selectedTabContext: null,
   deviceInfo: {},
   apiRequestInProgress: false,
   errorMessage: null,
@@ -26,6 +27,7 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         selectedTab: action.selectedTab,
+        selectedTabContext: action.context,
       }
     }
     case UPDATE_DEVICE_INFO: {

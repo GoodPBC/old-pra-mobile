@@ -18,7 +18,8 @@ import {
  */
 function mapStateToProps(state) {
   return {
-    activeServiceRequests: getActiveServiceRequests(state)
+    context: state.app.selectedTabContext,
+    activeServiceRequests: getActiveServiceRequests(state),
   };
 }
 

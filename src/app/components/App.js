@@ -40,7 +40,6 @@ export default class App extends Component {
     this.onLayout = this.onLayout.bind(this);
     this.handlePress = this.handlePress.bind(this);
     this.selectTab = this.selectTab.bind(this);
-    this.logTrackScreenView = this.logTrackScreenView.bind(this);
     this._resetNavigation = this._resetNavigation.bind(this);
   }
 
@@ -70,13 +69,7 @@ export default class App extends Component {
     })
   }
 
-  logTrackScreenView(selectedTab) {
-    const screenName = titleCase(getKeyByValue(Tabs, selectedTab));
-    this.props.gaTrackScreenView(screenName);
-  }
-
   selectTab(selectedTab) {
-    this.logTrackScreenView(selectedTab);
     this.props.selectTab(selectedTab);
   }
 
@@ -116,10 +109,7 @@ export default class App extends Component {
   }
 
   _resetNavigation() {
-    this.props.gaTrackScreenView('My Requests');
-    this.setState({
-      selectedTab: Tabs.MY_REQUESTS,
-    })
+    this.props.selectTab(Tabs.MY_REQUESTS);
   }
 
   _renderTabs() {

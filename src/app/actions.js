@@ -6,9 +6,10 @@ import {
   CLEAR_ERROR_MESSAGE,
 } from './actionTypes';
 
-export const selectTab = selectedTab => ({
+export const selectTab = (selectedTab, context = null) => ({
   type: SELECT_TAB,
   selectedTab,
+  context,
 });
 
 export const updateDeviceInfo = deviceInfo => ({
