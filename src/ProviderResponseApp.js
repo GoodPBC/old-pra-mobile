@@ -49,20 +49,20 @@ class ProviderResponseApp extends React.Component {
 
   initializeInstabug() {
     if (!__DEV__) {
-      Instabug.setIntroMessageEnabled(false);
+      // Instabug.setIntroMessageEnabled(false);
       Instabug.setPromptOptionsEnabled(false, true, true);
-      Instabug.setPrimaryColor(processColor('#DE6053'));
-      Instabug.setFloatingButtonEdge(Instabug.floatingButtonEdge.right, height - 120);
+      // Instabug.setPrimaryColor(processColor('#DE6053'));
+      // Instabug.setFloatingButtonEdge(Instabug.floatingButtonEdge.right, height - 120);
       Instabug.startWithToken(
         Config[`INSTABUG_TOKEN_${Platform.OS.toUpperCase()}`],
-        Instabug.invocationEvent.none
+        Instabug.invocationEvent.shake
       )
-      setTimeout(() => {
-        Instabug.startWithToken(
-          Config[`INSTABUG_TOKEN_${Platform.OS.toUpperCase()}`],
-          Instabug.invocationEvent.floatingButton
-        )
-      }, 3000)
+      // setTimeout(() => {
+      //   Instabug.startWithToken(
+      //     Config[`INSTABUG_TOKEN_${Platform.OS.toUpperCase()}`],
+      //     Instabug.invocationEvent.floatingButton
+      //   )
+      // }, 3000)
     }
   }
 

@@ -8,6 +8,20 @@ target 'ProviderResponseApp' do
   # Pods for ProviderResponseApp
   pod 'Fabric'
   pod 'Crashlytics'
+
+  # pod 'React', path: '../node_modules/react-native', :subspecs => [
+  #   'Core',
+  #   'RCTActionSheet',
+  #   'RCTAnimation',
+  #   'RCTGeolocation',
+  #   'RCTImage',
+  #   'RCTLinkingIOS',
+  #   'RCTNetwork',
+  #   'RCTSettings',
+  #   'RCTText',
+  #   'RCTVibration',
+  #   'RCTWebSocket'
+  # ]
   pod 'GoogleMaps'
 
   target 'ProviderResponseAppTests' do

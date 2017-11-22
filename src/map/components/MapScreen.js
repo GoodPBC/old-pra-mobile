@@ -230,6 +230,7 @@ export default class MapScreen extends Component {
     return (
       <View style={styles.container}>
         <MapView
+          provider={PROVIDER_GOOGLE}
           style={styles.map}
           region={region}
           onRegionChangeComplete={this.onRegionChangeComplete}
