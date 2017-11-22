@@ -14,7 +14,10 @@ import {
   ActionSheetIOS,
 } from 'react-native';
 
-import { LIGHT_GRAY } from '../../shared';
+import {
+  LIGHT_GRAY,
+  Tabs,
+} from '../../shared';
 
 import mapIcon from './img/icon-map.png';
 
@@ -89,6 +92,7 @@ export default class MapIconActionSheet extends React.Component {
   }
 
   showServiceRequest(serviceRequest) {
+    this.props.selectTab(Tabs.MAP);
     this.hideModal();
   }
 

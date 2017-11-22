@@ -81,7 +81,7 @@ export default class LongFormLocation extends React.Component {
               <Text style={styles.primary}>{formatLocationData(serviceRequest, primaryLocation)}</Text>
               {textBlocks}
             </View>
-            <MapIconActionSheet serviceRequest={serviceRequest} />
+            <MapIconActionSheet selectTab={this.props.selectTab} serviceRequest={serviceRequest} />
           </View>
         </View>
       </View>
@@ -91,6 +91,7 @@ export default class LongFormLocation extends React.Component {
 
 LongFormLocation.propTypes = {
   serviceRequest: PropTypes.object.isRequired,
+  selectTab: PropTypes.func.isRequired,
 };
 
 const styles = StyleSheet.create({
