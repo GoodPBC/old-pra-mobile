@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import App from '../components/App';
 import {
+  selectTab,
   updateDeviceInfo,
   gaTrackScreenView,
   clearErrorMessage
@@ -15,6 +16,7 @@ import { getCurrentTeam } from '../../teams/selectors';
 
 function mapStateToProps(state) {
   return {
+    selectedTab: state.app.selectedTab,
     deviceInfo: state.app.deviceInfo,
     apiRequestInProgress: state.app.apiRequestInProgress,
     errorMessage: state.app.errorMessage,
@@ -29,6 +31,7 @@ function mapStateToProps(state) {
  */
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
+    selectTab,
     updateDeviceInfo,
     gaTrackScreenView,
     clearErrorMessage,

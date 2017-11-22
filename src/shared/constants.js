@@ -8,3 +8,11 @@ export const BODY_BACKGROUND = '#F5F5F5';
 export const CARD_BORDER = '#CCCCCC';
 
 export const X_AXIS_PADDING = 40;
+
+export const Tabs = {
+  MY_REQUESTS: 0,
+  SYNC: 1,
+  TEAMS: 2,
+  LOGOUT: 3,
+  MAP: 4,
+};

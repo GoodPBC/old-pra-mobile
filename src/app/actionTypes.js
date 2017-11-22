@@ -1,3 +1,4 @@
+export const SELECT_TAB = 'SELECT_TAB';
 export const UPDATE_DEVICE_INFO = 'UPDATE_DEVICE_INFO';
 export const GA_TRACK_EVENT = 'GA_TRACK_EVENT';
 export const GA_TRACK_SCREEN_VIEW = 'GA_TRACK_SCREEN_VIEW';

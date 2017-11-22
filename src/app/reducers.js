@@ -4,14 +4,17 @@ import {
   API_REQUEST_FAILURE,
   API_REQUEST_NETWORK_ERROR,
   FORBIDDEN_RESPONSE_STATUS,
+  Tabs,
 } from '../shared';
 
 import {
+  SELECT_TAB,
   UPDATE_DEVICE_INFO,
   CLEAR_ERROR_MESSAGE,
 } from './actionTypes';
 
 const initialState = {
+  selectedTab: Tabs.MY_REQUESTS,
   deviceInfo: {},
   apiRequestInProgress: false,
   errorMessage: null,
@@ -19,6 +22,12 @@ const initialState = {
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
+    case SELECT_TAB: {
+      return {
+        ...state,
+        selectedTab: action.selectedTab,
+      }
+    }
     case UPDATE_DEVICE_INFO: {
       return {
         ...state,

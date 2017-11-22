@@ -27,15 +27,8 @@ import {
   DARK_BLUE,
   GRAY_TEXT,
   selectStyle,
+  Tabs,
 } from '../../shared';
-
-const Tabs = {
-  MY_REQUESTS: 0,
-  SYNC: 1,
-  TEAMS: 2,
-  LOGOUT: 3,
-  MAP: 4
-};
 
 const ICON_SIZE = 22;
 
@@ -44,12 +37,10 @@ const getKeyByValue = (obj, val) => Object.keys(obj).find(key => obj[key] === va
 export default class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      selectedTab: Tabs.MY_REQUESTS,
-    };
-
     this.onLayout = this.onLayout.bind(this);
     this.handlePress = this.handlePress.bind(this);
+    this.selectTab = this.selectTab.bind(this);
+    this.logTrackScreenView = this.logTrackScreenView.bind(this);
     this._resetNavigation = this._resetNavigation.bind(this);
   }
 
@@ -58,7 +49,7 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    const screenName = titleCase(getKeyByValue(Tabs, this.state.selectedTab));
+    const screenName = titleCase(getKeyByValue(Tabs, this.props.selectedTab));
     this.props.gaTrackScreenView(screenName);
   }
 
@@ -79,12 +70,18 @@ export default class App extends Component {
     })
   }
 
+  logTrackScreenView(selectedTab) {
+    const screenName = titleCase(getKeyByValue(Tabs, selectedTab));
+    this.props.gaTrackScreenView(screenName);
+  }
+
+  selectTab(selectedTab) {
+    this.logTrackScreenView(selectedTab);
+    this.props.selectTab(selectedTab);
+  }
+
   handlePress(selectedTab) {
-    return () => {
-      const screenName = titleCase(getKeyByValue(Tabs, selectedTab));
-      this.props.gaTrackScreenView(screenName);
-      this.setState({ selectedTab })
-    }
+    return () => this.selectTab(selectedTab);
   }
 
   _renderLogin() {
@@ -143,7 +140,7 @@ export default class App extends Component {
     return (
       <TabNavigator tabBarStyle={tabBarStyle}>
         <TabNavigator.Item
-          selected={this.state.selectedTab === Tabs.MY_REQUESTS}
+          selected={this.props.selectedTab === Tabs.MY_REQUESTS}
           title="My Requests"
           renderIcon={() => <Icon name="list-ul" size={ICON_SIZE} color={GRAY_TEXT}/>}
           renderSelectedIcon={() => <Icon name="list-ul" size={ICON_SIZE} color={DARK_BLUE}/>}
@@ -154,7 +151,7 @@ export default class App extends Component {
           <ServiceRequestNavigation />
         </TabNavigator.Item>
         <TabNavigator.Item
-          selected={this.state.selectedTab === Tabs.MAP}
+          selected={this.props.selectedTab === Tabs.MAP}
           title="Map"
           renderIcon={() => <Icon name="map-marker" size={ICON_SIZE}  color={GRAY_TEXT}/>}
           renderSelectedIcon={() => <Icon name="map-marker" size={ICON_SIZE}  color={DARK_BLUE}/>}
@@ -165,7 +162,7 @@ export default class App extends Component {
           <MapNavigation />
         </TabNavigator.Item>
         <TabNavigator.Item
-          selected={this.state.selectedTab === Tabs.TEAMS}
+          selected={this.props.selectedTab === Tabs.TEAMS}
           title="Teams"
           renderIcon={() => <Icon name="group" size={ICON_SIZE}  color={GRAY_TEXT}/>}
           renderSelectedIcon={() => <Icon name="group" size={ICON_SIZE}  color={DARK_BLUE}/>}
@@ -176,7 +173,7 @@ export default class App extends Component {
           <TeamNavigation />
         </TabNavigator.Item>
         <TabNavigator.Item
-          selected={this.state.selectedTab === Tabs.LOGOUT}
+          selected={this.props.selectedTab === Tabs.LOGOUT}
           title="Logout"
           renderIcon={() => <Icon name="sign-out" size={ICON_SIZE}  color={GRAY_TEXT}/>}
           renderSelectedIcon={() => <Icon name="sign-out" size={ICON_SIZE}  color={DARK_BLUE}/>}

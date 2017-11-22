@@ -13,6 +13,7 @@ import {
   CARD_BORDER,
   FORBIDDEN_RESPONSE_STATUS,
   X_AXIS_PADDING,
+  Tabs,
 } from './constants';
 
 import Button from './components/Button';
@@ -41,6 +42,7 @@ export {
   BODY_BACKGROUND,
   CARD_BORDER,
   X_AXIS_PADDING,
+  Tabs,
   Button,
   Checkbox,
   GradientBackground,

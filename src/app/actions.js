@@ -1,9 +1,15 @@
 import {
+  SELECT_TAB,
   UPDATE_DEVICE_INFO,
   GA_TRACK_EVENT,
   GA_TRACK_SCREEN_VIEW,
   CLEAR_ERROR_MESSAGE,
 } from './actionTypes';
+
+export const selectTab = selectedTab => ({
+  type: SELECT_TAB,
+  selectedTab,
+});
 
 export const updateDeviceInfo = deviceInfo => ({
   type: UPDATE_DEVICE_INFO,
