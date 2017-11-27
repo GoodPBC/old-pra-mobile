@@ -1,78 +1,52 @@
 import React, { PropTypes } from 'react';
-
-import { StyleSheet, View } from 'react-native';
+import {
+  StyleSheet,
+  View,
+} from 'react-native';
+import RadioForm, { RadioButton, RadioButtonInput, RadioButtonLabel } from 'react-native-simple-radio-button';
 
 import {
   DARK_BLUE,
   Separator,
 } from '../../shared';
 
-
-import RadioForm, { RadioButton, RadioButtonInput, RadioButtonLabel } from 'react-native-simple-radio-button';
-
-
 export default class UrgentServiceRequestModalItemResolutionPicker extends React.Component {
-  // const options = resolutionCodes.map((obj) => <Picker.Item value={obj.code} label={obj.display_name} key={obj.code} />);
-  // const options = resolutionCodes.map((obj) => <Picker.Item value={obj.code} label={obj.display_name} key={obj.code} />);
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      selectedIndex: 0
-    };
-
-    this.setIndexAndSelectResolution = this.setIndexAndSelectResolution.bind(this);
-  }
-
-  setIndexAndSelectResolution(value, index) {
-    this.props.updateServiceRequestReason(value);
-    this.setState({
-      selectedIndex: index
-    });
-  }
-
   render() {
-    const reasons = ['enroute', 'traffic', 'forgot']
-    const reasonDisplayNames = {
-      enroute: 'Enroute',
-      traffic: 'Traffic',
-      forgot: 'Forgot'
-    }
-
+    const { responseReasons } = this.props;
     return (
-      <RadioForm animation={false} formHorizontal={false}>
+      <RadioForm animation={false}>
         {
-          reasons.map((reason, i) => {
-            const isSelected = this.props.selectedReason === reason;
-            const labelWithValue = { label: reasonDisplayNames[reason], value: reason };
+          Object.keys(responseReasons).map(id => {
+            const radioButtonProps = {
+              obj: { value: id, label: responseReasons[id] },
+              index: id,
+              onPress: this.props.updateServiceRequestReason,
+            };
             return (
-              <View key={i}>
+              <View key={id}>
                 <Separator />
-                <RadioButton key={i} style={styles.buttonWrapStyle} >
+                <RadioButton key={id} style={styles.buttonWrapStyle}>
                   <RadioButtonInput
-                      obj={labelWithValue}
-                      index={i}
-                      isSelected={ isSelected }
-                      onPress={(value, index) => { this.setIndexAndSelectResolution(value, index); }}
-                      buttonInnerColor={DARK_BLUE}
-                      buttonOuterColor={'lightgray'}
-                      buttonSize={10}
-                      buttonStyle={{}}
-                      buttonWrapStyle={{ marginLeft: 10 }}
-                    />
-                    <RadioButtonLabel
-                      obj={labelWithValue}
-                      index={i}
-                      labelHorizontal
-                      onPress={(value, index) => { this.setIndexAndSelectResolution(value, index); }}
-                      labelStyle={{ fontSize: 14, color: 'black' }}
-                      labelWrapStyle={{}}
-                    />
+                    {...radioButtonProps}
+                    isSelected={this.props.selectedReasonId === id}
+                    buttonInnerColor={DARK_BLUE}
+                    buttonOuterColor={'lightgray'}
+                    buttonSize={10}
+                    buttonStyle={{}}
+                    buttonWrapStyle={{ marginLeft: 10 }}
+                  />
+                  <RadioButtonLabel
+                    {...radioButtonProps}
+                    labelHorizontal={true}
+                    labelStyle={{ fontSize: 14, color: 'black' }}
+                    labelWrapStyle={{}}
+                  />
                 </RadioButton>
               </View>
             );
           })
         }
+        <Separator />
       </RadioForm>
     );
   }
@@ -82,6 +56,7 @@ const styles = StyleSheet.create({
   buttonWrapStyle: {
     marginTop: 10,
     marginBottom: 10,
+    alignSelf: 'flex-start',
   },
   radioStyle: {
     borderBottomWidth: 1,

@@ -113,8 +113,8 @@ export default class ServiceRequestList extends Component {
       let pingResponse = {
         actualOnsiteTime: usr[i].timeOnsite,
         modifiedAt: Date.now(),
-        pingNote: usr[i].reason,
-        reasonId: 0,
+        pingNote: usr[i].reasonName,
+        reasonId: usr[i].reasonId,
         srNumber: usr[i].sr_number
       }
       this.props.updateServiceRequestPingResponse(pingResponse)

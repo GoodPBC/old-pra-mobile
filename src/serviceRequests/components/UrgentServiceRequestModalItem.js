@@ -9,14 +9,21 @@ import { Button } from '../../shared';
 
 import UrgentServiceRequestModalItemResolutionPicker from './UrgentServiceRequestModalItemResolutionPicker';
 
+const RESPONSE_REASONS = {
+  1: "Enroute",
+  2: "Client Transport",
+  3: "911 Call",
+  4: "Inclement Weather",
+  5: "Multiple 311 calls at once",
+  6: "Traffic",
+  7: "Unforeseen circumstances",
+};
 
 export default class UrgentServiceRequestModalItem extends Component {
-
   constructor(props) {
     super(props);
-
     this.state = {
-      reason: 'enroute',
+      reasonId: null,
       timeOnsite: null,
     };
     this.saveServiceRequest = this.saveServiceRequest.bind(this);
@@ -24,73 +31,46 @@ export default class UrgentServiceRequestModalItem extends Component {
   }
 
   saveServiceRequest() {
-    this.setState({
-      saved: true
-    });
+    const { sr_number } = this.props.serviceRequest;
+    const { reasonId, timeOnsite } = this.state;
     const data = {
-      sr_number: this.props.serviceRequest.sr_number,
-      reason: this.state.reason,
-      timeOnsite: this.state.timeOnsite
+      sr_number,
+      reasonId: Number(reasonId),
+      reasonName: RESPONSE_REASONS[reasonId],
+      timeOnsite,
     };
     this.props.update(data);
     this.setState({
-      reason: 'enroute',
+      reasonId: null,
       timeOnsite: null
     })
   }
 
-  updateServiceRequestReason(reason) {
-    this.setState({
-      reason: reason
-    });
+  updateServiceRequestReason(reasonId) {
+    this.setState({ reasonId });
+  }
+
+  renderContent(title, content) {
+    return (
+      <Text style={styles.textItem}>
+        <Text style={styles.boldText}>{title}: </Text>{content}
+      </Text>
+    );
   }
 
   render() {
-    const serviceRequest = this.props.serviceRequest;
+    const { serviceRequest } = this.props;
     return (
       <View style={styles.container}>
-        <Text style={styles.textItem}>
-          <Text style={styles.boldText}>SR Number: </Text>{serviceRequest.sr_number}
-        </Text>
-        <Text style={styles.textItem}>
-          <Text style={styles.boldText}>Location: </Text>{serviceRequest.complaint_details}
-        </Text>
-        <Text style={styles.textItem}>
-          <Text style={styles.boldText}>Description: </Text>{serviceRequest.address}
-        </Text>
+        {this.renderContent('SR Number', serviceRequest.sr_number)}
+        {this.renderContent('Location', serviceRequest.address)}
+        {this.renderContent('Description', serviceRequest.complaint_details)}
         <Text style={styles.statusTextItem}>What's your status?</Text>
-        <UrgentServiceRequestModalItemResolutionPicker 
+        <UrgentServiceRequestModalItemResolutionPicker
+          responseReasons={RESPONSE_REASONS}
           updateServiceRequestReason={this.updateServiceRequestReason}
-          selectedReason={this.state.reason}
+          selectedReasonId={this.state.reasonId}
         />
-        {/*
-        <Picker
-          selectedValue={this.state.reason}
-          onValueChange={(reas) => this.setState({ reason: reas })}
-          mode="dropdown"
-        >
-          <Picker.Item label="Enroute" value="enroute" />
-          <Picker.Item label="Stuck in Traffic" value="traffic" />
-          <Picker.Item label="Forgot to Update" value="forgot" />
-        </Picker>
-        */}
-        {this.state.reason === 'forgot'
-        ? (
-            <View>
-              <View>
-                <TextInput
-                  style={styles.input}
-                  onChangeText={(text) => this.setState({ timeOnsite: text })}
-                  value={this.state.timeOnsite}
-                  autoCorrect={false}
-                  multiline
-                  placeholder="Actual time you arrived on site"
-                />
-              </View>
-            </View>
-          )
-        : null
-        }
         <Button
           onPress={this.saveServiceRequest}
           style={styles.button}

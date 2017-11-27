@@ -1,22 +1,17 @@
 import React, { Component } from 'react';
-
 import { StyleSheet, ScrollView, View, Text } from 'react-native';
 
 import UrgentServiceRequestModalItem from './UrgentServiceRequestModalItem';
-
 import { Button } from '../../shared';
 import Separator from '../../shared/components/Separator';
 
 export default class UrgentServiceRequestModal extends Component {
-
   constructor(props) {
     super(props);
-
     this.state = {
       modalVisible: false,
       urgentServiceRequests: []
     };
-
     this.setModalVisible = this.setModalVisible.bind(this);
     this.saveServiceRequestForUpdate = this.saveServiceRequestForUpdate.bind(this);
     this.dismissUrgentServiceRequests = this.dismissUrgentServiceRequests.bind(this);
@@ -61,24 +56,31 @@ export default class UrgentServiceRequestModal extends Component {
   }
 
   render() {
-    const urgentServiceRequests = this.props.urgentServiceRequests;
+    const { urgentServiceRequests } = this.props;
+    const dismissButton = (
+      <Button
+        onPress={this.dismissUrgentServiceRequests}
+        style={styles.button}
+        >
+        <Text>Dismiss Notification</Text>
+      </Button>
+    );
+
     return (
       <ScrollView style={styles.container}>
-        <Button
-          onPress={this.dismissUrgentServiceRequests}
-          style={styles.button}
-        >
-          <Text>Dismiss Notification</Text>
-        </Button>
         <Text>The following service requests are more than an hour old. Please provide additional information:</Text>
         <Separator style={styles.mainSeparator} />
-        {urgentServiceRequests.map((serviceRequest, key) => (
+        {
+          urgentServiceRequests.map((serviceRequest, key) => (
             <View key={key}>
-              <UrgentServiceRequestModalItem serviceRequest={serviceRequest} update={this.saveServiceRequestForUpdate} />
-            <Separator />
+              <UrgentServiceRequestModalItem
+                serviceRequest={serviceRequest}
+                update={this.saveServiceRequestForUpdate}
+              />
+              <Separator />
             </View>
           ))
-      }
+        }
       </ScrollView>
     );
   }
