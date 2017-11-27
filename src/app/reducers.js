@@ -65,6 +65,9 @@ export default function reducer(state = initialState, action) {
       };
       if (action.status === FORBIDDEN_RESPONSE_STATUS) {
         newState.errorMessage = null;
+      } else if (action.error.toLowerCase().match(/invalid token/)) {
+        newState.errorTitle = "Session Expired"
+        newState.errorMessage = "Your session has expired. Please log in again."
       } else {
         newState.errorMessage = action.error.toString();
       }
@@ -80,6 +83,7 @@ export default function reducer(state = initialState, action) {
     case CLEAR_ERROR_MESSAGE:
       return {
         ...state,
+        errorTitle: null,
         errorMessage: null,
       };
     default:

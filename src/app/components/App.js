@@ -54,7 +54,9 @@ export default class App extends Component {
 
   componentWillReceiveProps(newProps) {
     if (newProps.errorMessage) {
-      Alert.alert('Error', newProps.errorMessage, [
+      console.log(newProps)
+      const title = newProps.errorTitle || 'Error';
+      Alert.alert(title, newProps.errorMessage, [
         { text: 'OK', onPress: this.props.clearErrorMessage },
       ]);
     }

@@ -19,6 +19,7 @@ function mapStateToProps(state) {
     selectedTab: state.app.selectedTab,
     deviceInfo: state.app.deviceInfo,
     apiRequestInProgress: state.app.apiRequestInProgress,
+    errorTitle: state.app.errorTitle,
     errorMessage: state.app.errorMessage,
     hasSelectedTeam: !!getCurrentTeam(state),
     networkIsConnected: state.offline.networkIsConnected,
