@@ -32,8 +32,9 @@ export const UPDATE_PING_RESPONSE = 'UPDATE_PING_RESPONSE';
 
 export const RESOLUTION_CODES = {
   assistance_offered: 1,
+  insufficient_information: 2,
   person_not_found: 3,
   referred_to_911: 4,
   refused_assistance: 5,
-  insufficient_information: 2,
+  out_of_provider_network: 6,
 };
