@@ -78,8 +78,10 @@ class ProviderResponseApp extends React.Component {
     switch(status) {
       case codePush.SyncStatus.CHECKING_FOR_UPDATE:
         this.setState({ codepushed: false });
+        break;
       case codePush.SyncStatus.UPDATE_INSTALLED:
         this.setState({ downloadProgress: 0 });
+        break;
       case codePush.SyncStatus.UP_TO_DATE:
       case codePush.SyncStatus.UNKNOWN_ERROR:
         this.initializeInstabug();
