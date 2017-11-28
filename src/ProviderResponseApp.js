@@ -104,10 +104,6 @@ class ProviderResponseApp extends React.Component {
 
     const circleSize = Math.min(width, height) * 0.5;
 
-    if (appState !== 'active') {
-      return null;
-    }
-
     if (!this.state.codepushed) {
       return (
         <ImageContainer onLoadEnd={this.setBackgroundImageLoaded(true)}>
