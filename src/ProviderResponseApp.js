@@ -50,9 +50,9 @@ class ProviderResponseApp extends React.Component {
   initializeInstabug() {
     if (!__DEV__) {
       // Instabug.setIntroMessageEnabled(false);
-      Instabug.setPromptOptionsEnabled(false, true, true);
       // Instabug.setPrimaryColor(processColor('#DE6053'));
       // Instabug.setFloatingButtonEdge(Instabug.floatingButtonEdge.right, height - 120);
+      Instabug.setPromptOptionsEnabled(false, true, true);
       Instabug.startWithToken(
         Config[`INSTABUG_TOKEN_${Platform.OS.toUpperCase()}`],
         Instabug.invocationEvent.shake
@@ -100,9 +100,13 @@ class ProviderResponseApp extends React.Component {
   }
 
   render() {
-    const { downloadProgress } = this.state;
+    const { appState, downloadProgress } = this.state;
 
     const circleSize = Math.min(width, height) * 0.5;
+
+    if (appState !== 'active') {
+      return null;
+    }
 
     if (!this.state.codepushed) {
       return (
