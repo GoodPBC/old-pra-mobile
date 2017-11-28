@@ -3,6 +3,8 @@ import { Navigator } from 'react-native';
 import moment from 'moment';
 
 import {
+  Animated,
+  Alert,
   Image,
   StyleSheet,
   Text,
@@ -21,7 +23,7 @@ import {
   CARD_BORDER,
   X_AXIS_PADDING,
 } from '../../shared';
-
+import AnimatedMarker from './AnimatedMarker';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 
 const INITIAL_LATITUDE = 40.705342;
@@ -33,6 +35,7 @@ export default class MapScreen extends Component {
 
   constructor(props) {
     super(props);
+    props.context = "hello_world";
     this.state = {
       lastPosition: {
         latitude: INITIAL_LATITUDE,
@@ -44,12 +47,31 @@ export default class MapScreen extends Component {
         latitudeDelta: LATITUDE_DELTA,
         longitudeDelta: LONGITUDE_DELTA,
       },
+      selectedMarker: null,
     };
 
     this.onRegionChangeComplete = this.onRegionChangeComplete.bind(this);
     this.setStateWithActiveServiceRequests = this.setStateWithActiveServiceRequests.bind(this);
     this.renderActiveServiceRequestMarkers = this.renderActiveServiceRequestMarkers.bind(this);
     this.getMapBoundaries = this.getMapBoundaries.bind(this);
+    this.updateLastPosition = this.updateLastPosition.bind(this);
+    this.selectMarker = this.selectMarker.bind(this);
+  }
+
+  //google map :
+  //originally marker's are just circles.
+  //if selected it changes to pin with animation.
+  //if unselected it becomes a circle again.
+  componentWillUpdate(nextProps, nextState) {
+    if (this.props.context !== nextProps.context) {
+      if (this.props.context) {
+        this.markers[this.props.context].hideCallout();
+      }
+      if (nextProps.context) {
+        this.setState({ selectedMarker: nextProps.context });
+        this.markers[nextProps.context].showCallout();
+      }
+    }
   }
 
   onRegionChangeComplete(region) {
@@ -83,9 +105,23 @@ export default class MapScreen extends Component {
     return {
       latitude: (maxLat + minLat) / 2,
       longitude: (maxLng + minLng) / 2,
-      latitudeDelta: (maxLat - minLat + 0.001) * 1.25,
-      longitudeDelta: (maxLng - minLng + 0.001) * 1.25,
+      latitudeDelta: (maxLat - minLat + 0.001) * 1.5,
+      longitudeDelta: (maxLng - minLng + 0.001) * 1.5,
     }
+  }
+
+  updateLastPosition(position) {
+    const { latitude, longitude } = position.coords;
+    this.setState({
+      lastPosition: {
+        latitude,
+        longitude,
+      },
+    })
+  }
+
+  handleLocationServiceError(error) {
+    Alert.alert(JSON.stringify(error));
   }
 
   componentWillMount() {
@@ -99,26 +135,11 @@ export default class MapScreen extends Component {
     }
 
     navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const { latitude, longitude } = position.coords;
-        const region = {
-          latitude,
-          longitude,
-          latitudeDelta: LATITUDE_DELTA,
-          longitudeDelta: LONGITUDE_DELTA,
-        }
-        this.setState({
-          lastPosition: { latitude, longitude },
-          region,
-        });
-      },
-      (error) => alert(JSON.stringify(error)),
+      this.updateLastPosition,
+      this.handleLocationServiceError,
       {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
     );
-    this.watchID = navigator.geolocation.watchPosition((position) => {
-      // var lastPosition = JSON.stringify(position);
-      //this.setState({lastPosition});
-    });
+    this.watchID = navigator.geolocation.watchPosition(this.updateLastPosition);
 
     let activeServiceRequests = [];
 
@@ -162,7 +183,6 @@ export default class MapScreen extends Component {
           marker.formattedAddress = `${json.results[0].address_components[0].long_name} ${json.results[0].address_components[1].long_name}`
 
           activeServiceRequests.push(marker);
-
           if ( index == arrLength - 1 ){
             // run callback function to get access to this.setState()
             successCallback(activeServiceRequests);
@@ -180,13 +200,26 @@ export default class MapScreen extends Component {
     }
   }
 
+  selectMarker(serviceRequestNumber) {
+    return e => {
+      this.setState({ selectedMarker: serviceRequestNumber });
+    }
+  }
+
   componentWillUnmount() {
     navigator.geolocation.clearWatch(this.watchID);
   }
 
   renderActiveServiceRequestMarkers() {
-    const { activeServiceRequests } = this.state;
+    // const { activeServiceRequests } = this.state;
 
+    const activeServiceRequests = [{
+      provider_assigned_time: "2017-08-15 12:34:56.789",
+      sr_number: "hello_world",
+      latitude: 40.706254,
+      longitude: -73.974209,
+      formattedAddress: 'formattedAddress',
+    }]
     return (
       activeServiceRequests &&
       activeServiceRequests.map((marker, key) => {
@@ -206,21 +239,19 @@ export default class MapScreen extends Component {
           pinColor = 'red';
         }
 
-        return(
+        return (
           <MapView.Marker
+            ref={m => this.markers = { ...(this.markers || {}), [marker.sr_number]: m }}
             coordinate={{latitude: marker.latitude, longitude: marker.longitude}}
             key={key}
             pinColor={pinColor}
+            description={marker.formattedAddress}
+            onPress={this.selectMarker(marker.sr_number)}
           >
-            <MapView.Callout
-              style={{ flex: 1, position: 'relative' }}
-            >
-              <View>
-                <Text>{marker.formattedAddress}</Text>
-              </View>
-            </MapView.Callout>
+            <AnimatedMarker color={pinColor} />
           </MapView.Marker>
-        )
+
+        );
       })
     );
   }
