@@ -65,11 +65,13 @@ export default class MapScreen extends Component {
   componentWillUpdate(nextProps, nextState) {
     if (this.props.context !== nextProps.context) {
       if (this.props.context) {
-        this.markers[this.props.context].hideCallout();
+        const markerToHide = this.markers[this.props.context];
+        markerToHide && markerToHide.hideCallout();
       }
       if (nextProps.context) {
         this.setState({ selectedMarker: nextProps.context });
-        this.markers[nextProps.context].showCallout();
+        const markerToShow = this.markers[nextProps.context];
+        markerToShow && markerToShow.showCallout();
       }
     }
   }
@@ -122,6 +124,14 @@ export default class MapScreen extends Component {
 
   handleLocationServiceError(error) {
     Alert.alert(JSON.stringify(error));
+  }
+
+  componentWillReceiveProps(nextProps) {
+    // I think we need to update activeServiceRequests
+    // and get more coordinates for new serviceRequests
+    // OR clean activeservicerequests. in state.
+    // 
+    // I think it is okay to make closed requests disappear.
   }
 
   componentWillMount() {
@@ -211,15 +221,8 @@ export default class MapScreen extends Component {
   }
 
   renderActiveServiceRequestMarkers() {
-    // const { activeServiceRequests } = this.state;
+    const { activeServiceRequests } = this.state;
 
-    const activeServiceRequests = [{
-      provider_assigned_time: "2017-08-15 12:34:56.789",
-      sr_number: "hello_world",
-      latitude: 40.706254,
-      longitude: -73.974209,
-      formattedAddress: 'formattedAddress',
-    }]
     return (
       activeServiceRequests &&
       activeServiceRequests.map((marker, key) => {
