@@ -18,7 +18,7 @@ import App from './app/containers/App';
 import { ImageContainer } from './shared';
 import configureStore from './store';
 
-console.disableYellowBox = true;
+// console.disableYellowBox = true;
 
 crashlytics.init();
 

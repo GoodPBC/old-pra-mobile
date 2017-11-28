@@ -13,6 +13,8 @@ import serviceRequests from '../serviceRequests/reducers';
 import teams from '../teams/reducers';
 import user from '../user/reducers';
 
+const logger = createLogger();
+
 const reducer = combineReducers({
   app,
   offline,
@@ -28,8 +30,6 @@ const middleware = applyMiddleware(
   offlineSync,
   providerAPI
 );
-
-const logger = createLogger();
 
 export default function configureStore() {
   const store = createStore(
