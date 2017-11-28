@@ -261,6 +261,10 @@ export default class MapScreen extends Component {
           pinColor = 'red';
         }
 
+        if (this.props.context === marker.sr_number) {
+          pinColor = 'blue';
+        }
+
         return (
           <MapView.Marker
             ref={m => this.markers = { ...(this.markers || {}), [marker.sr_number]: m }}
@@ -279,7 +283,6 @@ export default class MapScreen extends Component {
   }
 
   render() {
-    console.log(this.state.activeServiceRequests);
     const { region } = this.state;
     return (
       <View style={styles.container}>

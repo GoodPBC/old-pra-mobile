@@ -20,11 +20,13 @@ UIManager.setLayoutAnimationEnabledExperimental
 import mapMarkerGreen from './img/map-marker-green.png';
 import mapMarkerYellow from './img/map-marker-yellow.png';
 import mapMarkerRed from './img/map-marker-red.png';
+import mapMarkerBlue from './img/map-marker-blue.png';
 
 const MAP_MARKERS = {
   red: mapMarkerRed,
   yellow: mapMarkerYellow,
   green: mapMarkerGreen,
+  blue: mapMarkerBlue,
 };
 
 export default class AnimatedMarker extends React.Component {
@@ -59,7 +61,7 @@ export default class AnimatedMarker extends React.Component {
 }
 
 AnimatedMarker.propTypes = {
-  color: PropTypes.oneOf(['red', 'yellow', 'green']),
+  color: PropTypes.oneOf(['red', 'yellow', 'green', 'blue']),
 };
 
 const styles = StyleSheet.create({
