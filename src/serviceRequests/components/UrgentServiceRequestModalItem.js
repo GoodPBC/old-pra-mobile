@@ -1,12 +1,8 @@
 import React, { Component } from 'react';
-
 import { StyleSheet, View, Text, Picker, TextInput, Platform } from 'react-native';
-
 import RadioForm, { RadioButton, RadioButtonInput, RadioButtonLabel } from 'react-native-simple-radio-button';
 
-
 import { Button } from '../../shared';
-
 import UrgentServiceRequestModalItemResolutionPicker from './UrgentServiceRequestModalItemResolutionPicker';
 
 const RESPONSE_REASONS = {
@@ -72,6 +68,8 @@ export default class UrgentServiceRequestModalItem extends Component {
           selectedReasonId={this.state.reasonId}
         />
         <Button
+          disabled={!this.state.reasonId}
+          disabledContainerStyle={{backgroundColor: 'rgba(0, 0, 0, 0.1)'}}
           onPress={this.saveServiceRequest}
           style={styles.button}
         >
