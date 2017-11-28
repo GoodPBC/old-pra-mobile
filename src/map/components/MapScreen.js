@@ -25,6 +25,7 @@ import {
 } from '../../shared';
 import AnimatedMarker from './AnimatedMarker';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+import Config from 'react-native-config';
 
 const INITIAL_LATITUDE = 40.705342;
 const INITIAL_LONGITUDE = -74.012035;
@@ -35,8 +36,8 @@ export default class MapScreen extends Component {
 
   constructor(props) {
     super(props);
-    props.context = "hello_world";
     this.state = {
+      activeServiceRequests: {},
       lastPosition: {
         latitude: INITIAL_LATITUDE,
         longitude: INITIAL_LONGITUDE,
@@ -56,6 +57,9 @@ export default class MapScreen extends Component {
     this.getMapBoundaries = this.getMapBoundaries.bind(this);
     this.updateLastPosition = this.updateLastPosition.bind(this);
     this.selectMarker = this.selectMarker.bind(this);
+    this.getLatLong = this.getLatLong.bind(this);
+    this.getServiceRequestPositions = this.getServiceRequestPositions.bind(this);
+    this.watchPosition = this.watchPosition.bind(this);
   }
 
   //google map :
@@ -80,15 +84,22 @@ export default class MapScreen extends Component {
     this.setState({ region });
   }
 
-  setStateWithActiveServiceRequests(activeServiceRequests) {
-    const region = this.getMapBoundaries(activeServiceRequests);
-    this.setState({ activeServiceRequests, region });
+  setStateWithActiveServiceRequests(newServiceRequest) {
+    const region = this.getMapBoundaries([
+      ...Object.values(this.state.activeServiceRequests),
+      newServiceRequest,
+    ]);
+    const activeServiceRequests = {
+      ...this.state.activeServiceRequests,
+      [newServiceRequest.sr_number]: newServiceRequest,
+    }
+    this.setState({ region, activeServiceRequests });
   }
 
   getMapBoundaries(activeServiceRequests) {
     const { lastPosition } = this.state;
 
-    if (!activeServiceRequests) {
+    if (!activeServiceRequests || !activeServiceRequests.length) {
       return this.state.region;
     }
 
@@ -127,87 +138,97 @@ export default class MapScreen extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    // I think we need to update activeServiceRequests
-    // and get more coordinates for new serviceRequests
-    // OR clean activeservicerequests. in state.
-    // 
-    // I think it is okay to make closed requests disappear.
+    const currentActiveServiceRequests = this.state.activeServiceRequests;
+    const nextActiveServiceRequests = nextProps.activeServiceRequests;
+
+    const currentServiceRequestNumbers = Object.keys(currentActiveServiceRequests);
+    const nextServiceRequestNumbers = nextActiveServiceRequests.map(sr => sr.sr_number);
+
+    // Delete requests that are not active anymore
+    const filteredServiceRequests = currentServiceRequestNumbers.reduce((acc, sr_number) => {
+      if (nextServiceRequestNumbers.includes(sr_number)) {
+        return {
+          ...acc,
+          [sr_number]: currentActiveServiceRequests[sr_number],
+        };
+      } else {
+        return acc;
+      }
+    }, {});
+
+    const nextActiveServiceRequestsWithoutCoords = nextActiveServiceRequests.filter(sr => {
+      return !currentServiceRequestNumbers.includes(sr.sr_number);
+    })
+
+    this.setState({ activeServiceRequests: filteredServiceRequests });
+    this.getServiceRequestPositions(nextActiveServiceRequestsWithoutCoords);
   }
 
-  componentWillMount() {
-    for (var i = 0; i < this.props.activeServiceRequests.length; i++) {
-      getLatLong(
-        this.props.activeServiceRequests[i],
-        i,
-        this.props.activeServiceRequests.length,
-        this.setStateWithActiveServiceRequests
-      )
-    }
-
+  watchPosition() {
     navigator.geolocation.getCurrentPosition(
       this.updateLastPosition,
       this.handleLocationServiceError,
       {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
     );
     this.watchID = navigator.geolocation.watchPosition(this.updateLastPosition);
+  }
 
-    let activeServiceRequests = [];
-
-
-    async function getLatLong(marker, index, arrLength, successCallback){
-      let address;
-      // use cross streets if address is blank
-      if (marker.address === '') {
-        address = `${marker.cross_streets}, ${marker.borough}, ${marker.city}`;
-      } else {
-        address = `${marker.address}, ${marker.borough}, ${marker.city}`;
-      }
-
-      let key = 'AIzaSyDDXSqDsclRyA0WAQu1wpGdldnGnBh3oWw'
-      let url = `https://maps.googleapis.com/maps/api/geocode/json?key=${key}&address=${address}`
-
-      //console.log(url)
-      let body = ''
-
-      try {
-        response = await fetch(url, {
-          method: 'get'
-        });
-      } catch (e) {
-        console.log('Network Failure');
-        return;
-      }
-
-      let responseText = null;
-
-      try {
-        responseText = await response.text();
-        const json = JSON.parse(responseText);
-
-        if (response.ok && !(json.ErrorMessage && json.ErrorMessage.length)) {
-
-          let latitude = json.results[0].geometry.location.lat;
-          let longitude = json.results[0].geometry.location.lng;
-          marker.latitude = latitude;
-          marker.longitude = longitude;
-          marker.formattedAddress = `${json.results[0].address_components[0].long_name} ${json.results[0].address_components[1].long_name}`
-
-          activeServiceRequests.push(marker);
-          if ( index == arrLength - 1 ){
-            // run callback function to get access to this.setState()
-            successCallback(activeServiceRequests);
-          }
-          //return marker
-
-        } else {
-          console.log('Request Failure');
-          console.log(json.ErrorMessage);
-        }
-      } catch (e) {
-        console.log(responseText);
-        console.log('Unspecified failure');
-      }
+  getServiceRequestPositions(serviceRequests) {
+    for (let i = 0; i < serviceRequests.length; i++) {
+      this.getLatLong(
+        serviceRequests[i],
+        this.setStateWithActiveServiceRequests
+      )
     }
+  }
+
+  async getLatLong(marker, successCallback) {
+    let address;
+    // use cross streets if address is blank
+    if (marker.address && marker.address.length) {
+      address = `${marker.address}, ${marker.borough}, ${marker.city}`;
+    } else {
+      address = `${marker.cross_streets}, ${marker.borough}, ${marker.city}`;
+    }
+
+    let key = Config.GOOGLE_GEOLOCATION_API_KEY;
+    let url = `https://maps.googleapis.com/maps/api/geocode/json?key=${key}&address=${address}`
+
+    try {
+      response = await fetch(url, {
+        method: 'get'
+      });
+    } catch (e) {
+      console.log('Network Failure');
+      return;
+    }
+
+    let responseText = null;
+
+    try {
+      responseText = await response.text();
+      const json = JSON.parse(responseText);
+
+      if (response.ok && !(json.ErrorMessage && json.ErrorMessage.length)) {
+        const coords = json.results[0].geometry.location;
+        const addresses = json.results[0].address_components;
+        marker.latitude = coords.lat;
+        marker.longitude = coords.lng;
+        marker.formattedAddress = `${addresses[0].long_name} ${addresses[1].long_name}`
+        successCallback(marker);
+      } else {
+        console.log('Request Failure');
+        console.log(json.ErrorMessage);
+      }
+    } catch (e) {
+      console.log(responseText);
+      console.log('Unspecified failure');
+    }
+  }
+
+  componentWillMount() {
+    this.watchPosition();
+    this.getServiceRequestPositions(this.props.activeServiceRequests);
   }
 
   selectMarker(serviceRequestNumber) {
@@ -222,11 +243,9 @@ export default class MapScreen extends Component {
 
   renderActiveServiceRequestMarkers() {
     const { activeServiceRequests } = this.state;
-
     return (
-      activeServiceRequests &&
-      activeServiceRequests.map((marker, key) => {
-
+      Object.keys(activeServiceRequests).map(sr_number => {
+        const marker = activeServiceRequests[sr_number];
         // 0-20 mintues old = green
         // 21-40 mintues old = yellow
         // >40 minutes old = red
@@ -246,7 +265,7 @@ export default class MapScreen extends Component {
           <MapView.Marker
             ref={m => this.markers = { ...(this.markers || {}), [marker.sr_number]: m }}
             coordinate={{latitude: marker.latitude, longitude: marker.longitude}}
-            key={key}
+            key={sr_number}
             pinColor={pinColor}
             description={marker.formattedAddress}
             onPress={this.selectMarker(marker.sr_number)}
@@ -260,6 +279,7 @@ export default class MapScreen extends Component {
   }
 
   render() {
+    console.log(this.state.activeServiceRequests);
     const { region } = this.state;
     return (
       <View style={styles.container}>
