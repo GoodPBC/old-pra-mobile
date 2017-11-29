@@ -6,7 +6,6 @@ import android.util.Log;
 import com.facebook.react.ReactApplication;
 import com.lugg.ReactNativeConfig.ReactNativeConfigPackage;
 import com.airbnb.android.react.maps.MapsPackage;
-import com.airbnb.android.react.maps.MapsPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.smixx.fabric.FabricPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
@@ -44,22 +43,20 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
         new MainReactPackage(),
-            new ReactNativeConfigPackage(),
-            new MapsPackage(),
-          new MapsPackage(),
-          new VectorIconsPackage(),
-          new FabricPackage(),
-          new LinearGradientPackage(),
-          new GoogleAnalyticsBridgePackage(),
-          new RNDeviceInfo(),
-          new ReactNativeConfigPackage(),
-          new CodePush(null, getApplicationContext(), BuildConfig.DEBUG),
-      		new RNInstabugReactnativePackage.Builder(BuildConfig.INSTABUG_TOKEN_ANDROID, MainApplication.this)
-						.setInvocationEvent("button")
-						.setPrimaryColor("#DE6053")
-						.setFloatingEdge("right")
-						.setFloatingButtonOffsetFromTop(300)
-						.build()
+        new MapsPackage(),
+        new VectorIconsPackage(),
+        new FabricPackage(),
+        new LinearGradientPackage(),
+        new GoogleAnalyticsBridgePackage(),
+        new RNDeviceInfo(),
+        new ReactNativeConfigPackage(),
+        new CodePush(null, getApplicationContext(), BuildConfig.DEBUG),
+    		new RNInstabugReactnativePackage.Builder(BuildConfig.INSTABUG_TOKEN_ANDROID, MainApplication.this)
+					.setInvocationEvent("button")
+					.setPrimaryColor("#DE6053")
+					.setFloatingEdge("right")
+					.setFloatingButtonOffsetFromTop(300)
+					.build()
       );
     }
   };
