@@ -256,8 +256,8 @@ export default class MapScreen extends Component {
       Linking.canOpenURL(url).then(supported => {
         if (supported) {
           Alert.alert(
-            'Warning',
-            'You will be redirected to Google Maps for the direction to a selected location. Would you like to continue?',
+            'You are about to leave the app',
+            'Open Google Maps to get directions to this location?',
             [
               {text: 'Cancel'},
               {text: 'Continue', onPress: () => Linking.openURL(url)},
