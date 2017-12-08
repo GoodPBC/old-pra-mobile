@@ -76,8 +76,9 @@ end
 platform :android do
   desc 'Android Staging Build'
   lane :staging do
-    version_code = google_play_track_version_codes(track: 'alpha')
-    version_code = version_code[0] + 1
+    version_code_a = google_play_track_version_codes(track: 'alpha')[0] || 0
+    version_code_b = google_play_track_version_codes(track: 'beta')[0] || 0
+    version_code = [version_code_a, version_code_b].max + 1
 
     gradle(
       project_dir: 'android',
@@ -96,8 +97,9 @@ platform :android do
 
   desc 'Android Beta Build'
   lane :beta do
-    version_code = google_play_track_version_codes(track: 'beta')
-    version_code = version_code[0] + 1
+    version_code_a = google_play_track_version_codes(track: 'alpha')[0] || 0
+    version_code_b = google_play_track_version_codes(track: 'beta')[0] || 0
+    version_code = [version_code_a, version_code_b].max + 1
 
     gradle(
       project_dir: 'android',

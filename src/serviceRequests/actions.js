@@ -36,7 +36,8 @@ export function selectServiceRequestResolution(resolutionCode) {
 }
 
 export function fetchServiceRequests(onSuccess) {
-  const yesterday = momentToStr(moment().subtract(1, 'days'));
+  const numDays = moment().isSameOrAfter('2017-12-04') ? 1 : 7;
+  const yesterday = momentToStr(moment().subtract(numDays, 'days'));
   return {
     type: API_REQUEST,
     actionName: FETCH_SERVICE_REQUESTS,

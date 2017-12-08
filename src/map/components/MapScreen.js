@@ -9,7 +9,8 @@ import {
   StyleSheet,
   Text,
   View,
-  Dimensions
+  Linking,
+  Dimensions,
 } from 'react-native';
 
 import {
@@ -60,6 +61,7 @@ export default class MapScreen extends Component {
     this.getLatLong = this.getLatLong.bind(this);
     this.getServiceRequestPositions = this.getServiceRequestPositions.bind(this);
     this.watchPosition = this.watchPosition.bind(this);
+    this.onCalloutPress = this.onCalloutPress.bind(this);
   }
 
   //google map :
@@ -237,6 +239,37 @@ export default class MapScreen extends Component {
     }
   }
 
+  getEncodedURIForDirection(serviceRequest) {
+    const { address, cross_streets, borough, city, state, zip } = serviceRequest;
+    let destination;
+    if (!address || !address.length) {
+      destination = [cross_streets, borough, city, state, zip].join('+');
+    } else {
+      destination = [address, borough, city, state, zip].join('+');
+    }
+    return encodeURI(`https://www.google.com/maps/dir/?api=1&travelmode=driving&destination=${destination}`);
+  }
+
+  onCalloutPress(serviceRequest) {
+    return () => {
+      const url = this.getEncodedURIForDirection(serviceRequest);
+      Linking.canOpenURL(url).then(supported => {
+        if (supported) {
+          Alert.alert(
+            'You are about to leave the app',
+            'Open Google Maps to get directions to this location?',
+            [
+              {text: 'Cancel'},
+              {text: 'Continue', onPress: () => Linking.openURL(url)},
+            ]
+          )
+        } else {
+          console.log(`Don't know how to open URI: ${url}`);
+        }
+      })
+    }
+  }
+
   componentWillUnmount() {
     navigator.geolocation.clearWatch(this.watchID);
   }
@@ -275,6 +308,12 @@ export default class MapScreen extends Component {
             onPress={this.selectMarker(marker.sr_number)}
           >
             <AnimatedMarker color={pinColor} />
+            <MapView.Callout
+              style={styles.callout}
+              onPress={this.onCalloutPress(marker)}
+            >
+              <Text>{marker.formattedAddress}</Text>
+            </MapView.Callout>
           </MapView.Marker>
 
         );
@@ -316,5 +355,9 @@ const styles = StyleSheet.create({
   },
   map: {
     flex: 1,
-  }
+  },
+  callout: {
+    position: 'relative',
+    maxWidth: 250,
+  },
 });
