@@ -37,4 +37,5 @@ export const RESOLUTION_CODES = {
   referred_to_911: 4,
   refused_assistance: 5,
   out_of_provider_network: 6,
+  out_of_jurisdiction: 7
 };

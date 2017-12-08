@@ -88,6 +88,8 @@ const RAW_RESOLUTION_TO_CODE = {
   'Person Not Found': RESOLUTION_CODES.person_not_found,
   'Referred to 911': RESOLUTION_CODES.referred_to_911,
   'Refused Assistance': RESOLUTION_CODES.refused_assistance,
+  'Refer to Out of Provider Network': RESOLUTION_CODES.out_of_provider_network,
+  'Out of Jurisdiction': RESOLUTION_CODES.out_of_jurisdiction
 };
 
 function transformResolutionCode(rawResolutionCode) {
