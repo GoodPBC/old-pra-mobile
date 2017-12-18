@@ -49,6 +49,7 @@ android/app/libs
 # For more information about the recommended setup visit:
 # https://github.com/fastlane/fastlane/blob/master/fastlane/docs/Gitignore.md
 
+fastlate/.env
 fastlane/report.xml
 fastlane/Preview.html
 fastlane/screenshots
