@@ -60,7 +60,6 @@ const RESOLUTION_CODE_DISPLAY_NAMES = {
   [RESOLUTION_CODES.person_not_found]: 'Person not found',
   [RESOLUTION_CODES.referred_to_911]: 'Referred to 911',
   [RESOLUTION_CODES.refused_assistance]: 'Refused Assistance',
-  [RESOLUTION_CODES.out_of_provider_network]: 'Out of Provider Network',
   [RESOLUTION_CODES.out_of_jurisdiction]: 'Out of Jurisdiction'
 };
 
