@@ -17,11 +17,11 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.91</string>
+	<string>0.92</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>71</string>
+	<string>72</string>
 	<key>CodePushDeploymentKey</key>
 	<string>deployment-key-here</string>
 	<key>Fabric</key>
@@ -56,7 +56,7 @@
 		</dict>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string>The app needs your location to show where you are in relation to nearby service requests.</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>We need access to the microphone to be able to attach voice notes.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
