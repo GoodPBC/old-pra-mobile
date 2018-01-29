@@ -94,7 +94,7 @@ import com.android.build.OutputFile
  *   inputExcludes: ["android/**", "ios/**"],
  *
  *   // override which node gets called and with what additional arguments
- *   nodeExecutableAndArgs: ["node"]
+ *   nodeExecutableAndArgs: ["node"],
  *
  *   // supply additional arguments to the packager
  *   extraPackagerArgs: []
@@ -103,6 +103,7 @@ import com.android.build.OutputFile
 
 project.ext.react = [
   bundleInReleaseStaging: true
+  entryFile: "index.js"
 ]
 
 apply from: "../../node_modules/react-native/react.gradle"
@@ -128,7 +129,7 @@ android {
     buildToolsVersion "23.0.3"
 
     defaultConfig {
-        applicationId "com.providerresponse"
+        applicationId "com.providerresponseapp"
         minSdkVersion 16
         targetSdkVersion 22
         versionCode project.hasProperty('versionCode') ? project.property('versionCode') as int : 1
@@ -136,7 +137,7 @@ android {
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
-        resValue "string", "build_config_package", "com.providerresponse"
+        resValue "string", "build_config_package", "com.providerresponseapp"
         multiDexEnabled true
     }
     signingConfigs {

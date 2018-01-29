@@ -1,7 +1,6 @@
-package com.providerresponse;
+package com.providerresponseapp;
 
 import android.app.Application;
-import android.util.Log;
 
 import com.facebook.react.ReactApplication;
 import com.lugg.ReactNativeConfig.ReactNativeConfigPackage;
@@ -58,6 +57,11 @@ public class MainApplication extends Application implements ReactApplication {
 					.setFloatingButtonOffsetFromTop(300)
 					.build()
       );
+    }
+
+    @Override
+    protected String getJSMainModuleName() {
+      return "index";
     }
   };
 

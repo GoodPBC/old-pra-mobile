@@ -1,4 +1,4 @@
-package com.providerresponse;
+package com.providerresponseapp;
 
 import com.facebook.react.ReactActivity;
 
