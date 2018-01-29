@@ -28,7 +28,7 @@
   [GMSServices provideAPIKey:@"AIzaSyBmAQB7WxkU9ZTJl1jfhzNLpRnyiqu9nUQ"];
   
 #ifdef DEBUG
-    jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
+    jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.js" fallbackResource:nil];
 #else
     jsCodeLocation = [CodePush bundleURL];
 #endif

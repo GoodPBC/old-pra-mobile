@@ -1,0 +1,20 @@
+diff a/android/app/build.gradle b/android/app/build.gradle	(rejected hunks)
+@@ -58,13 +65,17 @@ import com.android.build.OutputFile
+  *   inputExcludes: ["android/**", "ios/**"],
+  *
+  *   // override which node gets called and with what additional arguments
+- *   nodeExecutableAndArgs: ["node"]
++ *   nodeExecutableAndArgs: ["node"],
+  *
+  *   // supply additional arguments to the packager
+  *   extraPackagerArgs: []
+  * ]
+  */
+ 
++project.ext.react = [
++    entryFile: "index.js"
++]
++
+ apply from: "../../node_modules/react-native/react.gradle"
+ 
+ /**

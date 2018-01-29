@@ -1,0 +1,10 @@
+diff a/ios/ProviderResponseApp/AppDelegate.m b/ios/ProviderResponseApp/AppDelegate.m	(rejected hunks)
+@@ -18,7 +18,7 @@
+ {
+   NSURL *jsCodeLocation;
+ 
+-  jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
++  jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
+ 
+   RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
+                                                       moduleName:@"ProviderResponseApp"
