@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
+    "postinstall": "rm ./node_modules/react-native/local-cli/core/__fixtures__/files/package.json",
     "lint": "eslint src/",
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "deploy": "fastlane ios beta && fastlane android beta && git ci -a -m \"Version bump\"",
@@ -11,11 +12,11 @@
     "test": "jest"
   },
   "dependencies": {
-    "instabug-reactnative": "^2.0.12",
-    "moment": "^2.17.1",
+    "instabug-reactnative": "^2.5.1",
+    "moment": "^2.20.1",
     "react": "^16.2.0",
     "react-native": "^0.52.2",
-    "react-native-code-push": "^1.17.4-beta",
+    "react-native-code-push": "^5.2.1",
     "react-native-config": "^0.5.0",
     "react-native-deprecated-custom-components": "^0.1.1",
     "react-native-device-info": "^0.12.1",
