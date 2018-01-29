@@ -58,6 +58,11 @@ public class MainApplication extends Application implements ReactApplication {
 					.build()
       );
     }
+
+    @Override
+    protected String getJSMainModuleName() {
+      return "index";
+    }
   };
 
   @Override
