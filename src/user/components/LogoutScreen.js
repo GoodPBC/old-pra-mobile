@@ -4,9 +4,9 @@ import {
   StyleSheet,
   Text,
   View,
-  Navigator,
 } from 'react-native';
 import PropTypes from 'prop-types';
+import { Navigator } from 'react-native-deprecated-custom-components';
 import {
   InvertButton,
   InvertText,

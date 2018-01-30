@@ -4,7 +4,6 @@ import {
   BackAndroid,
   Image,
   InteractionManager,
-  Navigator,
   Platform,
   StyleSheet,
   TouchableOpacity,
@@ -12,6 +11,7 @@ import {
   View,
 } from 'react-native';
 import PropTypes from 'prop-types';
+import { Navigator } from 'react-native-deprecated-custom-components';
 
 import { DARK_BLUE, GREY_TEXT } from '../constants';
 
