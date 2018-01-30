@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {
   ActivityIndicator,
-  BackAndroid,
+  BackHandler,
   Image,
   InteractionManager,
   Platform,
@@ -35,7 +35,11 @@ export default class Navigation extends Component {
     // This handler gets added for every tab.
     // These navigation components are never un-mounted, so there
     // is no opportunity to remove the handler.
-    BackAndroid.addEventListener('hardwareBackPress', this._handleAndroidBackButton);
+    BackHandler.addEventListener('hardwareBackPress', this._handleAndroidBackButton);
+  }
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this._handleAndroidBackButton);
   }
 
   _handleAndroidBackButton() {
