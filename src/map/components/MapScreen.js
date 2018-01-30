@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { Navigator } from 'react-native';
+import { Navigator } from 'react-native-deprecated-custom-components';
 import moment from 'moment';
 
 import {

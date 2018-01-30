@@ -1,17 +1,17 @@
 import React from 'react';
-import { Image, StyleSheet } from 'react-native';
+import { ImageBackground, StyleSheet } from 'react-native';
 import backgroundImage from './img/Background.png';
 
 export default class ImageContainer extends React.Component {
   render() {
     return (
-      <Image
+      <ImageBackground
         source={backgroundImage}
         style={styles.image}
         {...this.props}
       >
         {this.props.children}
-      </Image>
+      </ImageBackground>
     );
   }
 }
