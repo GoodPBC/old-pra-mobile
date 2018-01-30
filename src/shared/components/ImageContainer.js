@@ -8,6 +8,7 @@ export default class ImageContainer extends React.Component {
       <ImageBackground
         source={backgroundImage}
         style={styles.image}
+        resizeMode="cover"
         {...this.props}
       >
         {this.props.children}
@@ -21,6 +22,5 @@ const styles = StyleSheet.create({
     flex: 1,
     width: null,
     height: null,
-    resizeMode: 'cover',
   },
 })
