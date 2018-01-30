@@ -11,7 +11,7 @@ import {
   gaTrackScreenView,
   clearErrorMessage
 } from '../actions';
-import { monitorNetworkChanges } from '../../offline/actions';
+import { updateNetworkStatus } from '../../offline/actions';
 import { getCurrentTeam } from '../../teams/selectors';
 
 function mapStateToProps(state) {
@@ -36,7 +36,7 @@ function mapDispatchToProps(dispatch) {
     updateDeviceInfo,
     gaTrackScreenView,
     clearErrorMessage,
-    monitorNetworkChanges,
+    updateNetworkStatus,
   }, dispatch);
 }
 

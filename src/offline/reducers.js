@@ -1,7 +1,7 @@
 import {
   ADD_TO_SYNC_QUEUE,
   FINISH_SYNC,
-  NETWORK_STATUS_CHANGE,
+  UPDATE_NETWORK_STATUS,
 } from './actionTypes';
 
 const initialState = {
@@ -22,7 +22,7 @@ export default function reducer(state = initialState, action) {
         ...state,
         syncQueue: [],
       };
-    case NETWORK_STATUS_CHANGE:
+    case UPDATE_NETWORK_STATUS:
       return {
         ...state,
         networkIsConnected: action.isConnected,

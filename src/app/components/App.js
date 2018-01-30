@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-
 import {
   Alert,
   Dimensions,
@@ -9,6 +8,7 @@ import {
   StatusBar,
   StyleSheet,
   View,
+  NetInfo,
 } from 'react-native';
 
 import TabNavigator from 'react-native-tab-navigator';
@@ -45,7 +45,12 @@ export default class App extends Component {
   }
 
   componentWillMount() {
-    this.props.monitorNetworkChanges();
+    NetInfo.isConnected.fetch().then(this.props.updateNetworkStatus);
+    NetInfo.isConnected.addEventListener('connectionChange', this.props.updateNetworkStatus);
+  }
+
+  componentWillUnmount() {
+    NetInfo.isConnected.removeEventListener('connectionChange', this.props.updateNetworkStatus);
   }
 
   componentDidMount() {
@@ -226,7 +231,7 @@ App.propTypes = {
   clearErrorMessage: PropTypes.func.isRequired,
   gaTrackScreenView: PropTypes.func.isRequired,
   errorMessage: PropTypes.string,
-  monitorNetworkChanges: PropTypes.func.isRequired,
+  updateNetworkStatus: PropTypes.func.isRequired,
   networkIsConnected: PropTypes.bool,
   userIsAuthenticated: PropTypes.bool,
 };

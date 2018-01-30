@@ -1,5 +1,6 @@
 import { RESOLVE_SERVICE_REQUEST, UPDATE_ONSITE_STATUS } from '../serviceRequests/actionTypes';
 
+export const UPDATE_NETWORK_STATUS = 'UPDATE_NETWORK_STATUS';
 export const ADD_TO_SYNC_QUEUE = 'ADD_TO_SYNC_QUEUE';
 export const FINISH_SYNC = 'FINISH_SYNC';
 export const SYNC_SERVICE_REQUESTS = 'SYNC_SERVICE_REQUESTS';

@@ -1,8 +1,5 @@
 import {
-  NetInfo,
-} from 'react-native';
-
-import {
+  UPDATE_NETWORK_STATUS,
   ADD_TO_SYNC_QUEUE,
   NETWORK_STATUS_CHANGE,
   SYNC_SERVICE_REQUESTS,
@@ -21,19 +18,9 @@ export function syncServiceRequests() {
   };
 }
 
-export function monitorNetworkChanges() {
-  return (dispatch) => {
-    NetInfo.isConnected.fetch().then(isConnected => {
-      dispatch({
-        type: NETWORK_STATUS_CHANGE,
-        isConnected,
-      });
-    });
-    NetInfo.isConnected.addEventListener('change', isConnected => {
-      dispatch({
-        type: NETWORK_STATUS_CHANGE,
-        isConnected,
-      });
-    });
+export function updateNetworkStatus(isConnected) {
+  return {
+    type: UPDATE_NETWORK_STATUS,
+    isConnected,
   };
 }
