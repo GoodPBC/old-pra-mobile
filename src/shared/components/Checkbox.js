@@ -1,5 +1,6 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import { Image, StyleSheet } from 'react-native';
+import PropTypes from 'prop-types';
 import checkedSquareImage from './img/multiple-select-button-active.png';
 import uncheckedSquareImage from './img/multiple-select-button-inactive.png';
 

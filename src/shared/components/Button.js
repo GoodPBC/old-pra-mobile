@@ -1,5 +1,6 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import { TouchableHighlight, StyleSheet, Text, View } from 'react-native';
+import PropTypes from 'prop-types';
 import { DARK_BLUE } from '../constants';
 
 export default function Button(props) {

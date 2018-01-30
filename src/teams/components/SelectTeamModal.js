@@ -1,5 +1,6 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { StatusBar, Platform, StyleSheet, Text, View } from 'react-native';
+import PropTypes from 'prop-types';
 import DeviceInfo from 'react-native-device-info';
 import SelectTeamScreen from '../containers/SelectTeamScreen';
 import {

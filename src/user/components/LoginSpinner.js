@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
-
 import {
   View,
   ActivityIndicator,
   StyleSheet
 } from 'react-native';
-
-
 
 export default class LoginSpinner extends Component {
   render() {

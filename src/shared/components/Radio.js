@@ -1,5 +1,6 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import { Image, StyleSheet } from 'react-native';
+import PropTypes from 'prop-types';
 import checkedCircleImage from './img/select-radio-active.png';
 import uncheckedCircleImage from './img/select-radio-inactive.png';
 

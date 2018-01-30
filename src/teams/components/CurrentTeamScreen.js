@@ -1,5 +1,6 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, View, Navigator } from 'react-native';
+import PropTypes from 'prop-types';
 import { RouteIndices } from './TeamNavigation';
 import {
   GradientBackground,

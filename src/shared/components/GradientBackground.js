@@ -1,6 +1,7 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import { View } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import PropTypes from 'prop-types';
 import { DARK_BLUE, LIGHT_BLUE } from '../constants';
 
 export default function GradientBackground({ children, style }) {

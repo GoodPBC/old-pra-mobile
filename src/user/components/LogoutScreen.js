@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import {
   Image,
   StyleSheet,
@@ -6,6 +6,7 @@ import {
   View,
   Navigator,
 } from 'react-native';
+import PropTypes from 'prop-types';
 import {
   InvertButton,
   InvertText,

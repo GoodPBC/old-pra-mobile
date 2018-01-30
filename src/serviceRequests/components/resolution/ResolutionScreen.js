@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import ResolutionForm from './ResolutionForm';
 import BannerWithNumber from '../BannerWithNumber';

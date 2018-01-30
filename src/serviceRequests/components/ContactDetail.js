@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 import { StyleSheet, Text, View } from 'react-native';
 import {
@@ -27,4 +28,3 @@ const styles = StyleSheet.create({
     paddingBottom: 3,
   },
 });
-

@@ -1,5 +1,6 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import { StyleSheet, View } from 'react-native';
+import PropTypes from 'prop-types';
 import { InvertButton, X_AXIS_PADDING, BODY_BACKGROUND } from '../../shared';
 
 export default function JoinTeamButton({ joinTeam }) {

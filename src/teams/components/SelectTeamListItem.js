@@ -1,5 +1,6 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import { Image, View, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import PropTypes from 'prop-types';
 import detailArrowImage from '../../serviceRequests/components/img/details-arrow-icon-white.png';
 import { LIGHT_BLUE, Radio } from '../../shared';
 

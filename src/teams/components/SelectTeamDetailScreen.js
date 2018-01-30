@@ -1,5 +1,6 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
+import PropTypes from 'prop-types';
 import { GradientBackground } from '../../shared';
 import TeamUserList from '../containers/TeamUserList';
 import JoinTeamButton from './JoinTeamButton';

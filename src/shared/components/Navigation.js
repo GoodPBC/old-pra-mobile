@@ -1,5 +1,4 @@
-import React, { Component, PropTypes } from 'react';
-
+import React, { Component } from 'react';
 import {
   ActivityIndicator,
   BackAndroid,
@@ -12,9 +11,9 @@ import {
   Text,
   View,
 } from 'react-native';
+import PropTypes from 'prop-types';
 
-import { DARK_BLUE } from '../constants';
-import { GREY_TEXT } from '../constants';
+import { DARK_BLUE, GREY_TEXT } from '../constants';
 
 import refreshIcon from './img/refresh-icon.png';
 import backIcon from './img/back-icon.png';

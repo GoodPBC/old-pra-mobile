@@ -1,5 +1,6 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
+import PropTypes from 'prop-types';
 import SelectTeamList from '../containers/SelectTeamList';
 import { LIGHT_BLUE, BODY_BACKGROUND } from '../../shared';
 

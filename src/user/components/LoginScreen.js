@@ -1,5 +1,4 @@
-import React, { Component, PropTypes } from 'react';
-
+import React, { Component } from 'react';
 import {
   KeyboardAvoidingView,
   Image,
@@ -8,6 +7,7 @@ import {
   View,
   Text
 } from 'react-native';
+import PropTypes from 'prop-types';
 import {
   InvertButton,
   InvertText,

@@ -14,6 +14,7 @@
   "dependencies": {
     "instabug-reactnative": "^2.5.1",
     "moment": "^2.20.1",
+    "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-native": "^0.52.2",
     "react-native-code-push": "^5.2.1",

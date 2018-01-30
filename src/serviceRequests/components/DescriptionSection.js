@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import { StyleSheet, Text } from 'react-native';
 import SectionWithIcon from './SectionWithIcon';
 import { GRAY_TEXT } from '../../shared';

@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 
 import { StyleSheet, Text, View } from 'react-native';
 import {
@@ -90,4 +91,3 @@ const styles = StyleSheet.create({
     color: LIGHT_BLUE
   }
 });
-
