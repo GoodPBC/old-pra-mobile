@@ -137,7 +137,6 @@ export default store => next => action => {
     if (API_ENDPOINTS.indexOf(action.endpoint) === -1) {
       throw `Invalid endpoint: ${action.requestPath} for action: ${action.actionName}`;
     }
-    makeRequestAndDispatchResponse({
-      action, store });
+    makeRequestAndDispatchResponse({ action, store });
   }
 };
