@@ -25,7 +25,6 @@ import {
   CARD_BORDER,
   X_AXIS_PADDING,
 } from '../../shared';
-import AnimatedMarker from './AnimatedMarker';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import Config from 'react-native-config';
 
@@ -308,7 +307,6 @@ export default class MapScreen extends Component {
             description={marker.formattedAddress}
             onPress={this.selectMarker(marker.sr_number)}
           >
-            <AnimatedMarker color={pinColor} />
             <MapView.Callout
               style={styles.callout}
               onPress={this.onCalloutPress(marker)}
