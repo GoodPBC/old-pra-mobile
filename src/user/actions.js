@@ -1,5 +1,9 @@
+import Config from 'react-native-config';
 import { LOGIN_USER, LOGOUT_USER } from './actionTypes';
-import { API_REQUEST } from '../shared';
+import {
+  API_REQUEST,
+  API_REQUEST_NETWORK_ERROR,
+} from '../shared';
 
 const USER_LOGIN_PATH = 'authenticateuser';
 const USER_LOGOUT_PATH = 'logoutuser';
@@ -20,17 +24,20 @@ export function submitLoginCredentials(email, password) {
 
 export function logoutUser(user) {
   return (dispatch, getState) => {
-    dispatch({
-      type: API_REQUEST,
-      actionName: LOGOUT_USER,
-      requestPath: USER_LOGOUT_PATH,
-      requestMethod: 'GET',
-      endpoint: 'login',
-    });
-    // Works offline as well.
-    dispatch({
-      type: LOGOUT_USER,
-      user,
-    });
+    const url = Config.BASE_URL + USER_LOGOUT_PATH;
+    const header = {
+      'Content-Type': 'application/json',
+      token: user.authenticationToken,
+      userid: user.userId,
+    };
+    try {
+      fetch(url, { header })
+      .then(res => {
+        dispatch({ type: LOGOUT_USER, user });
+      })
+    } catch (e) {
+      dispatch({ type: API_REQUEST_NETWORK_ERROR });
+      dispatch({ type: LOGOUT_USER, user });
+    }
   }
 }

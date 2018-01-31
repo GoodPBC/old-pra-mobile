@@ -25,7 +25,7 @@ const initialState = {
 export default function reducer(state = initialState, action) {
 
   switch (action.type) {
-  
+
   case LOGIN_USER_SUCCESS:
     return {
       ...state,
@@ -49,10 +49,6 @@ export default function reducer(state = initialState, action) {
     }
     return state;
   case LOGOUT_USER:
-    return {
-      ...initialState,
-    }
-  case LOGOUT_USER_SUCCESS:
     return {
       ...initialState,
     };
