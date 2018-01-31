@@ -36,12 +36,12 @@ export function selectServiceRequestResolution(resolutionCode) {
 }
 
 export function fetchServiceRequests(onSuccess) {
-  const numDays = moment().isSameOrAfter('2017-12-04') ? 1 : 7;
-  const yesterday = momentToStr(moment().subtract(numDays, 'days'));
+  const numDays = __DEV__ ? 100 : 1;
+  const since = momentToStr(moment().subtract(numDays, 'days'));
   return {
     type: API_REQUEST,
     actionName: FETCH_SERVICE_REQUESTS,
-    requestPath: `Get311ServiceRequests/${encodeURIComponent(yesterday)}`,
+    requestPath: `Get311ServiceRequests/${encodeURIComponent(since)}`,
     endpoint: 'Get311ServiceRequests',
     requestMethod: 'GET',
     onSuccess,
