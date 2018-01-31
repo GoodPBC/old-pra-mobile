@@ -3,6 +3,7 @@ package com.providerresponseapp;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.instabug.reactlibrary.RNInstabugReactnativePackage;
 import com.lugg.ReactNativeConfig.ReactNativeConfigPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.smixx.fabric.FabricPackage;
@@ -10,7 +11,6 @@ import com.BV.LinearGradient.LinearGradientPackage;
 import com.idehub.GoogleAnalyticsBridge.GoogleAnalyticsBridgePackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import com.microsoft.codepush.react.CodePush;
-import com.instabug.reactlibrary.RNInstabugReactnativePackage;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -43,6 +43,12 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
         new MainReactPackage(),
+    		new RNInstabugReactnativePackage.Builder(BuildConfig.INSTABUG_TOKEN_ANDROID, MainApplication.this)
+							.setInvocationEvent("button")
+							.setPrimaryColor("#DE6053")
+							.setFloatingEdge("right")
+							.setFloatingButtonOffsetFromTop(300)
+							.build(),
         new MapsPackage(),
         new VectorIconsPackage(),
         new FabricPackage(),
@@ -50,13 +56,7 @@ public class MainApplication extends Application implements ReactApplication {
         new GoogleAnalyticsBridgePackage(),
         new RNDeviceInfo(),
         new ReactNativeConfigPackage(),
-        new CodePush(null, getApplicationContext(), BuildConfig.DEBUG),
-    		new RNInstabugReactnativePackage.Builder(BuildConfig.INSTABUG_TOKEN_ANDROID, MainApplication.this)
-					.setInvocationEvent("button")
-					.setPrimaryColor("#DE6053")
-					.setFloatingEdge("right")
-					.setFloatingButtonOffsetFromTop(300)
-					.build()
+        new CodePush(null, getApplicationContext(), BuildConfig.DEBUG)
       );
     }
 

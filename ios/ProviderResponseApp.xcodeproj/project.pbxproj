@@ -13,7 +13,6 @@
 		00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302DC1ABCB9D200DB3ED1 /* libRCTNetwork.a */; };
 		00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302E41ABCB9EE00DB3ED1 /* libRCTVibration.a */; };
 		00E356F31AD99517003FC87E /* ProviderResponseAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* ProviderResponseAppTests.m */; };
-		0F86298DE0C0EF52EC981771 /* Instabug.framework in Embed Instabug Framework */ = {isa = PBXBuildFile; fileRef = C1CCD525DFE94D5FBCF1C5E1 /* Instabug.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		10ADEDF57CA94E2395179B57 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7779730A7C0445128E529518 /* Ionicons.ttf */; };
 		133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 78C398B91ACF4ADC00677621 /* libRCTLinking.a */; };
 		139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139105C11AF99BAD00B5F7CC /* libRCTSettings.a */; };
@@ -23,9 +22,7 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		1AC8FDA1E7D6284801A9CE41 /* libPods-ProviderResponseApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C1D562EDEABC63565EE86E32 /* libPods-ProviderResponseApp.a */; };
-		297E19C48EF184ABEAC1B0CF /* Instabug.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1CCD525DFE94D5FBCF1C5E1 /* Instabug.framework */; };
 		346B18788ABF4ADB80BB277A /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C5741D401E9C4D2B816F9FED /* MaterialIcons.ttf */; };
-		3895A41C113C76251962D501 /* InstabugCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A755E9792683D6B245DA6217 /* InstabugCore.framework */; };
 		4397B6D41EE04E13A1474014 /* libReactNativeConfig.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F20A483F0C7B4BB9862F4FAE /* libReactNativeConfig.a */; };
 		550C1DB5A6CA49EAAD4015B3 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5A1D7D99279B490EB03C71EF /* SimpleLineIcons.ttf */; };
 		56F29FDE5D774335A0898D97 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 45C2B1C2785E4BB08E7D1EC0 /* EvilIcons.ttf */; };
@@ -36,6 +33,7 @@
 		7B30A861F0F5493CAFDC6786 /* libBVLinearGradient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CBD2BA82F67B40C1BEFCAFCF /* libBVLinearGradient.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		8AFBA364927A4A799B6D9D00 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A60D02D8956A4790A6D6905E /* Zocial.ttf */; };
+		99597DF99987BF20AC43C28A /* Instabug.framework in Embed Instabug Framework */ = {isa = PBXBuildFile; fileRef = 2FEE0C3B627CA18637B569C9 /* Instabug.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9FCE1EB36ECF418F84084439 /* libRCTGoogleAnalyticsBridge.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D09A60A6315C491987752BE3 /* libRCTGoogleAnalyticsBridge.a */; };
 		A0042D2F1F8FD25200B936F8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A0042D191F8FD21F00B936F8 /* libRCTAnimation.a */; };
 		A06853301FAB986300741464 /* libART.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A06852C01FAB95C000741464 /* libART.a */; };
@@ -46,13 +44,14 @@
 		A0C47AF21FB3B1990086D424 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		AF5602868D8A4D58AF5B0275 /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BF5D1307741F4F5DA117EF82 /* libRNVectorIcons.a */; };
 		AF73BBEB48BF42F48FB18184 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 73E8273BAAFE44B0899E8650 /* Octicons.ttf */; };
+		B88B3F72B8EAE2066123FB72 /* Instabug.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FEE0C3B627CA18637B569C9 /* Instabug.framework */; };
 		BF2FB695282B4C58A165890B /* libRNSafeArea.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CF88C944B564B6397F8F660 /* libRNSafeArea.a */; };
 		DB4B2FDE04544E4EA6507898 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B1D158AFE80E4FD0933322A1 /* FontAwesome.ttf */; };
 		DBB3FA5EB3CD435CBC997879 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A05A1118519A434B908B25D1 /* Entypo.ttf */; };
+		E23C18FF807C0595ED16E3A1 /* InstabugCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1D6F4391A6D93E611024832 /* InstabugCore.framework */; };
+		E77D3FF35F00258D1F8C98C9 /* InstabugCore.framework in Embed Instabug Framework */ = {isa = PBXBuildFile; fileRef = B1D6F4391A6D93E611024832 /* InstabugCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EE1F4897177C4E57BC3D526B /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D344391735394CF590C8FDD1 /* Foundation.ttf */; };
-		F079027843AF4FDCB96832B0 /* libRNInstabug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B2FD7F8F3D94405BAA32C520 /* libRNInstabug.a */; };
 		F2F2B0CC68E1486BBBB6AD38 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BF47A45F22204D25A7D4045C /* Feather.ttf */; };
-		F5EF1A5FBB8E3A6F6D2C0969 /* InstabugCore.framework in Embed Instabug Framework */ = {isa = PBXBuildFile; fileRef = A755E9792683D6B245DA6217 /* InstabugCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -294,6 +293,13 @@
 			remoteGlobalIDString = F886647B1F4ADB500036D01B;
 			remoteInfo = "CodePush-tvOS";
 		};
+		A0214B152022304B00D88E14 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9399A4B4EA1F4377A17D6556 /* RNInstabug.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 24DF11ED1DA3A2B90056F77C;
+			remoteInfo = RNInstabug;
+		};
 		A06852661FAB6D6400741464 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 23360C1200754307AB28BDCF /* CodePush.xcodeproj */;
@@ -321,13 +327,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = 64AA15081EF7F30100718508;
 			remoteInfo = "BVLinearGradient-tvOS";
-		};
-		A06CE4A31FB3BAE200707620 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 5CA9F448E77A42D9B553CD24 /* RNInstabug.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 24DF11ED1DA3A2B90056F77C;
-			remoteInfo = RNInstabug;
 		};
 		A06CE5391FB3BF3200707620 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -430,14 +429,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		40660FD8F6922FFE48962CA7 /* Embed Instabug Framework */ = {
+		A7809ADD383152D9774FBE6E /* Embed Instabug Framework */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				0F86298DE0C0EF52EC981771 /* Instabug.framework in Embed Instabug Framework */,
-				F5EF1A5FBB8E3A6F6D2C0969 /* InstabugCore.framework in Embed Instabug Framework */,
+				99597DF99987BF20AC43C28A /* Instabug.framework in Embed Instabug Framework */,
+				E77D3FF35F00258D1F8C98C9 /* InstabugCore.framework in Embed Instabug Framework */,
 			);
 			name = "Embed Instabug Framework";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -465,10 +464,10 @@
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		23360C1200754307AB28BDCF /* CodePush.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = CodePush.xcodeproj; path = "../node_modules/react-native-code-push/ios/CodePush.xcodeproj"; sourceTree = "<group>"; };
 		2B9ADF391DCB946D000D2F8A /* ProviderResponseApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = ProviderResponseApp.entitlements; path = ProviderResponseApp/ProviderResponseApp.entitlements; sourceTree = "<group>"; };
+		2FEE0C3B627CA18637B569C9 /* Instabug.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Instabug.framework; path = "../node_modules/instabug-reactnative/ios/Instabug.framework"; sourceTree = "<group>"; };
 		45C2B1C2785E4BB08E7D1EC0 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		4F3558EBCD0F5067DB8B64B9 /* Pods-ProviderResponseApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProviderResponseApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-ProviderResponseApp/Pods-ProviderResponseApp.release.xcconfig"; sourceTree = "<group>"; };
 		5A1D7D99279B490EB03C71EF /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
-		5CA9F448E77A42D9B553CD24 /* RNInstabug.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNInstabug.xcodeproj; path = "../node_modules/instabug-reactnative/ios/RNInstabug.xcodeproj"; sourceTree = "<group>"; };
 		73E8273BAAFE44B0899E8650 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		7779730A7C0445128E529518 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		77EB2089C7EF4788A1A802B2 /* SMXCrashlytics.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = SMXCrashlytics.xcodeproj; path = "../node_modules/react-native-fabric/ios/SMXCrashlytics.xcodeproj"; sourceTree = "<group>"; };
@@ -479,6 +478,7 @@
 		90AF179E854C4329AC3991F3 /* RNSafeArea.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNSafeArea.xcodeproj; path = "../node_modules/react-native-safe-area/ios/RNSafeArea.xcodeproj"; sourceTree = "<group>"; };
 		910FCA8A40F7FCA5F489892B /* libPods-ProviderResponseAppTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ProviderResponseAppTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9162398B4A1A49279C848527 /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
+		9399A4B4EA1F4377A17D6556 /* RNInstabug.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNInstabug.xcodeproj; path = "../node_modules/instabug-reactnative/ios/RNInstabug.xcodeproj"; sourceTree = "<group>"; };
 		9697D30E7F1647DCBF76B61C /* libRNDeviceInfo-tvOS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = "libRNDeviceInfo-tvOS.a"; sourceTree = "<group>"; };
 		9D6C217918B34E088E77DF37 /* libSMXCrashlytics.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libSMXCrashlytics.a; sourceTree = "<group>"; };
 		9E15A592D88F4A17A08EC91D /* RNDeviceInfo.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNDeviceInfo.xcodeproj; path = "../node_modules/react-native-device-info/RNDeviceInfo.xcodeproj"; sourceTree = "<group>"; };
@@ -533,12 +533,11 @@
 		A0A5BAD81FA7DCFA00C96355 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		A0B521E21FC5C58B0027F8BD /* libreact-native-google-maps.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libreact-native-google-maps.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A60D02D8956A4790A6D6905E /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
-		A755E9792683D6B245DA6217 /* InstabugCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = InstabugCore.framework; path = "../node_modules/instabug-reactnative/ios/InstabugCore.framework"; sourceTree = "<group>"; };
 		B1D158AFE80E4FD0933322A1 /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
+		B1D6F4391A6D93E611024832 /* InstabugCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = InstabugCore.framework; path = "../node_modules/instabug-reactnative/ios/InstabugCore.framework"; sourceTree = "<group>"; };
 		B2FD7F8F3D94405BAA32C520 /* libRNInstabug.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNInstabug.a; sourceTree = "<group>"; };
 		BF47A45F22204D25A7D4045C /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
 		BF5D1307741F4F5DA117EF82 /* libRNVectorIcons.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNVectorIcons.a; sourceTree = "<group>"; };
-		C1CCD525DFE94D5FBCF1C5E1 /* Instabug.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Instabug.framework; path = "../node_modules/instabug-reactnative/ios/Instabug.framework"; sourceTree = "<group>"; };
 		C1D562EDEABC63565EE86E32 /* libPods-ProviderResponseApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ProviderResponseApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5741D401E9C4D2B816F9FED /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		CBD2BA82F67B40C1BEFCAFCF /* libBVLinearGradient.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libBVLinearGradient.a; sourceTree = "<group>"; };
@@ -587,14 +586,13 @@
 				6B38450ABA3A466A851BF038 /* libRNDeviceInfo.a in Frameworks */,
 				9FCE1EB36ECF418F84084439 /* libRCTGoogleAnalyticsBridge.a in Frameworks */,
 				5AE305B6ADA442BC894B3009 /* libCodePush.a in Frameworks */,
-				F079027843AF4FDCB96832B0 /* libRNInstabug.a in Frameworks */,
 				7956775AC177412D89CE8DE3 /* libSMXCrashlytics.a in Frameworks */,
 				AF5602868D8A4D58AF5B0275 /* libRNVectorIcons.a in Frameworks */,
 				BF2FB695282B4C58A165890B /* libRNSafeArea.a in Frameworks */,
 				4397B6D41EE04E13A1474014 /* libReactNativeConfig.a in Frameworks */,
 				1AC8FDA1E7D6284801A9CE41 /* libPods-ProviderResponseApp.a in Frameworks */,
-				297E19C48EF184ABEAC1B0CF /* Instabug.framework in Frameworks */,
-				3895A41C113C76251962D501 /* InstabugCore.framework in Frameworks */,
+				B88B3F72B8EAE2066123FB72 /* Instabug.framework in Frameworks */,
+				E23C18FF807C0595ED16E3A1 /* InstabugCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -772,11 +770,11 @@
 				9E15A592D88F4A17A08EC91D /* RNDeviceInfo.xcodeproj */,
 				D256B2C92106423983346C2D /* RCTGoogleAnalyticsBridge.xcodeproj */,
 				23360C1200754307AB28BDCF /* CodePush.xcodeproj */,
-				5CA9F448E77A42D9B553CD24 /* RNInstabug.xcodeproj */,
 				77EB2089C7EF4788A1A802B2 /* SMXCrashlytics.xcodeproj */,
 				9162398B4A1A49279C848527 /* RNVectorIcons.xcodeproj */,
 				90AF179E854C4329AC3991F3 /* RNSafeArea.xcodeproj */,
 				86937C495AF24AF79236868B /* ReactNativeConfig.xcodeproj */,
+				9399A4B4EA1F4377A17D6556 /* RNInstabug.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -821,6 +819,14 @@
 			children = (
 				A0042D191F8FD21F00B936F8 /* libRCTAnimation.a */,
 				A0042D1B1F8FD21F00B936F8 /* libRCTAnimation.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A0214AE32022304A00D88E14 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A0214B162022304B00D88E14 /* libRNInstabug.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -918,14 +924,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		A06CE49B1FB3BAE200707620 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				A06CE4A41FB3BAE200707620 /* libRNInstabug.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		A06CE5351FB3BF3100707620 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -1014,8 +1012,8 @@
 				A0A5BAD21FA7DCDE00C96355 /* CoreData.framework */,
 				C1D562EDEABC63565EE86E32 /* libPods-ProviderResponseApp.a */,
 				910FCA8A40F7FCA5F489892B /* libPods-ProviderResponseAppTests.a */,
-				C1CCD525DFE94D5FBCF1C5E1 /* Instabug.framework */,
-				A755E9792683D6B245DA6217 /* InstabugCore.framework */,
+				2FEE0C3B627CA18637B569C9 /* Instabug.framework */,
+				B1D6F4391A6D93E611024832 /* InstabugCore.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1053,8 +1051,8 @@
 				A0C095581FB3F1C30034245C /* ShellScript */,
 				75FFD36DE29E785AD931304A /* [CP] Embed Pods Frameworks */,
 				83EA7167C071247E88D848D5 /* [CP] Copy Pods Resources */,
-				40660FD8F6922FFE48962CA7 /* Embed Instabug Framework */,
-				0E064E5191324714A2F0126B /* Strip Frameworks */,
+				A7809ADD383152D9774FBE6E /* Embed Instabug Framework */,
+				9FD5F24030E794D259B6326C /* Strip Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1174,8 +1172,8 @@
 					ProjectRef = 9E15A592D88F4A17A08EC91D /* RNDeviceInfo.xcodeproj */;
 				},
 				{
-					ProductGroup = A06CE49B1FB3BAE200707620 /* Products */;
-					ProjectRef = 5CA9F448E77A42D9B553CD24 /* RNInstabug.xcodeproj */;
+					ProductGroup = A0214AE32022304A00D88E14 /* Products */;
+					ProjectRef = 9399A4B4EA1F4377A17D6556 /* RNInstabug.xcodeproj */;
 				},
 				{
 					ProductGroup = A0ED2B421FBA464900671D7C /* Products */;
@@ -1430,6 +1428,13 @@
 			remoteRef = A021494F201FE4F700D88E14 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		A0214B162022304B00D88E14 /* libRNInstabug.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNInstabug.a;
+			remoteRef = A0214B152022304B00D88E14 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		A06852671FAB6D6400741464 /* libCodePush.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1456,13 +1461,6 @@
 			fileType = archive.ar;
 			path = libBVLinearGradient.a;
 			remoteRef = A06CE4761FB3BAE100707620 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		A06CE4A41FB3BAE200707620 /* libRNInstabug.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRNInstabug.a;
-			remoteRef = A06CE4A31FB3BAE200707620 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		A06CE53A1FB3BF3200707620 /* libSMXCrashlytics.a */ = {
@@ -1609,20 +1607,6 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
 		};
-		0E064E5191324714A2F0126B /* Strip Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Strip Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "bash \"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/InstabugCore.framework/strip-frameworks.sh\"\n";
-		};
 		13CB0513182796612F565F37 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1673,6 +1657,21 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ProviderResponseApp/Pods-ProviderResponseApp-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		9FD5F24030E794D259B6326C /* Strip Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Strip Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "bash \"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/InstabugCore.framework/strip-frameworks.sh\"\n";
+			showEnvVarsInLog = 1;
 		};
 		A0C095581FB3F1C30034245C /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1783,11 +1782,11 @@
 					"$(SRCROOT)/../node_modules/react-native-device-info/RNDeviceInfo",
 					"$(SRCROOT)/../node_modules/react-native-google-analytics-bridge/ios/RCTGoogleAnalyticsBridge/**",
 					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
-					"$(SRCROOT)/../node_modules/instabug-reactnative/ios/RNInstabug/**",
 					"$(SRCROOT)/../node_modules/react-native-fabric/ios/SMXCrashlytics",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-safe-area/ios/RNSafeArea",
 					"$(SRCROOT)/../node_modules/react-native-config/ios/ReactNativeConfig",
+					"$(SRCROOT)/../node_modules/instabug-reactnative/ios/RNInstabug/**",
 				);
 				INFOPLIST_FILE = ProviderResponseApp/Info.plist;
 				INFOPLIST_OTHER_PREPROCESSOR_FLAGS = "-traditional";
@@ -1838,11 +1837,11 @@
 					"$(SRCROOT)/../node_modules/react-native-device-info/RNDeviceInfo",
 					"$(SRCROOT)/../node_modules/react-native-google-analytics-bridge/ios/RCTGoogleAnalyticsBridge/**",
 					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
-					"$(SRCROOT)/../node_modules/instabug-reactnative/ios/RNInstabug/**",
 					"$(SRCROOT)/../node_modules/react-native-fabric/ios/SMXCrashlytics",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-safe-area/ios/RNSafeArea",
 					"$(SRCROOT)/../node_modules/react-native-config/ios/ReactNativeConfig",
+					"$(SRCROOT)/../node_modules/instabug-reactnative/ios/RNInstabug/**",
 				);
 				INFOPLIST_FILE = ProviderResponseApp/Info.plist;
 				INFOPLIST_OTHER_PREPROCESSOR_FLAGS = "-traditional";
