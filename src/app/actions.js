@@ -17,6 +17,10 @@ export const updateDeviceInfo = deviceInfo => ({
   deviceInfo,
 });
 
+export const gaTrackPressEvent = eventLabel => {
+  return gaTrackEvent('Interactions', 'Pressed', eventLabel);
+}
+
 export const gaTrackEvent = (eventCategory, eventAction, eventLabel) => ({
   type: GA_TRACK_EVENT,
   eventCategory,

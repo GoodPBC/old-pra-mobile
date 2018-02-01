@@ -77,6 +77,7 @@ export default class MapIconActionSheet extends React.Component {
     this.getActionSheetOptions = this.getActionSheetOptions.bind(this);
     this.showActionSheetAndroid = this.showActionSheetAndroid.bind(this);
     this.renderActionButtons = this.renderActionButtons.bind(this);
+    this.trackPressEvent = this.trackPressEvent.bind(this);
   }
 
   hideModal() {
@@ -114,7 +115,16 @@ export default class MapIconActionSheet extends React.Component {
     })
   }
 
+  trackPressEvent(eventLabel) {
+    this.props.gaTrackEvent(
+      'Interactions',
+      'Pressed',
+      eventLabel,
+    )
+  }
+
   onClickMapIcon() {
+    this.trackPressEvent('Map Icon');
     if (Platform.OS === 'ios') {
       this.showActionSheetIOS();
     } else {
@@ -141,11 +151,17 @@ export default class MapIconActionSheet extends React.Component {
     return [
       {
         text: 'View on Map',
-        callback: this.showServiceRequest.bind(this, serviceRequest),
+        callback: () => {
+          this.trackPressEvent('View on Map');
+          this.showServiceRequest(serviceRequest);
+        },
       },
       {
         text: 'Get Directions',
-        callback: this.getDirection.bind(this, serviceRequest),
+        callback: () => {
+          this.trackPressEvent('Get Directions');
+          this.getDirection(serviceRequest);
+        },
       },
       {
         text: 'Cancel',

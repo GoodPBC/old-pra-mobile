@@ -13,39 +13,10 @@ import {
   Modal,
 } from 'react-native';
 import { formatLocationData, prioritizeLocationData } from '../helpers';
-import MapIconActionSheet from './MapIconActionSheet';
+import MapIconActionSheet from '../containers/MapIconActionSheet';
 
 function mapsURL(serviceRequest) {
   return `http://maps.apple.com/?q=${serviceRequest.address}+${serviceRequest.city}+${serviceRequest.state}`;
-}
-
-function onClickMapIcon(serviceRequest) {
-  // if (Platform.OS === 'ios') {
-  //   ActionSheetIOS.showActionSheetWithOptions({
-  //     options: [
-  //       'Cancel',
-  //       'View on Map',
-  //       'Get Directions',
-  //     ],
-  //     cancelButtonIndex: 0,
-  //     title: 'TITLE',
-  //     message: 'Memememessage',
-  //   }, (buttonIndex) => {
-  //     console.log(buttonIndex);
-  //   })
-  // }
-  console.log(serviceRequest)
-  return null;
-  if (!hasFullAddress(serviceRequest)) {
-  }
-  const url = mapsURL(serviceRequest);
-  Linking.canOpenURL(url).then(supported => {
-    if (supported) {
-      Linking.openURL(url);
-    } else {
-      console.log(`Don't know how to open URI: ${url}`);
-    }
-  });
 }
 
 function hasFullAddress(serviceRequest) {

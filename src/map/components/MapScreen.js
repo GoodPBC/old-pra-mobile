@@ -64,10 +64,6 @@ export default class MapScreen extends Component {
     this.onCalloutPress = this.onCalloutPress.bind(this);
   }
 
-  //google map :
-  //originally marker's are just circles.
-  //if selected it changes to pin with animation.
-  //if unselected it becomes a circle again.
   componentWillUpdate(nextProps, nextState) {
     if (this.props.context !== nextProps.context) {
       if (this.props.context) {
@@ -235,6 +231,7 @@ export default class MapScreen extends Component {
 
   selectMarker(serviceRequestNumber) {
     return e => {
+      this.props.gaTrackPressEvent('Pin');
       this.setState({ selectedMarker: serviceRequestNumber });
     }
   }
@@ -250,8 +247,10 @@ export default class MapScreen extends Component {
     return encodeURI(`https://www.google.com/maps/dir/?api=1&travelmode=driving&destination=${destination}`);
   }
 
+
   onCalloutPress(serviceRequest) {
     return () => {
+      this.props.gaTrackPressEvent('Callout');
       const url = this.getEncodedURIForDirection(serviceRequest);
       Linking.canOpenURL(url).then(supported => {
         if (supported) {

@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import MapScreen from '../components/MapScreen';
 import * as MapActions from '../actions';
+import { gaTrackPressEvent } from '../../app/actions';
 import * as ServiceRequestActions from '../../serviceRequests/actions';
 import {
   getActiveServiceRequests,
@@ -24,7 +25,10 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators(MapActions, dispatch);
+  return bindActionCreators({
+    gaTrackPressEvent,
+    ...MapActions,
+  }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(MapScreen);
