@@ -34,11 +34,9 @@ const LATITUDE_DELTA = 0.1;
 const LONGITUDE_DELTA = 0.1;
 
 export default class MapScreen extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
-      activeServiceRequests: {},
       lastPosition: {
         latitude: INITIAL_LATITUDE,
         longitude: INITIAL_LONGITUDE,
@@ -49,52 +47,75 @@ export default class MapScreen extends Component {
         latitudeDelta: LATITUDE_DELTA,
         longitudeDelta: LONGITUDE_DELTA,
       },
-      selectedMarker: null,
+      selectedServiceRequest: null,
     };
+    this.markers = {};
 
     this.onRegionChangeComplete = this.onRegionChangeComplete.bind(this);
-    this.setStateWithActiveServiceRequests = this.setStateWithActiveServiceRequests.bind(this);
     this.renderActiveServiceRequestMarkers = this.renderActiveServiceRequestMarkers.bind(this);
-    this.getMapBoundaries = this.getMapBoundaries.bind(this);
+    this.setMapBoundaries = this.setMapBoundaries.bind(this);
     this.updateLastPosition = this.updateLastPosition.bind(this);
     this.selectMarker = this.selectMarker.bind(this);
-    this.getLatLong = this.getLatLong.bind(this);
-    this.getServiceRequestPositions = this.getServiceRequestPositions.bind(this);
     this.watchPosition = this.watchPosition.bind(this);
     this.onCalloutPress = this.onCalloutPress.bind(this);
   }
 
+  componentWillMount() {
+    this.watchPosition();
+  }
+
+  componentDidMount() {
+    this.setMapBoundaries();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (!nextProps.context) {
+      this.setState({ selectedServiceRequest: nextProps.context });
+    }
+  }
+
   componentWillUpdate(nextProps, nextState) {
     if (this.props.context !== nextProps.context) {
-      if (this.props.context) {
-        const markerToHide = this.markers[this.props.context];
-        markerToHide && markerToHide.hideCallout();
+      if (this.props.context && this.markers[this.props.context]) {
+        this.markers[this.props.context].hideCallout();
       }
-      if (nextProps.context) {
-        this.setState({ selectedMarker: nextProps.context });
-        const markerToShow = this.markers[nextProps.context];
-        markerToShow && markerToShow.showCallout();
+      if (nextProps.context && this.markers[nextProps.context]) {
+        this.markers[nextProps.context].showCallout();
       }
     }
+  }
+
+  componentWillUnmount() {
+    navigator.geolocation.clearWatch(this.watchID);
+  }
+
+  onCalloutPress(serviceRequest) {
+    return () => {
+      this.props.gaTrackPressEvent('Callout');
+      const url = this.getEncodedURIForDirection(serviceRequest);
+      Linking.canOpenURL(url).then(supported => {
+        if (supported) {
+          Alert.alert(
+            'You are about to leave the app',
+            'Open Google Maps to get directions to this location?',
+            [
+              { text: 'Cancel' },
+              { text: 'Continue', onPress: () => Linking.openURL(url) },
+            ]
+          );
+        } else {
+          console.log(`Don't know how to open URI: ${url}`);
+        }
+      });
+    };
   }
 
   onRegionChangeComplete(region) {
     this.setState({ region });
   }
 
-  setStateWithActiveServiceRequests(newServiceRequest) {
-    const region = this.getMapBoundaries([
-      ...Object.values(this.state.activeServiceRequests),
-      newServiceRequest,
-    ]);
-    const activeServiceRequests = {
-      ...this.state.activeServiceRequests,
-      [newServiceRequest.sr_number]: newServiceRequest,
-    }
-    this.setState({ region, activeServiceRequests });
-  }
-
-  getMapBoundaries(activeServiceRequests) {
+  setMapBoundaries() {
+    const { activeServiceRequests } = this.props;
     const { lastPosition } = this.state;
 
     if (!activeServiceRequests || !activeServiceRequests.length) {
@@ -113,127 +134,14 @@ export default class MapScreen extends Component {
     const minLat = Math.min(...lats);
     const maxLat = Math.max(...lats);
 
-    return {
+    const region = {
       latitude: (maxLat + minLat) / 2,
       longitude: (maxLng + minLng) / 2,
       latitudeDelta: (maxLat - minLat + 0.001) * 1.5,
       longitudeDelta: (maxLng - minLng + 0.001) * 1.5,
-    }
-  }
+    };
 
-  updateLastPosition(position) {
-    const { latitude, longitude } = position.coords;
-    this.setState({
-      lastPosition: {
-        latitude,
-        longitude,
-      },
-    })
-  }
-
-  handleLocationServiceError(error) {
-    Alert.alert(JSON.stringify(error));
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const currentActiveServiceRequests = this.state.activeServiceRequests;
-    const nextActiveServiceRequests = nextProps.activeServiceRequests;
-
-    const currentServiceRequestNumbers = Object.keys(currentActiveServiceRequests);
-    const nextServiceRequestNumbers = nextActiveServiceRequests.map(sr => sr.sr_number);
-
-    // Delete requests that are not active anymore
-    const filteredServiceRequests = currentServiceRequestNumbers.reduce((acc, sr_number) => {
-      if (nextServiceRequestNumbers.includes(sr_number)) {
-        return {
-          ...acc,
-          [sr_number]: currentActiveServiceRequests[sr_number],
-        };
-      } else {
-        return acc;
-      }
-    }, {});
-
-    const nextActiveServiceRequestsWithoutCoords = nextActiveServiceRequests.filter(sr => {
-      return !currentServiceRequestNumbers.includes(sr.sr_number);
-    })
-
-    this.setState({ activeServiceRequests: filteredServiceRequests });
-    this.getServiceRequestPositions(nextActiveServiceRequestsWithoutCoords);
-  }
-
-  watchPosition() {
-    navigator.geolocation.getCurrentPosition(
-      this.updateLastPosition,
-      this.handleLocationServiceError,
-      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
-    );
-    this.watchID = navigator.geolocation.watchPosition(this.updateLastPosition);
-  }
-
-  getServiceRequestPositions(serviceRequests) {
-    for (let i = 0; i < serviceRequests.length; i++) {
-      this.getLatLong(
-        serviceRequests[i],
-        this.setStateWithActiveServiceRequests
-      )
-    }
-  }
-
-  async getLatLong(marker, successCallback) {
-    let address;
-    // use cross streets if address is blank
-    if (marker.address && marker.address.length) {
-      address = `${marker.address}, ${marker.borough}, ${marker.city}`;
-    } else {
-      address = `${marker.cross_streets}, ${marker.borough}, ${marker.city}`;
-    }
-
-    let key = Config.GOOGLE_GEOLOCATION_API_KEY;
-    let url = `https://maps.googleapis.com/maps/api/geocode/json?key=${key}&address=${address}`
-
-    try {
-      response = await fetch(url, {
-        method: 'get'
-      });
-    } catch (e) {
-      console.log('Network Failure');
-      return;
-    }
-
-    let responseText = null;
-
-    try {
-      responseText = await response.text();
-      const json = JSON.parse(responseText);
-
-      if (response.ok && !(json.ErrorMessage && json.ErrorMessage.length)) {
-        const coords = json.results[0].geometry.location;
-        const addresses = json.results[0].address_components;
-        marker.latitude = coords.lat;
-        marker.longitude = coords.lng;
-        marker.formattedAddress = `${addresses[0].long_name} ${addresses[1].long_name}`
-        successCallback(marker);
-      } else {
-        console.log('Request Failure');
-        console.log(json.ErrorMessage);
-      }
-    } catch (e) {
-      console.log(responseText);
-      console.log('Unspecified failure');
-    }
-  }
-
-  componentWillMount() {
-    this.watchPosition();
-    this.getServiceRequestPositions(this.props.activeServiceRequests);
-  }
-
-  selectMarker(serviceRequestNumber) {
-    return e => {
-      this.props.gaTrackPressEvent('Pin');
-      this.setState({ selectedMarker: serviceRequestNumber });
-    }
+    this.setState({ region });
   }
 
   getEncodedURIForDirection(serviceRequest) {
@@ -247,70 +155,87 @@ export default class MapScreen extends Component {
     return encodeURI(`https://www.google.com/maps/dir/?api=1&travelmode=driving&destination=${destination}`);
   }
 
-
-  onCalloutPress(serviceRequest) {
+  selectMarker(serviceRequestNumber) {
     return () => {
-      this.props.gaTrackPressEvent('Callout');
-      const url = this.getEncodedURIForDirection(serviceRequest);
-      Linking.canOpenURL(url).then(supported => {
-        if (supported) {
-          Alert.alert(
-            'You are about to leave the app',
-            'Open Google Maps to get directions to this location?',
-            [
-              {text: 'Cancel'},
-              {text: 'Continue', onPress: () => Linking.openURL(url)},
-            ]
-          )
-        } else {
-          console.log(`Don't know how to open URI: ${url}`);
-        }
-      })
-    }
+      this.props.gaTrackPressEvent('Pin');
+      this.setState({ selectedServiceRequest: serviceRequestNumber });
+    };
   }
 
-  componentWillUnmount() {
-    navigator.geolocation.clearWatch(this.watchID);
+  watchPosition() {
+    navigator.geolocation.getCurrentPosition(
+      this.updateLastPosition,
+      this.handleLocationServiceError,
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
+    );
+    this.watchID = navigator.geolocation.watchPosition(this.updateLastPosition);
+  }
+
+  handleLocationServiceError(error) {
+    Alert.alert(JSON.stringify(error));
+  }
+
+  updateLastPosition(position) {
+    const { latitude, longitude } = position.coords;
+    this.setState({
+      lastPosition: {
+        latitude,
+        longitude,
+      },
+    });
   }
 
   renderActiveServiceRequestMarkers() {
-    const { activeServiceRequests } = this.state;
+    const { activeServiceRequests } = this.props;
+console.log(activeServiceRequests)
+    const twentyMinutesAgo = moment().subtract(20, 'minutes');
+    const fortyMinutesAgo = moment().subtract(40, 'minutes');
+
     return (
-      Object.keys(activeServiceRequests).map(sr_number => {
-        const marker = activeServiceRequests[sr_number];
+      activeServiceRequests.map(serviceRequest => {
+        const {
+          latitude,
+          longitude,
+          sr_number,
+          provider_assigned_time,
+          formattedAddress,
+        } = serviceRequest;
+
+        if (!latitude || !longitude) {
+          return null;
+        }
+
         // 0-20 mintues old = green
         // 21-40 mintues old = yellow
         // >40 minutes old = red
 
-        let pinColor = 'green'
-        let age = moment(marker.provider_assigned_time, 'YYYY-MM-DD HH:mm:ss.SSS');
-        age = age.unix() / 60;
-        let now = moment(Date.now()).unix() / 60;
-        let diff = Math.floor(now - age);
-        if (diff > 20 && diff <= 40){
-          pinColor = 'yellow';
-        } else if (diff > 40) {
-          pinColor = 'red';
-        }
+        const assignedTime = moment(provider_assigned_time, 'YYYY-MM-DD HH:mm:ss.SSS');
 
-        if (this.props.context === marker.sr_number) {
+        let pinColor = 'red';
+        if (this.state.selectedServiceRequest === sr_number) {
           pinColor = 'blue';
+        } else if (assignedTime.isSameOrAfter(twentyMinutesAgo)) {
+          pinColor = 'green';
+        } else if (assignedTime.isSameOrAfter(fortyMinutesAgo)) {
+          pinColor = 'yellow';
+        } else {
+          pinColor = 'red';
         }
 
         return (
           <MapView.Marker
-            ref={m => this.markers = { ...(this.markers || {}), [marker.sr_number]: m }}
-            coordinate={{latitude: marker.latitude, longitude: marker.longitude}}
+            ref={m => this.markers = { ...this.markers, [sr_number]: m }}
+            coordinate={{ latitude, longitude }}
             key={sr_number}
             pinColor={pinColor}
-            description={marker.formattedAddress}
-            onPress={this.selectMarker(marker.sr_number)}
+            description={formattedAddress}
+            onPress={this.selectMarker(sr_number)}
           >
             <MapView.Callout
               style={styles.callout}
-              onPress={this.onCalloutPress(marker)}
+              onPress={this.onCalloutPress(serviceRequest)}
             >
-              <Text>{marker.formattedAddress}</Text>
+              <Text>{formattedAddress}</Text>
             </MapView.Callout>
           </MapView.Marker>
 
