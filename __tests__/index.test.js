@@ -1,13 +1,14 @@
 import 'react-native';
 import React from 'react';
-import Index from '../index.ios.js';
+import App from '../index.js';
 
 // Note: test renderer must be required after react-native.
 import renderer from 'react-test-renderer';
 
 it('renders correctly', () => {
-  expect(true).toBeTruthy();
-  // const tree = renderer.create(
-  //   <Index />
-  // );
+  // const app = renderer.create(<App />).toJSON();
+  // expect(app).toBeTruthy();
+  const tree = renderer.create(
+    <App />
+  );
 });
