@@ -187,7 +187,7 @@ export default class MapScreen extends Component {
 
   renderActiveServiceRequestMarkers() {
     const { activeServiceRequests } = this.props;
-console.log(activeServiceRequests)
+
     const twentyMinutesAgo = moment().subtract(20, 'minutes');
     const fortyMinutesAgo = moment().subtract(40, 'minutes');
 
