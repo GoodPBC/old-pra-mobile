@@ -15,28 +15,17 @@ import {
   BODY_BACKGROUND,
 } from '../../shared';
 
-const INITIAL_LATITUDE = 40.705342;
-const INITIAL_LONGITUDE = -74.012035;
-const LATITUDE_DELTA = 0.1;
-const LONGITUDE_DELTA = 0.1;
-const INITIAL_REGION = {
-  latitude: INITIAL_LATITUDE,
-  longitude: INITIAL_LONGITUDE,
-  latitudeDelta: LATITUDE_DELTA,
-  longitudeDelta: LONGITUDE_DELTA,
-};
-
 export default class MapScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      region: INITIAL_REGION,
       selectedServiceRequest: null,
     };
     this.markers = {};
     this.onRegionChangeComplete = this.onRegionChangeComplete.bind(this);
     this.renderActiveServiceRequestMarkers = this.renderActiveServiceRequestMarkers.bind(this);
     this.setMapBoundaries = this.setMapBoundaries.bind(this);
+    this.getMapBoundaries = this.getMapBoundaries.bind(this);
     this.selectMarker = this.selectMarker.bind(this);
     this.onCalloutPress = this.onCalloutPress.bind(this);
   }
@@ -84,41 +73,39 @@ export default class MapScreen extends Component {
     this.setState({ region });
   }
 
+  getMapBoundaries() {
+    const { activeServiceRequests, userPosition } = this.props;
+
+    const defaultRegion = {
+      latitude: userPosition.latitude || 40.705342,
+      longitude: userPosition.longitude || -74.012035,
+      latitudeDelta: 0.01,
+      longitudeDelta: 0.01,
+    };
+
+    const lats = activeServiceRequests.map(sr => sr.latitude).concat(userPosition.latitude).filter(x => x);
+    const lngs = activeServiceRequests.map(sr => sr.longitude).concat(userPosition.longitude).filter(x => x);
+
+    if (!activeServiceRequests.length || !lats.length || !lngs.length) {
+      return defaultRegion;
+    }
+
+    const minLng = Math.min(...lngs);
+    const maxLng = Math.max(...lngs);
+    const minLat = Math.min(...lats);
+    const maxLat = Math.max(...lats);
+
+    return {
+      latitude: (maxLat + minLat) / 2,
+      longitude: (maxLng + minLng) / 2,
+      latitudeDelta: ((maxLat - minLat) + 0.001) * 1.5,
+      longitudeDelta: ((maxLng - minLng) + 0.001) * 1.5,
+    };
+  }
+
   setMapBoundaries() {
-    const { activeServiceRequests } = this.props;
-
-    function isActive(srNumber) {
-      return activeServiceRequests.findIndex(serviceRequest => {
-        return serviceRequest.sr_number === srNumber;
-      }) !== -1;
-    }
-
-    const markerCoordinates = Object.keys(this.markers).reduce((acc, srNumber) => {
-      if (isActive(srNumber)) { // because closed SRs aren't removed from this.markers
-        return acc.concat(this.markers[srNumber].props.coordinate);
-      }
-      return acc;
-    }, []);
-
-    if (!markerCoordinates.length) {
-      return;
-    }
-
-    this.MAP_VIEW.fitToCoordinates(
-      [
-        this.props.userPosition,
-        ...markerCoordinates,
-      ],
-      {
-        edgePadding: {
-          top: 100,
-          right: 100,
-          bottom: 100,
-          left: 100,
-        },
-        animated: true,
-      }
-    );
+    const newRegion = this.getMapBoundaries();
+    this.MAP_VIEW.animateToRegion(newRegion);
   }
 
   getEncodedURIForDirection(serviceRequest) {
@@ -181,7 +168,7 @@ export default class MapScreen extends Component {
           <MapView.Marker
             ref={ref => { this.markers[sr_number] = ref; }}
             identifier={sr_number}
-            coordinate={{ latitude: latitude || INITIAL_LATITUDE + 0.001, longitude: longitude || INITIAL_LONGITUDE + 0.001 }}
+            coordinate={{ latitude, longitude }}
             key={sr_number}
             pinColor={pinColor}
             description={formattedAddress}
@@ -201,17 +188,14 @@ export default class MapScreen extends Component {
   }
 
   render() {
-    const { region } = this.state;
+    console.log("HELLO", this.MAP_VIEW);
     return (
       <View style={styles.container}>
         <MapView
           ref={ref => { this.MAP_VIEW = ref; }}
-          onLayout={this.setMapBoundaries}
+          onMapReady={this.setMapBoundaries}
           provider={PROVIDER_GOOGLE}
           style={styles.map}
-          initialRegion={region}
-          region={region}
-          onRegionChangeComplete={this.onRegionChangeComplete}
           showsUserLocation={true}
           showsMyLocationButton={true}
           showsCompass={true}
@@ -242,3 +226,13 @@ const styles = StyleSheet.create({
     maxWidth: 250,
   },
 });
+
+MapScreen.propTypes = {
+  activeServiceRequests: PropTypes.array,
+  gaTrackPressEvent: PropTypes.func.isRequired,
+  userPosition: PropTypes.shape({
+    latitude: PropTypes.number,
+    longitude: PropTypes.number,
+  }),
+  context: PropTypes.string,
+};
