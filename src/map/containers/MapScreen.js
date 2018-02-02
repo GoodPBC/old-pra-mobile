@@ -21,6 +21,10 @@ function mapStateToProps(state) {
   return {
     context: state.app.selectedTabContext,
     activeServiceRequests: getActiveServiceRequests(state),
+    userPosition: {
+      latitude: state.user.latitude,
+      longitude: state.user.longitude,
+    },
   };
 }
 

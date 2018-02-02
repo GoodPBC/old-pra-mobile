@@ -41,8 +41,8 @@ export default class App extends Component {
     this.onLayout = this.onLayout.bind(this);
     this.handlePress = this.handlePress.bind(this);
     this.selectTab = this.selectTab.bind(this);
-    this.trackUserLocation = this.trackUserLocation.bind(this);
-    this.updateUserLocation = this.updateUserLocation.bind(this);
+    this.trackUserPosition = this.trackUserPosition.bind(this);
+    this.updateUserPosition = this.updateUserPosition.bind(this);
     this._resetNavigation = this._resetNavigation.bind(this);
   }
 
@@ -54,7 +54,7 @@ export default class App extends Component {
   componentDidMount() {
     const screenName = titleCase(getKeyByValue(Tabs, this.props.selectedTab));
     this.props.gaTrackScreenView(screenName);
-    this.trackUserLocation();
+    this.trackUserPosition();
   }
 
   componentWillReceiveProps(newProps) {
@@ -80,17 +80,17 @@ export default class App extends Component {
     });
   }
 
-  trackUserLocation() {
+  trackUserPosition() {
     navigator.geolocation.getCurrentPosition(
-      this.updateUserLocation,
+      this.updateUserPosition,
       this.handleLocationServiceError,
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
     );
-    this.watchID = navigator.geolocation.watchPosition(this.updateUserLocation);
+    this.watchID = navigator.geolocation.watchPosition(this.updateUserPosition);
   }
 
-  updateUserLocation(position) {
-    this.props.updateUserLocation({
+  updateUserPosition(position) {
+    this.props.updateUserPosition({
       latitude: position.coords.latitude,
       longitude: position.coords.longitude,
       timestamp: position.timestamp,

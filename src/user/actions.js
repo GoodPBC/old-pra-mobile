@@ -2,7 +2,7 @@ import Config from 'react-native-config';
 import {
   LOGIN_USER,
   LOGOUT_USER,
-  UPDATE_USER_LOCATION,
+  UPDATE_USER_POSITION,
 } from './actionTypes';
 import {
   API_REQUEST,
@@ -46,9 +46,9 @@ export function logoutUser(user) {
   }
 }
 
-export function updateUserLocation(position) {
+export function updateUserPosition(position) {
   return {
-    type: UPDATE_USER_LOCATION,
+    type: UPDATE_USER_POSITION,
     position,
   };
 }

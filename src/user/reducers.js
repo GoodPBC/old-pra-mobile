@@ -9,7 +9,7 @@ import {
   LOGIN_USER_SUCCESS,
   LOGIN_USER_FAILURE,
   LOGOUT_USER_SUCCESS,
-  UPDATE_USER_LOCATION,
+  UPDATE_USER_POSITION,
 } from './actionTypes';
 
 const initialState = {
@@ -28,7 +28,7 @@ const initialState = {
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
-    case UPDATE_USER_LOCATION:
+    case UPDATE_USER_POSITION:
       return {
         ...state,
         latitude: action.position.latitude,
