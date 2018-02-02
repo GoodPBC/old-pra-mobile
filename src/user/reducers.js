@@ -9,6 +9,7 @@ import {
   LOGIN_USER_SUCCESS,
   LOGIN_USER_FAILURE,
   LOGOUT_USER_SUCCESS,
+  UPDATE_USER_LOCATION,
 } from './actionTypes';
 
 const initialState = {
@@ -20,39 +21,47 @@ const initialState = {
   userId: null,
   userAccountName: null, // NOTE: Need this for getuserteams endpoint.
   userIsAuthenticated: null,
+  latitude: null,
+  longitude: null,
+  positionTimestamp: null,
 };
 
 export default function reducer(state = initialState, action) {
-
   switch (action.type) {
-
-  case LOGIN_USER_SUCCESS:
-    return {
-      ...state,
-      authenticationToken: action.data.TokenString,
-      email: action.data.UserEmail,
-      userId: action.data.UserId,
-      name: action.data.UserName,
-      userAccountName: action.data.UserAccountName,
-      userIsAuthenticated: true,
-    };
-  case LOGIN_USER_FAILURE:
-    return {
-      ...state,
-      userIsAuthenticated: false,
-    };
-  case API_REQUEST_FAILURE: // Reset the user auth status if necessary.
-    if (action.status === FORBIDDEN_RESPONSE_STATUS) {
+    case UPDATE_USER_LOCATION:
+      return {
+        ...state,
+        latitude: action.position.latitude,
+        longitude: action.position.longitude,
+        positionTimestamp: action.position.timestamp,
+      };
+    case LOGIN_USER_SUCCESS:
+      return {
+        ...state,
+        authenticationToken: action.data.TokenString,
+        email: action.data.UserEmail,
+        userId: action.data.UserId,
+        name: action.data.UserName,
+        userAccountName: action.data.UserAccountName,
+        userIsAuthenticated: true,
+      };
+    case LOGIN_USER_FAILURE:
+      return {
+        ...state,
+        userIsAuthenticated: false,
+      };
+    case API_REQUEST_FAILURE: // Reset the user auth status if necessary.
+      if (action.status === FORBIDDEN_RESPONSE_STATUS) {
+        return {
+          ...initialState,
+        };
+      }
+      return state;
+    case LOGOUT_USER:
       return {
         ...initialState,
       };
-    }
-    return state;
-  case LOGOUT_USER:
-    return {
-      ...initialState,
-    };
-  default:
-    return state;
+    default:
+      return state;
   }
 }

@@ -41,6 +41,8 @@ export default class App extends Component {
     this.onLayout = this.onLayout.bind(this);
     this.handlePress = this.handlePress.bind(this);
     this.selectTab = this.selectTab.bind(this);
+    this.trackUserLocation = this.trackUserLocation.bind(this);
+    this.updateUserLocation = this.updateUserLocation.bind(this);
     this._resetNavigation = this._resetNavigation.bind(this);
   }
 
@@ -49,23 +51,24 @@ export default class App extends Component {
     NetInfo.isConnected.addEventListener('connectionChange', this.props.updateNetworkStatus);
   }
 
-  componentWillUnmount() {
-    NetInfo.isConnected.removeEventListener('connectionChange', this.props.updateNetworkStatus);
-  }
-
   componentDidMount() {
     const screenName = titleCase(getKeyByValue(Tabs, this.props.selectedTab));
     this.props.gaTrackScreenView(screenName);
+    this.trackUserLocation();
   }
 
   componentWillReceiveProps(newProps) {
     if (newProps.errorMessage) {
-      console.log(newProps)
       const title = newProps.errorTitle || 'Error';
       Alert.alert(title, newProps.errorMessage, [
         { text: 'OK', onPress: this.props.clearErrorMessage },
       ]);
     }
+  }
+
+  componentWillUnmount() {
+    NetInfo.isConnected.removeEventListener('connectionChange', this.props.updateNetworkStatus);
+    navigator.geolocation.clearWatch(this.watchID);
   }
 
   onLayout(e) {
@@ -74,7 +77,28 @@ export default class App extends Component {
       width,
       height,
       orientation: height >= width ? 'portrait' : 'landscape',
-    })
+    });
+  }
+
+  trackUserLocation() {
+    navigator.geolocation.getCurrentPosition(
+      this.updateUserLocation,
+      this.handleLocationServiceError,
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
+    );
+    this.watchID = navigator.geolocation.watchPosition(this.updateUserLocation);
+  }
+
+  updateUserLocation(position) {
+    this.props.updateUserLocation({
+      latitude: position.coords.latitude,
+      longitude: position.coords.longitude,
+      timestamp: position.timestamp,
+    });
+  }
+
+  handleLocationServiceError(error) {
+    Alert.alert(JSON.stringify(error));
   }
 
   selectTab(selectedTab) {

@@ -12,6 +12,7 @@ import {
   clearErrorMessage
 } from '../actions';
 import { updateNetworkStatus } from '../../offline/actions';
+import { updateUserLocation } from '../../user/actions';
 import { getCurrentTeam } from '../../teams/selectors';
 
 function mapStateToProps(state) {
@@ -37,6 +38,7 @@ function mapDispatchToProps(dispatch) {
     gaTrackScreenView,
     clearErrorMessage,
     updateNetworkStatus,
+    updateUserLocation,
   }, dispatch);
 }
 

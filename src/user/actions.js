@@ -1,5 +1,9 @@
 import Config from 'react-native-config';
-import { LOGIN_USER, LOGOUT_USER } from './actionTypes';
+import {
+  LOGIN_USER,
+  LOGOUT_USER,
+  UPDATE_USER_LOCATION,
+} from './actionTypes';
 import {
   API_REQUEST,
   API_REQUEST_NETWORK_ERROR,
@@ -40,4 +44,11 @@ export function logoutUser(user) {
       dispatch({ type: LOGOUT_USER, user });
     }
   }
+}
+
+export function updateUserLocation(position) {
+  return {
+    type: UPDATE_USER_LOCATION,
+    position,
+  };
 }

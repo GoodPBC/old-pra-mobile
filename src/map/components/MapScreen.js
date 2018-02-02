@@ -1,32 +1,19 @@
-import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import { Navigator } from 'react-native-deprecated-custom-components';
 import moment from 'moment';
-
 import {
-  Animated,
   Alert,
-  Image,
   StyleSheet,
   Text,
   View,
   Linking,
-  Dimensions,
 } from 'react-native';
 
 import {
-  InvertButton,
-  InvertText,
-  GradientBackground,
-  Navigation,
-  Separator,
-  LIGHT_BLUE,
   BODY_BACKGROUND,
-  CARD_BORDER,
-  X_AXIS_PADDING,
 } from '../../shared';
-import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
-import Config from 'react-native-config';
 
 const INITIAL_LATITUDE = 40.705342;
 const INITIAL_LONGITUDE = -74.012035;
@@ -54,14 +41,8 @@ export default class MapScreen extends Component {
     this.onRegionChangeComplete = this.onRegionChangeComplete.bind(this);
     this.renderActiveServiceRequestMarkers = this.renderActiveServiceRequestMarkers.bind(this);
     this.setMapBoundaries = this.setMapBoundaries.bind(this);
-    this.updateLastPosition = this.updateLastPosition.bind(this);
     this.selectMarker = this.selectMarker.bind(this);
-    this.watchPosition = this.watchPosition.bind(this);
     this.onCalloutPress = this.onCalloutPress.bind(this);
-  }
-
-  componentWillMount() {
-    this.watchPosition();
   }
 
   componentDidMount() {
@@ -69,12 +50,13 @@ export default class MapScreen extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    // if activeServiceRequest changes, then reset map region to include all.
     if (!nextProps.context) {
       this.setState({ selectedServiceRequest: nextProps.context });
     }
   }
 
-  componentWillUpdate(nextProps, nextState) {
+  componentWillUpdate(nextProps) {
     if (this.props.context !== nextProps.context) {
       if (this.props.context && this.markers[this.props.context]) {
         this.markers[this.props.context].hideCallout();
@@ -83,10 +65,6 @@ export default class MapScreen extends Component {
         this.markers[nextProps.context].showCallout();
       }
     }
-  }
-
-  componentWillUnmount() {
-    navigator.geolocation.clearWatch(this.watchID);
   }
 
   onCalloutPress(serviceRequest) {
@@ -162,32 +140,9 @@ export default class MapScreen extends Component {
     };
   }
 
-  watchPosition() {
-    navigator.geolocation.getCurrentPosition(
-      this.updateLastPosition,
-      this.handleLocationServiceError,
-      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
-    );
-    this.watchID = navigator.geolocation.watchPosition(this.updateLastPosition);
-  }
-
-  handleLocationServiceError(error) {
-    Alert.alert(JSON.stringify(error));
-  }
-
-  updateLastPosition(position) {
-    const { latitude, longitude } = position.coords;
-    this.setState({
-      lastPosition: {
-        latitude,
-        longitude,
-      },
-    });
-  }
-
   renderActiveServiceRequestMarkers() {
     const { activeServiceRequests } = this.props;
-
+console.log("activeServiceRequests", activeServiceRequests)
     const twentyMinutesAgo = moment().subtract(20, 'minutes');
     const fortyMinutesAgo = moment().subtract(40, 'minutes');
 
@@ -201,9 +156,9 @@ export default class MapScreen extends Component {
           formattedAddress,
         } = serviceRequest;
 
-        if (!latitude || !longitude) {
-          return null;
-        }
+        // if (!latitude || !longitude) {
+        //   return null;
+        // }
 
         // 0-20 mintues old = green
         // 21-40 mintues old = yellow
@@ -224,8 +179,9 @@ export default class MapScreen extends Component {
 
         return (
           <MapView.Marker
-            ref={m => this.markers = { ...this.markers, [sr_number]: m }}
-            coordinate={{ latitude, longitude }}
+            ref={ref => { this.markers[sr_number] = ref; }}
+            identifier={sr_number}
+            coordinate={{ latitude: latitude || INITIAL_LATITUDE + 0.001, longitude: longitude || INITIAL_LONGITUDE + 0.001 }}
             key={sr_number}
             pinColor={pinColor}
             description={formattedAddress}
@@ -245,10 +201,12 @@ export default class MapScreen extends Component {
   }
 
   render() {
+    console.log('markers', this.markers)
     const { region } = this.state;
     return (
       <View style={styles.container}>
         <MapView
+          ref={ref => { this.MAP_VIEW = ref; }}
           provider={PROVIDER_GOOGLE}
           style={styles.map}
           region={region}
