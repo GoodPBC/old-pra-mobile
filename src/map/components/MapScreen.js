@@ -188,7 +188,6 @@ export default class MapScreen extends Component {
   }
 
   render() {
-    console.log("HELLO", this.MAP_VIEW);
     return (
       <View style={styles.container}>
         <MapView
