@@ -85,9 +85,24 @@ export default class MapScreen extends Component {
   }
 
   setMapBoundaries() {
-    const markerCoordinates = Object.keys(this.markers).reduce((acc, srNumber) => (
-      acc.concat(this.markers[srNumber].props.coordinate)
-    ), []);
+    const { activeServiceRequests } = this.props;
+
+    function isActive(srNumber) {
+      return activeServiceRequests.findIndex(serviceRequest => {
+        return serviceRequest.sr_number === srNumber;
+      }) !== -1;
+    }
+
+    const markerCoordinates = Object.keys(this.markers).reduce((acc, srNumber) => {
+      if (isActive(srNumber)) { // because closed SRs aren't removed from this.markers
+        return acc.concat(this.markers[srNumber].props.coordinate);
+      }
+      return acc;
+    }, []);
+
+    if (!markerCoordinates.length) {
+      return;
+    }
 
     this.MAP_VIEW.fitToCoordinates(
       [
