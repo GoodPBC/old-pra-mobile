@@ -37,6 +37,7 @@
 		9FCE1EB36ECF418F84084439 /* libRCTGoogleAnalyticsBridge.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D09A60A6315C491987752BE3 /* libRCTGoogleAnalyticsBridge.a */; };
 		A0042D2F1F8FD25200B936F8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A0042D191F8FD21F00B936F8 /* libRCTAnimation.a */; };
 		A0214B322022549A00D88E14 /* libRNInstabug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A0214B162022304B00D88E14 /* libRNInstabug.a */; };
+		A0214B6F20250A5A00D88E14 /* libRCTPushNotification.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A0214B6C20250A4300D88E14 /* libRCTPushNotification.a */; };
 		A06853301FAB986300741464 /* libART.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A06852C01FAB95C000741464 /* libART.a */; };
 		A0A5BAD31FA7DCDE00C96355 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0A5BAD21FA7DCDE00C96355 /* CoreData.framework */; };
 		A0A5BAD51FA7DCE800C96355 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0A5BAD41FA7DCE800C96355 /* SystemConfiguration.framework */; };
@@ -301,6 +302,20 @@
 			remoteGlobalIDString = 24DF11ED1DA3A2B90056F77C;
 			remoteInfo = RNInstabug;
 		};
+		A0214B6B20250A4300D88E14 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A0214B6620250A4200D88E14 /* RCTPushNotification.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RCTPushNotification;
+		};
+		A0214B6D20250A4300D88E14 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A0214B6620250A4200D88E14 /* RCTPushNotification.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 3D05745F1DE6004600184BB4;
+			remoteInfo = "RCTPushNotification-tvOS";
+		};
 		A06852661FAB6D6400741464 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 23360C1200754307AB28BDCF /* CodePush.xcodeproj */;
@@ -484,6 +499,7 @@
 		9D6C217918B34E088E77DF37 /* libSMXCrashlytics.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libSMXCrashlytics.a; sourceTree = "<group>"; };
 		9E15A592D88F4A17A08EC91D /* RNDeviceInfo.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNDeviceInfo.xcodeproj; path = "../node_modules/react-native-device-info/RNDeviceInfo.xcodeproj"; sourceTree = "<group>"; };
 		A0042D111F8FD21F00B936F8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
+		A0214B6620250A4200D88E14 /* RCTPushNotification.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTPushNotification.xcodeproj; path = "../node_modules/react-native/Libraries/PushNotificationIOS/RCTPushNotification.xcodeproj"; sourceTree = "<group>"; };
 		A05A1118519A434B908B25D1 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		A068528F1FAB95BF00741464 /* ARTGroup.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ARTGroup.h; sourceTree = "<group>"; };
 		A06852901FAB95BF00741464 /* ARTText.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ARTText.m; sourceTree = "<group>"; };
@@ -567,6 +583,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A0214B6F20250A5A00D88E14 /* libRCTPushNotification.a in Frameworks */,
 				A0214B322022549A00D88E14 /* libRNInstabug.a in Frameworks */,
 				A0C47AF21FB3B1990086D424 /* libReact.a in Frameworks */,
 				A06853301FAB986300741464 /* libART.a in Frameworks */,
@@ -756,6 +773,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				A0214B6620250A4200D88E14 /* RCTPushNotification.xcodeproj */,
 				A068532A1FAB985D00741464 /* ART.xcodeproj */,
 				A0042D111F8FD21F00B936F8 /* RCTAnimation.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
@@ -829,6 +847,15 @@
 			isa = PBXGroup;
 			children = (
 				A0214B162022304B00D88E14 /* libRNInstabug.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A0214B6720250A4200D88E14 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A0214B6C20250A4300D88E14 /* libRCTPushNotification.a */,
+				A0214B6E20250A4300D88E14 /* libRCTPushNotification-tvOS.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1083,7 +1110,7 @@
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Push = {
-								enabled = 0;
+								enabled = 1;
 							};
 						};
 					};
@@ -1144,6 +1171,10 @@
 				{
 					ProductGroup = 00C302D41ABCB9D200DB3ED1 /* Products */;
 					ProjectRef = 00C302D31ABCB9D200DB3ED1 /* RCTNetwork.xcodeproj */;
+				},
+				{
+					ProductGroup = A0214B6720250A4200D88E14 /* Products */;
+					ProjectRef = A0214B6620250A4200D88E14 /* RCTPushNotification.xcodeproj */;
 				},
 				{
 					ProductGroup = 139105B71AF99BAD00B5F7CC /* Products */;
@@ -1435,6 +1466,20 @@
 			fileType = archive.ar;
 			path = libRNInstabug.a;
 			remoteRef = A0214B152022304B00D88E14 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		A0214B6C20250A4300D88E14 /* libRCTPushNotification.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTPushNotification.a;
+			remoteRef = A0214B6B20250A4300D88E14 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		A0214B6E20250A4300D88E14 /* libRCTPushNotification-tvOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libRCTPushNotification-tvOS.a";
+			remoteRef = A0214B6D20250A4300D88E14 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		A06852671FAB6D6400741464 /* libCodePush.a */ = {
@@ -1759,6 +1804,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = ProviderResponseApp/ProviderResponseApp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: NYC Department of Homeless Services (4F2N2E6UU5)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -1815,6 +1861,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = ProviderResponseApp/ProviderResponseApp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: NYC Department of Homeless Services (4F2N2E6UU5)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
