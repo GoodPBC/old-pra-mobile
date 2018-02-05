@@ -240,11 +240,11 @@ export default class App extends Component {
 
     const iPhoneXStyle = selectStyle({
       'iPhone X': {
-        'portrait': {
+        portrait: {
           borderTopWidth: 24,
           borderTopColor: DARK_BLUE,
         },
-        'landscape': {
+        landscape: {
           marginTop: -20,
         },
       },
