@@ -20,7 +20,7 @@ const initialState = {
   name: null,
   userId: null,
   userAccountName: null, // NOTE: Need this for getuserteams endpoint.
-  userIsAuthenticated: null,
+  userIsAuthenticated: false,
   latitude: null,
   longitude: null,
   positionTimestamp: null,
