@@ -165,11 +165,11 @@ export default class App extends Component {
   _renderTabs() {
     const tabBarStyle = selectStyle({
       'iPhone X': {
-        'portrait': {
+        portrait: {
           height: 49 + 34,
           paddingBottom: 34,
         },
-        'landscape': {
+        landscape: {
           height: 49 + 21,
           paddingBottom: 21,
           paddingHorizontal: 44,
