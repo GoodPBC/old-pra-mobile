@@ -76,18 +76,16 @@ export default class MapScreen extends Component {
   getMapBoundaries() {
     const { activeServiceRequests, userPosition } = this.props;
 
-    const defaultRegion = {
-      latitude: userPosition.latitude || 40.705342,
-      longitude: userPosition.longitude || -74.012035,
-      latitudeDelta: 0.01,
-      longitudeDelta: 0.01,
-    };
-
     const lats = activeServiceRequests.map(sr => sr.latitude).concat(userPosition.latitude).filter(x => x);
     const lngs = activeServiceRequests.map(sr => sr.longitude).concat(userPosition.longitude).filter(x => x);
 
-    if (!activeServiceRequests.length || !lats.length || !lngs.length) {
-      return defaultRegion;
+    if (lats.length <= 1) {
+      return {
+        latitude: lats[0] || 40.705342,
+        longitude: lngs[0] || -74.012035,
+        latitudeDelta: 0.005,
+        longitudeDelta: 0.005,
+      };
     }
 
     const minLng = Math.min(...lngs);
