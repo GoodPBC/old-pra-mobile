@@ -34,6 +34,7 @@ export default class LoginScreen extends Component {
 
     this._submitForm = this._submitForm.bind(this);
     this._toggleShowPassword = this._toggleShowPassword.bind(this);
+    this._enableLoginButton = this._enableLoginButton.bind(this);
   }
 
   _enableLoginButton() {
