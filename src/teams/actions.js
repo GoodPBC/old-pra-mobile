@@ -67,7 +67,6 @@ export function updateTeamLocation() {
     //     TeamId: teams.currentTeamId,
     //     UserId: user.userId,
     //   },
-    //   quiet: true,
     // });
   };
 }
