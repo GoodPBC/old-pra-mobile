@@ -18,7 +18,7 @@ export default class SelectTeamList extends Component {
   }
 
   componentWillMount() {
-    this.props.fetchTeams();
+    // this.props.fetchTeams();
     this.props.selectTeam(this.props.currentTeam);
   }
 
