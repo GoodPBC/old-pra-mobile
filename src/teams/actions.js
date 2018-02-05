@@ -48,12 +48,12 @@ export function selectTeam(team) {
 export function updateTeamLocation() {
   return (dispatch, getState) => {
     const { app, user, teams } = getState();
-    console.log('deviceId', app.deviceInfo.deviceToken);
-    console.log('latitude', user.latitude);
-    console.log('longitude', user.longitude);
-    console.log('userId', user.userId);
-    console.log('teamId', teams.currentTeamId);
-    console.log('@ ', new Date());
+    // console.log('deviceId', app.deviceInfo.deviceToken);
+    // console.log('latitude', user.latitude);
+    // console.log('longitude', user.longitude);
+    // console.log('userId', user.userId);
+    // console.log('teamId', teams.currentTeamId);
+    // console.log('@ ', new Date());
     // dispatch({
     //   type: API_REQUEST,
     //   actionName: UPDATE_TEAM_LOCATION,
