@@ -15,6 +15,7 @@ const API_ENDPOINTS = [
   'update311servicerequests',
   'updatepingresponse',
   'login',
+  'updateteamlocation',
 ];
 
 function authenticationHeaders(store) {
@@ -29,12 +30,20 @@ function authenticationHeaders(store) {
 }
 
 async function makeRequestAndDispatchResponse({ action, store }) {
-  const { onSuccess, requestMethod, requestParams, actionName, requestType } = action;
+  const {
+    onSuccess,
+    requestMethod,
+    requestParams,
+    actionName,
+    requestType,
+  } = action;
 
-  function dispatchSuccess(json) {
-    store.dispatch({
-      type: API_REQUEST_SUCCESS,
-    });
+  function dispatchSuccess(json, quiet = false) {
+    if (!quiet) {
+      store.dispatch({
+        type: API_REQUEST_SUCCESS,
+      });
+    }
     store.dispatch({
       type: `${actionName}_SUCCESS`,
       data: json,
@@ -52,15 +61,16 @@ async function makeRequestAndDispatchResponse({ action, store }) {
     });
   }
 
-  function dispatchFailure(error, status) {
+  function dispatchFailure(error, status, quiet = false) {
+    if (!quiet) {
+      store.dispatch({
+        type: API_REQUEST_FAILURE,
+        action,
+        status,
+        error,
+      });
+    }
     store.dispatch({
-      type: API_REQUEST_FAILURE,
-      action,
-      status,
-      error,
-    });
-
-    return store.dispatch({
       type: `${actionName}_FAILURE`,
       request: action,
       status,
@@ -120,12 +130,12 @@ async function makeRequestAndDispatchResponse({ action, store }) {
         console.log('Updating SR', json.Update_Status);
       }
       if (response.ok && !(json.ErrorMessage && json.ErrorMessage.length)) {
-        dispatchSuccess(json);
+        dispatchSuccess(json, action.quiet);
       } else {
-        dispatchFailure(json.ErrorMessage, response.status);
+        dispatchFailure(json.ErrorMessage, response.status, action.quiet);
       }
     } catch (e) {
-      dispatchFailure(e, response.status);
+      dispatchFailure(e, response.status, action.quiet);
     }
   //}
 }
