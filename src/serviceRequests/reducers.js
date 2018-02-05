@@ -13,6 +13,10 @@ import {
   SYNC_SERVICE_REQUESTS,
 } from '../offline/actionTypes';
 
+import {
+  LOGOUT_USER,
+} from '../user/actionTypes';
+
 const initialState = {
   // Optimistic check for loading SRs
   hasLoadedServiceRequests: false,
@@ -174,6 +178,10 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         resolutionNotes: action.notes,
+      };
+    case LOGOUT_USER:
+      return {
+        ...initialState,
       };
     default:
       return state;
