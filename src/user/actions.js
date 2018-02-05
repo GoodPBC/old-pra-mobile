@@ -8,6 +8,7 @@ import {
   API_REQUEST,
   API_REQUEST_NETWORK_ERROR,
 } from '../shared';
+import { updateTeamLocation } from '../teams/actions';
 
 const USER_LOGIN_PATH = 'authenticateuser';
 const USER_LOGOUT_PATH = 'logoutuser';
@@ -47,8 +48,11 @@ export function logoutUser(user) {
 }
 
 export function updateUserPosition(position) {
-  return {
-    type: UPDATE_USER_POSITION,
-    position,
+  return dispatch => {
+    dispatch({
+      type: UPDATE_USER_POSITION,
+      position,
+    });
+    dispatch(updateTeamLocation());
   };
 }

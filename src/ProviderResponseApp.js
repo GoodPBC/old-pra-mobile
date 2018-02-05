@@ -75,7 +75,7 @@ class ProviderResponseApp extends React.Component {
 
   codePushStatusDidChange(status) {
     console.log("CODE_PUSH_STATUS:", status);
-    switch(status) {
+    switch (status) {
       case codePush.SyncStatus.CHECKING_FOR_UPDATE:
         this.setState({ codepushed: false });
         break;
@@ -84,6 +84,7 @@ class ProviderResponseApp extends React.Component {
         break;
       case codePush.SyncStatus.UP_TO_DATE:
       case codePush.SyncStatus.UNKNOWN_ERROR:
+      default:
         this.initializeInstabug();
         this.setState({ codepushed: true });
         break;

@@ -2,15 +2,14 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import {
   Alert,
+  AppState,
   Dimensions,
-  Image,
   Modal,
   StatusBar,
   StyleSheet,
   View,
   NetInfo,
 } from 'react-native';
-
 import TabNavigator from 'react-native-tab-navigator';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import titleCase from 'title-case';
@@ -21,15 +20,13 @@ import SelectTeamModal from '../../teams/containers/SelectTeamModal';
 import { OfflineBanner } from '../../offline';
 import { LoginScreen, LogoutScreen } from '../../user';
 import { MapNavigation } from '../../map';
-
-import { Crashlytics, Answers } from 'react-native-fabric';
-
 import {
   DARK_BLUE,
   GRAY_TEXT,
   selectStyle,
   Tabs,
 } from '../../shared';
+import PushNotificationService from '../services/PushNotificationService';
 
 const ICON_SIZE = 22;
 
@@ -43,6 +40,7 @@ export default class App extends Component {
     this.selectTab = this.selectTab.bind(this);
     this.trackUserPosition = this.trackUserPosition.bind(this);
     this.updateUserPosition = this.updateUserPosition.bind(this);
+    this.registerToken = this.registerToken.bind(this);
     this._resetNavigation = this._resetNavigation.bind(this);
   }
 
@@ -55,6 +53,10 @@ export default class App extends Component {
     const screenName = titleCase(getKeyByValue(Tabs, this.props.selectedTab));
     this.props.gaTrackScreenView(screenName);
     this.trackUserPosition();
+    PushNotificationService.init(
+      this.registerToken,
+      this.handleNotification,
+    );
   }
 
   componentWillReceiveProps(newProps) {
@@ -78,6 +80,22 @@ export default class App extends Component {
       height,
       orientation: height >= width ? 'portrait' : 'landscape',
     });
+  }
+
+  registerToken(deviceToken) {
+    this.props.updateDeviceInfo({ deviceToken });
+  }
+
+  handleNotification(notification) {
+    if (AppState.currentState === 'active') {
+      Alert.alert(
+        'Sample Title',
+        notification.message,
+        [],
+        { onDismiss: () => {} },
+      );
+    }
+    console.log(notification);
   }
 
   trackUserPosition() {

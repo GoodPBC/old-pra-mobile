@@ -22,16 +22,16 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+  NSURL *jsCodeLocation;
+
   [Fabric with:@[[Crashlytics class]]];
 
   [GMSServices provideAPIKey:@"AIzaSyBmAQB7WxkU9ZTJl1jfhzNLpRnyiqu9nUQ"];
 
-  NSURL *jsCodeLocation;
-  
 #ifdef DEBUG
-  jsCodeLocation = [NSURL URLWithString:@"http://localhost:8081/index.bundle?platform=ios&dev=true"];
+    jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
 #else
-  jsCodeLocation = [CodePush bundleURL];
+    jsCodeLocation = [CodePush bundleURL];
 #endif
 
   RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
