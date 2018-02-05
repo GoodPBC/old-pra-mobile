@@ -8,6 +8,9 @@ import {
   API_REQUEST_FAILURE,
   API_REQUEST_NETWORK_ERROR,
 } from '../shared';
+import {
+  LOGOUT_USER,
+} from '../user/actionTypes';
 
 const API_ENDPOINTS = [
   'Get311ServiceRequests',
@@ -35,15 +38,12 @@ async function makeRequestAndDispatchResponse({ action, store }) {
     requestMethod,
     requestParams,
     actionName,
-    requestType,
   } = action;
 
-  function dispatchSuccess(json, quiet = false) {
-    if (!quiet) {
-      store.dispatch({
-        type: API_REQUEST_SUCCESS,
-      });
-    }
+  function dispatchSuccess(json) {
+    store.dispatch({
+      type: API_REQUEST_SUCCESS,
+    });
     store.dispatch({
       type: `${actionName}_SUCCESS`,
       data: json,
@@ -61,15 +61,17 @@ async function makeRequestAndDispatchResponse({ action, store }) {
     });
   }
 
-  function dispatchFailure(error, status, quiet = false) {
-    if (!quiet) {
-      store.dispatch({
-        type: API_REQUEST_FAILURE,
-        action,
-        status,
-        error,
-      });
+  function dispatchFailure(error, status) {
+    if (error.match(/invalid token/i)) {
+      store.dispatch({ type: LOGOUT_USER, user: store.getState().user });
     }
+
+    store.dispatch({
+      type: API_REQUEST_FAILURE,
+      action,
+      status,
+      error,
+    });
     store.dispatch({
       type: `${actionName}_FAILURE`,
       request: action,
@@ -130,12 +132,12 @@ async function makeRequestAndDispatchResponse({ action, store }) {
         console.log('Updating SR', json.Update_Status);
       }
       if (response.ok && !(json.ErrorMessage && json.ErrorMessage.length)) {
-        dispatchSuccess(json, action.quiet);
+        dispatchSuccess(json);
       } else {
-        dispatchFailure(json.ErrorMessage, response.status, action.quiet);
+        dispatchFailure(json.ErrorMessage, response.status);
       }
     } catch (e) {
-      dispatchFailure(e, response.status, action.quiet);
+      dispatchFailure(e, response.status);
     }
   //}
 }
