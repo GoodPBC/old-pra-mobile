@@ -8,7 +8,7 @@ import {
 } from './actionTypes';
 
 import {
-  LOGOUT_USER_SUCCESS,
+  LOGOUT_USER,
 } from '../user/actionTypes';
 
 const initialState = {
@@ -45,7 +45,7 @@ export default function reducer(state = initialState, action) {
       ...state,
       currentTeamId: action.team.id,
     };
-  case LOGOUT_USER_SUCCESS:
+  case LOGOUT_USER:
     return {
       ...initialState,
     };
