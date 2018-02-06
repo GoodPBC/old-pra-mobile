@@ -49,7 +49,7 @@
       "<rootDir>/jest/setup.js"
     ],
     "transformIgnorePatterns": [
-      "node_modules/(?!(react-native|instabug-reactnative|react-native-config|react-native-code-push|react-native-progress)/)"
+      "node_modules/(?!(react-native|instabug-reactnative|react-native-config|react-native-code-push|react-native-progress|react-native-tab-navigator|react-native-linear-gradient|react-native-deprecated-custom-components|react-native-simple-radio-button|react-native-storage|react-native-maps|react-native-push-notification|react-native-google-analytics-bridge)/)"
     ]
   },
   "devDependencies": {
