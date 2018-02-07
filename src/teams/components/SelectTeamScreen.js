@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import SelectTeamList from '../containers/SelectTeamList';
 import { LIGHT_BLUE, BODY_BACKGROUND } from '../../shared';
 
-import { RouteIndices } from './TeamNavigation';
 import JoinTeamButton from './JoinTeamButton';
 
 export default class SelectTeamScreen extends Component {
