@@ -1,4 +1,7 @@
-import MapNavigation from './containers/MapNavigation';
 import MapScreen from './containers/MapScreen';
+import MapStackNavigator from './components/MapStackNavigator';
 
-export { MapNavigation, MapScreen };
+export {
+  MapScreen,
+  MapStackNavigator,
+};

@@ -210,7 +210,6 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: BODY_BACKGROUND,
     flex: 1,
-    marginTop: Navigator.NavigationBar.Styles.General.TotalNavHeight,
   },
   modal: {
     backgroundColor: 'white',

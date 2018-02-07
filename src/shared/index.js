@@ -28,6 +28,7 @@ import Separator from './components/Separator';
 import ImageContainer from './components/ImageContainer';
 
 import selectStyle from './helpers/selectStyle';
+import createStackNavigator from './helpers/createStackNavigator';
 
 export {
   API_REQUEST,
@@ -54,4 +55,5 @@ export {
   Separator,
   ImageContainer,
   selectStyle,
+  createStackNavigator,
 };

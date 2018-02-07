@@ -1,9 +1,7 @@
-import { StackNavigator } from 'react-navigation';
-
 import LogoutScreen from '../containers/LogoutScreen';
-import { DARK_BLUE } from '../../shared';
+import { DARK_BLUE, createStackNavigator } from '../../shared';
 
-const UserStackNavigator = StackNavigator(
+const UserStackNavigator = createStackNavigator(
   {
     Logout: {
       screen: LogoutScreen,
@@ -11,18 +9,6 @@ const UserStackNavigator = StackNavigator(
         title: 'User',
       },
     },
-  },
-  {
-    navigationOptions: ({ navigation }) => ({
-      headerStyle: {
-        backgroundColor: DARK_BLUE,
-      },
-      headerTitleStyle: {
-        color: 'white',
-        fontSize: 18,
-        fontWeight: 'bold',
-      }
-    })
   },
 );
 

@@ -20,7 +20,7 @@ import { TeamNavigation } from '../../teams';
 import SelectTeamModal from '../../teams/containers/SelectTeamModal';
 import { OfflineBanner } from '../../offline';
 import { LoginScreen, LogoutScreen } from '../../user';
-import { MapNavigation } from '../../map';
+// import { MapNavigation } from '../../map';
 import {
   DARK_BLUE,
   GRAY_TEXT,

@@ -4,7 +4,7 @@ import { TabNavigator } from 'react-navigation';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 import { ServiceRequestStackNavigator } from '../../serviceRequests';
-import { MapNavigation } from '../../map';
+import { MapStackNavigator } from '../../map';
 import { TeamNavigation } from '../../teams';
 import { UserStackNavigator } from '../../user';
 
@@ -25,7 +25,7 @@ const routeConfigs = {
     }),
   },
   [Tabs.MAP]: {
-    screen: UserStackNavigator,
+    screen: MapStackNavigator,
     navigationOptions: ({ navigation }) => ({
       title: 'Map',
       tabBarIcon: ({ tintColor }) => <FontAwesome name="map-marker" size={ICON_SIZE} color={tintColor} />

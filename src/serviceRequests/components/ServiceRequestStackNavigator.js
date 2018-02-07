@@ -12,7 +12,7 @@ import ResolutionScreen from '../containers/ResolutionScreen';
 import ServiceRequestDetailScreen from '../containers/ServiceRequestDetailScreen';
 import ServiceRequestContactSelector from './ServiceRequestContactSelector';
 import ServiceRequestAddContact from '../containers/ServiceRequestAddContact';
-import { LIGHT_BLUE, Navigation } from '../../shared';
+import { LIGHT_BLUE, DARK_BLUE, createStackNavigator } from '../../shared';
 
 // export default class ServiceRequestNavigation extends Component {
 //   constructor(props) {
@@ -71,11 +71,7 @@ import { LIGHT_BLUE, Navigation } from '../../shared';
 //   }
 // }
 
-import { StackNavigator } from 'react-navigation';
-
-import { DARK_BLUE } from '../../shared';
-
-const ServiceRequestStackNavigator = StackNavigator(
+const ServiceRequestStackNavigator = createStackNavigator(
   {
     MyRequests: {
       screen: MyRequestsScreen,
@@ -98,16 +94,6 @@ const ServiceRequestStackNavigator = StackNavigator(
   },
   {
     initialRouteName: 'MyRequests',
-    navigationOptions: ({ navigation }) => ({
-      headerStyle: {
-        backgroundColor: DARK_BLUE,
-      },
-      headerTitleStyle: {
-        color: 'white',
-        fontSize: 18,
-        fontWeight: 'bold',
-      }
-    })
   },
 );
 

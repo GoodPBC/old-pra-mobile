@@ -11,23 +11,13 @@ import {
   NetInfo,
   Text,
 } from 'react-native';
-// import TabNavigator from 'react-native-tab-navigator';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import titleCase from 'title-case';
-
 import SelectTeamModal from '../../teams/containers/SelectTeamModal';
 import { OfflineBanner } from '../../offline';
 import { LoginScreen } from '../../user';
-import {
-  DARK_BLUE,
-  GRAY_TEXT,
-  selectStyle,
-  Tabs,
-} from '../../shared';
+import { Tabs } from '../../shared';
 import PushNotificationService from '../services/PushNotificationService';
 import AppNavigator from './AppNavigator';
-
-const ICON_SIZE = 22;
 
 const getKeyByValue = (obj, val) => Object.keys(obj).find(key => obj[key] === val);
 
@@ -168,7 +158,7 @@ export default class App extends Component {
     } else if (!this.props.hasSelectedTeam) {
       return this._renderTeamSelect();
     }
-    
+
     return (
       <AppNavigator
         onTabBarPress={this.handlePress}
