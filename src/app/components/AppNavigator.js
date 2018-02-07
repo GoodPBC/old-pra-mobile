@@ -1,11 +1,10 @@
 import React from 'react';
-import { View, Text } from 'react-native';
 import { TabNavigator } from 'react-navigation';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 import { ServiceRequestStackNavigator } from '../../serviceRequests';
 import { MapStackNavigator } from '../../map';
-import { TeamNavigation } from '../../teams';
+import { TeamStackNavigator } from '../../teams';
 import { UserStackNavigator } from '../../user';
 
 import {
@@ -16,33 +15,37 @@ import {
 
 const ICON_SIZE = 22;
 
+const TabBarIcon = iconName => ({ tintColor }) => (
+  <FontAwesome name={iconName} size={ICON_SIZE} color={tintColor} />
+);
+
 const routeConfigs = {
   [Tabs.MY_REQUESTS]: {
     screen: ServiceRequestStackNavigator,
     navigationOptions: ({ navigation }) => ({
       title: 'My Requests',
-      tabBarIcon: ({ tintColor }) => <FontAwesome name="list-ul" size={ICON_SIZE} color={tintColor} />
+      tabBarIcon: TabBarIcon('list-ul'),
     }),
   },
   [Tabs.MAP]: {
     screen: MapStackNavigator,
     navigationOptions: ({ navigation }) => ({
       title: 'Map',
-      tabBarIcon: ({ tintColor }) => <FontAwesome name="map-marker" size={ICON_SIZE} color={tintColor} />
+      tabBarIcon: TabBarIcon('map-marker'),
     }),
   },
   [Tabs.TEAMS]: {
-    screen: UserStackNavigator,
+    screen: TeamStackNavigator,
     navigationOptions: ({ navigation }) => ({
       title: 'Teams',
-      tabBarIcon: ({ tintColor }) => <FontAwesome name="group" size={ICON_SIZE} color={tintColor} />
+      tabBarIcon: TabBarIcon('group'),
     }),
   },
   [Tabs.LOGOUT]: {
     screen: UserStackNavigator,
     navigationOptions: ({ navigation }) => ({
       title: 'Logout',
-      tabBarIcon: ({ tintColor }) => <FontAwesome name="sign-out" size={ICON_SIZE} color={tintColor} />
+      tabBarIcon: TabBarIcon('sign-out'),
     }),
   },
 };

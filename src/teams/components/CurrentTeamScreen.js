@@ -14,13 +14,14 @@ import CurrentTeamHeader from './CurrentTeamHeader';
 export default class CurrentTeamScreen extends Component {
   constructor(props){
     super(props);
-    // this._goToCreateTeam = this._goToCreateTeam.bind(this);
-    this._goToJoinTeam = this._goToJoinTeam.bind(this);
     this._goToChangeTeam = this._goToChangeTeam.bind(this);
-    this._leaveTeam = this._leaveTeam.bind(this);
+    // this._goToCreateTeam = this._goToCreateTeam.bind(this);
+    // this._goToJoinTeam = this._goToJoinTeam.bind(this);
+    // this._leaveTeam = this._leaveTeam.bind(this);
   }
 
-  componentWillMount() {
+  _goToChangeTeam() {
+    this.props.navigation.navigate('ChangeTeam');
   }
 
   // _goToCreateTeam() {
@@ -30,24 +31,17 @@ export default class CurrentTeamScreen extends Component {
   //   });
   // }
 
-  _goToJoinTeam() {
-    this.props.navigator.push({
-      index: RouteIndices.TEAM_LIST,
-      title: 'Join a Team',
-    });
-  }
+  // _goToJoinTeam() {
+  //   this.props.navigator.push({
+  //     index: RouteIndices.TEAM_LIST,
+  //     title: 'Join a Team',
+  //   });
+  // }
 
-  _goToChangeTeam() {
-    this.props.navigator.push({
-      index: RouteIndices.TEAM_LIST,
-      title: 'Change Team',
-    });
-  }
-
-  _leaveTeam() {
-    const { currentTeam } = this.props;
-    this.props.leaveTeam();
-  }
+  // _leaveTeam() {
+  //   const { currentTeam } = this.props;
+  //   this.props.leaveTeam();
+  // }
 
   /**
    * Need to adjust the height of the container to fit

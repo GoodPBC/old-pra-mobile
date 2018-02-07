@@ -15,23 +15,18 @@ export default class SelectTeamScreen extends Component {
   }
 
   _goToDetail(team) {
-    const route = {
-      index: RouteIndices.USER_LIST,
-      title: team.name,
-      team,
-    };
-    this.props.navigator.push(route);
+    // const route = {
+    //   index: RouteIndices.USER_LIST,
+    //   title: team.name,
+    //   team,
+    // };
+    // this.props.navigator.push(route);
   }
 
   _joinTeam() {
-    const { joinTeam, selectedTeam, currentTeam } = this.props;
-
-    joinTeam(selectedTeam, currentTeam);
-
-    // Select team modal may not have a navigator.
-    if (this.props.navigator) {
-      this.props.navigator.pop();
-    }
+    const { selectedTeam, currentTeam } = this.props;
+    this.props.joinTeam(selectedTeam, currentTeam);
+    this.props.navigation.goBack();
   }
 
   render() {

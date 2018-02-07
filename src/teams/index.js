@@ -1,4 +1,7 @@
 import SelectTeamScreen from './containers/SelectTeamScreen';
-import TeamNavigation from './components/TeamNavigation';
+import TeamStackNavigator from './components/TeamStackNavigator';
 
-export { SelectTeamScreen, TeamNavigation };
+export {
+  SelectTeamScreen,
+  TeamStackNavigator,
+};
