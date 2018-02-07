@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-
 import {
   InteractionManager,
   View,
@@ -8,8 +7,8 @@ import {
   ListView,
   AsyncStorage,
 } from 'react-native';
-
 import moment from 'moment';
+import { withNavigation } from 'react-navigation';
 
 import Separator from '../../shared/components/Separator';
 
@@ -33,7 +32,7 @@ const FILTERS = {
   INACTIVE: 'inactive',
 };
 
-export default class ServiceRequestList extends Component {
+class ServiceRequestList extends Component {
   constructor(props) {
     super(props);
     const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
@@ -155,10 +154,7 @@ export default class ServiceRequestList extends Component {
     InteractionManager.runAfterInteractions(() => {
       this.props.selectServiceRequest(serviceRequest); // Select offline state.
     });
-    this.props.navigator.push({ // Push navigation
-      index: 1,
-      title: 'Request Details',
-    });
+    this.props.navigation.navigate('ServiceRequestDetail');
   }
 
   _changeFilter(newFilter) {
@@ -235,7 +231,6 @@ export default class ServiceRequestList extends Component {
 ServiceRequestList.propTypes = {
   fetchServiceRequestDetails: PropTypes.func.isRequired,
   enableFilters: PropTypes.bool,
-  navigator: PropTypes.object.isRequired,
   selectServiceRequest: PropTypes.func.isRequired,
   gaTrackEvent: PropTypes.func.isRequired,
 };
@@ -244,5 +239,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   }
-
 });
+
+export default withNavigation(ServiceRequestList);

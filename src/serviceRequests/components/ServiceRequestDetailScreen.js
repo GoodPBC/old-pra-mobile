@@ -20,7 +20,6 @@ import {
 
 
 export default class ServiceRequestDetailScreen extends Component {
-
   componentWillUnmount() {
     InteractionManager.runAfterInteractions(() => {
       this.props.unselectServiceRequest();
@@ -41,11 +40,7 @@ export default class ServiceRequestDetailScreen extends Component {
       <View style={styles.container}>
         <BannerWithNumber serviceRequest={this.props.serviceRequest} />
         <ScrollView>
-          { canGoOnsite ?
-            (
-              <OnsiteSection {...this.props} />
-            ) : null
-          }
+          { canGoOnsite && <OnsiteSection {...this.props} /> }
           <ResolutionSection {...this.props} />
           <DetailsSection serviceRequest={this.props.serviceRequest} />
         </ScrollView>

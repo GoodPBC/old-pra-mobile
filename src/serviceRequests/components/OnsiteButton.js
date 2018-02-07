@@ -11,37 +11,39 @@ import {
   Separator
 } from '../../shared';
 
-function confirmAndUpdateStatus(serviceRequest, updateOnsiteStatus) {
-  const description = 'Are you sure you want to update this SR to status: on site?';
-  Alert.alert(
-    'Confirm On Site',
-    description,
-    [
-      { text: 'Yes',
-        onPress: () => {
-          updateOnsiteStatus(serviceRequest);
-      } },
-      { text: 'No',
-        onPress: () => console.log('Cancel Pressed'),
-        style: 'cancel'
-      },
-    ],
-    { cancelable: true }
-  );
-}
 
 export default class OnsiteButton extends Component {
-  render() {
-    const { serviceRequest, updatePending, updateOnsiteStatus } = this.props;
-    let content = null;
+  constructor(props) {
+    super(props);
+    this.confirmAndUpdateStatus = this.confirmAndUpdateStatus.bind(this);
+  }
 
-    content = (
-      <Button
-        onPress={() => confirmAndUpdateStatus(serviceRequest, updateOnsiteStatus)}>Tap To Go On Site</Button>
+  confirmAndUpdateStatus() {
+    const { serviceRequest, updateOnsiteStatus } = this.props;
+    const description = 'Are you sure you want to update this SR to status: on site?';
+    Alert.alert(
+      'Confirm On Site',
+      description,
+      [
+        {
+          text: 'Yes',
+          onPress: () => { updateOnsiteStatus(serviceRequest); },
+        },
+        { text: 'No',
+          onPress: () => { console.log('Cancel Pressed'); },
+          style: 'cancel',
+        },
+      ],
+      { cancelable: true },
     );
+  }
+
+  render() {
     return (
       <View style={styles.container}>
-        {content}
+        <Button onPress={this.confirmAndUpdateStatus}>
+          Tap To Go On Site
+        </Button>
         <Separator />
       </View>
     );

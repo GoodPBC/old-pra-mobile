@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-
 import { Alert, StyleSheet, Text, View } from 'react-native';
+import { withNavigation } from 'react-navigation';
 
 import ResolutionNotesField from './ResolutionNotesField';
 import ResolutionPicker from './ResolutionPicker';
@@ -13,47 +13,6 @@ import {
   LIGHT_BLUE,
 } from '../../../shared';
 
-function resolveAndGoBack({ resolveServiceRequest, navigator }) {
-  return (serviceRequest, selectedResolutionCode) => {
-    const description = `Are you sure you want to resolve this SR with status: ${resolutionCodeDisplayName(selectedResolutionCode)}`;
-    Alert.alert(
-      'Confirm Resolution',
-      description,
-      [
-        { text: 'Yes',
-          onPress: () => {
-            resolveServiceRequest(serviceRequest, selectedResolutionCode);
-            navigator.pop();
-        } },
-        { text: 'No',
-          onPress: () => console.log('Cancel Pressed'),
-          style: 'cancel'
-        },
-      ],
-      { cancelable: true }
-    );
-  };
-}
-
-export default function ResolutionForm(props) {
-  return (
-    <View style={styles.detailsContainer}>
-      <View style={styles.detailsContainerInner}>
-        <Text style={styles.header}>Select a Resolution Below</Text>
-      </View>
-      <ResolutionPicker {...props} />
-      <ResolutionNotesField {...props} />
-      <Separator />
-      <View style={styles.buttonContainer}>
-        <ResolveRequestButton {...props} resolveServiceRequest={resolveAndGoBack(props)} />
-      </View>
-    </View>
-  );
-}
-
-ResolutionForm.propTypes = {
-  serviceRequest: PropTypes.object.isRequired,
-};
 const styles = StyleSheet.create({
   buttonContainer: {
     paddingLeft: X_AXIS_PADDING,
@@ -80,3 +39,55 @@ const styles = StyleSheet.create({
     paddingBottom: 10
   },
 });
+
+class ResolutionForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.resolveAndGoBack = this.resolveAndGoBack.bind(this);
+  }
+
+  resolveAndGoBack(serviceRequest, selectedResolutionCode) {
+    const description = `Are you sure you want to resolve this SR with status: ${resolutionCodeDisplayName(selectedResolutionCode)}`;
+    Alert.alert(
+      'Confirm Resolution',
+      description,
+      [
+        {
+          text: 'Yes',
+          onPress: () => {
+            this.props.resolveServiceRequest(serviceRequest, selectedResolutionCode);
+            this.props.navigation.goBack();
+          },
+        },
+        {
+          text: 'No',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+      ],
+      { cancelable: true },
+    );
+  }
+
+  render() {
+    return (
+      <View style={styles.detailsContainer}>
+        <View style={styles.detailsContainerInner}>
+          <Text style={styles.header}>Select a Resolution Below</Text>
+        </View>
+        <ResolutionPicker {...this.props} />
+        <ResolutionNotesField {...this.props} />
+        <Separator />
+        <View style={styles.buttonContainer}>
+          <ResolveRequestButton {...this.props} resolveServiceRequest={this.resolveAndGoBack} />
+        </View>
+      </View>
+    );
+  }
+}
+
+ResolutionForm.propTypes = {
+  serviceRequest: PropTypes.object.isRequired,
+};
+
+export default withNavigation(ResolutionForm);

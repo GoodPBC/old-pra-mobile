@@ -1,40 +1,36 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
+import { withNavigation } from 'react-navigation';
 import {
   Button,
   Separator,
 } from '../../../shared';
 import resolutionIcon from '../img/icon-resolution.png';
 
-function ResolvedState() {
-  // TODO: Need to work this out. Resolution status already appears
-  // below, do we need to display it differently here?
-  return null;
-}
-
-function UnresolvedState({ goToResolutionScreen }) {
-    return (
-      <View style={{ padding: 10 }}>
-        <View style={styles.container}>
-          <Image source={resolutionIcon} />
-          <View style={styles.content}>
-            <View style={{ flexDirection: 'row' }}>
-              <View style={{ flex: 1, alignSelf: 'center' }}>
-                <Text style={{ fontSize: 20 }}>Resolution</Text>
-              </View>
-                <Button
-                  style={{ width: 50, height: 50, borderRadius: 25, alignSelf: 'flex-end' }}
-                  textStyle={{ fontSize: 25 }}
-                  onPress={goToResolutionScreen}>+</Button>
-            </View>
+// TODO: Need to work this out. Resolution status already appears
+// below, do we need to display it differently here?
+const ResolvedState = () => null;
+const UnresolvedState = ({ goToResolutionScreen }) => (
+  <View style={{ padding: 10 }}>
+    <View style={styles.container}>
+      <Image source={resolutionIcon} />
+      <View style={styles.content}>
+        <View style={{ flexDirection: 'row' }}>
+          <View style={{ flex: 1, alignSelf: 'center' }}>
+            <Text style={{ fontSize: 20 }}>Resolution</Text>
           </View>
+          <Button
+            style={{ width: 50, height: 50, borderRadius: 25, alignSelf: 'flex-end' }}
+            textStyle={{ fontSize: 25 }}
+            onPress={goToResolutionScreen}
+          >+</Button>
         </View>
-
-        <Separator />
       </View>
-    );
-}
+    </View>
+    <Separator />
+  </View>
+);
 
 const styles = StyleSheet.create({
   container: {
@@ -48,18 +44,21 @@ const styles = StyleSheet.create({
   },
 });
 
-export default class ResolutionSection extends Component {
+class ResolutionSection extends Component {
+  constructor(props) {
+    super(props);
+    this._goToResolutionScreen = this._goToResolutionScreen.bind(this);
+  }
+
   _goToResolutionScreen() {
-    this.props.navigator.push({
-      index: 4,
-      title: 'Request Details',
-    });
+    this.props.navigation.navigate('Resolution');
   }
 
   render() {
     const { serviceRequest } = this.props;
+    
     if (serviceRequest.status === 'on_site') {
-      return <UnresolvedState goToResolutionScreen={() => this._goToResolutionScreen()} />;
+      return <UnresolvedState goToResolutionScreen={this._goToResolutionScreen} />;
     } else if (serviceRequest.status === 'visit_complete') {
       return <ResolvedState serviceRequest={serviceRequest} />;
     }
@@ -69,6 +68,8 @@ export default class ResolutionSection extends Component {
 }
 
 ResolutionSection.propTypes = {
-  navigator: PropTypes.object,
+  navigation: PropTypes.object,
   serviceRequest: PropTypes.object.isRequired,
 };
+
+export default withNavigation(ResolutionSection);

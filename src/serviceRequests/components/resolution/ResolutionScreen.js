@@ -4,7 +4,6 @@ import { ScrollView, StyleSheet, View } from 'react-native';
 import ResolutionForm from './ResolutionForm';
 import BannerWithNumber from '../BannerWithNumber';
 
-
 export default class ResolutionScreen extends Component {
   render() {
     return (

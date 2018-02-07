@@ -11,13 +11,16 @@ import {
   NetInfo,
   Text,
 } from 'react-native';
-// import TabNavigator from 'react-native-tab-navigator';
+import TabNavigator from 'react-native-tab-navigator';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import titleCase from 'title-case';
 
+import { ServiceRequestNavigation } from '../../serviceRequests';
+import { TeamNavigation } from '../../teams';
 import SelectTeamModal from '../../teams/containers/SelectTeamModal';
 import { OfflineBanner } from '../../offline';
-import { LoginScreen } from '../../user';
+import { LoginScreen, LogoutScreen } from '../../user';
+import { MapNavigation } from '../../map';
 import {
   DARK_BLUE,
   GRAY_TEXT,
@@ -25,7 +28,6 @@ import {
   Tabs,
 } from '../../shared';
 import PushNotificationService from '../services/PushNotificationService';
-import AppNavigator from './AppNavigator';
 
 const ICON_SIZE = 22;
 
@@ -161,19 +163,109 @@ export default class App extends Component {
     this.props.selectTab(Tabs.MY_REQUESTS);
   }
 
-  render() {
-    console.log('this.props', this.props);
-    if (!this.props.userIsAuthenticated) {
-      return this._renderLogin();
-    } else if (!this.props.hasSelectedTeam) {
-      return this._renderTeamSelect();
-    }
-    
+  _renderTabs() {
+    const tabBarStyle = selectStyle({
+      'iPhone X': {
+        portrait: {
+          height: 49 + 34,
+          paddingBottom: 34,
+        },
+        landscape: {
+          height: 49 + 21,
+          paddingBottom: 21,
+          paddingHorizontal: 44,
+        },
+      },
+    }, this.props.deviceInfo.orientation);
+
     return (
-      <AppNavigator
-        onTabBarPress={this.handlePress}
-      />
-    )
+      <TabNavigator tabBarStyle={tabBarStyle}>
+        <TabNavigator.Item
+          selected={this.props.selectedTab === Tabs.MY_REQUESTS}
+          title="My Requests"
+          renderIcon={() => <Icon name="list-ul" size={ICON_SIZE} color={GRAY_TEXT}/>}
+          renderSelectedIcon={() => <Icon name="list-ul" size={ICON_SIZE} color={DARK_BLUE}/>}
+          onPress={this.handlePress(Tabs.MY_REQUESTS)}
+          titleStyle={{ color: GRAY_TEXT }}
+          selectedTitleStyle={{ color: DARK_BLUE }}
+        >
+          <ServiceRequestNavigation />
+        </TabNavigator.Item>
+        <TabNavigator.Item
+          selected={this.props.selectedTab === Tabs.MAP}
+          title="Map"
+          renderIcon={() => <Icon name="map-marker" size={ICON_SIZE}  color={GRAY_TEXT}/>}
+          renderSelectedIcon={() => <Icon name="map-marker" size={ICON_SIZE}  color={DARK_BLUE}/>}
+          onPress={this.handlePress(Tabs.MAP)}
+          titleStyle={{ color: GRAY_TEXT }}
+          selectedTitleStyle={{ color: DARK_BLUE }}
+        >
+          <MapNavigation />
+        </TabNavigator.Item>
+        <TabNavigator.Item
+          selected={this.props.selectedTab === Tabs.TEAMS}
+          title="Teams"
+          renderIcon={() => <Icon name="group" size={ICON_SIZE}  color={GRAY_TEXT}/>}
+          renderSelectedIcon={() => <Icon name="group" size={ICON_SIZE}  color={DARK_BLUE}/>}
+          onPress={this.handlePress(Tabs.TEAMS)}
+          titleStyle={{ color: GRAY_TEXT }}
+          selectedTitleStyle={{ color: DARK_BLUE }}
+        >
+          <TeamNavigation />
+        </TabNavigator.Item>
+        <TabNavigator.Item
+          selected={this.props.selectedTab === Tabs.LOGOUT}
+          title="Logout"
+          renderIcon={() => <Icon name="sign-out" size={ICON_SIZE}  color={GRAY_TEXT}/>}
+          renderSelectedIcon={() => <Icon name="sign-out" size={ICON_SIZE}  color={DARK_BLUE}/>}
+          onPress={this.handlePress(Tabs.LOGOUT)}
+          titleStyle={{ color: GRAY_TEXT }}
+          selectedTitleStyle={{ color: DARK_BLUE }}
+        >
+          <LogoutScreen />
+        </TabNavigator.Item>
+
+      </TabNavigator>
+    );
+  }
+
+  render() {
+    let content = null;
+    if (!this.props.userIsAuthenticated) {
+      content = this._renderLogin();
+    } else if (!this.props.hasSelectedTeam) {
+      content = this._renderTeamSelect();
+    } else {
+      content = this._renderTabs();
+    }
+
+    const iPhoneXStyle = selectStyle({
+      'iPhone X': {
+        portrait: {
+          borderTopWidth: 24,
+          borderTopColor: DARK_BLUE,
+        },
+        landscape: {
+          marginTop: -20,
+        },
+      },
+    }, this.props.deviceInfo.orientation);
+
+    return (
+      <View
+        onLayout={this.onLayout}
+        style={[styles.container, iPhoneXStyle]}
+      >
+        <StatusBar
+          translucent
+          hidden={false}
+          barStyle="light-content"
+          networkActivityIndicatorVisible={this.props.apiRequestInProgress}
+        />
+        {!this.props.networkIsConnected && <OfflineBanner />}
+        {content}
+      </View>
+    );
   }
 }
 

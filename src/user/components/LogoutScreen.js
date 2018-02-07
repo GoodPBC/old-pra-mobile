@@ -67,32 +67,33 @@ LogoutScene.propTypes = {
   logoutUser: PropTypes.func.isRequired,
 };
 
-export default function LogoutScreen({ logoutUser, user }) {
-  const initialRoute = {
-    title: 'User',
-    index: 0,
-  };
-
-  return (
-    <Navigation
-      initialRoute={initialRoute}
-      renderScene={() => <LogoutScene logoutUser={logoutUser} user={user} />}
-      onBack={() => {}}
-    />
-  );
-}
-
-LogoutScreen.propTypes = {
-  user: PropTypes.object.isRequired,
-  logoutUser: PropTypes.func.isRequired,
-};
+export default LogoutScene;
+// export default function LogoutScreen({ logoutUser, user }) {
+//   const initialRoute = {
+//     title: 'User',
+//     index: 0,
+//   };
+//
+//   return (
+//     <Navigation
+//       initialRoute={initialRoute}
+//       renderScene={() => <LogoutScene logoutUser={logoutUser} user={user} />}
+//       onBack={() => {}}
+//     />
+//   );
+// }
+//
+// LogoutScreen.propTypes = {
+//   user: PropTypes.object.isRequired,
+//   logoutUser: PropTypes.func.isRequired,
+// };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: BODY_BACKGROUND,
     paddingHorizontal: X_AXIS_PADDING,
-    marginTop: Navigator.NavigationBar.Styles.General.TotalNavHeight,
+    // marginTop: Navigator.NavigationBar.Styles.General.TotalNavHeight,
   },
   card: {
     marginTop: 30,

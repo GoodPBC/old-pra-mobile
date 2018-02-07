@@ -3,6 +3,7 @@ import ServiceRequestList from './components/ServiceRequestList';
 
 // Export navigation for use in the main App component.
 import ServiceRequestNavigation from './containers/ServiceRequestNavigation';
+import ServiceRequestStackNavigator from './components/ServiceRequestStackNavigator';
 
 // Selecting service requests on the Sync tab.
 import { selectServiceRequest, fetchServiceRequestDetails } from './actions';
@@ -21,4 +22,5 @@ export {
   selectServiceRequest,
   ServiceRequestList,
   ServiceRequestNavigation,
+  ServiceRequestStackNavigator,
 };

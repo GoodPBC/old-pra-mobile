@@ -1,14 +1,24 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-
 import { StyleSheet, View } from 'react-native';
+import { withNavigation } from 'react-navigation';
 
 import ServiceRequestList from '../containers/ServiceRequestList';
 import EmptyServiceRequestList from './EmptyServiceRequestList';
 
 import { BODY_BACKGROUND } from '../../shared';
 
-export default class MyRequestsScreen extends Component {
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: BODY_BACKGROUND
+  },
+  modal: {
+    backgroundColor: 'white',
+  }
+});
+
+class MyRequestsScreen extends Component {
   constructor(props) {
     super(props);
 
@@ -38,7 +48,7 @@ export default class MyRequestsScreen extends Component {
         {
           this.props.showNoSRWarning
           ? <EmptyServiceRequestList currentTeam={this.props.currentTeam} />
-          : <ServiceRequestList navigator={this.props.navigator} enableFilters />
+        : <ServiceRequestList enableFilters />
         }
       </View>
     );
@@ -47,15 +57,6 @@ export default class MyRequestsScreen extends Component {
 
 MyRequestsScreen.propTypes = {
   fetchServiceRequests: PropTypes.func.isRequired,
-  navigator: PropTypes.object.isRequired,
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: BODY_BACKGROUND
-  },
-  modal: {
-    backgroundColor: 'white',
-  }
-});
+export default withNavigation(MyRequestsScreen);
