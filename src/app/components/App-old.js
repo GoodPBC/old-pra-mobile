@@ -16,7 +16,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import titleCase from 'title-case';
 
 import { ServiceRequestNavigation } from '../../serviceRequests';
-import { TeamNavigation } from '../../teams';
+// import { TeamNavigation } from '../../teams';
 import SelectTeamModal from '../../teams/containers/SelectTeamModal';
 import { OfflineBanner } from '../../offline';
 import { LoginScreen, LogoutScreen } from '../../user';
