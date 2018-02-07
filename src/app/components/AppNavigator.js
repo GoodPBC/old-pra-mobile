@@ -22,31 +22,31 @@ const TabBarIcon = iconName => ({ tintColor }) => (
 const routeConfigs = {
   [Tabs.MY_REQUESTS]: {
     screen: ServiceRequestStackNavigator,
-    navigationOptions: ({ navigation }) => ({
+    navigationOptions: {
       title: 'My Requests',
       tabBarIcon: TabBarIcon('list-ul'),
-    }),
+    },
   },
   [Tabs.MAP]: {
     screen: MapStackNavigator,
-    navigationOptions: ({ navigation }) => ({
+    navigationOptions: {
       title: 'Map',
       tabBarIcon: TabBarIcon('map-marker'),
-    }),
+    },
   },
   [Tabs.TEAMS]: {
     screen: TeamStackNavigator,
-    navigationOptions: ({ navigation }) => ({
+    navigationOptions: {
       title: 'Teams',
       tabBarIcon: TabBarIcon('group'),
-    }),
+    },
   },
   [Tabs.LOGOUT]: {
     screen: UserStackNavigator,
-    navigationOptions: ({ navigation }) => ({
+    navigationOptions: {
       title: 'Logout',
       tabBarIcon: TabBarIcon('sign-out'),
-    }),
+    },
   },
 };
 
@@ -56,9 +56,12 @@ const tabNavigatorConfig = {
     activeTintColor: DARK_BLUE,
     inactiveTintColor: GRAY_TEXT,
   },
-  navigationOptions: ({ navigation }) => ({
-    // tabBarOnPress: (x) => onTabBarPress(Number(x.route.routeName))()
-  }),
+  order: [
+    Tabs.MY_REQUESTS.toString(),
+    Tabs.MAP.toString(),
+    Tabs.TEAMS.toString(),
+    Tabs.LOGOUT.toString(),
+  ],
 };
 
 const AppNavigator = TabNavigator(

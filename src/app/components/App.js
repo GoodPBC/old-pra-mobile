@@ -19,6 +19,27 @@ import { Tabs } from '../../shared';
 import PushNotificationService from '../services/PushNotificationService';
 import AppNavigator from './AppNavigator';
 
+const styles = StyleSheet.create({
+  loadingIndicator: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  container: {
+    flex: 1,
+    backgroundColor: '#F5FCFF',
+  },
+  tabBarNavigator: {
+    flex: 1,
+  },
+  tabBar: {
+    shadowColor: '#333333',
+    shadowOpacity: 1,
+    shadowOffset: { width: 0, height: 6 },
+    shadowRadius: 8
+  }
+});
+
 const getKeyByValue = (obj, val) => Object.keys(obj).find(key => obj[key] === val);
 
 export default class App extends Component {
@@ -152,7 +173,6 @@ export default class App extends Component {
   }
 
   render() {
-    console.log('this.props', this.props);
     if (!this.props.userIsAuthenticated) {
       return this._renderLogin();
     } else if (!this.props.hasSelectedTeam) {
@@ -163,7 +183,7 @@ export default class App extends Component {
       <AppNavigator
         onTabBarPress={this.handlePress}
       />
-    )
+    );
   }
 }
 
@@ -176,24 +196,3 @@ App.propTypes = {
   networkIsConnected: PropTypes.bool,
   userIsAuthenticated: PropTypes.bool,
 };
-
-const styles = StyleSheet.create({
-  loadingIndicator: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  container: {
-    flex: 1,
-    backgroundColor: '#F5FCFF',
-  },
-  tabBarNavigator: {
-    flex: 1,
-  },
-  tabBar: {
-    shadowColor: '#333333',
-    shadowOpacity: 1,
-    shadowOffset: { width: 0, height: 6 },
-    shadowRadius: 8
-  }
-});

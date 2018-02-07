@@ -1,83 +1,48 @@
-import PropTypes from 'prop-types';
-import React, { Component } from 'react';
-
+import React from 'react';
 import {
-  InteractionManager,
   StyleSheet,
-  View,
+  ActivityIndicator,
+  TouchableOpacity,
 } from 'react-native';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import MyRequestsScreen from '../containers/MyRequestsScreen';
 import ResolutionScreen from '../containers/ResolutionScreen';
 import ServiceRequestDetailScreen from '../containers/ServiceRequestDetailScreen';
-import ServiceRequestContactSelector from './ServiceRequestContactSelector';
-import ServiceRequestAddContact from '../containers/ServiceRequestAddContact';
-import { LIGHT_BLUE, DARK_BLUE, createStackNavigator } from '../../shared';
+import { createStackNavigator } from '../../shared';
 
-// export default class ServiceRequestNavigation extends Component {
-//   constructor(props) {
-//     super(props);
-//     this._renderScene = this._renderScene.bind(this);
-//     this._refreshServiceRequests = this._refreshServiceRequests.bind(this);
-//   }
-//
-//   _refreshServiceRequests(route, navigator, index) {
-//     if (index === 0 || index === 1) {
-//       InteractionManager.runAfterInteractions(() => {
-//         this.props.syncServiceRequests();
-//       });
-//     }
-//   }
-//
-//   /**
-//      * 2 screens: My Requests and the details screen
-//     +2 screens: Contacts selection and add contacts
-//    */
-//   _renderScene(route, navigator) {
-//     let content = null;
-//     if (route.index === 0) {
-//       content = <MyRequestsScreen navigator={navigator} />;
-//     } else if (route.index === 1) {
-//       content = <ServiceRequestDetailScreen navigator={navigator} />;
-//     } else if (route.index === 2) {
-//       content = <ServiceRequestContactSelector navigator={navigator} />;
-//     } else if (route.index === 3) {
-//       content = <ServiceRequestAddContact navigator={navigator} />;
-//     } else if (route.index === 4) {
-//       content = <ResolutionScreen navigator={navigator} />;
-//     }
-//     return (
-//       <View style={styles.navAdjustment}>
-//         {content}
-//       </View>
-//     );
-//   }
-//
-//   render() {
-//     const initialRoute = {
-//       title: 'My Requests',
-//       index: 0,
-//     };
-//     return (
-//       <Navigation
-//         initialRoute={initialRoute}
-//         isRefreshing={this.props.isRefreshing}
-//         networkIsConnected={this.props.networkIsConnected}
-//         renderScene={this._renderScene}
-//         onBack={this.props.fetchServiceRequests}
-//         rightButtonAction={this._refreshServiceRequests}
-//       />
-//     );
-//   }
-// }
+const styles = StyleSheet.create({
+  refreshButton: {
+    flex: 1,
+    justifyContent: 'center',
+    paddingRight: 10,
+  },
+});
+
+const HeaderRightButton = ({ isRefreshing, networkIsConnected, syncServiceRequests }) => (
+  <TouchableOpacity
+    style={styles.refreshButton}
+    disabled={!networkIsConnected}
+    onPress={syncServiceRequests}
+  >
+    {
+      (networkIsConnected && isRefreshing) ? (
+        <ActivityIndicator color="white" />
+      ) : (
+        <MaterialIcons name="refresh" size={28} color="white" />
+      )
+    }
+  </TouchableOpacity>
+);
 
 const ServiceRequestStackNavigator = createStackNavigator(
   {
     MyRequests: {
       screen: MyRequestsScreen,
-      navigationOptions: {
+      navigationOptions: ({ screenProps }) => ({
         title: 'My Requests',
-      },
+        headerRight: HeaderRightButton(screenProps),
+      }),
     },
     ServiceRequestDetail: {
       screen: ServiceRequestDetailScreen,
@@ -97,4 +62,22 @@ const ServiceRequestStackNavigator = createStackNavigator(
   },
 );
 
-export default ServiceRequestStackNavigator;
+export default class ServiceRequestStackNavigatorComponent extends React.PureComponent {
+  render() {
+    const {
+      isRefreshing,
+      networkIsConnected,
+      syncServiceRequests,
+    } = this.props;
+
+    return (
+      <ServiceRequestStackNavigator
+        screenProps={{
+          isRefreshing,
+          networkIsConnected,
+          syncServiceRequests,
+        }}
+      />
+    );
+  }
+}
