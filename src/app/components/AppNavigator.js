@@ -11,6 +11,7 @@ import {
   Tabs,
   DARK_BLUE,
   GRAY_TEXT,
+  LIGHT_GRAY,
 } from '../../shared';
 
 const ICON_SIZE = 22;
@@ -51,16 +52,20 @@ const routeConfigs = {
 };
 
 const tabNavigatorConfig = {
-  initialRouteName: Tabs.MY_REQUESTS.toString(),
+  initialRouteName: Tabs.MY_REQUESTS,
   tabBarOptions: {
     activeTintColor: DARK_BLUE,
     inactiveTintColor: GRAY_TEXT,
+    style: {
+      borderTopWidth: 1,
+      borderTopColor: LIGHT_GRAY,
+    },
   },
   order: [
-    Tabs.MY_REQUESTS.toString(),
-    Tabs.MAP.toString(),
-    Tabs.TEAMS.toString(),
-    Tabs.LOGOUT.toString(),
+    Tabs.MY_REQUESTS,
+    Tabs.MAP,
+    Tabs.TEAMS,
+    Tabs.LOGOUT,
   ],
 };
 
