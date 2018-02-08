@@ -54,19 +54,20 @@ export function updateTeamLocation() {
     // console.log('userId', user.userId);
     // console.log('teamId', teams.currentTeamId);
     // console.log('@ ', new Date());
-    // dispatch({
-    //   type: API_REQUEST,
-    //   actionName: UPDATE_TEAM_LOCATION,
-    //   endpoint: 'updateteamlocation',
-    //   requestPath: 'updateteamlocation',
-    //   requestMethod: 'POST',
-    //   requestParams: {
-    //     DeviceId: app.deviceInfo.deviceToken,
-    //     Latitude: user.latitude,
-    //     Longitude: user.longitude,
-    //     TeamId: teams.currentTeamId,
-    //     UserId: user.userId,
-    //   },
-    // });
+    dispatch({
+      type: API_REQUEST,
+      actionName: UPDATE_TEAM_LOCATION,
+      endpoint: 'updateteamlocation',
+      requestPath: 'updateteamlocation',
+      requestMethod: 'POST',
+      requestParams: {
+        DeviceId: app.deviceInfo.deviceToken,
+        Platform: app.deviceInfo.os,
+        Latitude: user.latitude,
+        Longitude: user.longitude,
+        TeamId: teams.currentTeamId,
+        UserId: user.userId,
+      },
+    });
   };
 }
