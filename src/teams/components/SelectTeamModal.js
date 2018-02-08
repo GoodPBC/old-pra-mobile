@@ -49,7 +49,7 @@ export default class SelectTeamModal extends Component {
         <View style={[styles.nav, Platform.OS === 'android' ? styles.androidNav : null]}>
           <Text style={styles.header}>Select a team</Text>
         </View>
-        <SelectTeamScreen />
+        <SelectTeamScreen isModal />
       </View>
     );
   }

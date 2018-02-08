@@ -23,9 +23,12 @@ export default class SelectTeamScreen extends Component {
   }
 
   _joinTeam() {
-    const { selectedTeam, currentTeam } = this.props;
+    const { selectedTeam, currentTeam, isModal } = this.props;
     this.props.joinTeam(selectedTeam, currentTeam);
-    this.props.navigation.goBack();
+
+    if (!isModal) {
+      this.props.navigation.goBack();
+    }
   }
 
   render() {
@@ -47,7 +50,7 @@ export default class SelectTeamScreen extends Component {
 
 SelectTeamScreen.propTypes = {
   joinTeam: PropTypes.func.isRequired,
-  navigator: PropTypes.object,
+  isModal: PropTypes.bool,
   selectedTeam: PropTypes.object,
 };
 
