@@ -16,6 +16,7 @@ export default function createStackNavigator(routeConfig, stackConfig = {}) {
         return {
           headerStyle: {
             backgroundColor: DARK_BLUE,
+            borderBottomWidth: 0,
           },
           headerBackTitle: null,
           headerTintColor: 'white',
