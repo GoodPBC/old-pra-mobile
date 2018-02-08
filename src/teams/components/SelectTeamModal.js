@@ -16,7 +16,6 @@ export default class SelectTeamModal extends Component {
 
   componentWillMount() {
     this.props.fetchTeams();
-    this.props.resetNavigation();
   }
 
   handleLogout() {
