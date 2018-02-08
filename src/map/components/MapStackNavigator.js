@@ -3,7 +3,7 @@ import { createStackNavigator } from '../../shared';
 
 const MapStackNavigator = createStackNavigator(
   {
-    Map: {
+    NearbyRequests: {
       screen: MapScreen,
       navigationOptions: {
         title: 'Nearby Requests',
@@ -11,7 +11,7 @@ const MapStackNavigator = createStackNavigator(
     },
   },
   {
-    initialRouteName: 'Map',
+    initialRouteName: 'NearbyRequests',
   },
 );
 

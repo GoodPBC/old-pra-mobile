@@ -32,7 +32,7 @@ export default class MapScreen extends Component {
 
   componentWillReceiveProps(nextProps) {
     this.setMapBoundaries();
-    if (!nextProps.context) {
+    if (!nextProps.context && nextProps.context !== this.props.context) {
       this.setState({ selectedServiceRequest: nextProps.context });
     }
   }

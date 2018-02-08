@@ -27,7 +27,9 @@ export default class ServiceRequestDetailScreen extends Component {
   }
 
   render() {
-    if (!this.props.serviceRequest) {
+    const { serviceRequest, screenProps: { switchTab } } = this.props;
+
+    if (!serviceRequest) {
       return (
         <View style={styles.loadingContainer}>
           <ActivityIndicator style={styles.loading} />
@@ -35,14 +37,17 @@ export default class ServiceRequestDetailScreen extends Component {
       );
     }
 
-    const canGoOnsite = this.props.serviceRequest && this.props.serviceRequest.status === 'in_the_field';
+    const canGoOnsite = serviceRequest && serviceRequest.status === 'in_the_field';
     return (
       <View style={styles.container}>
-        <BannerWithNumber serviceRequest={this.props.serviceRequest} />
+        <BannerWithNumber serviceRequest={serviceRequest} />
         <ScrollView>
           { canGoOnsite && <OnsiteSection {...this.props} /> }
           <ResolutionSection {...this.props} />
-          <DetailsSection serviceRequest={this.props.serviceRequest} />
+          <DetailsSection
+            serviceRequest={serviceRequest}
+            switchTab={switchTab}
+          />
         </ScrollView>
       </View>
     );
@@ -53,6 +58,9 @@ ServiceRequestDetailScreen.propTypes = {
   serviceRequest: PropTypes.object,
   unselectServiceRequest: PropTypes.func.isRequired,
   updateOnsiteStatus: PropTypes.func.isRequired,
+  screenProps: PropTypes.shape({
+    switchTab: PropTypes.func,
+  }),
 };
 
 const styles = StyleSheet.create({

@@ -23,13 +23,9 @@ function hasFullAddress(serviceRequest) {
   return serviceRequest.address && serviceRequest.city && serviceRequest.state && serviceRequest.zip;
 }
 
-export default class LongFormLocation extends React.Component {
-  constructor() {
-    super();
-  }
-
+export default class LongFormLocation extends React.PureComponent {
   render() {
-    const { serviceRequest } = this.props;
+    const { serviceRequest, switchTab } = this.props;
     /**
     * Display all available location fields, excluding those without data.
     */
@@ -53,7 +49,10 @@ export default class LongFormLocation extends React.Component {
               <Text style={styles.primary}>{formatLocationData(serviceRequest, primaryLocation)}</Text>
               {textBlocks}
             </View>
-            <MapIconActionSheet selectTab={this.props.selectTab} serviceRequest={serviceRequest} />
+            <MapIconActionSheet
+              serviceRequest={serviceRequest}
+              switchTab={switchTab}
+            />
           </View>
         </View>
       </View>
@@ -63,7 +62,7 @@ export default class LongFormLocation extends React.Component {
 
 LongFormLocation.propTypes = {
   serviceRequest: PropTypes.object.isRequired,
-  selectTab: PropTypes.func.isRequired,
+  switchTab: PropTypes.func,
 };
 
 const styles = StyleSheet.create({

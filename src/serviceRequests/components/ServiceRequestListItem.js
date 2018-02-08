@@ -19,30 +19,38 @@ import {
 } from '../../shared';
 import detailArrow from './img/details-arrow-icon-inactive.png';
 
-export default function ServiceRequestListItem({ serviceRequest, selectServiceRequest }){
-  return (
-    <TouchableHighlight
-      onPress={() => selectServiceRequest(serviceRequest)}
-      underlayColor={'lightgray'}>
-      <View key={serviceRequest.id}>
-        <View style={styles.header}>
-          <Text style={styles.headerText}>SR# {serviceRequest.sr_number}</Text>
-        </View>
-        <UnsyncedBanner serviceRequest={serviceRequest} />
-        <View style={styles.contentWithArrow}>
-          <View style={styles.content}>
-            <TimeSection serviceRequest={serviceRequest} />
-            <AddressSection serviceRequest={serviceRequest} />
-            <DescriptionSection
-              serviceRequest={serviceRequest}
-              numberOfLines={3}
-            />
+export default class ServiceRequestListItem extends React.PureComponent {
+  render() {
+    const { serviceRequest, selectServiceRequest } = this.props;
+
+    return (
+      <TouchableHighlight
+        onPress={() => selectServiceRequest(serviceRequest)}
+        underlayColor={'lightgray'}>
+        <View key={serviceRequest.id}>
+          <View style={styles.header}>
+            <Text style={styles.headerText}>SR# {serviceRequest.sr_number}</Text>
           </View>
-          <Image source={detailArrow} style={styles.detailArrow} />
+          <UnsyncedBanner serviceRequest={serviceRequest} />
+          <View style={styles.contentWithArrow}>
+            <View style={styles.content}>
+              <TimeSection
+                serviceRequest={serviceRequest}
+              />
+              <AddressSection
+                serviceRequest={serviceRequest}
+              />
+              <DescriptionSection
+                serviceRequest={serviceRequest}
+                numberOfLines={3}
+              />
+            </View>
+            <Image source={detailArrow} style={styles.detailArrow} />
+          </View>
         </View>
-      </View>
-    </TouchableHighlight>
-  );
+      </TouchableHighlight>
+    );
+  }
 }
 
 ServiceRequestListItem.propTypes = {

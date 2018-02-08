@@ -6,7 +6,6 @@ import {
   Dimensions,
   Modal,
   StatusBar,
-  StyleSheet,
   View,
   NetInfo,
   Text,
@@ -19,39 +18,16 @@ import { Tabs } from '../../shared';
 import PushNotificationService from '../services/PushNotificationService';
 import AppNavigator from './AppNavigator';
 
-const styles = StyleSheet.create({
-  loadingIndicator: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  container: {
-    flex: 1,
-    backgroundColor: '#F5FCFF',
-  },
-  tabBarNavigator: {
-    flex: 1,
-  },
-  tabBar: {
-    shadowColor: '#333333',
-    shadowOpacity: 1,
-    shadowOffset: { width: 0, height: 6 },
-    shadowRadius: 8
-  }
-});
-
 const getKeyByValue = (obj, val) => Object.keys(obj).find(key => obj[key] === val);
 
 export default class App extends Component {
   constructor(props) {
     super(props);
     this.onLayout = this.onLayout.bind(this);
-    this.handlePress = this.handlePress.bind(this);
-    this.selectTab = this.selectTab.bind(this);
     this.trackUserPosition = this.trackUserPosition.bind(this);
     this.updateUserPosition = this.updateUserPosition.bind(this);
     this.registerToken = this.registerToken.bind(this);
-    this._resetNavigation = this._resetNavigation.bind(this);
+    this.onNavigationStateChange = this.onNavigationStateChange.bind(this);
   }
 
   componentWillMount() {
@@ -60,7 +36,7 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    const screenName = titleCase(getKeyByValue(Tabs, this.props.selectedTab));
+    const screenName = this.props.selectedTab;
     this.props.gaTrackScreenView(screenName);
     this.trackUserPosition();
     PushNotificationService.init(
@@ -92,8 +68,40 @@ export default class App extends Component {
     });
   }
 
-  registerToken(deviceToken) {
-    this.props.updateDeviceInfo({ deviceToken });
+  onNavigationStateChange(prevState, currentState) {
+    const screenName = this.getCurrentRouteName(currentState);
+    this.props.gaTrackScreenView(screenName);
+    this.props.selectTab(screenName);
+  }
+
+  getCurrentRouteName(navigationState) {
+    if (!navigationState) {
+      return null;
+    }
+
+    const { index, routes } = navigationState;
+    return routes[index].routeName;
+  }
+
+  handleLocationServiceError(error) {
+    Alert.alert(JSON.stringify(error));
+  }
+
+  updateUserPosition(position) {
+    this.props.updateUserPosition({
+      latitude: position.coords.latitude,
+      longitude: position.coords.longitude,
+      timestamp: position.timestamp,
+    });
+  }
+
+  trackUserPosition() {
+    navigator.geolocation.getCurrentPosition(
+      this.updateUserPosition,
+      this.handleLocationServiceError,
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
+    );
+    this.watchID = navigator.geolocation.watchPosition(this.updateUserPosition);
   }
 
   handleNotification(notification) {
@@ -108,33 +116,11 @@ export default class App extends Component {
     console.log(notification);
   }
 
-  trackUserPosition() {
-    navigator.geolocation.getCurrentPosition(
-      this.updateUserPosition,
-      this.handleLocationServiceError,
-      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
-    );
-    this.watchID = navigator.geolocation.watchPosition(this.updateUserPosition);
-  }
-
-  updateUserPosition(position) {
-    this.props.updateUserPosition({
-      latitude: position.coords.latitude,
-      longitude: position.coords.longitude,
-      timestamp: position.timestamp,
+  registerToken({ token, os }) {
+    this.props.updateDeviceInfo({
+      deviceToken: token,
+      os,
     });
-  }
-
-  handleLocationServiceError(error) {
-    Alert.alert(JSON.stringify(error));
-  }
-
-  selectTab(selectedTab) {
-    this.props.selectTab(selectedTab);
-  }
-
-  handlePress(selectedTab) {
-    return () => this.selectTab(selectedTab);
   }
 
   _renderLogin() {
@@ -162,14 +148,10 @@ export default class App extends Component {
           visible
           onRequestClose={() => {}}
         >
-          <SelectTeamModal {...this.props} resetNavigation={this._resetNavigation} />
+          <SelectTeamModal {...this.props} />
         </Modal>
       </View>
     );
-  }
-
-  _resetNavigation() {
-    this.props.selectTab(Tabs.MY_REQUESTS);
   }
 
   render() {
@@ -181,7 +163,7 @@ export default class App extends Component {
 
     return (
       <AppNavigator
-        onTabBarPress={this.handlePress}
+        onNavigationStateChange={this.onNavigationStateChange}
       />
     );
   }

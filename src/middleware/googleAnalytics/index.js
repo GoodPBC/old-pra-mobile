@@ -3,7 +3,6 @@ import Config from 'react-native-config';
 import titleCase from 'title-case';
 
 import {
-  SELECT_TAB,
   GA_TRACK_EVENT,
   GA_TRACK_SCREEN_VIEW,
 } from '../../app/actionTypes';
@@ -85,7 +84,7 @@ const googleAnalytics = store => next => action => {
     case RESOLVE_SERVICE_REQUEST_FAILURE:
     case LOGIN_USER_FAILURE: {
       const { request: { requestMethod, requestPath }, status, error } = action;
-      const errorMessage = `${requestMethod} /${requestPath} ${status} "${error}"`
+      const errorMessage = `${requestMethod} /${requestPath} ${status} "${error}"`;
       GoogleAnalytics.trackException(errorMessage, false);
       return next(action);
     }
@@ -95,18 +94,13 @@ const googleAnalytics = store => next => action => {
         eventCategory,
         eventAction,
         { label: eventLabel }
-      )
+      );
       break;
     }
     case GA_TRACK_SCREEN_VIEW: {
-      const { screenName } = action;
+      const screenName = titleCase(getKeyByValue(Tabs, action.screenName));
       GoogleAnalytics.trackScreenView(screenName);
       break;
-    }
-    case SELECT_TAB: {
-      const screenName = titleCase(getKeyByValue(Tabs, action.selectedTab))
-      GoogleAnalytics.trackScreenView(screenName);
-      return next(action);
     }
     case SELECT_SERVICE_REQUEST: {
       if (action.serviceRequest) {
@@ -115,7 +109,7 @@ const googleAnalytics = store => next => action => {
           Categories.INTERACTIONS,
           Actions.VIEWED,
           { label: sr_number }
-        )
+        );
       }
       return next(action);
     }
@@ -124,7 +118,7 @@ const googleAnalytics = store => next => action => {
         Categories.INTERACTIONS,
         Actions.PRESSED,
         { label: 'Refresh' }
-      )
+      );
       return next(action);
     }
     case FETCH_SERVICE_REQUESTS_SUCCESS: {
@@ -133,7 +127,7 @@ const googleAnalytics = store => next => action => {
         Categories.SERVICE_REQUESTS,
         Actions.FETCHED,
         { label: userAccountName }
-      )
+      );
       return next(action);
     }
     case RESOLVE_SERVICE_REQUEST_SUCCESS: {
@@ -145,9 +139,9 @@ const googleAnalytics = store => next => action => {
       const getTitleizedResolution = code => {
         const resolution = Object.keys(RESOLUTION_CODES).find(key => {
           return RESOLUTION_CODES[key] === code;
-        })
+        });
         return titleCase(resolution);
-      }
+      };
 
       GoogleAnalytics.trackEvent(
         Categories.SERVICE_REQUESTS,

@@ -5,7 +5,6 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import LongFormLocation from '../components/LongFormLocation';
-import { selectTab } from '../../app/actions';
 import * as ServiceRequestActions from '../actions';
 
 /**
@@ -18,10 +17,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({
-    selectTab,
-    ...ServiceRequestActions,
-  }, dispatch);
+  return bindActionCreators(ServiceRequestActions, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(LongFormLocation);

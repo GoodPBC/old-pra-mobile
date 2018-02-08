@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   View,
   Alert,
@@ -14,11 +15,7 @@ import {
   ActionSheetIOS,
 } from 'react-native';
 
-import {
-  LIGHT_GRAY,
-  Tabs,
-} from '../../shared';
-
+import { Tabs } from '../../shared';
 import mapIcon from './img/icon-map.png';
 
 const styles = StyleSheet.create({
@@ -60,7 +57,6 @@ function getEncodedURIForDirection(serviceRequest) {
   return encodeURI(`https://www.google.com/maps/dir/?api=1&travelmode=driving&destination=${destination}`);
 }
 
-
 export default class MapIconActionSheet extends React.Component {
   constructor() {
     super();
@@ -93,7 +89,8 @@ export default class MapIconActionSheet extends React.Component {
   }
 
   showServiceRequest(serviceRequest) {
-    this.props.selectTab(Tabs.MAP, serviceRequest.sr_number);
+    this.props.switchTab(Tabs.MAP);
+    this.props.updateTabContext(serviceRequest.sr_number);
     this.hideModal();
   }
 
@@ -206,14 +203,19 @@ export default class MapIconActionSheet extends React.Component {
           onRequestClose={this.hideModal}
         >
           <View style={styles.actionSheetContainer}>
-            <TouchableOpacity style={styles.flex} onPress={this.hideModal}/>
+            <TouchableOpacity style={styles.flex} onPress={this.hideModal} />
             {this.renderActionButtons()}
           </View>
         </Modal>
         <TouchableOpacity onPress={this.onClickMapIcon} style={styles.center}>
-          <Image source={mapIcon}/>
+          <Image source={mapIcon} />
         </TouchableOpacity>
       </View>
-    )
+    );
   }
 }
+
+MapIconActionSheet.propTypes = {
+  serviceRequest: PropTypes.object.isRequired,
+  switchTab: PropTypes.func.isRequired,
+};

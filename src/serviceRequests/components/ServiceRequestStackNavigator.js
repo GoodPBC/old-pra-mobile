@@ -63,6 +63,15 @@ const ServiceRequestStackNavigator = createStackNavigator(
 );
 
 export default class ServiceRequestStackNavigatorComponent extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.switchTab = this.switchTab.bind(this);
+  }
+
+  switchTab(routeName) {
+    this.props.navigation.navigate(routeName);
+  }
+
   render() {
     const {
       isRefreshing,
@@ -76,6 +85,7 @@ export default class ServiceRequestStackNavigatorComponent extends React.PureCom
           isRefreshing,
           networkIsConnected,
           syncServiceRequests,
+          switchTab: this.switchTab,
         }}
       />
     );

@@ -43,12 +43,13 @@ class MyRequestsScreen extends Component {
   }
 
   render() {
+    const { currentTeam } = this.props;
     return (
       <View style={styles.container}>
         {
           this.props.showNoSRWarning
-          ? <EmptyServiceRequestList currentTeam={this.props.currentTeam} />
-        : <ServiceRequestList enableFilters />
+          ? <EmptyServiceRequestList currentTeam={currentTeam} />
+          : <ServiceRequestList enableFilters />
         }
       </View>
     );
