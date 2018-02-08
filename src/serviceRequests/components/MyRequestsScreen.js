@@ -42,6 +42,12 @@ class MyRequestsScreen extends Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (this.props.currentTeam.id !== nextProps.currentTeam.id) {
+      this.props.navigation.popToTop();
+    }
+  }
+
   render() {
     const { currentTeam } = this.props;
     return (
