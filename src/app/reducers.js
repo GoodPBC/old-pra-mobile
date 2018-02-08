@@ -9,6 +9,7 @@ import {
 
 import {
   SELECT_TAB,
+  UPDATE_TAB_CONTEXT,
   UPDATE_DEVICE_INFO,
   CLEAR_ERROR_MESSAGE,
 } from './actionTypes';
@@ -27,8 +28,13 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         selectedTab: action.selectedTab,
-        selectedTabContext: action.context,
       }
+    }
+    case UPDATE_TAB_CONTEXT: {
+      return {
+        ...state,
+        selectedTabContext: action.context,
+      };
     }
     case UPDATE_DEVICE_INFO: {
       return {

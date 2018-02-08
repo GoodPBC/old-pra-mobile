@@ -1,14 +1,22 @@
 import {
   SELECT_TAB,
+  UPDATE_TAB_CONTEXT,
   UPDATE_DEVICE_INFO,
   GA_TRACK_EVENT,
   GA_TRACK_SCREEN_VIEW,
   CLEAR_ERROR_MESSAGE,
 } from './actionTypes';
 
-export const selectTab = (selectedTab, context = null) => ({
-  type: SELECT_TAB,
-  selectedTab,
+export const selectTab = (selectedTab, context = null) => dispatch => {
+  dispatch({
+    type: SELECT_TAB,
+    selectedTab,
+  });
+  dispatch(updateTabContext(context));
+};
+
+export const updateTabContext = context => ({
+  type: UPDATE_TAB_CONTEXT,
   context,
 });
 
