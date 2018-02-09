@@ -19,7 +19,6 @@
     "react-native": "^0.52.2",
     "react-native-code-push": "^5.2.1",
     "react-native-config": "^0.11.5",
-    "react-native-deprecated-custom-components": "github:facebookarchive/react-native-custom-components",
     "react-native-device-info": "^0.13.0",
     "react-native-fabric": "^0.5.1",
     "react-native-fabric-crashlytics": "^0.1.8",
@@ -50,7 +49,7 @@
       "<rootDir>/jest/setup.js"
     ],
     "transformIgnorePatterns": [
-      "node_modules/(?!(react-native|instabug-reactnative|react-native-config|react-native-code-push|react-native-progress|react-native-tab-navigator|react-native-linear-gradient|react-native-deprecated-custom-components|react-native-simple-radio-button|react-native-storage|react-native-maps|react-native-push-notification|react-native-google-analytics-bridge)/)"
+      "node_modules/(?!(react-native|instabug-reactnative|react-native-config|react-native-code-push|react-native-progress|react-native-tab-navigator|react-native-linear-gradient|react-native-simple-radio-button|react-native-storage|react-native-maps|react-native-push-notification|react-native-google-analytics-bridge)/)"
     ]
   },
   "devDependencies": {
