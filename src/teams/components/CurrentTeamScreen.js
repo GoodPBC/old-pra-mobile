@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Navigator } from 'react-native-deprecated-custom-components';
 import PropTypes from 'prop-types';
 import {
   GradientBackground,
@@ -89,7 +88,6 @@ const styles = StyleSheet.create({
     // justifyContent: 'space-around',
     paddingLeft: X_AXIS_PADDING,
     paddingRight: X_AXIS_PADDING,
-    // marginTop: Navigator.NavigationBar.Styles.General.TotalNavHeight,
   },
   teamName: {
     fontStyle: 'italic',

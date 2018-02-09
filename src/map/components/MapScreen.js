@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
-import { Navigator } from 'react-native-deprecated-custom-components';
 import moment from 'moment';
 import {
   Alert,

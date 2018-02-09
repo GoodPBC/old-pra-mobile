@@ -6,7 +6,6 @@ import {
   View,
 } from 'react-native';
 import PropTypes from 'prop-types';
-import { Navigator } from 'react-native-deprecated-custom-components';
 import {
   InvertButton,
   InvertText,
@@ -93,7 +92,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: BODY_BACKGROUND,
     paddingHorizontal: X_AXIS_PADDING,
-    // marginTop: Navigator.NavigationBar.Styles.General.TotalNavHeight,
   },
   card: {
     marginTop: 30,
