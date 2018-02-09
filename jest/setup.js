@@ -29,3 +29,7 @@ jest.mock('react-native-code-push', () => (
     }
   )
 ));
+
+jest.mock('react-native-config', () => ({
+  BASE_URL: 'https://a071-dhsmobile.nyc.gov/dhsmobile/SSServicesSTG/SSPRAService.svc/',
+}));

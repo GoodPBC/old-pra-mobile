@@ -35,15 +35,14 @@ export function logoutUser(user) {
       token: user.authenticationToken,
       userid: user.userId,
     };
-    try {
-      fetch(url, { header })
+    return fetch(url, { header })
       .then(res => {
         dispatch({ type: LOGOUT_USER, user });
       })
-    } catch (e) {
-      dispatch({ type: API_REQUEST_NETWORK_ERROR });
-      dispatch({ type: LOGOUT_USER, user });
-    }
+      .catch(e => {
+        dispatch({ type: API_REQUEST_NETWORK_ERROR });
+        dispatch({ type: LOGOUT_USER, user });
+      });
   }
 }
 

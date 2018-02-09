@@ -6,8 +6,6 @@ import ProviderResponseApp from '../ProviderResponseApp';
 import renderer from 'react-test-renderer';
 
 it('renders correctly', () => {
-  // const app = renderer.create(<ProviderResponseApp />).toJSON();
-  // expect(app).toBeTruthy();
   const tree = renderer.create(
     <ProviderResponseApp />
   );

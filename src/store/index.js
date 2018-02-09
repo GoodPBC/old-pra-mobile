@@ -13,7 +13,6 @@ import serviceRequests from '../serviceRequests/reducers';
 import teams from '../teams/reducers';
 import user from '../user/reducers';
 
-const logger = createLogger();
 
 const reducer = combineReducers({
   app,
@@ -31,7 +30,8 @@ const middlewares = [
 ];
 
 if (__DEV__) {
-  middlewares.push(logger);
+  const logger = createLogger();
+  // middlewares.push(logger);
 }
 
 export default function configureStore() {
