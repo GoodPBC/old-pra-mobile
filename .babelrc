@@ -3,6 +3,9 @@
   "env": {
     "production": {
       "plugins": ["transform-remove-console"]
+    },
+    "test": {
+      "plugins": ["transform-remove-console"]
     }
   }
 }
