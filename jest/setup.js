@@ -20,9 +20,12 @@ jest.mock('react-native-push-notification', () => ({
     requestPermissions: jest.fn(),
 }));
 
-jest.mock('react-native-code-push', () => {
-  const codePush = () => app => app;
-  codePush.InstallMode = {};
-  codePush.CheckFrequency = {};
-  return codePush;
-});
+jest.mock('react-native-code-push', () => (
+  Object.assign(
+    () => app => app,
+    {
+      InstallMode: {},
+      CheckFrequency: {},
+    }
+  )
+));
