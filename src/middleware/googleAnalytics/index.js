@@ -24,7 +24,10 @@ import {
   SELECT_SERVICE_REQUEST,
 } from '../../serviceRequests/actionTypes';
 import { SYNC_SERVICE_REQUESTS } from '../../offline/actionTypes';
-import { API_REQUEST_NETWORK_ERROR } from '../../shared/actionTypes';
+import {
+  API_REQUEST_NETWORK_ERROR,
+  API_REQUEST_FAILURE,
+} from '../../shared/actionTypes';
 
 import { Tabs } from '../../shared';
 
@@ -73,18 +76,10 @@ const Actions = {
 
 const googleAnalytics = store => next => action => {
   switch (action.type) {
+    case API_REQUEST_FAILURE:
     case API_REQUEST_NETWORK_ERROR: {
       const { action: { requestMethod, requestPath }, error } = action;
-      const errorMessage = `${requestMethod} /${requestPath} "${error.message}"`
-      GoogleAnalytics.trackException(errorMessage, false)
-      return next(action);
-    }
-    case FETCH_SERVICE_REQUESTS_FAILURE:
-    case UPDATE_ONSITE_STATUS_FAILURE:
-    case RESOLVE_SERVICE_REQUEST_FAILURE:
-    case LOGIN_USER_FAILURE: {
-      const { request: { requestMethod, requestPath }, status, error } = action;
-      const errorMessage = `${requestMethod} /${requestPath} ${status} "${error}"`;
+      const errorMessage = `${requestMethod} /${requestPath} ${error}`;
       GoogleAnalytics.trackException(errorMessage, false);
       return next(action);
     }

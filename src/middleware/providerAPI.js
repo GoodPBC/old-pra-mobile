@@ -61,7 +61,7 @@ async function makeRequestAndDispatchResponse({ action, store }) {
     });
   }
 
-  function dispatchFailure(error, status) {
+  function dispatchFailure(status, error) {
     if (error.match(/invalid token/i)) {
       store.dispatch({ type: LOGOUT_USER, user: store.getState().user });
     }
@@ -79,67 +79,64 @@ async function makeRequestAndDispatchResponse({ action, store }) {
       error,
     });
   }
-  //if (requestType && requestType === 'external'){
-  //  console.log('hitting external api');
-  //} else {
-    const url = `${Config.BASE_URL}${action.requestPath}`;
-    let body = '';
-    if (requestMethod.toUpperCase() === 'GET') {
-      // Otherwise fails on Android.
-      body = null;
-    } else if (requestParams) {
-      body = JSON.stringify(requestParams);
-    }
-    const headers = {
-      'Content-Type': 'application/json',
-    };
-    Object.assign(headers, authenticationHeaders(store));
 
-    try {
-      console.group('SENDING API REQUEST');
-      console.log(`${requestMethod} ${url}`);
-      console.log('Headers: ', headers);
-      console.log(`Body: ${body}`);
-      console.groupEnd('SENDING API REQUEST');
-    } catch (e) {
-      console.log('%cSENDING API REQUEST', 'color: red; font-style: bold;');
-      console.log(`${requestMethod} ${url}`);
-      console.log('Headers: ', headers);
-      console.log(`Body: ${body}`);
-    }
+  const url = `${Config.BASE_URL}${action.requestPath}`;
+  let body = '';
+  if (requestMethod.toUpperCase() === 'GET') {
+    // Otherwise fails on Android.
+    body = null;
+  } else if (requestParams) {
+    body = JSON.stringify(requestParams);
+  }
+  const headers = {
+    'Content-Type': 'application/json',
+  };
+  Object.assign(headers, authenticationHeaders(store));
 
-    let response = null;
-    try {
-      response = await fetch(url, {
-        method: requestMethod,
-        body,
-        headers,
-      });
-    } catch (e) {
-      dispatchNetworkFailure(e);
-      return;
-    }
+  try {
+    console.group('SENDING API REQUEST');
+    console.log(`${requestMethod} ${url}`);
+    console.log('Headers: ', headers);
+    console.log(`Body: ${body}`);
+    console.groupEnd('SENDING API REQUEST');
+  } catch (e) {
+    console.log('%cSENDING API REQUEST', 'color: red; font-style: bold;');
+    console.log(`${requestMethod} ${url}`);
+    console.log('Headers: ', headers);
+    console.log(`Body: ${body}`);
+  }
 
-    let responseText = null;
-    try {
-      // const textBody = await response.text();
-      // console.log('body', textBody);
-      responseText = await response.text();
-      const json = JSON.parse(responseText);
-      // console.log('json response', json);
-      // console.log('response text', responseText);
-      if (json.Update_Status) {
-        console.log('Updating SR', json.Update_Status);
-      }
-      if (response.ok && !(json.ErrorMessage && json.ErrorMessage.length)) {
-        dispatchSuccess(json);
-      } else {
-        dispatchFailure(json.ErrorMessage, response.status);
-      }
-    } catch (e) {
-      dispatchFailure(e, response.status);
+  let response = null;
+  try {
+    response = await fetch(url, {
+      method: requestMethod,
+      body,
+      headers,
+    });
+  } catch (e) {
+    dispatchNetworkFailure(e.message);
+    return;
+  }
+
+  let responseText = null;
+  try {
+    // const textBody = await response.text();
+    // console.log('body', textBody);
+    responseText = await response.text();
+    const json = JSON.parse(responseText);
+    // console.log('json response', json);
+    // console.log('response text', responseText);
+    if (json.Update_Status) {
+      console.log('Updating SR', json.Update_Status);
     }
-  //}
+    if (response.ok && !(json.ErrorMessage && json.ErrorMessage.length)) {
+      dispatchSuccess(json);
+    } else {
+      throw Error(`${response.status} ${json.ErrorMessage}`);
+    }
+  } catch (e) {
+    dispatchFailure(response.status, e.message);
+  }
 }
 
 
