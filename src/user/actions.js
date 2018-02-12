@@ -6,6 +6,7 @@ import {
 } from './actionTypes';
 import {
   API_REQUEST,
+  API_REQUEST_FAILURE,
   API_REQUEST_NETWORK_ERROR,
 } from '../shared';
 import { updateTeamLocation } from '../teams/actions';
@@ -37,11 +38,15 @@ export function logoutUser(user) {
     };
     return fetch(url, { header })
       .then(res => {
-        dispatch({ type: LOGOUT_USER, user });
+        if (!res.ok) {
+          throw Error(`${res.status} ${res.statusText}`);
+        } else {
+          dispatch({ type: LOGOUT_USER, user });
+        }
       })
       .catch(e => {
-        dispatch({ type: API_REQUEST_NETWORK_ERROR });
         dispatch({ type: LOGOUT_USER, user });
+        dispatch({ type: API_REQUEST_FAILURE, error: e.message });
       });
   }
 }
