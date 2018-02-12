@@ -12,7 +12,7 @@ import {
   UPDATE_USER_POSITION,
 } from './actionTypes';
 
-const initialState = {
+export const initialState = {
   authenticationToken: null,
   email: null,
   firstName: null,
