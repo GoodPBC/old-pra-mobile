@@ -44,7 +44,7 @@ export default class SelectTeamModal extends Component {
     const iPhoneXStyle = DeviceInfo.getModel() === 'iPhone X' ? { borderTopWidth: 24, borderTopColor: DARK_BLUE } : {};
 
     return (
-      <View style={[styles.container, iPhoneXStyle]}>
+      <View testID="TeamModal" style={[styles.container, iPhoneXStyle]}>
         <View style={[styles.nav, Platform.OS === 'android' ? styles.androidNav : null]}>
           <Text style={styles.header}>Select a team</Text>
         </View>

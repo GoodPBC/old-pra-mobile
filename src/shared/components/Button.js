@@ -4,23 +4,33 @@ import PropTypes from 'prop-types';
 import { DARK_BLUE } from '../constants';
 
 export default function Button(props) {
+  const {
+    disabled,
+    disabledContainerStyle,
+    style,
+    textStyle,
+    children,
+    ...otherProps
+  } = props;
+
   let disabledStyles = null;
-  if (props.disabled) {
-    if (props.disabledContainerStyle) {
-      disabledStyles = props.disabledContainerStyle;
+  if (disabled) {
+    if (disabledContainerStyle) {
+      disabledStyles = disabledContainerStyle;
     } else {
       disabledStyles = styles.disabledContainer;
     }
   }
+
   return (
     <TouchableHighlight
-      disabled={props.disabled}
-      style={[styles.container, props.style, disabledStyles]}
-      onPress={props.onPress}
+      disabled={disabled}
+      style={[styles.container, style, disabledStyles]}
       underlayColor={'gray'}
+      {...otherProps}
     >
       <View>
-        <Text style={[styles.text, props.textStyle, props.disabled ? styles.disabledText : null]}>{props.children}</Text>
+        <Text style={[styles.text, textStyle, disabled ? styles.disabledText : null]}>{children}</Text>
       </View>
     </TouchableHighlight>
   );

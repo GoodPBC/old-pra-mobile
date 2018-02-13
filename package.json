@@ -10,8 +10,8 @@
     "ios:bundle": "react-native bundle --dev false --entry-file index.ios.js --bundle-output ios/main.jsbundle --platform ios",
     "android:release": "cd android && ./gradlew assembleRelease && cd ..",
     "test": "yarn test:unit && yarn test:e2e",
-    "test:unit": "jest __tests__ --setupTestFrameworkScriptFile=./jest/setup_unit.js",
-    "test:e2e": "jest __e2e__ --setupTestFrameworkScriptFile=./jest/setup_e2e.js --bail"
+    "test:unit": "jest",
+    "test:e2e": "detox build -c ios.sim.debug && detox test -c ios.sim.debug"
   },
   "dependencies": {
     "instabug-reactnative": "^2.5.1",
@@ -47,6 +47,10 @@
   },
   "jest": {
     "preset": "react-native",
+    "setupFiles": [
+      "<rootDir>/jest/setup.js"
+    ],
+    "testPathIgnorePatterns": ["/__e2e__/", "/node_modules/"],
     "transformIgnorePatterns": [
       "node_modules/(?!(react-native|fetch-mock|instabug-reactnative|react-native-config|react-native-code-push|react-native-progress|react-native-tab-navigator|react-native-linear-gradient|react-native-simple-radio-button|react-native-storage|react-native-maps|react-native-push-notification|react-native-google-analytics-bridge|react-navigation|react-native-vector-icons)/)"
     ]
@@ -63,13 +67,12 @@
     "eslint-plugin-react": "^6.7.1",
     "fetch-mock": "^6.0.0",
     "jest": "^22.1.4",
+    "mocha": "^5.0.0",
     "react-test-renderer": "^16.2.0",
     "redux-mock-store": "^1.5.1",
     "redux-testkit": "^1.0.6"
   },
   "detox": {
-    "test-runner": "jest",
-    "runner-config": "e2e/config.json",
     "configurations": {
       "ios.sim.debug": {
         "binaryPath": "ios/build/Build/Products/Debug-iphonesimulator/ProviderResponseApp.app",

@@ -53,13 +53,14 @@ export default class LoginScreen extends Component {
 
   render() {
     return (
-      <ImageContainer>
+      <ImageContainer testID="LoginScreen">
         {!this.props.networkIsConnected && <OfflineBanner />}
         <View style={styles.wrapper}>
         {this.props.apiRequestInProgress && !this.props.userIsAuthenticated ? <LoginSpinner /> : null}
           <Image resizeMode="contain" source={logoImage} style={styles.logo} />
           <KeyboardAvoidingView behavior="padding" style={styles.form}>
             <InvertTextInput
+              testID="Username"
               style={styles.loginModalInput}
               onChangeText={(email) => this.setState({ email })}
               autoCorrect={false}
@@ -68,6 +69,7 @@ export default class LoginScreen extends Component {
               value={this.state.email}
             />
             <InvertTextInput
+              testID="Password"
               style={styles.loginModalInput}
               onChangeText={(password) => this.setState({ password })}
               autoCorrect={false}

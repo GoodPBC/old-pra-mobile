@@ -4,13 +4,15 @@ import { StyleSheet, TextInput } from 'react-native';
 export default function InvertTextInput(props) {
   const {
     style,
-    ...rest,
+    ...otherProps
   } = props;
+
   return (
     <TextInput
       style={[style, styles.input]}
-      placeholderTextColor="white" {...rest}
+      placeholderTextColor="white"
       underlineColorAndroid="transparent"
+      {...otherProps}
     />
   );
 }
