@@ -48,26 +48,29 @@ export function selectTeam(team) {
 export function updateTeamLocation() {
   return (dispatch, getState) => {
     const { app, user, teams } = getState();
-    // console.log('deviceId', app.deviceInfo.deviceToken);
-    // console.log('latitude', user.latitude);
-    // console.log('longitude', user.longitude);
-    // console.log('userId', user.userId);
-    // console.log('teamId', teams.currentTeamId);
-    // console.log('@ ', new Date());
-    dispatch({
-      type: API_REQUEST,
-      actionName: UPDATE_TEAM_LOCATION,
-      endpoint: 'updateteamlocation',
-      requestPath: 'updateteamlocation',
-      requestMethod: 'POST',
-      requestParams: {
-        DeviceId: app.deviceInfo.deviceToken,
-        Platform: app.deviceInfo.os,
-        Latitude: user.latitude,
-        Longitude: user.longitude,
-        TeamId: teams.currentTeamId,
-        UserId: user.userId,
-      },
-    });
+    const DeviceId = app.deviceInfo.deviceToken;
+    const Platform = app.deviceInfo.os;
+    const Latitude = user.latitude;
+    const Longitude = user.longitude;
+    const TeamId = teams.currentTeamId;
+    const UserId = user.userId;
+
+    if (DeviceId && Platform && Latitude && Longitude && TeamId && UserId) {
+      dispatch({
+        type: API_REQUEST,
+        actionName: UPDATE_TEAM_LOCATION,
+        endpoint: 'updateteamlocation',
+        requestPath: 'updateteamlocation',
+        requestMethod: 'POST',
+        requestParams: {
+          DeviceId,
+          Platform,
+          Latitude,
+          Longitude,
+          TeamId,
+          UserId,
+        },
+      });
+    }
   };
 }
