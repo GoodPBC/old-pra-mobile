@@ -16,3 +16,7 @@
 //     expect(appReducer(undefined, action).errorMessage).toBe('Here is an error');
 //   });
 // });
+
+test('tmp', () => {
+  expect(true).toBeTruthy();
+});
