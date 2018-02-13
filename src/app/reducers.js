@@ -14,7 +14,7 @@ import {
   CLEAR_ERROR_MESSAGE,
 } from './actionTypes';
 
-const initialState = {
+export const initialState = {
   selectedTab: Tabs.MY_REQUESTS,
   selectedTabContext: null,
   deviceInfo: {},
