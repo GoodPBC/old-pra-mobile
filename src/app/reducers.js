@@ -19,6 +19,7 @@ export const initialState = {
   selectedTabContext: null,
   deviceInfo: {},
   apiRequestInProgress: false,
+  errorTitle: null,
   errorMessage: null,
 };
 
