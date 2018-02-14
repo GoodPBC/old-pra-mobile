@@ -7,11 +7,11 @@ import providerAPI from '../middleware/providerAPI';
 import offlineSync from '../middleware/offlineSync';
 import googleAnalytics from '../middleware/googleAnalytics';
 
-import app from '../app/reducers';
-import offline from '../offline/reducers';
-import serviceRequests from '../serviceRequests/reducers';
-import teams from '../teams/reducers';
-import user from '../user/reducers';
+import app from '../app/reducer';
+import offline from '../offline/reducer';
+import serviceRequests from '../serviceRequests/reducer';
+import teams from '../teams/reducer';
+import user from '../user/reducer';
 
 
 const reducer = combineReducers({
