@@ -1,6 +1,6 @@
 import { Reducer } from 'redux-testkit';
 import * as actionTypes from '../actionTypes';
-import uut, { initialState } from '../reducers';
+import uut, { initialState } from '../reducer';
 
 describe('user reducer', () => {
   it ('should return the initial state', () => {

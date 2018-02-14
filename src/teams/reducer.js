@@ -11,7 +11,7 @@ import {
   LOGOUT_USER,
 } from '../user/actionTypes';
 
-const initialState = {
+export const initialState = {
   canSelectTeams: true, // Optimistic check for valid DHS account
   currentTeamId: null,
   selectedTeamId: null,

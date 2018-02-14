@@ -1,6 +1,6 @@
 import { Reducer } from 'redux-testkit';
 import * as actionTypes from '../actionTypes';
-import uut, { initialState } from '../reducers';
+import uut, { initialState } from '../reducer';
 import {
   API_REQUEST,
   API_REQUEST_SUCCESS,
