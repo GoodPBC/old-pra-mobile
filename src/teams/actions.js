@@ -55,7 +55,8 @@ export function updateTeamLocation() {
     const TeamId = teams.currentTeamId;
     const UserId = user.userId;
 
-    if (DeviceId && Platform && Latitude && Longitude && TeamId && UserId) {
+    // if (DeviceId && Platform && Latitude && Longitude && TeamId && UserId) {
+    if (Latitude && Longitude && TeamId && UserId) {
       dispatch({
         type: API_REQUEST,
         actionName: UPDATE_TEAM_LOCATION,

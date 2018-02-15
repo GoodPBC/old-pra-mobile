@@ -19,10 +19,16 @@ platform :ios do
 
   desc 'Staging Builds'
   lane :staging do
-    build_number = latest_testflight_build_number + 1
+    version_number = get_version_number(
+      xcodeproj: './ios/ProviderResponseApp.xcodeproj'
+    )
+    latest_build_number = latest_testflight_build_number(
+      version: version_number
+    )
+    build_number = latest_build_number + 1
     update_app_identifier(
       xcodeproj: './ios/ProviderResponseApp.xcodeproj',
-      plist_path: './ProviderResponseApp/Info.plist',
+      plist_path: 'ProviderResponseApp/Info.plist',
       app_identifier: 'gov.nyc.dhs.providerresponse.staging'
     )
     cert
@@ -51,10 +57,16 @@ platform :ios do
 
   desc 'Beta Builds'
   lane :beta do
-    build_number = latest_testflight_build_number + 1
+    version_number = get_version_number(
+      xcodeproj: './ios/ProviderResponseApp.xcodeproj'
+    )
+    latest_build_number = latest_testflight_build_number(
+      version: version_number
+    )
+    build_number = latest_build_number + 1
     update_app_identifier(
       xcodeproj: './ios/ProviderResponseApp.xcodeproj',
-      plist_path: './ProviderResponseApp/Info.plist',
+      plist_path: 'ProviderResponseApp/Info.plist',
       app_identifier: 'gov.nyc.dhs.providerresponse'
     )
     cert
