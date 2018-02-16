@@ -12,7 +12,7 @@ export default class PushNotificationService {
           notification.finish(PushNotificationIOS.FetchResult.NoData);
         }
       },
-      senderID: 'YOUR GCM SENDER ID',
+      senderID: 'provider-response-195115',
     });
   }
 }
