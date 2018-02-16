@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { ViewPropTypes } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import PropTypes from 'prop-types';
 import { DARK_BLUE, LIGHT_BLUE } from '../constants';
@@ -17,5 +17,5 @@ export default function GradientBackground({ children, style }) {
 
 GradientBackground.propTypes = {
   children: PropTypes.node.isRequired,
-  style: View.propTypes.style,
+  style: ViewPropTypes.style,
 };

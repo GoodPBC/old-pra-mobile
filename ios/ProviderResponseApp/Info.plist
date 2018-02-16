@@ -21,7 +21,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>97</string>
+	<string>98</string>
 	<key>CodePushDeploymentKey</key>
 	<string>deployment-key-here</string>
 	<key>Fabric</key>
@@ -46,14 +46,14 @@
 	<true/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
-    <key>NSExceptionDomains</key>
-    <dict>
-      <key>localhost</key>
-      <dict>
-        <key>NSExceptionAllowsInsecureHTTPLoads</key>
-        <true/>
-      </dict>
-    </dict>
+		<key>NSExceptionDomains</key>
+		<dict>
+			<key>localhost</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+			</dict>
+		</dict>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>The app needs your location to show where you are in relation to nearby service requests.</string>

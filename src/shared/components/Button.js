@@ -1,5 +1,11 @@
 import React from 'react';
-import { TouchableHighlight, StyleSheet, Text, View } from 'react-native';
+import {
+  TouchableHighlight,
+  StyleSheet,
+  Text,
+  View,
+  ViewPropTypes,
+} from 'react-native';
 import PropTypes from 'prop-types';
 import { DARK_BLUE } from '../constants';
 
@@ -37,7 +43,7 @@ export default function Button(props) {
 }
 
 Button.propTypes = {
-  style: View.propTypes.style,
+  style: ViewPropTypes.style,
   onPress: PropTypes.func.isRequired,
   textStyle: Text.propTypes.style,
   children: PropTypes.node.isRequired,
