@@ -4467,9 +4467,9 @@ react-native-config@^0.11.5:
   version "0.11.5"
   resolved "https://registry.yarnpkg.com/react-native-config/-/react-native-config-0.11.5.tgz#516cb7b6ec437c7739236ca075971db3aabdcb95"
 
-react-native-device-info@^0.13.0:
-  version "0.13.0"
-  resolved "https://registry.yarnpkg.com/react-native-device-info/-/react-native-device-info-0.13.0.tgz#81051eebd3db6959e4f1d2cb0ae8df74105040cf"
+react-native-device-info@^0.15.3:
+  version "0.15.3"
+  resolved "https://registry.yarnpkg.com/react-native-device-info/-/react-native-device-info-0.15.3.tgz#c6bb5ed6cb27b9ac239d6fb1a50d20e00d95f71c"
 
 react-native-dismiss-keyboard@1.0.0:
   version "1.0.0"

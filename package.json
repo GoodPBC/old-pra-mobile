@@ -21,7 +21,7 @@
     "react-native": "^0.52.2",
     "react-native-code-push": "^5.2.1",
     "react-native-config": "^0.11.5",
-    "react-native-device-info": "^0.13.0",
+    "react-native-device-info": "^0.15.3",
     "react-native-fabric": "^0.5.1",
     "react-native-fabric-crashlytics": "^0.1.8",
     "react-native-google-analytics-bridge": "^5.6.0",
@@ -50,7 +50,10 @@
     "setupFiles": [
       "<rootDir>/jest/setup.js"
     ],
-    "testPathIgnorePatterns": ["/e2e/", "/node_modules/"],
+    "testPathIgnorePatterns": [
+      "/e2e/",
+      "/node_modules/"
+    ],
     "transformIgnorePatterns": [
       "node_modules/(?!(react-native|fetch-mock|instabug-reactnative|react-native-config|react-native-code-push|react-native-progress|react-native-tab-navigator|react-native-linear-gradient|react-native-simple-radio-button|react-native-storage|react-native-maps|react-native-push-notification|react-native-google-analytics-bridge|react-navigation|react-native-vector-icons)/)"
     ]

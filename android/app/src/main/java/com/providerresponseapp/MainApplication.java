@@ -3,6 +3,7 @@ package com.providerresponseapp;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
 import com.instabug.reactlibrary.RNInstabugReactnativePackage;
 import com.lugg.ReactNativeConfig.ReactNativeConfigPackage;
@@ -10,7 +11,6 @@ import com.oblador.vectoricons.VectorIconsPackage;
 import com.smixx.fabric.FabricPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
 import com.idehub.GoogleAnalyticsBridge.GoogleAnalyticsBridgePackage;
-import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import com.microsoft.codepush.react.CodePush;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
@@ -44,6 +44,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
         new MainReactPackage(),
+            new RNDeviceInfo(),
         new ReactNativePushNotificationPackage(),
     		new RNInstabugReactnativePackage.Builder(BuildConfig.INSTABUG_TOKEN_ANDROID, MainApplication.this)
 							.setInvocationEvent("button")
