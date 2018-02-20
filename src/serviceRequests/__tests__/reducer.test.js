@@ -14,8 +14,17 @@ describe('team reducer', () => {
   it('should handle SELECT_SERVICE_REQUEST');
   it('should handle SELECT_SERVICE_REQUEST_RESOLUTION');
   it('should handle SYNC_SERVICE_REQUESTS');
-  it('should handle UPDATE_RESOLUTION_NOTES');
-  
+  it('should handle UPDATE_RESOLUTION_NOTES', () => {
+    const action = {
+      type: actionTypes.UPDATE_RESOLUTION_NOTES,
+      notes: 'my_notes',
+    };
+    const expectedChange = {
+      resolutionNotes: 'my_notes',
+    };
+    Reducer(uut).expect(action).toChangeInState(expectedChange);
+  });
+
   it('should reset to initialState on LOGOUT_USER', () => {
     const action = {
       type: LOGOUT_USER,
