@@ -47,22 +47,6 @@ export function fetchServiceRequests(onSuccess) {
   };
 }
 
-export function fetchServiceRequestDetails(serviceRequest) {
-  return (dispatch) => {
-    dispatch(fetchServiceRequests());
-    dispatch({
-      type: FETCH_SERVICE_REQUEST_DETAILS,
-      srNumber: serviceRequest.sr_number,
-    });
-  };
-}
-
-export function refreshCurrentServiceRequest() {
-  return (dispatch) => {
-    dispatch(fetchServiceRequests());
-  };
-}
-
 export function rerenderServiceRequests() {
   return {
     type: RERENDER_SERVICE_REQUESTS,

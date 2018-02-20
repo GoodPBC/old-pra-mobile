@@ -229,7 +229,6 @@ class ServiceRequestList extends Component {
 }
 
 ServiceRequestList.propTypes = {
-  fetchServiceRequestDetails: PropTypes.func.isRequired,
   enableFilters: PropTypes.bool,
   selectServiceRequest: PropTypes.func.isRequired,
   gaTrackEvent: PropTypes.func.isRequired,

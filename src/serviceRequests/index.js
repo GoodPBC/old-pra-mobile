@@ -5,7 +5,7 @@ import ServiceRequestList from './components/ServiceRequestList';
 import ServiceRequestStackNavigator from './containers/ServiceRequestStackNavigator';
 
 // Selecting service requests on the Sync tab.
-import { selectServiceRequest, fetchServiceRequestDetails } from './actions';
+import { selectServiceRequest } from './actions';
 
 import {
   FETCH_SERVICE_REQUESTS,
@@ -17,7 +17,6 @@ export {
   FETCH_SERVICE_REQUESTS,
   UPDATE_ONSITE_STATUS,
   RESOLVE_SERVICE_REQUEST,
-  fetchServiceRequestDetails,
   selectServiceRequest,
   ServiceRequestList,
   ServiceRequestStackNavigator,
