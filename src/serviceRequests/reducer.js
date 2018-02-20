@@ -17,7 +17,7 @@ import {
   LOGOUT_USER,
 } from '../user/actionTypes';
 
-const initialState = {
+export const initialState = {
   // Optimistic check for loading SRs
   hasLoadedServiceRequests: false,
   // Look up the SR to display on details
@@ -180,9 +180,7 @@ export default function reducer(state = initialState, action) {
         resolutionNotes: action.notes,
       };
     case LOGOUT_USER:
-      return {
-        ...initialState,
-      };
+      return initialState;
     default:
       return state;
   }

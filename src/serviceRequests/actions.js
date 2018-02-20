@@ -1,24 +1,24 @@
 /* global fetch */
 import moment from 'moment';
 import {
-    FETCH_SERVICE_REQUESTS,
-    FETCH_SERVICE_REQUEST_DETAILS,
-    RESOLVE_SERVICE_REQUEST,
-    MARK_PENDING_STATUS,
-    RERENDER_SERVICE_REQUESTS,
-    SELECT_SERVICE_REQUEST,
-    SELECT_SERVICE_REQUEST_RESOLUTION,
-    UPDATE_ONSITE_STATUS,
-    ADD_CONTACT_TO_SERVICE_REQUEST,
-    UPDATE_RESOLUTION_NOTES,
-    UPDATE_PING_RESPONSE
+  FETCH_SERVICE_REQUESTS,
+  FETCH_SERVICE_REQUEST_DETAILS,
+  RESOLVE_SERVICE_REQUEST,
+  MARK_PENDING_STATUS,
+  RERENDER_SERVICE_REQUESTS,
+  SELECT_SERVICE_REQUEST,
+  SELECT_SERVICE_REQUEST_RESOLUTION,
+  UPDATE_ONSITE_STATUS,
+  ADD_CONTACT_TO_SERVICE_REQUEST,
+  UPDATE_RESOLUTION_NOTES,
+  UPDATE_PING_RESPONSE
 } from './actionTypes';
 import {
-  momentToStr
+  momentToStr,
 } from './helpers';
 import { API_REQUEST } from '../shared';
 
-const STATUS_CODES = {
+export const STATUS_CODES = {
   in_process: 1,
   assigned: 2,
   in_the_field: 3,
@@ -91,9 +91,7 @@ export function resolveServiceRequest(serviceRequest, resolutionCode) {
       serviceRequest, // Needed for sync
 
       // Refresh SRs after the update
-      onSuccess: () => {
-        dispatch(fetchServiceRequests());
-      }
+      onSuccess: () => { dispatch(fetchServiceRequests()); },
     });
   };
 }
@@ -118,12 +116,11 @@ export function updateOnsiteStatus(serviceRequest) {
     const updatedAt = moment();
 
     const requestParams = [{
-        SR_Number: serviceRequest.sr_number,
-        ModifiedAt: momentToStr(updatedAt),
-        PRASRStatusId: STATUS_CODES.on_site,
-
-        ModifiedBy: userId,
-        PRASRResolutionCodeId: null,
+      SR_Number: serviceRequest.sr_number,
+      ModifiedAt: momentToStr(updatedAt),
+      PRASRStatusId: STATUS_CODES.on_site,
+      ModifiedBy: userId,
+      PRASRResolutionCodeId: null,
     }];
 
     dispatch({
@@ -144,9 +141,7 @@ export function updateOnsiteStatus(serviceRequest) {
       serviceRequest, // Needed for sync
 
       // Refresh SRs after the update
-      onSuccess: () => {
-        dispatch(fetchServiceRequests());
-      }
+      onSuccess: () => { dispatch(fetchServiceRequests()); },
     });
   };
 }
@@ -157,9 +152,7 @@ export function addContactToServiceRequest(contact) {
     actionName: ADD_CONTACT_TO_SERVICE_REQUEST,
     requestMethod: 'POST',
     requestPath: 'contacts',
-    requestParams: {
-      contact
-    }
+    requestParams: { contact },
   };
 }
 
@@ -172,7 +165,7 @@ export function updateResolutionNotes(notes) {
 
 export function updateServiceRequestPingResponse(pingResponse) {
   return (dispatch, getState) => {
-    const { userId } = getState().user
+    const { userId } = getState().user;
 
     const requestParams = {
       ActualOnsiteTime: pingResponse.actualOnsiteTime,
@@ -181,7 +174,7 @@ export function updateServiceRequestPingResponse(pingResponse) {
       PingNote: pingResponse.pingNote,
       ReasonId: pingResponse.reasonId,
       SR_Number: pingResponse.srNumber
-    }
+    };
 
     dispatch({
       type: API_REQUEST,
@@ -191,5 +184,5 @@ export function updateServiceRequestPingResponse(pingResponse) {
       endpoint: 'updatepingresponse',
       requestParams,
     });
-  }
+  };
 }
