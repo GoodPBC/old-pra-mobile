@@ -35,6 +35,10 @@ export function parseTime(timeStr) {
   return moment(timeStr, 'YYYY-MM-DD HH:mm:ss.SSS');
 }
 
+export function momentToStr(momentDate) {
+  return momentDate.format('YYYY-MM-DD HH-mm-ss');
+}
+
 export function prioritizeLocationData(serviceRequest) {
   const {
     address,

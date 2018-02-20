@@ -13,6 +13,9 @@ import {
     UPDATE_RESOLUTION_NOTES,
     UPDATE_PING_RESPONSE
 } from './actionTypes';
+import {
+  momentToStr
+} from './helpers';
 import { API_REQUEST } from '../shared';
 
 const STATUS_CODES = {
@@ -23,10 +26,6 @@ const STATUS_CODES = {
   visit_complete: 5,
   closed: 6,
 };
-
-function momentToStr(momentDate) {
-  return momentDate.format('YYYY-MM-DD HH-mm-ss');
-}
 
 export function selectServiceRequestResolution(resolutionCode) {
   return {
