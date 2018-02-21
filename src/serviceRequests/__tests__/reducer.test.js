@@ -8,7 +8,7 @@ import uut, {
 import { LOGOUT_USER } from '../../user/actionTypes';
 import { SYNC_SERVICE_REQUESTS } from '../../offline/actionTypes';
 
-describe('team reducer', () => {
+describe('service requests reducer', () => {
   it('should return the initial state', () => {
     expect(uut(undefined, {})).toEqual(initialState);
   });

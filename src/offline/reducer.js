@@ -4,7 +4,7 @@ import {
   UPDATE_NETWORK_STATUS,
 } from './actionTypes';
 
-const initialState = {
+export const initialState = {
   syncQueue: [],
   networkIsConnected: true,
 };
