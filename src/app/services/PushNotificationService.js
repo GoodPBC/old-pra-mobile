@@ -5,8 +5,12 @@ import Config from 'react-native-config';
 export default class PushNotificationService {
   static init(onRegister, onNotification) {
     PushNotification.configure({
-      onRegister,
+      onRegister: token => {
+        console.log('TOKEN: ', token);
+        onRegister(token);
+      },
       onNotification: notification => {
+        console.log('NOTIFICATION: ', notification);
         onNotification(notification);
         if (Platform.OS === 'ios') {
           notification.finish(PushNotificationIOS.FetchResult.NoData);
