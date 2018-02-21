@@ -44,7 +44,6 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
         new MainReactPackage(),
-            new RNDeviceInfo(),
         new ReactNativePushNotificationPackage(),
     		new RNInstabugReactnativePackage.Builder(BuildConfig.INSTABUG_TOKEN_ANDROID, MainApplication.this)
 							.setInvocationEvent("button")
