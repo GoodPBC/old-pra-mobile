@@ -38,3 +38,6 @@ so run the following command to build on the simulator: `react-native run-ios --
 - *App running slowly on the emulator*, make sure JS Debugging is turned off.
 - *APK not installing on the emulator / device*, make sure USB debugging is enabled on the device. Uninstall and reinstall the app on the device.
 - *Using Crashlytics on iOS build*, this was giving errors so it's currently not linked in the iOS binaries. Add `libSMXCrashlytics.a` back at some point to get this working.
+
+# When upgrading react-native:
+The app was initialized with *com.providerresponseapp* but the application id on google play store is *com.providerresponse*. To avoid any unexpected errors, replace *com.providerresponse* with *com.providerresponseapp* before upgrading react-native to a new version.
