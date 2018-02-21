@@ -189,7 +189,11 @@ export default function reducer(state = initialState, action) {
 function updatePendingStatus(state, action) {
   const { pendingStatus, serviceRequest } = action;
   const serviceRequests = [...state.serviceRequests];
-  const idx = serviceRequests.indexOf(serviceRequest);
+
+  const idx = serviceRequests.findIndex(sr => {
+    return sr.sr_number === serviceRequest.sr_number;
+  })
+  // const idx = serviceRequests.indexOf(serviceRequest);
   if (idx === -1) {
     throw 'invalid SR';
   }
