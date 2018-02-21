@@ -193,7 +193,6 @@ function updatePendingStatus(state, action) {
   const idx = serviceRequests.findIndex(sr => {
     return sr.sr_number === serviceRequest.sr_number;
   })
-  // const idx = serviceRequests.indexOf(serviceRequest);
   if (idx === -1) {
     throw 'invalid SR';
   }
