@@ -2,8 +2,8 @@ app_identifier 'gov.nyc.dhs.providerresponse'
 package_name 'com.providerresponse'
 team_id '4F2N2E6UU5'
 itc_team_id '118090205'
-# apple_id ENV["USERNAME"]
-apple_id 'euibinc@gmail.com'
+apple_id ENV["USERNAME"]
+# apple_id 'euibinc@gmail.com'
 json_key_file "./fastlane/Google Play Android Developer.json"
 
 for_platform :ios do

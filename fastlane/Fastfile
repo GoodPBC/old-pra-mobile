@@ -88,9 +88,16 @@ end
 platform :android do
   desc 'Android Staging Build'
   lane :staging do
-    version_code_a = google_play_track_version_codes(track: 'alpha')[0] || 0
-    version_code_b = google_play_track_version_codes(track: 'beta')[0] || 0
-    version_code = [version_code_a, version_code_b].max + 1
+    vc_a = google_play_track_version_codes(track: 'alpha')[0] || 0
+    vc_b = google_play_track_version_codes(track: 'beta')[0] || 0
+    vc_p = google_play_track_version_codes(track: 'production')[0] || 0
+    version_code = [vc_a, vc_b, vc_p].max + 1
+
+    add_badge(
+      glob: "/android/app/src/main/res/mipmap-*/*.{png,PNG}",
+      shield: "Staging-#{version_code}-brightgreen",
+      no_badge: true
+    )
 
     gradle(
       project_dir: 'android',
@@ -100,7 +107,7 @@ platform :android do
         versionCode: version_code
       }
     )
-
+    sh 'git checkout -- ../android/app/src/main/res/'
     supply(
       track: 'alpha',
       apk: './android/app/build/outputs/apk/app-releaseStaging.apk'
@@ -109,10 +116,11 @@ platform :android do
 
   desc 'Android Beta Build'
   lane :beta do
-    version_code_a = google_play_track_version_codes(track: 'alpha')[0] || 0
-    version_code_b = google_play_track_version_codes(track: 'beta')[0] || 0
-    version_code = [version_code_a, version_code_b].max + 1
-
+    vc_a = google_play_track_version_codes(track: 'alpha')[0] || 0
+    vc_b = google_play_track_version_codes(track: 'beta')[0] || 0
+    vc_p = google_play_track_version_codes(track: 'production')[0] || 0
+    version_code = [vc_a, vc_b, vc_p].max + 1
+    
     gradle(
       project_dir: 'android',
       task: 'assemble',
