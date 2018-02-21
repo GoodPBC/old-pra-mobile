@@ -118,7 +118,7 @@ function transformStatus(status) {
   return status;
 }
 
-function transformStreetSmartServiceRequests(serviceRequests) {
+export function transformStreetSmartServiceRequests(serviceRequests) {
   console.log(`Fetched ${serviceRequests.length} SRs`);
   if (!serviceRequests) {
     return [];
