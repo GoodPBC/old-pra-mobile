@@ -1,5 +1,5 @@
 import React from 'react';
-import { TabNavigator } from 'react-navigation';
+import { TabNavigator, TabBarBottom } from 'react-navigation';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 import { ServiceRequestStackNavigator } from '../../serviceRequests';
@@ -53,6 +53,8 @@ const routeConfigs = {
 
 const tabNavigatorConfig = {
   initialRouteName: Tabs.MY_REQUESTS,
+  tabBarComponent: TabBarBottom,
+  tabBarPosition: 'bottom',
   tabBarOptions: {
     activeTintColor: DARK_BLUE,
     inactiveTintColor: GRAY_TEXT,
