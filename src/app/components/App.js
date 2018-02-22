@@ -38,7 +38,7 @@ export default class App extends Component {
   componentDidMount() {
     const screenName = this.props.selectedTab;
     this.props.gaTrackScreenView(screenName);
-    this.trackUserPosition();
+    this.trackUserPosition();    
     PushNotificationService.init(
       this.registerToken,
       this.handleNotification,
@@ -107,7 +107,7 @@ export default class App extends Component {
   handleNotification(notification) {
     if (AppState.currentState === 'active') {
       Alert.alert(
-        'Sample Title',
+        notification.title,
         notification.message,
         [],
         { onDismiss: () => {} },
@@ -122,7 +122,7 @@ export default class App extends Component {
       os,
     });
   }
-
+  
   _renderLogin() {
     return (
       <View style={{ marginTop: 22 }}>
