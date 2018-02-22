@@ -31,7 +31,7 @@ const middlewares = [
 
 if (__DEV__) {
   const logger = createLogger();
-  middlewares.push(logger);
+  // middlewares.push(logger);
 }
 
 export default function configureStore() {
