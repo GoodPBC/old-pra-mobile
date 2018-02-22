@@ -16,6 +16,12 @@ export default class PushNotificationService {
           notification.finish(PushNotificationIOS.FetchResult.NoData);
         }
       },
+        // IOS ONLY (optional): default: all - Permissions to register.
+    permissions: {
+        alert: true,
+        badge: true,
+        sound: true
+    },
       senderID: '423191307127',
     });
   }

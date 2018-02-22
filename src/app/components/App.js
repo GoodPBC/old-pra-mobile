@@ -107,12 +107,13 @@ export default class App extends Component {
   handleNotification(notification) {
     if (AppState.currentState === 'active') {
       Alert.alert(
-        notification.title,
-        notification.message,
+        notification.data.title,
+        notification.data.message,
         [],
         { onDismiss: () => {} },
       );
     }
+   
     console.log(notification);
   }
 

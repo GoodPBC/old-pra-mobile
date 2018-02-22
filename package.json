@@ -7,7 +7,7 @@
     "lint": "eslint src/",
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "deploy": "fastlane ios beta && fastlane android beta && git ci -a -m \"Version bump\"",
-    "ios:bundle": "react-native bundle --dev false --entry-file index.ios.js --bundle-output ios/main.jsbundle --platform ios",
+    "ios:bundle": "react-native bundle --dev false --entry-file index.js --bundle-output ios/main.jsbundle --platform ios",
     "android:release": "cd android && ./gradlew assembleRelease && cd ..",
     "test": "yarn test:unit",
     "test:unit": "jest",
