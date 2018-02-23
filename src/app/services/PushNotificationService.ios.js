@@ -1,5 +1,9 @@
 import PushNotification from 'react-native-push-notification';
-import { Platform, PushNotificationIOS } from 'react-native';
+import { 
+  Platform, 
+  Alert,
+  PushNotificationIOS,
+} from 'react-native';
 import Config from 'react-native-config';
 
 export default class PushNotificationService {
@@ -7,11 +11,25 @@ export default class PushNotificationService {
     PushNotification.configure({
       onRegister: token => {
         console.log('TOKEN: ', token);
-        onRegister(token);
+        if (typeof onRegister === 'function') {
+          onRegister(token);
+        }
       },
       onNotification: notification => {
         console.log('NOTIFICATION: ', notification);
-        onNotification(notification);
+        if (typeof onNotification === 'function') {
+          onNotification(notification);
+        }
+
+        if (notification.foreground) {
+          Alert.alert(
+            notification.message.title,
+            notification.message.body,
+            [],
+            { onDismiss: () => { } },
+          );
+        }
+
         if (Platform.OS === 'ios') {
           notification.finish(PushNotificationIOS.FetchResult.NoData);
         }
@@ -20,7 +38,7 @@ export default class PushNotificationService {
     permissions: {
         alert: true,
         badge: true,
-        sound: true
+        sound: true,
     },
       senderID: '423191307127',
     });
