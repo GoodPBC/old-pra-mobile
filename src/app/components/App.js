@@ -9,6 +9,7 @@ import {
   View,
   NetInfo,
   Text,
+  TextInput,
 } from 'react-native';
 import titleCase from 'title-case';
 import SelectTeamModal from '../../teams/containers/SelectTeamModal';
@@ -105,16 +106,6 @@ export default class App extends Component {
   }
 
   handleNotification(notification) {
-    if (AppState.currentState === 'active') {
-      Alert.alert(
-        notification.data.title,
-        notification.data.message,
-        [],
-        { onDismiss: () => {} },
-      );
-    }
-   
-    console.log(notification);
   }
 
   registerToken({ token, os }) {
@@ -134,6 +125,9 @@ export default class App extends Component {
           visible={this.props.userIsAuthenticated !== true}
           onRequestClose={() => {}}
         >
+          <View style={{ position: 'absolute', bottom: 100, backgroundColor: 'papayawhip', zIndex: 9999 }}>
+            <Text selectable>token: {this.props.deviceInfo.deviceToken}</Text>
+          </View>
           <LoginScreen {...this.props} />
         </Modal>
       </View>
