@@ -17,6 +17,7 @@ import Instabug from 'instabug-reactnative';
 import App from './app/containers/App';
 import { ImageContainer } from './shared';
 import configureStore from './store';
+import PushNotificationService from './app/services/PushNotificationService';
 
 console.disableYellowBox = true;
 
@@ -56,19 +57,15 @@ class ProviderResponseApp extends React.Component {
       Instabug.startWithToken(
         Config[`INSTABUG_TOKEN_${Platform.OS.toUpperCase()}`],
         Instabug.invocationEvent.shake
-      )
-      // setTimeout(() => {
-      //   Instabug.startWithToken(
-      //     Config[`INSTABUG_TOKEN_${Platform.OS.toUpperCase()}`],
-      //     Instabug.invocationEvent.floatingButton
-      //   )
-      // }, 3000)
+      );
     }
   }
 
   handleAppStateChange(nextAppState) {
     if (this.state.appState === 'active' && nextAppState.match(/inactive|background/)) {
       this.setState({ codepushed: false });
+    } else if (this.state.appState.match(/inactive|background/) && nextAppState === 'active') {
+      PushNotificationService.clearBadgeCount();
     }
     this.setState({ appState: nextAppState });
   }

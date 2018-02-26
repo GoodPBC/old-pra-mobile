@@ -2,24 +2,17 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import {
   Alert,
-  AppState,
-  Dimensions,
   Modal,
-  StatusBar,
   View,
   NetInfo,
   Text,
-  TextInput,
 } from 'react-native';
-import titleCase from 'title-case';
 import SelectTeamModal from '../../teams/containers/SelectTeamModal';
 import { OfflineBanner } from '../../offline';
 import { LoginScreen } from '../../user';
 import { Tabs } from '../../shared';
 import PushNotificationService from '../services/PushNotificationService';
 import AppNavigator from './AppNavigator';
-
-const getKeyByValue = (obj, val) => Object.keys(obj).find(key => obj[key] === val);
 
 export default class App extends Component {
   constructor(props) {

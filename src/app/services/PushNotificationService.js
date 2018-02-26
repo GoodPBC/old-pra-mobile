@@ -39,11 +39,15 @@ export default class PushNotificationService {
     });
   }
 
+  static clearBadgeCount() {
+    console.log('reset badge count to zero');
+    PushNotification.setApplicationIconBadgeNumber(0);
+  }
+
   static updateBadgeCount(notification) {
     PushNotification.getApplicationIconBadgeNumber(badgeCount => {
       const increment = notification.badge || 1;
       const newBadgeCount = badgeCount + increment;
-      console.log('newBadgeCount', newBadgeCount);
       PushNotification.setApplicationIconBadgeNumber(newBadgeCount);
     });
   }
