@@ -35,7 +35,7 @@ function getKeyByValue(obj, val) {
   return Object.keys(obj).find(key => obj[key] === val);
 }
 
-const GoogleAnalytics = new GoogleAnalyticsTracker(Config.GOOGLE_ANALYTICS_TRACKING_ID);
+export const tracker = new GoogleAnalyticsTracker(Config.GOOGLE_ANALYTICS_TRACKING_ID);
 
 const Categories = {
   TEAMS: 'Teams',
@@ -80,12 +80,12 @@ const googleAnalytics = store => next => action => {
     case API_REQUEST_NETWORK_ERROR: {
       const { action: { requestMethod, requestPath }, error } = action;
       const errorMessage = `${requestMethod} /${requestPath} ${error}`;
-      GoogleAnalytics.trackException(errorMessage, false);
+      tracker.trackException(errorMessage, false);
       return next(action);
     }
     case GA_TRACK_EVENT: {
       const { eventCategory, eventAction, eventLabel } = action;
-      GoogleAnalytics.trackEvent(
+      tracker.trackEvent(
         eventCategory,
         eventAction,
         { label: eventLabel }
@@ -94,13 +94,13 @@ const googleAnalytics = store => next => action => {
     }
     case GA_TRACK_SCREEN_VIEW: {
       const screenName = titleCase(getKeyByValue(Tabs, action.screenName));
-      GoogleAnalytics.trackScreenView(screenName);
+      tracker.trackScreenView(screenName);
       break;
     }
     case SELECT_SERVICE_REQUEST: {
       if (action.serviceRequest) {
         const { sr_number } = action.serviceRequest;
-        GoogleAnalytics.trackEvent(
+        tracker.trackEvent(
           Categories.INTERACTIONS,
           Actions.VIEWED,
           { label: sr_number }
@@ -109,7 +109,7 @@ const googleAnalytics = store => next => action => {
       return next(action);
     }
     case SYNC_SERVICE_REQUESTS: {
-      GoogleAnalytics.trackEvent(
+      tracker.trackEvent(
         Categories.INTERACTIONS,
         Actions.PRESSED,
         { label: 'Refresh' }
@@ -118,7 +118,7 @@ const googleAnalytics = store => next => action => {
     }
     case FETCH_SERVICE_REQUESTS_SUCCESS: {
       const { userAccountName } = store.getState().user;
-      GoogleAnalytics.trackEvent(
+      tracker.trackEvent(
         Categories.SERVICE_REQUESTS,
         Actions.FETCHED,
         { label: userAccountName }
@@ -138,7 +138,7 @@ const googleAnalytics = store => next => action => {
         return titleCase(resolution);
       };
 
-      GoogleAnalytics.trackEvent(
+      tracker.trackEvent(
         Categories.SERVICE_REQUESTS,
         `Resolved: ${getTitleizedResolution(PRASRResolutionCodeId)}`,
         { label: SR_Number }
@@ -147,7 +147,7 @@ const googleAnalytics = store => next => action => {
     }
     case UPDATE_ONSITE_STATUS_SUCCESS: {
       const { SR_Number } = action.data.Service_Requests[0];
-      GoogleAnalytics.trackEvent(
+      tracker.trackEvent(
         Categories.SERVICE_REQUESTS,
         Actions.WENT_ONSITE,
         { label: SR_Number }
@@ -157,13 +157,13 @@ const googleAnalytics = store => next => action => {
     case JOIN_TEAM: {
       const { team, oldTeam } = action;
       if (oldTeam) {
-        GoogleAnalytics.trackEvent(
+        tracker.trackEvent(
           Categories.TEAMS,
           Actions.CHANGED,
           { label: `${oldTeam.name} -> ${team.name}` }
         )
       } else {
-        GoogleAnalytics.trackEvent(
+        tracker.trackEvent(
           Categories.TEAMS,
           Actions.JOINED,
           { label: team.name }
@@ -173,7 +173,7 @@ const googleAnalytics = store => next => action => {
     }
     case LOGIN_USER_SUCCESS: {
       const { UserAccountName } = action.data;
-      GoogleAnalytics.trackEvent(
+      tracker.trackEvent(
         Categories.USERS,
         Actions.LOGGED_IN,
         { label: UserAccountName }
@@ -182,7 +182,7 @@ const googleAnalytics = store => next => action => {
     }
     case LOGOUT_USER: {
       const { userAccountName } = action.user;
-      GoogleAnalytics.trackEvent(
+      tracker.trackEvent(
         Categories.USERS,
         Actions.LOGGED_OUT,
         { label: userAccountName }
