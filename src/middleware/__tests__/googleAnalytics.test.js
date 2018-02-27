@@ -1,9 +1,15 @@
 import googleAnalytics, { tracker } from '../googleAnalytics';
 
+const mockStore = state => {
+	const getState = jest.fn(() => state);
+	const dispatch = jest.fn();
+	return { getState, dispatch };
+};
+
 describe('google analytics middleware', () => {
-	const create = (getState) => {
-		const store = {
-			getState: getState || jest.fn(() => ({})),
+	const create = mockedStore => {
+		const store = mockedStore || {
+			getState: jest.fn(() => ({})),
 			dispatch: jest.fn(),
 		};
 		const next = jest.fn();
@@ -148,10 +154,10 @@ describe('google analytics middleware', () => {
 
 	describe('FETCH_SERVICE_REQUESTS_SUCCESS', () => {
 		it('should call trackEvent', () => {
-			const getState = jest.fn(() => ({
+			const store = mockStore({
 				user: { userAccountName: 'username' },
-			}));
-			const { next, invoke } = create(getState);
+			});
+			const { next, invoke } = create(store);
 			const action = {
 				type: 'FETCH_SERVICE_REQUESTS_SUCCESS',
 			};

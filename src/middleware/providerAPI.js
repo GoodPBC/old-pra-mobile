@@ -90,8 +90,9 @@ async function makeRequestAndDispatchResponse({ action, store }) {
   }
   const headers = {
     'Content-Type': 'application/json',
+    ...authenticationHeaders(store),
   };
-  Object.assign(headers, authenticationHeaders(store));
+  // Object.assign(headers, authenticationHeaders(store));
 
   try {
     console.group('SENDING API REQUEST');
@@ -113,41 +114,40 @@ async function makeRequestAndDispatchResponse({ action, store }) {
       body,
       headers,
     });
+    let responseText = null;
+    try {
+      // const textBody = await response.text();
+      // console.log('body', textBody);
+      responseText = await response.text();
+      const json = JSON.parse(responseText);
+      // console.log('json response', json);
+      // console.log('response text', responseText);
+      if (json.Update_Status) {
+        console.log('Updating SR', json.Update_Status);
+      }
+      if (response.ok && !(json.ErrorMessage && json.ErrorMessage.length)) {
+        dispatchSuccess(json);
+      } else {
+        throw Error(`${response.status} ${json.ErrorMessage}`);
+      }
+    } catch (e) {
+      dispatchFailure(response.status, e.message);
+    }
   } catch (e) {
     dispatchNetworkFailure(e.message);
-    return;
-  }
-
-  let responseText = null;
-  try {
-    // const textBody = await response.text();
-    // console.log('body', textBody);
-    responseText = await response.text();
-    const json = JSON.parse(responseText);
-    // console.log('json response', json);
-    // console.log('response text', responseText);
-    if (json.Update_Status) {
-      console.log('Updating SR', json.Update_Status);
-    }
-    if (response.ok && !(json.ErrorMessage && json.ErrorMessage.length)) {
-      dispatchSuccess(json);
-    } else {
-      throw Error(`${response.status} ${json.ErrorMessage}`);
-    }
-  } catch (e) {
-    dispatchFailure(response.status, e.message);
   }
 }
 
 const providerAPI = ({ dispatch, getState }) => next => action => {
+  
+  next(action);
+
   if (action.type === API_REQUEST) {
     if (API_ENDPOINTS.indexOf(action.endpoint) === -1) {
       throw `Invalid endpoint: ${action.requestPath} for action: ${action.actionName}`;
     }
-    makeRequestAndDispatchResponse({ action, store: { dispatch, getState } });
+    return makeRequestAndDispatchResponse({ action, store: { dispatch, getState } });
   }
-  
-  return next(action);
 };
 
 export default providerAPI;
