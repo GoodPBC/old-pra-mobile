@@ -1,9 +1,4 @@
 import googleAnalytics, { tracker } from '../googleAnalytics';
-import {
-	API_REQUEST,
-	API_REQUEST_SUCCESS,
-	API_REQUEST_FAILURE,
-} from '../../shared';
 
 describe('google analytics middleware', () => {
 	const create = (getState) => {
