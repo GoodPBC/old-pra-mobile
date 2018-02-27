@@ -33,3 +33,11 @@ jest.mock('react-native-code-push', () => (
 jest.mock('react-native-config', () => ({
   BASE_URL: 'https://a071-dhsmobile.nyc.gov/dhsmobile/SSServicesSTG/SSPRAService.svc/',
 }));
+
+jest.mock('react-native-google-analytics-bridge', () => ({
+  GoogleAnalyticsTracker: () => ({
+    trackEvent: jest.fn(),
+    trackScreenView: jest.fn(),
+    trackException: jest.fn(),
+  }),
+}));
