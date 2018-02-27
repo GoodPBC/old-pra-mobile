@@ -140,10 +140,6 @@ async function makeRequestAndDispatchResponse({ action, store }) {
 }
 
 const providerAPI = ({ dispatch, getState }) => next => action => {
-  if (typeof action === 'function') {
-    return action(dispatch, getState);
-  }
-
   if (action.type === API_REQUEST) {
     if (API_ENDPOINTS.indexOf(action.endpoint) === -1) {
       throw `Invalid endpoint: ${action.requestPath} for action: ${action.actionName}`;
