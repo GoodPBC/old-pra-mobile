@@ -6,7 +6,10 @@ module.exports = {
         "import"
     ],
     "env": {
-      "jest": true
+        "jest": true
+    },
+    "globals": {
+        "fetch": false
     },
     "rules": {
         "eol-last": "off",
