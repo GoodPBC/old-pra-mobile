@@ -48,31 +48,46 @@ describe('provider API middleware', () => {
     expect(() => invoke(action)).toThrow(`Invalid endpoint: ${requestPath} for action: ${actionName}`);
   });
   
-  // it('dispatches a success action for successful API_REQUEST actions', () => {
-  //   const { store, next, invoke } = create();
-  //   const action = {
-  //     type: API_REQUEST,
-  //     requestMethod: 'get',
-  //     endpoint: 'Get311ServiceRequests',
-  //     requestPath: 'foobar',
-  //     actionName: 'FOOBAR',
-  //   };
-  //   // fetchMock.get(
-  //   //   Config.BASE_URL + 'foobar',
-  //   //   {
-  //   //     serviceRequests: [],
-  //   //   }
-  //   // );
-  //   invoke(action);
-  //   expect(store.dispatch).toHaveBeenCalledWith({
-  //     type: API_REQUEST_SUCCESS,
-  //   });
-  // });
+  it('should dispatch API_REQUEST_SUCCESS and SUCCESS actions when the api request is successful', async () => {
+    const store = mockStore({
+      user: { userIsAuthenticated: true },
+    });
+    const { next, invoke } = create(store);
+    const action = {
+      type: 'API_REQUEST',
+      requestMethod: 'get',
+      endpoint: 'Get311ServiceRequests',
+      requestPath: 'foobar',
+      actionName: 'FOOBAR',
+    };
+    const mockResponse = {
+      serviceRequests: [
+        {
+          sr_number: '1234',
+        },
+      ],
+    };
+    const expectedActions = [
+      {
+        type: API_REQUEST_SUCCESS,
+      },
+      {
+        type: 'FOOBAR_SUCCESS',
+        data: mockResponse,
+      },
+    ];
+    
+    fetchMock.getOnce(Config.BASE_URL + 'foobar', mockResponse);
+    await invoke(action);
 
-  it('dispatches a failure action for failed API_REQUEST actions', async () => {
+    expect(next).toHaveBeenCalledWith(action);
+    expect(store.getActions()).toEqual(expectedActions);
+  });
+
+  it('dispatches a failure action and API_REQUEST_FAILURE when an api request fails', async () => {
     const store = mockStore({ 
-      user: { },
-    })
+      user: { userIsAuthenticated: true },
+    });
     const { next, invoke } = create(store);
     const action = {
       type: 'API_REQUEST',
@@ -82,30 +97,64 @@ describe('provider API middleware', () => {
       actionName: 'FOOBAR',
     };
 
-    fetchMock.mock(`${Config.BASE_URL}foobar`, {
+    const mockResponse = {
       body: {
-        error: 'Some error message',
+        ErrorMessage: 'Some Error Message',
       },
       status: 400,
-    });
+    };
 
+    const expectedActions = [
+      {
+        type: API_REQUEST_FAILURE,
+        action,
+        status: 400,
+        error: "400 Some Error Message",
+      },
+      {
+        type: 'FOOBAR_FAILURE',
+        request: action,
+        status: 400,
+        error: "400 Some Error Message",
+      },
+    ];
+
+    fetchMock.getOnce(Config.BASE_URL + 'foobar', mockResponse);
     await invoke(action);
 
     expect(next).toHaveBeenCalledWith(action);
-    expect(store.getActions()).toEqual([]);
-    // expect(next).toHaveBeenLastCalledWith({
-      // type: 'FETCH_FOOBAR_FAILURE',
-      // error: 'Some error message',
-      // status: 400,
-    // });
+    expect(store.getActions()).toEqual(expectedActions);
   });
 
 
-  it('should dispatch with appropriate authentication headers');
-  it('should log the user out when failure is due to invalid token');
-  it('should dispatch API_REQUEST_SUCCESS and another SUCCESS action when the request is successful');
+  it('should dispatch LOG_OUT when failure is due to invalid token', async () => {
+    const user = { userIsAuthenticated: true, userId: 'bear' };
+    const store = mockStore({ user });
+    const { next, invoke } = create(store);
+    const action = {
+      type: 'API_REQUEST',
+      endpoint: 'Get311ServiceRequests',
+      requestMethod: 'get',
+      requestPath: 'foobar',
+      actionName: 'FOOBAR',
+    };
+
+    const mockResponse = {
+      body: {
+        ErrorMessage: 'invalid token',
+      },
+      status: 400,
+    };
+
+    const expectedAction = {
+      type: 'LOGOUT_USER',
+      user,
+    };
+
+    fetchMock.getOnce(Config.BASE_URL + 'foobar', mockResponse);
+    await invoke(action);
+
+    expect(next).toHaveBeenCalledWith(action);
+    expect(store.getActions()).toContainEqual(expectedAction);
+  });
 });
-
-// describe('API middleware', () => {
-
-// });
