@@ -9,6 +9,7 @@ import * as UserActions from '../actions';
 
 function mapStateToProps(state) {
   return {
+    apiRequestInProgress: state.app.apiRequestInProgress,
     user: state.user,
   };
 }

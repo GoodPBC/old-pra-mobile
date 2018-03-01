@@ -1,5 +1,5 @@
 import LogoutScreen from '../containers/LogoutScreen';
-import { DARK_BLUE, createStackNavigator } from '../../shared';
+import { createStackNavigator } from '../../shared';
 
 const UserStackNavigator = createStackNavigator(
   {

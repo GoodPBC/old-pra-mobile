@@ -17,6 +17,7 @@ import { getCurrentTeam } from '../../teams/selectors';
 
 function mapStateToProps(state) {
   return {
+    entireState: state,
     selectedTab: state.app.selectedTab,
     deviceInfo: state.app.deviceInfo,
     apiRequestInProgress: state.app.apiRequestInProgress,

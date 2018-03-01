@@ -2,10 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import {
   Alert,
-  Modal,
-  View,
   NetInfo,
-  Text,
 } from 'react-native';
 import SelectTeamModal from '../../teams/containers/SelectTeamModal';
 import { OfflineBanner } from '../../offline';
@@ -107,53 +104,19 @@ export default class App extends Component {
       os,
     });
   }
-  
-  _renderLogin() {
-    return (
-      <View style={{ marginTop: 22 }}>
-        <Modal
-          animationType={'none'}
-          style={{ zIndex: 1 }}
-          transparent={false}
-          visible={this.props.userIsAuthenticated !== true}
-          onRequestClose={() => {}}
-        >
-          <View style={{ position: 'absolute', bottom: 100, backgroundColor: 'papayawhip', zIndex: 9999 }}>
-            <Text selectable>token: {this.props.deviceInfo.deviceToken}</Text>
-          </View>
-          <LoginScreen {...this.props} />
-        </Modal>
-      </View>
-    );
-  }
-
-  _renderTeamSelect() {
-    return (
-      <View style={{ marginTop: 22 }}>
-        <Modal
-          animationType={'none'}
-          transparent={false}
-          visible
-          onRequestClose={() => {}}
-        >
-          <SelectTeamModal {...this.props} />
-        </Modal>
-      </View>
-    );
-  }
 
   render() {
     if (!this.props.userIsAuthenticated) {
-      return this._renderLogin();
+      return <LoginScreen />;
     } else if (!this.props.hasSelectedTeam) {
-      return this._renderTeamSelect();
+      return <SelectTeamModal />;
+    } else {
+      return (
+        <AppNavigator
+          onNavigationStateChange={this.onNavigationStateChange}
+        />
+      )
     }
-
-    return (
-      <AppNavigator
-        onNavigationStateChange={this.onNavigationStateChange}
-      />
-    );
   }
 }
 

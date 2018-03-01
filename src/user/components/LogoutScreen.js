@@ -1,16 +1,15 @@
 import React from 'react';
 import {
-  Image,
   StyleSheet,
   Text,
   View,
+  Modal,
 } from 'react-native';
 import PropTypes from 'prop-types';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import {
   InvertButton,
   InvertText,
-  GradientBackground,
-  Navigation,
   Separator,
   LIGHT_BLUE,
   BODY_BACKGROUND,
@@ -18,12 +17,11 @@ import {
   X_AXIS_PADDING,
   LIGHT_GRAY,
 } from '../../shared';
-
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Spinner from './LoginSpinner';
 
 const ICON_SIZE = 22;
 
-class LogoutScene extends React.Component {
+export default class LogoutScene extends React.Component {
   constructor() {
     super();
     this.handleLogout = this.handleLogout.bind(this);
@@ -35,9 +33,12 @@ class LogoutScene extends React.Component {
   }
 
   render() {
-    const { user } = this.props;
+    const { user, apiRequestInProgress } = this.props;
     return (
       <View style={styles.container}>
+        <Modal visible={apiRequestInProgress} transparent>
+          <Spinner />
+        </Modal>
         <View style={styles.card}>
           <View>
             <Text style={[styles.text, styles.header]}>Logged In</Text>
@@ -62,30 +63,10 @@ class LogoutScene extends React.Component {
 }
 
 LogoutScene.propTypes = {
+  apiRequestInProgress: PropTypes.bool.isRequired,
   user: PropTypes.object.isRequired,
   logoutUser: PropTypes.func.isRequired,
 };
-
-export default LogoutScene;
-// export default function LogoutScreen({ logoutUser, user }) {
-//   const initialRoute = {
-//     title: 'User',
-//     index: 0,
-//   };
-//
-//   return (
-//     <Navigation
-//       initialRoute={initialRoute}
-//       renderScene={() => <LogoutScene logoutUser={logoutUser} user={user} />}
-//       onBack={() => {}}
-//     />
-//   );
-// }
-//
-// LogoutScreen.propTypes = {
-//   user: PropTypes.object.isRequired,
-//   logoutUser: PropTypes.func.isRequired,
-// };
 
 const styles = StyleSheet.create({
   container: {

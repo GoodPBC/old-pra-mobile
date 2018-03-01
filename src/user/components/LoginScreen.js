@@ -27,6 +27,7 @@ export default class LoginScreen extends Component {
     super(props);
 
     this.state = {
+      backgroundImageLoaded: false,
       email: 'dhs\\',
       password: null,
       showPassword: false,
@@ -35,6 +36,7 @@ export default class LoginScreen extends Component {
     this._submitForm = this._submitForm.bind(this);
     this._toggleShowPassword = this._toggleShowPassword.bind(this);
     this._enableLoginButton = this._enableLoginButton.bind(this);
+    this.setBackgroundImageLoaded = this.setBackgroundImageLoaded.bind(this);
   }
 
   _enableLoginButton() {
@@ -51,52 +53,63 @@ export default class LoginScreen extends Component {
     this.props.submitLoginCredentials(this.state.email, this.state.password);
   }
 
+  setBackgroundImageLoaded(bool) {
+    return () => this.setState({ backgroundImageLoaded: bool });
+  }
+
   render() {
     return (
-      <ImageContainer testID="LoginScreen">
+      <ImageContainer testID="LoginScreen" onLoadEnd={this.setBackgroundImageLoaded(true)}>
         {!this.props.networkIsConnected && <OfflineBanner />}
-        <View style={styles.wrapper}>
-        {this.props.apiRequestInProgress && !this.props.userIsAuthenticated ? <LoginSpinner /> : null}
-          <Image resizeMode="contain" source={logoImage} style={styles.logo} />
-          <KeyboardAvoidingView behavior="padding" style={styles.form}>
-            <InvertTextInput
-              testID="Username"
-              style={styles.loginModalInput}
-              onChangeText={(email) => this.setState({ email })}
-              autoCorrect={false}
-              autoCapitalize={'none'}
-              placeholder="User ID"
-              value={this.state.email}
-            />
-            <InvertTextInput
-              testID="Password"
-              style={styles.loginModalInput}
-              onChangeText={(password) => this.setState({ password })}
-              autoCorrect={false}
-              autoCapitalize={'none'}
-              secureTextEntry={!this.state.showPassword}
-              placeholder="Password"
-              value={this.state.password}
-            />
-            <View style={styles.showPassword}>
-              <TouchableOpacity style={styles.showPasswordRadio} onPress={this._toggleShowPassword}>
-                <Radio checked={this.state.showPassword} />
-              </TouchableOpacity>
-              <InvertText>Show Password</InvertText>
+        {
+          this.state.backgroundImageLoaded && (
+            <View style={styles.wrapper}>
+            {this.props.apiRequestInProgress && !this.props.userIsAuthenticated ? <LoginSpinner /> : null}
+              <Image resizeMode="contain" source={logoImage} style={styles.logo} />
+              <KeyboardAvoidingView behavior="padding" style={styles.form}>
+                <InvertTextInput
+                  testID="Username"
+                  style={styles.loginModalInput}
+                  onChangeText={(email) => this.setState({ email })}
+                  autoCorrect={false}
+                  autoCapitalize={'none'}
+                  placeholder="User ID"
+                  value={this.state.email}
+                />
+                <InvertTextInput
+                  testID="Password"
+                  style={styles.loginModalInput}
+                  onChangeText={(password) => this.setState({ password })}
+                  autoCorrect={false}
+                  autoCapitalize={'none'}
+                  secureTextEntry={!this.state.showPassword}
+                  placeholder="Password"
+                  value={this.state.password}
+                />
+                <View style={styles.showPassword}>
+                  <TouchableOpacity style={styles.showPasswordRadio} onPress={this._toggleShowPassword}>
+                    <Radio checked={this.state.showPassword} blueBackground />
+                  </TouchableOpacity>
+                  <InvertText>Show Password</InvertText>
+                </View>
+                <InvertButton
+                  disabled={!this._enableLoginButton()}
+                  onPress={this._submitForm}>
+                  Login
+                </InvertButton>
+              </KeyboardAvoidingView>
             </View>
-            <InvertButton
-              disabled={!this._enableLoginButton()}
-              onPress={this._submitForm}>
-              Login
-            </InvertButton>
-          </KeyboardAvoidingView>
-        </View>
+          )
+        }
       </ImageContainer>
     );
   }
 }
 
 LoginScreen.propTypes = {
+  networkIsConnected: PropTypes.bool.isRequired,
+  apiRequestInProgress: PropTypes.bool.isRequired,
+  userIsAuthenticated: PropTypes.bool.isRequired,
   submitLoginCredentials: PropTypes.func.isRequired,
 };
 

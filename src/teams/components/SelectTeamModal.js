@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { StatusBar, Platform, StyleSheet, Text, View } from 'react-native';
 import PropTypes from 'prop-types';
-import DeviceInfo from 'react-native-device-info';
 import SelectTeamScreen from '../containers/SelectTeamScreen';
 import {
   Button,
@@ -41,10 +40,8 @@ export default class SelectTeamModal extends Component {
       );
     }
 
-    const iPhoneXStyle = DeviceInfo.getModel() === 'iPhone X' ? { borderTopWidth: 24, borderTopColor: DARK_BLUE } : {};
-
     return (
-      <View testID="TeamModal" style={[styles.container, iPhoneXStyle]}>
+      <View testID="TeamModal" style={styles.container}>
         <View style={[styles.nav, Platform.OS === 'android' ? styles.androidNav : null]}>
           <Text style={styles.header}>Select a team</Text>
         </View>
@@ -53,6 +50,13 @@ export default class SelectTeamModal extends Component {
     );
   }
 }
+
+SelectTeamModal.propTypes = {
+  fetchTeams: PropTypes.func.isRequired,
+  logoutUser: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired,
+  canSelectTeams: PropTypes.bool.isRequired,
+};
 
 const styles = StyleSheet.create({
   container: {
