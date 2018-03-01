@@ -31,7 +31,11 @@ const middlewares = [
 
 if (__DEV__) {
   const logger = createLogger();
-  // middlewares.push(logger);
+
+  // use logger only in true dev environment
+  if (process.env.NODE_ENV !== 'test') {
+    middlewares.push(logger);
+  }
 }
 
 export default function configureStore() {
