@@ -5,6 +5,7 @@ import {
   GA_TRACK_EVENT,
   GA_TRACK_SCREEN_VIEW,
   CLEAR_ERROR_MESSAGE,
+  SET_API_REQUEST_IN_PROGRESS,
 } from './actionTypes';
 
 export const selectTab = (selectedTab, context = null) => dispatch => {
@@ -46,3 +47,8 @@ export function clearErrorMessage() {
     type: CLEAR_ERROR_MESSAGE,
   };
 }
+
+export const setApiRequestInProgress = apiRequestInProgress => ({
+  type: SET_API_REQUEST_IN_PROGRESS,
+  apiRequestInProgress,
+});

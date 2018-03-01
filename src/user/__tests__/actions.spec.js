@@ -5,7 +5,7 @@ import Config from 'react-native-config';
 
 import * as actions from '../actions';
 import * as actionTypes from '../actionTypes';
-import { API_REQUEST, API_REQUEST_FAILURE } from '../../shared';
+import { API_REQUEST, API_REQUEST_FAILURE, API_REQUEST_SUCCESS } from '../../shared';
 import { UPDATE_TEAM_LOCATION } from '../../teams/actionTypes';
 
 const middlewares = [thunk];
@@ -43,7 +43,9 @@ describe('User Redux Actions', () => {
     );
 
     const expectedActions = [
+      { type: 'SET_API_REQUEST_IN_PROGRESS', apiRequestInProgress: true },
       { type: actionTypes.LOGOUT_USER, user: {} },
+      { type: API_REQUEST_SUCCESS },
     ];
 
     const store = mockStore({ user: {} });
@@ -66,6 +68,7 @@ describe('User Redux Actions', () => {
     );
 
     const expectedActions = [
+      { type: 'SET_API_REQUEST_IN_PROGRESS', apiRequestInProgress: true },
       { type: actionTypes.LOGOUT_USER, user: {} },
       { type: API_REQUEST_FAILURE, error: '400 Bad Request' },
     ];
@@ -111,5 +114,5 @@ describe('User Redux Actions', () => {
 
     store.dispatch(actions.updateUserPosition(position));
     expect(store.getActions()).toEqual(expectedActions);
-  })
+  });
 })

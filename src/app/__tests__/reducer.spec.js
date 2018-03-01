@@ -110,6 +110,22 @@ describe('app reducer', () => {
     Reducer(uut).withState(existingState).expect(action).toReturnState(expectedState);
   });
 
+  it('should set apiRequestInProgress with SET_API_REQUEST_IN_PROGRESS', () => {
+    const action = {
+      type: actionTypes.SET_API_REQUEST_IN_PROGRESS,
+      apiRequestInProgress: true,
+    };
+    const existingState = {
+      ...initialState,
+      apiRequestInProgress: false,
+    };
+    const expectedState = {
+      ...existingState,
+      apiRequestInProgress: true,
+    };
+    Reducer(uut).withState(existingState).expect(action).toReturnState(expectedState);
+  });
+
   it('should handle UPDATE_DEVICE_INFO when no existing info', () => {
     const action = {
       type: actionTypes.UPDATE_DEVICE_INFO,

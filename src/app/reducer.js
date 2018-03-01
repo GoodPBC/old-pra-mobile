@@ -12,6 +12,7 @@ import {
   UPDATE_TAB_CONTEXT,
   UPDATE_DEVICE_INFO,
   CLEAR_ERROR_MESSAGE,
+  SET_API_REQUEST_IN_PROGRESS,
 } from './actionTypes';
 
 export const initialState = {
@@ -44,6 +45,13 @@ export default function reducer(state = initialState, action) {
       }
     }
     // Start the network activity indicator
+    case SET_API_REQUEST_IN_PROGRESS: {
+      const { apiRequestInProgress } = action;
+      return {
+        ...state,
+        apiRequestInProgress,
+      };
+    }
     case API_REQUEST:
       return {
         ...state,

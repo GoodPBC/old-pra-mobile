@@ -95,4 +95,12 @@ describe('App Redux Actions', () => {
     };
     expect(actions.clearErrorMessage()).toEqual(expectedAction);
   });
+
+  it('should create an action to update apiRequestInProgress', () => {
+    const expectedAction = {
+      type: actionTypes.SET_API_REQUEST_IN_PROGRESS,
+      apiRequestInProgress: true,
+    };
+    expect(actions.setApiRequestInProgress(true)).toEqual(expectedAction);
+  });
 });

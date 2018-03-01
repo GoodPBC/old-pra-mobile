@@ -6,9 +6,10 @@ import {
 } from './actionTypes';
 import {
   API_REQUEST,
+  API_REQUEST_SUCCESS,
   API_REQUEST_FAILURE,
-  API_REQUEST_NETWORK_ERROR,
 } from '../shared';
+import { setApiRequestInProgress } from '../app/actions';
 import { updateTeamLocation } from '../teams/actions';
 
 const USER_LOGIN_PATH = 'authenticateuser';
@@ -29,7 +30,9 @@ export function submitLoginCredentials(email, password) {
 }
 
 export function logoutUser(user) {
-  return (dispatch, getState) => {
+  return dispatch => {
+    dispatch(setApiRequestInProgress(true));
+
     const url = Config.BASE_URL + USER_LOGOUT_PATH;
     const header = {
       'Content-Type': 'application/json',
@@ -42,13 +45,14 @@ export function logoutUser(user) {
           throw Error(`${res.status} ${res.statusText}`);
         } else {
           dispatch({ type: LOGOUT_USER, user });
+          dispatch({ type: API_REQUEST_SUCCESS });
         }
       })
       .catch(e => {
         dispatch({ type: LOGOUT_USER, user });
         dispatch({ type: API_REQUEST_FAILURE, error: e.message });
       });
-  }
+  };
 }
 
 export function updateUserPosition(position) {
