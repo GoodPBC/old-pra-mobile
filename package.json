@@ -9,7 +9,7 @@
     "deploy": "fastlane ios beta && fastlane android beta && git ci -a -m \"Version bump\"",
     "ios:bundle": "react-native bundle --dev false --entry-file index.js --bundle-output ios/main.jsbundle --platform ios",
     "android:release": "cd android && ./gradlew assembleRelease && cd ..",
-    "deploy:staging": "yarn run deploy:staging:ios && yarn run d ../deploy:staging:android && git commit -a -m \"New Build\"",
+    "deploy:staging": "yarn run deploy:staging:ios && yarn run deploy:staging:android && git commit -a -m \"New Build\"",
     "deploy:staging:ios": "fastlane ios staging",
     "deploy:staging:android": "fastlane android staging",
     "test": "yarn test:unit",
