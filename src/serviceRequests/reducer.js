@@ -119,35 +119,36 @@ function transformStatus(status) {
 }
 
 export function transformStreetSmartServiceRequests(serviceRequests) {
-  console.log(`Fetched ${serviceRequests.length} SRs`);
+  console.log(`Fetched ${serviceRequests.length} SRs: `, serviceRequests);
   if (!serviceRequests) {
     return [];
   }
 
   const convertedServiceRequests = serviceRequests.map(sr => ({
-      address: trim(sr.Address),
-      borough: trim(sr.Borough),
-      city: trim(sr.City),
-      complaint_details: trim(sr.Complaint_Details),
-      created_at: trim(sr.Created_At),
-      cross_streets: trim(sr.Cross_Streets),
-      location_details: trim(sr.Location_Details),
-      sr_number: trim(sr.SR_Number),
-      state: trim(sr.State),
-      zip: trim(sr.Zip),
-      status: transformStatus(sr.SR_Status),
-
-      email_data_id: trim(sr.EmailDataId),
-      team: trim(sr.Assigned_Team),
-      team_id: sr.Assigned_Team_Id,
-      updated_at: sr.Updated_At,
-      updated_by: sr.Updated_By,
-      actual_onsite_time: sr.Actual_Onsite_Time,
-      resolution_code: transformResolutionCode(sr.ResolutionCode),
-      resolution_notes: sr.ResolutionNotes,
-      provider_name: sr.Assigned_Provider,
-      provider_assigned_time: sr.ProviderAssignedTime,
-    }));
+    address: trim(sr.Address),
+    borough: trim(sr.Borough),
+    city: trim(sr.City),
+    complaint_details: trim(sr.Complaint_Details),
+    created_at: trim(sr.Created_At),
+    cross_streets: trim(sr.Cross_Streets),
+    latitude: sr.Latitude,
+    location_details: trim(sr.Location_Details),
+    longitude: sr.Longitude,
+    sr_number: trim(sr.SR_Number),
+    state: trim(sr.State),
+    zip: trim(sr.Zip),
+    status: transformStatus(sr.SR_Status),
+    email_data_id: trim(sr.EmailDataId),
+    team: trim(sr.Assigned_Team),
+    team_id: sr.Assigned_Team_Id,
+    updated_at: sr.Updated_At,
+    updated_by: sr.Updated_By,
+    actual_onsite_time: sr.Actual_Onsite_Time,
+    resolution_code: transformResolutionCode(sr.ResolutionCode),
+    resolution_notes: sr.ResolutionNotes,
+    provider_name: sr.Assigned_Provider,
+    provider_assigned_time: sr.ProviderAssignedTime,
+  }));
   return convertedServiceRequests;
 }
 
