@@ -10,6 +10,7 @@ import {
   Linking,
 } from 'react-native';
 
+import { getAddress } from '../helpers';
 import {
   BODY_BACKGROUND,
 } from '../../shared';
@@ -137,8 +138,8 @@ export default class MapScreen extends Component {
           longitude,
           sr_number,
           provider_assigned_time,
-          formattedAddress,
         } = serviceRequest;
+        const formattedAddress = getAddress(serviceRequest);
 
         if (!latitude || !longitude) {
           return null;
