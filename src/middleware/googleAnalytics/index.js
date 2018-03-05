@@ -42,6 +42,7 @@ const Categories = {
   USERS: 'Users',
   SERVICE_REQUESTS: 'Service Requests',
   INTERACTIONS: 'Interactions',
+  PUSH_NOTIFICATIONS: 'Push Notifications',
 };
 
 const Actions = {
@@ -53,6 +54,8 @@ const Actions = {
   FETCHED: 'Fetched',
   PRESSED: 'Pressed',
   VIEWED: 'Viewed',
+  REGISTERED: 'Registered',
+  RECEIVED: 'Received',
 };
 
 
@@ -85,11 +88,11 @@ const googleAnalytics = store => next => action => {
     }
     case GA_TRACK_EVENT: {
       const { eventCategory, eventAction, eventLabel } = action;
-      tracker.trackEvent(
-        eventCategory,
-        eventAction,
-        { label: eventLabel }
-      );
+      if (eventLabel) {
+        tracker.trackEvent(eventCategory, eventAction, { label: eventLabel });
+      } else {
+        tracker.trackEvent(eventCategory, eventAction);
+      }
       break;
     }
     case GA_TRACK_SCREEN_VIEW: {

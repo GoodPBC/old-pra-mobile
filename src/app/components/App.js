@@ -96,9 +96,19 @@ export default class App extends Component {
   }
 
   handleNotification(notification) {
+    const { userAccountName } = this.props;
+    this.props.gaTrackEvent(
+      'Push Notifications',
+      'Received',
+      userAccountName || 'Unknown User'
+    );
   }
 
   registerToken({ token, os }) {
+    this.props.gaTrackEvent(
+      'Push Notifications',
+      'Registered'
+    );
     this.props.updateDeviceInfo({
       deviceToken: token,
       os,
@@ -123,6 +133,7 @@ export default class App extends Component {
 App.propTypes = {
   apiRequestInProgress: PropTypes.bool.isRequired,
   clearErrorMessage: PropTypes.func.isRequired,
+  gaTrackEvent: PropTypes.func.isRequired,
   gaTrackScreenView: PropTypes.func.isRequired,
   errorMessage: PropTypes.string,
   updateNetworkStatus: PropTypes.func.isRequired,

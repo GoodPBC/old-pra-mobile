@@ -8,6 +8,7 @@ import App from '../components/App';
 import {
   selectTab,
   updateDeviceInfo,
+  gaTrackEvent,
   gaTrackScreenView,
   clearErrorMessage
 } from '../actions';
@@ -26,6 +27,7 @@ function mapStateToProps(state) {
     hasSelectedTeam: !!getCurrentTeam(state),
     networkIsConnected: state.offline.networkIsConnected,
     userIsAuthenticated: state.user.userIsAuthenticated,
+    userAccountName: state.user.userAccountName,
   };
 }
 
@@ -36,6 +38,7 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     selectTab,
     updateDeviceInfo,
+    gaTrackEvent,
     gaTrackScreenView,
     clearErrorMessage,
     updateNetworkStatus,
