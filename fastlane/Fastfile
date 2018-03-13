@@ -15,15 +15,19 @@ fastlane_version '2.64.1'
 
 default_platform :ios
 
+VERSION = "0.93"
+
 platform :ios do
 
   desc 'Staging Builds'
   lane :staging do
-    version_number = get_version_number(
-      xcodeproj: './ios/ProviderResponseApp.xcodeproj'
+    increment_version_number_in_plist(
+      version_number: VERSION,
+      xcodeproj: './ios/ProviderResponseApp.xcodeproj',
+      scheme: 'ProviderResponseApp-Staging'
     )
     latest_build_number = latest_testflight_build_number(
-      version: version_number
+      version: VERSION
     )
     build_number = latest_build_number + 1
     update_app_identifier(
@@ -57,11 +61,13 @@ platform :ios do
 
   desc 'Beta Builds'
   lane :beta do
-    version_number = get_version_number(
-      xcodeproj: './ios/ProviderResponseApp.xcodeproj'
+    increment_version_number_in_plist(
+      version_number: VERSION,
+      xcodeproj: './ios/ProviderResponseApp.xcodeproj',
+      scheme: 'ProviderResponseApp-Production'
     )
     latest_build_number = latest_testflight_build_number(
-      version: version_number
+      version: VERSION
     )
     build_number = latest_build_number + 1
     update_app_identifier(
@@ -104,7 +110,8 @@ platform :android do
       task: 'assemble',
       build_type: 'ReleaseStaging',
       properties: {
-        versionCode: version_code
+        versionCode: version_code,
+        versionName: VERSION
       }
     )
     sh 'git checkout -- ../android/app/src/main/res/'
@@ -126,7 +133,8 @@ platform :android do
       task: 'assemble',
       build_type: 'Release',
       properties: {
-        versionCode: version_code
+        versionCode: version_code,
+        versionName: VERSION
       }
     )
 
