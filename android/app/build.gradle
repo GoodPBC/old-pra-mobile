@@ -133,7 +133,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 22
         versionCode project.hasProperty('versionCode') ? project.property('versionCode') as int : 1
-        versionName "0.93"
+        versionName "0.94"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
