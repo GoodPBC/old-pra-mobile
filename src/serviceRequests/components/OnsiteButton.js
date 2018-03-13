@@ -42,7 +42,7 @@ export default class OnsiteButton extends Component {
     return (
       <View style={styles.container}>
         <Button onPress={this.confirmAndUpdateStatus}>
-          Tap To Go On Site
+          On Site
         </Button>
         <Separator />
       </View>

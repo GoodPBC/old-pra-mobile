@@ -66,6 +66,7 @@ GEM
       xcpretty-travis-formatter (>= 0.0.3)
     fastlane-plugin-badge (1.0.0)
       badge (~> 0.8.2)
+    fastlane-plugin-versioning (0.3.4)
     gh_inspector (1.0.3)
     google-api-client (0.13.6)
       addressable (~> 2.5, >= 2.5.1)
@@ -147,6 +148,7 @@ PLATFORMS
 DEPENDENCIES
   fastlane
   fastlane-plugin-badge
+  fastlane-plugin-versioning
 
 BUNDLED WITH
    1.15.4
