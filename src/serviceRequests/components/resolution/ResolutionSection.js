@@ -12,19 +12,21 @@ import resolutionIcon from '../img/icon-resolution.png';
 // below, do we need to display it differently here?
 const ResolvedState = () => null;
 const UnresolvedState = ({ goToResolutionScreen }) => (
-  <View style={{ padding: 10 }}>
-    <View style={styles.container}>
-      <Image source={resolutionIcon} />
-      <View style={styles.content}>
-        <View style={{ flexDirection: 'row' }}>
-          <View style={{ flex: 1, alignSelf: 'center' }}>
-            <Text style={{ fontSize: 20 }}>Resolution</Text>
+  <View style={{ paddingHorizontal: 10 }}>
+    <View style={{ paddingVertical: 10 }}>
+      <View style={styles.container}>
+        <Image source={resolutionIcon} />
+        <View style={styles.content}>
+          <View style={{ flexDirection: 'row' }}>
+            <View style={{ flex: 1, alignSelf: 'center' }}>
+              <Text style={{ fontSize: 20 }}>Resolution</Text>
+            </View>
+            <Button
+              style={{ width: 50, height: 50, borderRadius: 25, alignSelf: 'flex-end' }}
+              textStyle={{ fontSize: 25 }}
+              onPress={goToResolutionScreen}
+            >+</Button>
           </View>
-          <Button
-            style={{ width: 50, height: 50, borderRadius: 25, alignSelf: 'flex-end' }}
-            textStyle={{ fontSize: 25 }}
-            onPress={goToResolutionScreen}
-          >+</Button>
         </View>
       </View>
     </View>
@@ -36,7 +38,8 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 10,
+    // backgroundColor: 'red',
+    // marginBottom: 10,
   },
   content: {
     flex: 1,

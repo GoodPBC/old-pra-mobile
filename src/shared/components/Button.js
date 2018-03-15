@@ -36,7 +36,9 @@ export default function Button(props) {
       {...otherProps}
     >
       <View>
-        <Text style={[styles.text, textStyle, disabled ? styles.disabledText : null]}>{children}</Text>
+        <Text style={[styles.text, textStyle, disabled ? styles.disabledText : null]}>
+          {children}
+        </Text>
       </View>
     </TouchableHighlight>
   );

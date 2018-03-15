@@ -26,7 +26,7 @@ export default function TimeSection({ serviceRequest }) {
         {
           serviceRequest.resolution_notes &&
           <Text numberOfLines={3}>
-            "{serviceRequest.resolution_notes}"
+            {`"${serviceRequest.resolution_notes}"`}
           </Text>
         }
       </View>

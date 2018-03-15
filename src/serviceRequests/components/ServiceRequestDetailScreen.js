@@ -13,6 +13,7 @@ import BannerWithNumber from './BannerWithNumber';
 import ResolutionSection from './resolution/ResolutionSection';
 import DetailsSection from './DetailsSection';
 import OnsiteSection from './OnsiteSection';
+import PanhandlingSection from './PanhandlingSection';
 import {
   DARK_BLUE,
   BODY_BACKGROUND
@@ -44,6 +45,7 @@ export default class ServiceRequestDetailScreen extends Component {
         <ScrollView>
           { canGoOnsite && <OnsiteSection {...this.props} /> }
           <ResolutionSection {...this.props} />
+          <PanhandlingSection {...this.props} />
           <DetailsSection
             serviceRequest={serviceRequest}
             switchTab={switchTab}
