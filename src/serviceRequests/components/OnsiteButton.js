@@ -40,11 +40,15 @@ export default class OnsiteButton extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <Button onPress={this.confirmAndUpdateStatus}>
-          On Site
-        </Button>
-        <Separator />
+      <View>
+        <View style={styles.container}>
+          <Button onPress={this.confirmAndUpdateStatus}>
+            On Site
+          </Button>
+        </View>
+        <View style={{ paddingHorizontal: 10 }}>
+          <Separator />
+        </View>
       </View>
     );
   }
@@ -57,11 +61,8 @@ OnsiteButton.propTypes = {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    paddingRight: 10,
-    paddingTop: 20,
-    paddingBottom: 20,
-    paddingLeft: 10,
+    padding: 10,
+    paddingVertical: 20,
   },
   offContainer: {
     flex: 1,
