@@ -5,8 +5,9 @@ import {
   SELECT_SERVICE_REQUEST,
   SELECT_SERVICE_REQUEST_RESOLUTION,
   UPDATE_RESOLUTION_NOTES,
-
   RESOLUTION_CODES,
+  UPDATE_PANHANDLING,
+  UPDATE_INTERACTION_SUMMARY,
 } from './actionTypes';
 
 import {
@@ -182,9 +183,34 @@ export default function reducer(state = initialState, action) {
       };
     case LOGOUT_USER:
       return initialState;
+    case UPDATE_PANHANDLING:
+      return updatePanhandling(state, action);
     default:
       return state;
   }
+}
+
+function updatePanhandling(state, action) {
+  const serviceRequests = [...state.serviceRequests];
+
+  const idx = serviceRequests.findIndex(sr => (
+    sr.sr_number === action.serviceRequest.sr_number
+  ));
+
+  if (idx === -1) {
+    return state;
+  }
+
+  serviceRequests[idx] = {
+    ...action.serviceRequest,
+    panhandling: action.value,
+    interaction_summary: action.summary,
+  };
+
+  return {
+    ...state,
+    serviceRequests,
+  };
 }
 
 function updatePendingStatus(state, action) {

@@ -29,6 +29,8 @@ export const UPDATE_RESOLUTION_NOTES = 'UPDATE_RESOLUTION_NOTES';
 
 export const UPDATE_PING_RESPONSE = 'UPDATE_PING_RESPONSE';
 
+export const UPDATE_PANHANDLING = 'UPDATE_PANHANDLING';
+
 
 export const RESOLUTION_CODES = {
   assistance_offered: 1,

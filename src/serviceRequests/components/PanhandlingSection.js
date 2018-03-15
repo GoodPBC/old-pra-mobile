@@ -40,13 +40,25 @@ export default class PanhandlingSection extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedValue: null,
+      panhandling: props.serviceRequest.panhandling,
+      summary: props.serviceRequest.interaction_summary,
     };
     this.onSelect = this.onSelect.bind(this);
+    this.onChangeText = this.onChangeText.bind(this);
+    this.onSave = this.onSave.bind(this);
   }
 
   onSelect(value) {
-    this.setState({ selectedValue: value });
+    this.setState({ panhandling: value });
+  }
+  
+  onChangeText(value) {
+    this.setState({ summary: value });
+  }
+  
+  onSave() {
+    const { panhandling, summary } = this.state;
+    this.props.updatePanhandling(this.props.serviceRequest, panhandling, summary);
   }
 
   render() {
@@ -79,7 +91,7 @@ export default class PanhandlingSection extends Component {
                     />
                     <RadioButtonInput
                       obj={option}
-                      isSelected={this.state.selectedValue === option.value}
+                      isSelected={this.state.panhandling === option.value}
                       onPress={this.onSelect}
                       borderWidth={1}
                       buttonInnerColor={DARK_GRAY}
@@ -96,18 +108,13 @@ export default class PanhandlingSection extends Component {
           <TextInput
             multiline
             style={styles.textInput}
-            onChangeText={notes => this.updateResolutionNotes(notes)}
+            onChangeText={this.onChangeText}
             placeholder="Enter your summary here"
-            value={this.props.resolutionNotes}
+            value={this.state.summary}
           />
           <Button
             style={{ height: 40, marginTop: 10 }}
-            onPress={() => {
-              Alert.alert(
-                'Thank you!',
-                'But it doesn\'t actually save it yet!'
-              );
-            }}
+            onPress={this.onSave}
           >
             Save
           </Button>

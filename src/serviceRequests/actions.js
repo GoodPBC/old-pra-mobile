@@ -11,7 +11,8 @@ import {
   UPDATE_ONSITE_STATUS,
   ADD_CONTACT_TO_SERVICE_REQUEST,
   UPDATE_RESOLUTION_NOTES,
-  UPDATE_PING_RESPONSE
+  UPDATE_PING_RESPONSE,
+  UPDATE_PANHANDLING,
 } from './actionTypes';
 import {
   momentToStr,
@@ -184,5 +185,14 @@ export function updateServiceRequestPingResponse(pingResponse) {
       endpoint: 'updatepingresponse',
       requestParams,
     });
+  };
+}
+
+export function updatePanhandling(serviceRequest, value, summary) {
+  return {
+    type: UPDATE_PANHANDLING,
+    serviceRequest,
+    value,
+    summary,
   };
 }
