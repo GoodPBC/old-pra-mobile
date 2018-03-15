@@ -36,9 +36,6 @@ export default class LogoutScene extends React.Component {
     const { user, apiRequestInProgress } = this.props;
     return (
       <View style={styles.container}>
-        <Modal visible={apiRequestInProgress} transparent>
-          <Spinner />
-        </Modal>
         <View style={styles.card}>
           <View>
             <Text style={[styles.text, styles.header]}>Logged In</Text>

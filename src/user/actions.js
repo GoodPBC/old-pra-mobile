@@ -31,6 +31,7 @@ export function submitLoginCredentials(email, password) {
 
 export function logoutUser(user) {
   return dispatch => {
+    dispatch({ type: LOGOUT_USER, user });
     dispatch(setApiRequestInProgress(true));
 
     const url = Config.BASE_URL + USER_LOGOUT_PATH;
@@ -40,18 +41,16 @@ export function logoutUser(user) {
       userid: user.userId,
     };
     return fetch(url, { header })
-      .then(res => {
-        if (!res.ok) {
-          throw Error(`${res.status} ${res.statusText}`);
-        } else {
-          dispatch({ type: LOGOUT_USER, user });
-          dispatch({ type: API_REQUEST_SUCCESS });
-        }
-      })
-      .catch(e => {
-        dispatch({ type: LOGOUT_USER, user });
-        dispatch({ type: API_REQUEST_FAILURE, error: e.message });
-      });
+    .then(res => {
+      if (!res.ok) {
+        throw Error(`${res.status} ${res.statusText}`);
+      } else {
+        dispatch({ type: API_REQUEST_SUCCESS });
+      }
+    })
+    .catch(e => {
+      dispatch({ type: API_REQUEST_FAILURE, error: e.message });
+    });
   };
 }
 
