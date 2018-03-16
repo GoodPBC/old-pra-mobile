@@ -42,7 +42,7 @@ export default class ServiceRequestDetailScreen extends Component {
     return (
       <View style={styles.container}>
         <BannerWithNumber serviceRequest={serviceRequest} />
-        <ScrollView 
+        <ScrollView
           keyboardShouldPersistTaps="always"
           keyboardDismissMode="on-drag"
         >
