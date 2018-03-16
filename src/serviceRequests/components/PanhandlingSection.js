@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { Alert, Platform, StyleSheet, Text, View, TextInput } from 'react-native';
+import { Alert, Platform, StyleSheet, Text, View, TextInput, Keyboard } from 'react-native';
 import RadioForm, {
   RadioButton,
   RadioButtonInput,
@@ -40,6 +40,7 @@ export default class PanhandlingSection extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      disableSaveButton: true,
       panhandling: props.serviceRequest.panhandling,
       summary: props.serviceRequest.interaction_summary,
     };
@@ -49,15 +50,23 @@ export default class PanhandlingSection extends Component {
   }
 
   onSelect(value) {
-    this.setState({ panhandling: value });
+    this.setState({
+      disableSaveButton: false,
+      panhandling: value
+    });
   }
   
   onChangeText(value) {
-    this.setState({ summary: value });
+    this.setState({ 
+      disableSaveButton: false,
+      summary: value,
+    });
   }
   
   onSave() {
     const { panhandling, summary } = this.state;
+    this.setState({ disableSaveButton: true });
+    Keyboard.dismiss();
     this.props.updatePanhandling(this.props.serviceRequest, panhandling, summary);
   }
 
@@ -115,6 +124,7 @@ export default class PanhandlingSection extends Component {
           <Button
             style={{ height: 40, marginTop: 10 }}
             onPress={this.onSave}
+            disabled={this.state.disableSaveButton}
           >
             Save
           </Button>
