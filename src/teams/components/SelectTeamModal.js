@@ -27,7 +27,7 @@ export default class SelectTeamModal extends Component {
 
     if (!this.props.canSelectTeams) {
       return (
-        <View style={[styles.container, {padding: 20, justifyContent: 'center'}]}>
+        <View style={[styles.container, { padding: 20, justifyContent: 'center' }]}>
           <StatusBar barStyle="dark-content" />
           <Text style={styles.warning}>You are unable to join a street team. You are currently logged in as {user.userAccountName}. Please contact a DHS
             administrator if you believe that you should
@@ -61,6 +61,7 @@ SelectTeamModal.propTypes = {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: 'white',
   },
   header: {
     fontSize: 18,
