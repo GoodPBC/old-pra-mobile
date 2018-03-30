@@ -12,7 +12,7 @@ import {
   ADD_CONTACT_TO_SERVICE_REQUEST,
   UPDATE_RESOLUTION_NOTES,
   UPDATE_PING_RESPONSE,
-  UPDATE_PANHANDLING,
+  UPDATE_PANHANDLING_RESPONSE,
 } from './actionTypes';
 import {
   momentToStr,
@@ -188,11 +188,25 @@ export function updateServiceRequestPingResponse(pingResponse) {
   };
 }
 
-export function updatePanhandling(serviceRequest, value, summary) {
-  return {
-    type: UPDATE_PANHANDLING,
-    serviceRequest,
-    value,
-    summary,
-  };
+export function updatePanhandlingResponse(serviceRequest, panhandling, summary) {
+	return (dispatch, getState) => {
+		const { userId } = getState().user;
+	
+		const requestParams = {
+			InteractionSummary: summary,
+			IsClientPanhandling: panhandling,
+			ModifiedAt: Date.now(),
+			ModifiedBy: userId,
+			SR_Number: serviceRequest.sr_number,
+		};
+
+		return {
+			type: API_REQUEST,
+			actionName: UPDATE_PANHANDLING_RESPONSE,
+			requestMethod: 'POST',
+			requestPath: 'updatepanhandlingresponse',
+			endpoint: 'updatepanhandlingresponse',
+			requestParams,
+		};
+	}
 }

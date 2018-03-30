@@ -60,6 +60,7 @@ export default class ServiceRequestDetailScreen extends Component {
 }
 
 ServiceRequestDetailScreen.propTypes = {
+	updatePanhandlingResponse: PropTypes.func.isRequired,
   serviceRequest: PropTypes.object,
   unselectServiceRequest: PropTypes.func.isRequired,
   updateOnsiteStatus: PropTypes.func.isRequired,

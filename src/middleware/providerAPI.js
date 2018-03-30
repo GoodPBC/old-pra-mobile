@@ -18,7 +18,8 @@ const API_ENDPOINTS = [
   'update311servicerequests',
   'updatepingresponse',
   'login',
-  'updateteamlocation',
+	'updateteamlocation',
+	'updatepanhandlingresponse',
 ];
 
 function authenticationHeaders(store) {

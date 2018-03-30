@@ -6,8 +6,6 @@ import {
   SELECT_SERVICE_REQUEST_RESOLUTION,
   UPDATE_RESOLUTION_NOTES,
   RESOLUTION_CODES,
-  UPDATE_PANHANDLING,
-  UPDATE_INTERACTION_SUMMARY,
 } from './actionTypes';
 
 import {
@@ -131,7 +129,9 @@ export function transformStreetSmartServiceRequests(serviceRequests) {
     city: trim(sr.City),
     complaint_details: trim(sr.Complaint_Details),
     created_at: trim(sr.Created_At),
-    cross_streets: trim(sr.Cross_Streets),
+		cross_streets: trim(sr.Cross_Streets),
+		interaction_summary: trim(sr.InteractionSummary),
+		is_client_panhandling: sr.IsClientPanhandling,
     latitude: sr.Latitude,
     location_details: trim(sr.Location_Details),
     longitude: sr.Longitude,
@@ -183,34 +183,9 @@ export default function reducer(state = initialState, action) {
       };
     case LOGOUT_USER:
       return initialState;
-    case UPDATE_PANHANDLING:
-      return updatePanhandling(state, action);
     default:
       return state;
   }
-}
-
-function updatePanhandling(state, action) {
-  const serviceRequests = [...state.serviceRequests];
-
-  const idx = serviceRequests.findIndex(sr => (
-    sr.sr_number === action.serviceRequest.sr_number
-  ));
-
-  if (idx === -1) {
-    return state;
-  }
-
-  serviceRequests[idx] = {
-    ...action.serviceRequest,
-    panhandling: action.value,
-    interaction_summary: action.summary,
-  };
-
-  return {
-    ...state,
-    serviceRequests,
-  };
 }
 
 function updatePendingStatus(state, action) {

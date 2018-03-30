@@ -41,7 +41,7 @@ export default class PanhandlingSection extends Component {
     super(props);
     this.state = {
       disableSaveButton: true,
-      panhandling: props.serviceRequest.panhandling,
+      panhandling: props.serviceRequest.is_client_panhandling,
       summary: props.serviceRequest.interaction_summary,
     };
     this.onSelect = this.onSelect.bind(this);
@@ -62,12 +62,16 @@ export default class PanhandlingSection extends Component {
       summary: value,
     });
   }
-  
+
   onSave() {
     const { panhandling, summary } = this.state;
     this.setState({ disableSaveButton: true });
     Keyboard.dismiss();
-    this.props.updatePanhandling(this.props.serviceRequest, panhandling, summary);
+    this.props.updatePanhandlingResponse(
+			this.props.serviceRequest,
+			panhandling,
+			summary
+		);
   }
 
   render() {
