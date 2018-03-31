@@ -69,7 +69,6 @@ const s = StyleSheet.create({
     paddingBottom: 10,
     paddingLeft: 20,
     paddingRight: 20,
-    marginBottom: 10
   },
   button: {
     flex: 1,

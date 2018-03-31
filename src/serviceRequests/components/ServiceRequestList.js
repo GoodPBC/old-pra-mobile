@@ -208,6 +208,7 @@ class ServiceRequestList extends Component {
           <EmptyServiceRequestList type="closed" currentTeam={this.props.currentTeam} />
         }
         <ListView
+          style={{ paddingTop: 10 }}
           removeClippedSubviews={false}
           dataSource={this.state.dataSource}
           renderRow={this._renderRow}
