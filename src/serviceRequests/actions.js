@@ -189,24 +189,24 @@ export function updateServiceRequestPingResponse(pingResponse) {
 }
 
 export function updatePanhandlingResponse(serviceRequest, panhandling, summary) {
-	return (dispatch, getState) => {
-		const { userId } = getState().user;
-	
-		const requestParams = {
-			InteractionSummary: summary,
-			IsClientPanhandling: panhandling,
-			ModifiedAt: Date.now(),
-			ModifiedBy: userId,
-			SR_Number: serviceRequest.sr_number,
-		};
+  return (dispatch, getState) => {
+    const { userId } = getState().user;
 
-		return {
-			type: API_REQUEST,
-			actionName: UPDATE_PANHANDLING_RESPONSE,
-			requestMethod: 'POST',
-			requestPath: 'updatepanhandlingresponse',
-			endpoint: 'updatepanhandlingresponse',
-			requestParams,
-		};
-	}
+    const requestParams = {
+      InteractionSummary: summary,
+      IsClientPanhandling: panhandling,
+      ModifiedAt: Date.now(),
+      ModifiedBy: userId,
+      SR_Number: serviceRequest.sr_number,
+    };
+
+    dispatch({
+      type: API_REQUEST,
+      actionName: UPDATE_PANHANDLING_RESPONSE,
+      requestMethod: 'POST',
+      requestPath: 'updatepanhandlingresponse',
+      endpoint: 'updatepanhandlingresponse',
+      requestParams,
+    });
+  }
 }
