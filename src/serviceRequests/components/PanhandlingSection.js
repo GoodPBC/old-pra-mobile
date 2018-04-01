@@ -55,7 +55,7 @@ export default class PanhandlingSection extends Component {
       panhandling: value
     });
   }
-  
+
   onChangeText(value) {
     this.setState({ 
       disableSaveButton: false,
@@ -68,10 +68,10 @@ export default class PanhandlingSection extends Component {
     this.setState({ disableSaveButton: true });
     Keyboard.dismiss();
     this.props.updatePanhandlingResponse(
-			this.props.serviceRequest,
-			panhandling,
-			summary
-		);
+      this.props.serviceRequest,
+      panhandling,
+      summary
+    );
   }
 
   render() {
