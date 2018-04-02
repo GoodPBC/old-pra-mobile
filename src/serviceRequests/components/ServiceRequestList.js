@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import moment from 'moment';
 import { withNavigation } from 'react-navigation';
+import Storage from 'react-native-storage';
 
 import Separator from '../../shared/components/Separator';
 
@@ -17,15 +18,13 @@ import ServiceRequestFilters from './ServiceRequestFilters';
 import UrgentServiceRequestModal from './UrgentServiceRequestModal';
 import EmptyServiceRequestList from './EmptyServiceRequestList';
 
-import Storage from 'react-native-storage';
-
 // store as redux
-var storage = new Storage({
+const storage = new Storage({
     size: 1000,
     storageBackend: AsyncStorage,
-    defaultExpires: 1000 * 3600 * 24 * 30, //one month
+    defaultExpires: 1000 * 3600 * 24 * 30, // one month
     enableCache: true,
-})
+});
 
 const FILTERS = {
   ACTIVE: 'active',
@@ -92,7 +91,7 @@ class ServiceRequestList extends Component {
     }).then(ret => {
       this.setState({
         resolvedUrgentServiceRequests: ret
-      })
+      });
     }).catch(err => {
       storage.save({
         key: 'resolvedUrgentServiceRequests',
@@ -100,17 +99,17 @@ class ServiceRequestList extends Component {
       });
       this.setState({
         resolvedUrgentServiceRequests: []
-      })
+      });
     });
   }
 
 
   dismissUrgentServiceRequests(usr) {
-    let resolvedUrgentServiceRequests = this.state.resolvedUrgentServiceRequests;
-    for (var i = 0; i < usr.length; i++) {
+    const resolvedUrgentServiceRequests = this.state.resolvedUrgentServiceRequests;
+    for (let i = 0; i < usr.length; i++) {
       resolvedUrgentServiceRequests.push(usr[i].sr_number);
 
-      let pingResponse = {
+      const pingResponse = {
         actualOnsiteTime: usr[i].timeOnsite,
         modifiedAt: moment(),
         pingNote: usr[i].reasonName,
@@ -120,16 +119,12 @@ class ServiceRequestList extends Component {
       this.props.updateServiceRequestPingResponse(pingResponse)
     }
 
-    this.setState({
-      resolvedUrgentServiceRequests: resolvedUrgentServiceRequests
-    })
-
+    this.setState({ resolvedUrgentServiceRequests });
 
     storage.save({
       key: 'resolvedUrgentServiceRequests',
       rawData: resolvedUrgentServiceRequests,
     });
-
 
     this.setState({
       urgentServiceRequests: []
@@ -137,17 +132,17 @@ class ServiceRequestList extends Component {
   }
 
   removeRequestFromModal(request){
-    let urgentServiceRequests = this.state.urgentServiceRequests;
-    for (var i = 0; i < urgentServiceRequests.length; i++ ) {
+    const urgentServiceRequests = this.state.urgentServiceRequests;
+    for (let i = 0; i < urgentServiceRequests.length; i++) {
       if (urgentServiceRequests[i].sr_number === request.sr_number) {
-        urgentServiceRequests.splice(i, 1)
+        urgentServiceRequests.splice(i, 1);
         this.setState({
           urgentServiceRequests
-        })
-        break
+        });
+        break;
       }
     }
-    //dismiss modal if empty
+    // dismiss modal if empty
   }
 
   _selectServiceRequest(serviceRequest) {
