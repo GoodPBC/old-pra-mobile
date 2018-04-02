@@ -15,7 +15,7 @@ fastlane_version '2.64.1'
 
 default_platform :ios
 
-VERSION = "0.94"
+VERSION = "0.94.0"
 
 platform :ios do
 
@@ -27,7 +27,9 @@ platform :ios do
       scheme: 'ProviderResponseApp-Staging'
     )
     latest_build_number = latest_testflight_build_number(
-      version: VERSION
+      version: VERSION,
+      app_identifier: 'gov.nyc.dhs.providerresponse.staging',
+      initial_build_number: 0,
     )
     build_number = latest_build_number + 1
     update_app_identifier(
@@ -67,7 +69,9 @@ platform :ios do
       scheme: 'ProviderResponseApp-Production'
     )
     latest_build_number = latest_testflight_build_number(
-      version: VERSION
+      version: VERSION,
+      app_identifier: 'gov.nyc.dhs.providerresponse.staging',
+      initial_build_number: 0,
     )
     build_number = latest_build_number + 1
     update_app_identifier(
