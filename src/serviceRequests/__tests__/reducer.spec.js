@@ -209,4 +209,94 @@ describe('service requests reducer', () => {
     Reducer(uut).withState(existingState).expect(action).toReturnState(initialState);
   });
 
+  it('should set panhandlingResponseRequestStatus to in_progress', () => {
+    const serviceRequest = { sr_number: '12345' };
+    const action = {
+      type: actionTypes.UPDATE_PANHANDLING_RESPONSE_REQUEST,
+      serviceRequest,
+    };
+    const existingState = {
+      ...initialState,
+      serviceRequests: [
+        { sr_number: '12345' },
+        { sr_number: '67890' },
+      ],
+    };
+    const expectedState = {
+      ...existingState,
+      serviceRequests: [
+        { sr_number: '12345', panhandlingResponseRequestStatus: 'in_progress' },
+        { sr_number: '67890' },
+      ],
+    };
+    Reducer(uut).withState(existingState).expect(action).toReturnState(expectedState);
+  });
+
+  it('should set panhandlingResponseRequestStatus to success when the api request succeeds', () => {
+    const serviceRequest = { sr_number: '12345' };
+    const action = {
+      type: actionTypes.UPDATE_PANHANDLING_RESPONSE_SUCCESS,
+      data: {
+        Service_Requests: [
+          {
+            SR_Number: '12345',
+            InteractionSummary: 'summary',
+            IsClientPanhandling: true,
+          }
+        ]
+      },
+    };
+    const existingState = {
+      ...initialState,
+      serviceRequests: [
+        { sr_number: '12345', panhandlingResponseRequestStatus: 'in_progress' },
+        { sr_number: '67890' },
+      ],
+    };
+    const expectedState = {
+      ...existingState,
+      serviceRequests: [
+        { 
+          sr_number: '12345', 
+          panhandlingResponseRequestStatus: 'success', 
+          interaction_summary: 'summary', 
+          is_client_panhandling: true,
+        },
+        { sr_number: '67890' },
+      ],
+    };
+    Reducer(uut).withState(existingState).expect(action).toReturnState(expectedState);
+  });
+
+  it('should set panhandlingResponseRequestStatus to success when the api request fails', () => {
+    const action = {
+      type: actionTypes.UPDATE_PANHANDLING_RESPONSE_FAILURE,
+      request: {
+        requestParams: [{
+          SR_Number: '12345',
+        }],
+      },
+    };
+    const existingState = {
+      ...initialState,
+      serviceRequests: [
+        { sr_number: '12345', panhandlingResponseRequestStatus: 'in_progress' },
+        { sr_number: '67890' },
+      ],
+    };
+    const expectedState = {
+      ...existingState,
+      serviceRequests: [
+        { 
+          sr_number: '12345', 
+          panhandlingResponseRequestStatus: 'failure',
+        },
+        { sr_number: '67890' },
+      ],
+    };
+    Reducer(uut).withState(existingState).expect(action).toReturnState(expectedState);
+  });
+
+
+
 });
