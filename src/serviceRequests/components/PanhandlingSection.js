@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import {
-  ActivityIndicator,
   Platform,
   StyleSheet,
   Text,
@@ -14,6 +13,7 @@ import RadioForm, {
   RadioButtonInput,
   RadioButtonLabel,
 } from 'react-native-simple-radio-button';
+import moment from 'moment';
 import {
   Button,
   Separator,
@@ -109,8 +109,11 @@ export default class PanhandlingSection extends Component {
     Keyboard.dismiss();
     this.props.updatePanhandlingResponse(
       this.props.serviceRequest,
-      panhandling,
-      summary
+      {
+        isClientPanhandling: panhandling,
+        interactionSummary: summary,
+        modifiedAt: moment(),
+      }
     );
   }
 

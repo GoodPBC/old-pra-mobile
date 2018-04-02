@@ -87,6 +87,7 @@ export function timeDescriptor(serviceRequest) {
     case 'visit_complete':
       name = serviceRequest.updated_by;
       return `${name} resolved`;
-    default: return 'unknown';
+    default:
+      return 'unknown';
   }
 }

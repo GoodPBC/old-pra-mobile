@@ -112,7 +112,7 @@ class ServiceRequestList extends Component {
 
       let pingResponse = {
         actualOnsiteTime: usr[i].timeOnsite,
-        modifiedAt: Date.now(),
+        modifiedAt: moment(),
         pingNote: usr[i].reasonName,
         reasonId: usr[i].reasonId,
         srNumber: usr[i].sr_number

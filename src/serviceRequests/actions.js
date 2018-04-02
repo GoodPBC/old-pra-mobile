@@ -173,7 +173,7 @@ export function updateServiceRequestPingResponse(pingResponse) {
 
     const requestParams = {
       ActualOnsiteTime: pingResponse.actualOnsiteTime,
-      ModifiedAt: pingResponse.modifiedAt,
+      ModifiedAt: momentToStr(pingResponse.modifiedAt),
       ModifiedBy: userId,
       PingNote: pingResponse.pingNote,
       ReasonId: pingResponse.reasonId,
@@ -191,14 +191,15 @@ export function updateServiceRequestPingResponse(pingResponse) {
   };
 }
 
-export function updatePanhandlingResponse(serviceRequest, panhandling, summary) {
+export function updatePanhandlingResponse(serviceRequest, response) {
   return (dispatch, getState) => {
     const { userId } = getState().user;
+    const { interactionSummary, isClientPanhandling, modifiedAt } = response;
 
     const requestParams = [{
-      InteractionSummary: summary,
-      IsClientPanhandling: panhandling,
-      ModifiedAt: Date.now(),
+      InteractionSummary: interactionSummary,
+      IsClientPanhandling: isClientPanhandling,
+      ModifiedAt: momentToStr(modifiedAt),
       ModifiedBy: userId,
       SR_Number: serviceRequest.sr_number,
     }];

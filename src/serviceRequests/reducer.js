@@ -167,7 +167,8 @@ export default function reducer(state = initialState, action) {
     case SELECT_SERVICE_REQUEST: // Works offline
       return selectServiceRequest(state, action);
     case UPDATE_PANHANDLING_RESPONSE_REQUEST:
-      return updateForPanhandlingResponseRequest(state, action, {
+      return updateServiceRequests(state, {
+        ...action.serviceRequest,
         panhandlingResponseRequestStatus: 'in_progress',
       });
     case UPDATE_PANHANDLING_RESPONSE_SUCCESS: {
@@ -215,13 +216,6 @@ export default function reducer(state = initialState, action) {
     default:
       return state;
   }
-}
-
-function updateForPanhandlingResponseRequest(state, action, data) {
-  return updateServiceRequests(state, {
-    ...action.serviceRequest,
-    ...data,
-  });
 }
 
 function updatePendingStatus(state, action) {
