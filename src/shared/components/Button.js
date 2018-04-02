@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  ActivityIndicator,
   TouchableHighlight,
   StyleSheet,
   Text,
@@ -13,6 +14,7 @@ export default function Button(props) {
   const {
     disabled,
     disabledContainerStyle,
+    loading,
     style,
     textStyle,
     children,
@@ -35,11 +37,17 @@ export default function Button(props) {
       underlayColor={'gray'}
       {...otherProps}
     >
-      <View>
-        <Text style={[styles.text, textStyle, disabled ? styles.disabledText : null]}>
-          {children}
-        </Text>
-      </View>
+      {
+        loading
+        ? <ActivityIndicator color="white" />
+        : (
+          <View>
+            <Text style={[styles.text, textStyle, disabled ? styles.disabledText : null]}>
+              {children}
+            </Text>
+          </View>
+        )
+      }
     </TouchableHighlight>
   );
 }
