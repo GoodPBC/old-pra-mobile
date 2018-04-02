@@ -43,8 +43,8 @@ describe('User Redux Actions', () => {
     );
 
     const expectedActions = [
-      { type: 'SET_API_REQUEST_IN_PROGRESS', apiRequestInProgress: true },
       { type: actionTypes.LOGOUT_USER, user: {} },
+      { type: 'SET_API_REQUEST_IN_PROGRESS', apiRequestInProgress: true },
       { type: API_REQUEST_SUCCESS },
     ];
 
@@ -68,8 +68,8 @@ describe('User Redux Actions', () => {
     );
 
     const expectedActions = [
-      { type: 'SET_API_REQUEST_IN_PROGRESS', apiRequestInProgress: true },
       { type: actionTypes.LOGOUT_USER, user: {} },
+      { type: 'SET_API_REQUEST_IN_PROGRESS', apiRequestInProgress: true },
       { type: API_REQUEST_FAILURE, error: '400 Bad Request' },
     ];
 
