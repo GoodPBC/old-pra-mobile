@@ -192,13 +192,13 @@ export function updatePanhandlingResponse(serviceRequest, panhandling, summary) 
   return (dispatch, getState) => {
     const { userId } = getState().user;
 
-    const requestParams = {
+    const requestParams = [{
       InteractionSummary: summary,
       IsClientPanhandling: panhandling,
       ModifiedAt: Date.now(),
       ModifiedBy: userId,
       SR_Number: serviceRequest.sr_number,
-    };
+    }];
 
     dispatch({
       type: API_REQUEST,
