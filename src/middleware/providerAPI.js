@@ -18,8 +18,8 @@ const API_ENDPOINTS = [
   'update311servicerequests',
   'updatepingresponse',
   'login',
-	'updateteamlocation',
-	'updatepanhandlingresponse',
+  'updateteamlocation',
+  'updatepanhandlingresponse',
 ];
 
 function authenticationHeaders(store) {
@@ -36,6 +36,7 @@ function authenticationHeaders(store) {
 async function makeRequestAndDispatchResponse({ action, store }) {
   const {
     onSuccess,
+    onFailure,
     requestMethod,
     requestParams,
     actionName,
@@ -49,7 +50,7 @@ async function makeRequestAndDispatchResponse({ action, store }) {
       type: `${actionName}_SUCCESS`,
       data: json,
     });
-    if (onSuccess) {
+    if (typeof onSuccess === 'function') {
       onSuccess();
     }
   }
@@ -60,6 +61,14 @@ async function makeRequestAndDispatchResponse({ action, store }) {
       action,
       error,
     });
+    store.dispatch({
+      type: `${actionName}_FAILURE`,
+      request: action,
+      error,
+    });
+    if (typeof onFailure === 'function') {
+      onFailure();
+    }
   }
 
   function dispatchFailure(status, error) {
@@ -79,6 +88,9 @@ async function makeRequestAndDispatchResponse({ action, store }) {
       status,
       error,
     });
+    if (typeof onFailure === 'function') {
+      onFailure();
+    }
   }
 
   const url = `${Config.BASE_URL}${action.requestPath}`;

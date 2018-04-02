@@ -6,6 +6,9 @@ import {
   SELECT_SERVICE_REQUEST_RESOLUTION,
   UPDATE_RESOLUTION_NOTES,
   RESOLUTION_CODES,
+  UPDATE_PANHANDLING_RESPONSE_REQUEST,
+  UPDATE_PANHANDLING_RESPONSE_SUCCESS,
+  UPDATE_PANHANDLING_RESPONSE_FAILURE,
 } from './actionTypes';
 
 import {
@@ -118,20 +121,19 @@ function transformStatus(status) {
 }
 
 export function transformStreetSmartServiceRequests(serviceRequests) {
-  console.log(`Fetched ${serviceRequests.length} SRs: `, serviceRequests);
+  console.log(`Fetched ${serviceRequests.length} SRs`);
   if (!serviceRequests) {
     return [];
   }
-
   const convertedServiceRequests = serviceRequests.map(sr => ({
     address: trim(sr.Address),
     borough: trim(sr.Borough),
     city: trim(sr.City),
     complaint_details: trim(sr.Complaint_Details),
     created_at: trim(sr.Created_At),
-		cross_streets: trim(sr.Cross_Streets),
-		interaction_summary: trim(sr.InteractionSummary),
-		is_client_panhandling: sr.IsClientPanhandling,
+    cross_streets: trim(sr.Cross_Streets),
+    interaction_summary: trim(sr.InteractionSummary),
+    is_client_panhandling: sr.IsClientPanhandling,
     latitude: sr.Latitude,
     location_details: trim(sr.Location_Details),
     longitude: sr.Longitude,
@@ -147,6 +149,7 @@ export function transformStreetSmartServiceRequests(serviceRequests) {
     actual_onsite_time: sr.Actual_Onsite_Time,
     resolution_code: transformResolutionCode(sr.ResolutionCode),
     resolution_notes: sr.ResolutionNotes,
+    panhandlingResponseRequestStatus: null,
     provider_name: sr.Assigned_Provider,
     provider_assigned_time: sr.ProviderAssignedTime,
   }));
@@ -163,6 +166,32 @@ export default function reducer(state = initialState, action) {
       return touchAllServiceRequests(state);
     case SELECT_SERVICE_REQUEST: // Works offline
       return selectServiceRequest(state, action);
+    case UPDATE_PANHANDLING_RESPONSE_REQUEST:
+      return updateForPanhandlingResponseRequest(state, action, {
+        panhandlingResponseRequestStatus: 'in_progress',
+      });
+    case UPDATE_PANHANDLING_RESPONSE_SUCCESS: {
+      const updatedServiceRequest = action.data.Service_Requests[0];
+      const serviceRequestToUpdate = state.serviceRequests.find(serviceRequest => (
+        serviceRequest.sr_number === updatedServiceRequest.SR_Number
+      ));
+      return updateServiceRequests(state, {
+        ...serviceRequestToUpdate,
+        is_client_panhandling: updatedServiceRequest.IsClientPanhandling,
+        interaction_summary: updatedServiceRequest.InteractionSummary,
+        panhandlingResponseRequestStatus: 'success',
+      });
+    }
+    case UPDATE_PANHANDLING_RESPONSE_FAILURE:
+      const { request } = action;
+      const serviceRequestNumber = request.requestParams[0].SR_Number;
+      const serviceRequestToUpdate = state.serviceRequests.find(serviceRequest => (
+        serviceRequest.sr_number === serviceRequestNumber
+      ));
+      return updateServiceRequests(state, {
+        ...serviceRequestToUpdate,
+        panhandlingResponseRequestStatus: 'failure',
+      });
     case SELECT_SERVICE_REQUEST_RESOLUTION:
       return {
         ...state,
@@ -188,20 +217,18 @@ export default function reducer(state = initialState, action) {
   }
 }
 
+function updateForPanhandlingResponseRequest(state, action, data) {
+  return updateServiceRequests(state, {
+    ...action.serviceRequest,
+    ...data,
+  });
+}
+
 function updatePendingStatus(state, action) {
   const { pendingStatus, serviceRequest } = action;
-  const serviceRequests = [...state.serviceRequests];
-
-  const idx = serviceRequests.findIndex(sr => {
-    return sr.sr_number === serviceRequest.sr_number;
-  })
-  if (idx === -1) {
-    throw 'invalid SR';
-  }
-  let updatedServiceRequest = null;
   switch (pendingStatus) {
     case 'resolved':
-      updatedServiceRequest = {
+      return updateServiceRequests(state, {
         ...serviceRequest,
         status: 'visit_complete',
         updated_at: action.updatedAt.format('YYYY-MM-DD HH:mm:ss.SSS'),
@@ -209,24 +236,38 @@ function updatePendingStatus(state, action) {
         resolution_code: action.resolutionCode,
         resolution_notes: action.resolutionNotes,
         unsynced: true,
-      };
-      break;
+      });
     case 'onsite':
-      updatedServiceRequest = {
+      return updateServiceRequests(state, {
         ...serviceRequest,
         status: 'on_site',
         actual_onsite_time: action.updatedAt.format('YYYY-MM-DD HH:mm:ss.SSS'),
         updated_by: action.name,
         unsynced: true,
-      };
-      break;
-    case null: throw 'invalid null status ';
+      });
+    case null:
+      throw new Error('invalid null status');
     default:
-      throw 'unknown pending status';
+      throw new Error('unknown pending status');
   }
-  serviceRequests[idx] = updatedServiceRequest;
+}
+
+function updateServiceRequests(state, updatedServiceRequest) {
+  const newServiceRequests = [...state.serviceRequests];
+  const idx = newServiceRequests.findIndex(sr => (
+    sr.sr_number
+    && updatedServiceRequest.sr_number
+    && (sr.sr_number === updatedServiceRequest.sr_number)
+  ));
+
+  if (idx === -1) {
+    throw new Error('invalid SR');
+  }
+
+  newServiceRequests[idx] = updatedServiceRequest;
+
   return {
     ...state,
-    serviceRequests,
+    serviceRequests: newServiceRequests,
   };
 }

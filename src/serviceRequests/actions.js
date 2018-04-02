@@ -13,6 +13,9 @@ import {
   UPDATE_RESOLUTION_NOTES,
   UPDATE_PING_RESPONSE,
   UPDATE_PANHANDLING_RESPONSE,
+  UPDATE_PANHANDLING_RESPONSE_REQUEST,
+  UPDATE_PANHANDLING_RESPONSE_SUCCESS,
+  UPDATE_PANHANDLING_RESPONSE_FAILURE,
 } from './actionTypes';
 import {
   momentToStr,
@@ -199,6 +202,11 @@ export function updatePanhandlingResponse(serviceRequest, panhandling, summary) 
       ModifiedBy: userId,
       SR_Number: serviceRequest.sr_number,
     }];
+
+    dispatch({
+      type: UPDATE_PANHANDLING_RESPONSE_REQUEST,
+      serviceRequest,
+    });
 
     dispatch({
       type: API_REQUEST,

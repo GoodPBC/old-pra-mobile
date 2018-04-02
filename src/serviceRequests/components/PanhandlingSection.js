@@ -1,6 +1,14 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { Alert, Platform, StyleSheet, Text, View, TextInput, Keyboard } from 'react-native';
+import {
+  ActivityIndicator,
+  Platform,
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  Keyboard,
+} from 'react-native';
 import RadioForm, {
   RadioButton,
   RadioButtonInput,
@@ -41,12 +49,44 @@ export default class PanhandlingSection extends Component {
     super(props);
     this.state = {
       disableSaveButton: true,
+      saveButtonText: 'Save',
       panhandling: props.serviceRequest.is_client_panhandling,
       summary: props.serviceRequest.interaction_summary,
     };
+    this.shouldDisableSaveButton = this.shouldDisableSaveButton.bind(this);
+    this.isLoading = this.isLoading.bind(this);
     this.onSelect = this.onSelect.bind(this);
     this.onChangeText = this.onChangeText.bind(this);
     this.onSave = this.onSave.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const prevStatus = this.props.serviceRequest.panhandlingResponseRequestStatus;
+    const nextStatus = nextProps.serviceRequest.panhandlingResponseRequestStatus;
+    if (prevStatus !== nextStatus) {
+      if (nextStatus === 'success') {
+        this.setState({ saveButtonText: 'Saved' });
+      } else if (nextStatus === 'failure') {
+        this.setState({ saveButtonText: 'Try Again' });
+      } else {
+        this.setState({ saveButtonText: 'Save' });
+      }
+    }
+  }
+
+  shouldDisableSaveButton() {
+    const { serviceRequest } = this.props;
+    const { disableSaveButton } = this.state;
+
+    return (
+      serviceRequest.panhandlingResponseRequestStatus !== 'failure'
+      && disableSaveButton
+    );
+  }
+
+  isLoading() {
+    const { serviceRequest } = this.props;
+    return serviceRequest.panhandlingResponseRequestStatus === 'in_progress';
   }
 
   onSelect(value) {
@@ -57,7 +97,7 @@ export default class PanhandlingSection extends Component {
   }
 
   onChangeText(value) {
-    this.setState({ 
+    this.setState({
       disableSaveButton: false,
       summary: value,
     });
@@ -82,8 +122,8 @@ export default class PanhandlingSection extends Component {
     }
 
     const options = [
-      { label: 'Yes', value: 'YesValue' },
-      { label: 'No', value: 'NoValue' },
+      { label: 'Yes', value: true },
+      { label: 'No', value: false },
     ];
 
     return (
@@ -127,10 +167,12 @@ export default class PanhandlingSection extends Component {
           />
           <Button
             style={{ height: 40, marginTop: 10 }}
+            textStyle={{ fontSize: 18 }}
             onPress={this.onSave}
-            disabled={this.state.disableSaveButton}
+            loading={this.isLoading()}
+            disabled={this.shouldDisableSaveButton()}
           >
-            Save
+            {this.state.saveButtonText}
           </Button>
         </View>
         <Separator />
