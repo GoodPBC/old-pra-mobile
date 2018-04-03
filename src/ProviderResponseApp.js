@@ -81,15 +81,14 @@ class ProviderResponseApp extends React.Component {
         break;
       case codePush.SyncStatus.UP_TO_DATE:
       case codePush.SyncStatus.UNKNOWN_ERROR:
-      default:
         this.initializeInstabug();
         this.setState({ codepushed: true });
         break;
     }
   }
 
-  codePushDownloadDidProgress(progress) {
-    const { receivedBytes, totalBytes } = progress;
+  codePushDownloadDidProgress(downloadProgress) {
+    const { receivedBytes, totalBytes } = downloadProgress;
     this.setState({ downloadProgress: receivedBytes / totalBytes });
   }
 
@@ -98,7 +97,7 @@ class ProviderResponseApp extends React.Component {
   }
 
   render() {
-    const { appState, downloadProgress } = this.state;
+    const { downloadProgress } = this.state;
 
     const circleSize = Math.min(width, height) * 0.5;
 
@@ -109,7 +108,6 @@ class ProviderResponseApp extends React.Component {
             {
               this.state.backgroundImageLoaded && (
                 <Progress.Circle
-                  hidden
                   indeterminate={!downloadProgress}
                   color="#FFFFFF"
                   progress={downloadProgress}
@@ -120,7 +118,7 @@ class ProviderResponseApp extends React.Component {
             }
           </View>
         </ImageContainer>
-      )
+      );
     }
 
     return (
@@ -138,4 +136,4 @@ const codePushOptions = {
   // deploymentKey: 'GOlSSSarRVraEHOvT4MUpo0D--gV83ae2fdc-0413-443b-bc9d-06988ea0c1cf', // staging_ios_key
 };
 
-export default codePush(codePushOptions)(ProviderResponseApp)
+export default codePush(codePushOptions)(ProviderResponseApp);
