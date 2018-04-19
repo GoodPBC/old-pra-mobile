@@ -11,6 +11,7 @@ import {
   getActiveServiceRequests,
   getInactiveServiceRequests,
 } from '../../serviceRequests/selectors';
+import * as MapActions from '../actions';
 
 
 /**
@@ -20,6 +21,10 @@ function mapStateToProps(state) {
   return {
     context: state.app.selectedTabContext,
     activeServiceRequests: getActiveServiceRequests(state),
+    generalCanvassingData: state.map.generalCanvassing.allSurveys,
+    intensiveCanvassingData: state.map.intensiveCanvassing.allSurveys,
+    jointOperationsData: state.map.jointOperations.allSurveys,
+    panhandlingData: state.map.panhandling.allSurveys,
     userPosition: {
       latitude: state.user.latitude,
       longitude: state.user.longitude,
@@ -30,6 +35,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     gaTrackPressEvent,
+    ...MapActions,
   }, dispatch);
 }
 

@@ -12,6 +12,7 @@ import offline from '../offline/reducer';
 import serviceRequests from '../serviceRequests/reducer';
 import teams from '../teams/reducer';
 import user from '../user/reducer';
+import map from '../map/reducer';
 
 
 const reducer = combineReducers({
@@ -20,6 +21,7 @@ const reducer = combineReducers({
   serviceRequests,
   teams,
   user,
+  map,
 });
 
 const middlewares = [
@@ -38,12 +40,17 @@ if (__DEV__) {
   }
 }
 
+const persistConfig = {
+  storage: AsyncStorage,
+  blacklist: ['app'],
+};
+
 export default function configureStore() {
   const store = createStore(
     reducer,
     applyMiddleware(...middlewares),
     autoRehydrate()
   );
-  persistStore(store, { storage: AsyncStorage }); // .purge() to reset
+  persistStore(store, persistConfig); // .purge() to reset
   return store;
 }

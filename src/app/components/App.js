@@ -19,6 +19,7 @@ export default class App extends Component {
     this.updateUserPosition = this.updateUserPosition.bind(this);
     this.registerToken = this.registerToken.bind(this);
     this.onNavigationStateChange = this.onNavigationStateChange.bind(this);
+    this.fetchCanvassingData = this.fetchCanvassingData.bind(this);
   }
 
   componentWillMount() {
@@ -63,6 +64,10 @@ export default class App extends Component {
     const screenName = this.getCurrentRouteName(currentState);
     this.props.gaTrackScreenView(screenName);
     this.props.selectTab(screenName);
+
+    if (screenName === Tabs.MAP) {
+      this.fetchCanvassingData();
+    }
   }
 
   getCurrentRouteName(navigationState) {
@@ -72,6 +77,13 @@ export default class App extends Component {
 
     const { index, routes } = navigationState;
     return routes[index].routeName;
+  }
+
+  fetchCanvassingData() {
+    this.props.fetchGeneralCanvassingData();
+    this.props.fetchIntensiveCanvassingData();
+    this.props.fetchJointOperationsData();
+    this.props.fetchPanhandlingData();
   }
 
   handleLocationServiceError(error) {
@@ -120,13 +132,13 @@ export default class App extends Component {
       return <LoginScreen />;
     } else if (!this.props.hasSelectedTeam) {
       return <SelectTeamModal />;
-    } else {
-      return (
-        <AppNavigator
-          onNavigationStateChange={this.onNavigationStateChange}
-        />
-      )
     }
+
+    return (
+      <AppNavigator
+        onNavigationStateChange={this.onNavigationStateChange}
+      />
+    );
   }
 }
 

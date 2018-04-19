@@ -28,6 +28,10 @@ export default class MapScreen extends Component {
     this.getMapBoundaries = this.getMapBoundaries.bind(this);
     this.selectMarker = this.selectMarker.bind(this);
     this.onCalloutPress = this.onCalloutPress.bind(this);
+    this.renderGeneralCanvassingData = this.renderGeneralCanvassingData.bind(this);
+    this.renderIntensiveCanvassingData = this.renderIntensiveCanvassingData.bind(this);
+    this.renderJointOperationsData = this.renderJointOperationsData.bind(this);
+    this.renderPanhandlingData = this.renderPanhandlingData.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -128,9 +132,6 @@ export default class MapScreen extends Component {
     const { activeServiceRequests } = this.props;
     console.log("activeServiceRequests", activeServiceRequests);
 
-    const twentyMinutesAgo = moment().subtract(20, 'minutes');
-    const fortyMinutesAgo = moment().subtract(40, 'minutes');
-
     return (
       activeServiceRequests.map(serviceRequest => {
         const {
@@ -150,16 +151,15 @@ export default class MapScreen extends Component {
         // >40 minutes old = red
 
         const assignedTime = moment(provider_assigned_time, 'YYYY-MM-DD HH:mm:ss.SSS');
+        const minutesOld = moment().diff(assignedTime, 'minutes', true);
 
         let pinColor = 'red';
         if (this.state.selectedServiceRequest === sr_number) {
           pinColor = 'blue';
-        } else if (assignedTime.isSameOrAfter(twentyMinutesAgo)) {
+        } else if (minutesOld < 20) {
           pinColor = 'green';
-        } else if (assignedTime.isSameOrAfter(fortyMinutesAgo)) {
+        } else if (minutesOld < 40) {
           pinColor = 'yellow';
-        } else {
-          pinColor = 'red';
         }
 
         return (
@@ -185,6 +185,70 @@ export default class MapScreen extends Component {
     );
   }
 
+  renderCanvassingDataMarkers(data, keyPrefix) {
+    return data.map((survey, i) => {
+      const { Latitude: latitude, Longitude: longitude } = survey;
+      const submittedDate = moment(survey.SubmittedDate, 'YYYY-MM-DD HH:mm:ss.SSS');
+      const submittedDateString = submittedDate.format('MMM D, H:m A');
+      const minutesOld = moment().diff(submittedDate, 'minutes', true);
+      const coordinate = { latitude, longitude };
+      let markerColor = '#FF4040'; // red
+      if (minutesOld < 20) {
+        markerColor = '#40FF40'; // green
+      } else if (minutesOld < 40) {
+        markerColor = '#FFFF40'; // yellow
+      }
+
+      return (
+        <MapView.Marker
+          key={`${keyPrefix}-${i}`}
+          description={submittedDateString}
+          coordinate={coordinate}
+          anchor={{ x: 0.5, y: 0.5 }}
+        >
+          <View
+            style={{
+              width: 18,
+              height: 18,
+              borderRadius: 18,
+              backgroundColor: markerColor,
+              borderWidth: 2,
+              borderColor: 'white',
+            }}
+          />
+        </MapView.Marker>
+      );
+    });
+  }
+
+  renderGeneralCanvassingData() {
+    return this.renderCanvassingDataMarkers(
+      this.props.generalCanvassingData,
+      'general-canvassing'
+    );
+  }
+
+  renderIntensiveCanvassingData() {
+    return this.renderCanvassingDataMarkers(
+      this.props.intensiveCanvassingData,
+      'intensive-canvassing'
+    );
+  }
+
+  renderJointOperationsData() {
+    return this.renderCanvassingDataMarkers(
+      this.props.jointOperationsData,
+      'joint-operations'
+    );
+  }
+
+  renderPanhandlingData() {
+    return this.renderCanvassingDataMarkers(
+      this.props.panhandlingData,
+      'panhandling'
+    );
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -200,6 +264,10 @@ export default class MapScreen extends Component {
           loadingEnabled={true}
         >
           {this.renderActiveServiceRequestMarkers()}
+          {this.renderGeneralCanvassingData()}
+          {this.renderIntensiveCanvassingData()}
+          {this.renderJointOperationsData()}
+          {this.renderPanhandlingData()}
         </MapView>
       </View>
     );

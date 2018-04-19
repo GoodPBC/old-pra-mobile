@@ -14,6 +14,7 @@ import {
 } from '../actions';
 import { updateNetworkStatus } from '../../offline/actions';
 import { updateUserPosition } from '../../user/actions';
+import * as mapActions from '../../map/actions';
 import { getCurrentTeam } from '../../teams/selectors';
 
 function mapStateToProps(state) {
@@ -43,6 +44,7 @@ function mapDispatchToProps(dispatch) {
     clearErrorMessage,
     updateNetworkStatus,
     updateUserPosition,
+    ...mapActions,
   }, dispatch);
 }
 

@@ -131,6 +131,7 @@ async function makeRequestAndDispatchResponse({ action, store }) {
     try {
       // const textBody = await response.text();
       // console.log('body', textBody);
+      console.log('RES', response);
       responseText = await response.text();
       const json = JSON.parse(responseText);
       // console.log('json response', json);
