@@ -189,7 +189,7 @@ export default class MapScreen extends Component {
     return data.map((survey, i) => {
       const { Latitude: latitude, Longitude: longitude } = survey;
       const submittedDate = moment(survey.SubmittedDate, 'YYYY-MM-DD HH:mm:ss.SSS');
-      const submittedDateString = submittedDate.format('MMM D, H:m A');
+      const submittedDateString = submittedDate.format('MMM D, h:mm A');
       const minutesOld = moment().diff(submittedDate, 'minutes', true);
       const coordinate = { latitude, longitude };
       let markerColor = '#FF4040'; // red
