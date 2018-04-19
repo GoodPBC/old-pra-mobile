@@ -257,11 +257,11 @@ export default class MapScreen extends Component {
           onMapReady={this.setMapBoundaries}
           provider={PROVIDER_GOOGLE}
           style={styles.map}
-          showsUserLocation={true}
-          showsMyLocationButton={true}
-          showsCompass={true}
-          showsScale={true}
-          loadingEnabled={true}
+          showsUserLocation
+          showsMyLocationButton
+          showsCompass
+          showsScale
+          loadingEnabled
         >
           {this.renderActiveServiceRequestMarkers()}
           {this.renderGeneralCanvassingData()}

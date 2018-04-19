@@ -2,6 +2,7 @@ import axios from 'axios';
 import moment from 'moment';
 import Config from 'react-native-config';
 import * as types from './actionTypes';
+import { maxSince } from './helpers';
 
 const endpoints = {
   GENERAL_CANVASSING: 'getgeneralcanvassing/',
@@ -10,18 +11,13 @@ const endpoints = {
   PANHANDLING: 'getpanhandlingdata/',
 };
 
-function parseTime(timeStr) {
-  return moment(timeStr, 'YYYY-MM-DD HH:mm:ss.SSS');
-}
-
-function momentToStr(momentDate) {
-  return momentDate.format('YYYY-MM-DD HH-mm-ss');
-}
-
 function getSinceDate(state) {
-  const now = moment();
-  const since = __DEV__ ? now.subtract(7, 'days') : now.subtract(2, 'hours');
-  return encodeURI(momentToStr(since));
+  const { lastUpdated } = state;
+  let since = maxSince;
+  if (moment.isMoment(lastUpdated) && lastUpdated.isAfter(maxSince)) {
+    since = lastUpdated;
+  }
+  return encodeURI(since.format('YYYY-MM-DD HH-mm-ss'));
 }
 
 function getUrl(actionName, state) {
@@ -29,25 +25,25 @@ function getUrl(actionName, state) {
   let endpoint;
   let sinceDate;
   switch (actionName) {
-    case 'FETCH_GENERAL_CANVASSING':
+    case types.FETCH_GENERAL_CANVASSING:
       baseUrl = Config.GENERAL_CANVASSING_URL;
       endpoint = endpoints.GENERAL_CANVASSING;
-      sinceDate = getSinceDate(state.generalCanvassing);
+      sinceDate = getSinceDate(state.map.generalCanvassing);
       break;
-    case 'FETCH_INTENSIVE_CANVASSING':
+    case types.FETCH_INTENSIVE_CANVASSING:
       baseUrl = Config.INTENSIVE_CANVASSING_URL;
       endpoint = endpoints.INTENSIVE_CANVASSING;
-      sinceDate = getSinceDate(state.intensiveCanvassing);
+      sinceDate = getSinceDate(state.map.intensiveCanvassing);
       break;
-    case 'FETCH_JOINT_OPERATIONS':
+    case types.FETCH_JOINT_OPERATIONS:
       baseUrl = Config.JOINT_OPERATIONS_URL;
       endpoint = endpoints.JOINT_OPERATIONS;
-      sinceDate = getSinceDate(state.jointOperations);
+      sinceDate = getSinceDate(state.map.jointOperations);
       break;
-    case 'FETCH_PANHANDLING':
+    case types.FETCH_PANHANDLING:
       baseUrl = Config.PANHANDLING_URL;
       endpoint = endpoints.PANHANDLING;
-      sinceDate = getSinceDate(state.panhandling);
+      sinceDate = getSinceDate(state.map.panhandling);
       break;
     default:
       throw new Error(`Does not recognize the ${actionName} action`);
@@ -70,17 +66,17 @@ function fetchCanvassingData(actionName) {
 }
 
 export function fetchGeneralCanvassingData() {
-  return fetchCanvassingData('FETCH_GENERAL_CANVASSING');
+  return fetchCanvassingData(types.FETCH_GENERAL_CANVASSING);
 }
 
 export function fetchIntensiveCanvassingData() {
-  return fetchCanvassingData('FETCH_INTENSIVE_CANVASSING');
+  return fetchCanvassingData(types.FETCH_INTENSIVE_CANVASSING);
 }
 
 export function fetchJointOperationsData() {
-  return fetchCanvassingData('FETCH_JOINT_OPERATIONS');
+  return fetchCanvassingData(types.FETCH_JOINT_OPERATIONS);
 }
 
 export function fetchPanhandlingData() {
-  return fetchCanvassingData('FETCH_PANHANDLING');
+  return fetchCanvassingData(types.FETCH_PANHANDLING);
 }

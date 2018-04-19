@@ -1,4 +1,5 @@
 import * as types from '../actionTypes';
+import { handleRequest, handleSuccess, handleFailure } from './reducerHelpers';
 
 const initialState = {
   isFetching: false,
@@ -9,24 +10,13 @@ const initialState = {
 export default function panhandlingReducer(state = initialState, action) {
   switch (action.type) {
     case types.FETCH_PANHANDLING_REQUEST: {
-      return {
-        ...state,
-        isFetching: true,
-      };
+      return handleRequest(state, action);
     }
     case types.FETCH_PANHANDLING_SUCCESS: {
-      return {
-        ...state,
-        isFetching: false,
-        lastUpdated: null,
-        allSurveys: action.payload.Service_Requests,
-      };
+      return handleSuccess(state, action);
     }
     case types.FETCH_PANHANDLING_FAILURE: {
-      return {
-        ...state,
-        isFetching: false,
-      };
+      return handleFailure(state, action);
     }
     default:
       return state;
