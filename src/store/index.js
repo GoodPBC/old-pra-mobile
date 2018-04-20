@@ -32,7 +32,9 @@ const middlewares = [
 ];
 
 if (__DEV__) {
-  const logger = createLogger();
+  const logger = createLogger({
+    duration: true,
+  });
 
   // use logger only in true dev environment
   if (process.env.NODE_ENV !== 'test') {
