@@ -107,18 +107,10 @@ async function makeRequestAndDispatchResponse({ action, store }) {
   };
   // Object.assign(headers, authenticationHeaders(store));
 
-  try {
-    console.group('SENDING API REQUEST');
-    console.log(`${requestMethod} ${url}`);
-    console.log('Headers: ', headers);
-    console.log(`Body: ${body}`);
-    console.groupEnd('SENDING API REQUEST');
-  } catch (e) {
-    console.log('%cSENDING API REQUEST', 'color: red; font-style: bold;');
-    console.log(`${requestMethod} ${url}`);
-    console.log('Headers: ', headers);
-    console.log(`Body: ${body}`);
-  }
+  console.log('%cSENDING API REQUEST', 'color: red; font-style: bold;');
+  console.log(`${requestMethod} ${url}`);
+  console.log('Headers: ', headers);
+  console.log(`Body: ${body}`);
 
   let response = null;
   try {
@@ -131,7 +123,6 @@ async function makeRequestAndDispatchResponse({ action, store }) {
     try {
       // const textBody = await response.text();
       // console.log('body', textBody);
-      console.log('RES', response);
       responseText = await response.text();
       const json = JSON.parse(responseText);
       // console.log('json response', json);
@@ -153,7 +144,6 @@ async function makeRequestAndDispatchResponse({ action, store }) {
 }
 
 const providerAPI = ({ dispatch, getState }) => next => action => {
-  
   next(action);
 
   if (action.type === API_REQUEST) {
