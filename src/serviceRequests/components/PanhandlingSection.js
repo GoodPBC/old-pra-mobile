@@ -48,16 +48,18 @@ export default class PanhandlingSection extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      disableSaveButton: true,
+      isDirty: false,
+      saveInProgress: false,
       saveButtonText: 'Save',
-      panhandling: props.serviceRequest.is_client_panhandling,
-      summary: props.serviceRequest.interaction_summary,
+      isClientPanhandling: props.serviceRequest.is_client_panhandling,
+      interactionSummary: props.serviceRequest.interaction_summary,
     };
-    this.shouldDisableSaveButton = this.shouldDisableSaveButton.bind(this);
+    this.shouldDisableButton = this.shouldDisableButton.bind(this);
     this.isLoading = this.isLoading.bind(this);
     this.onSelect = this.onSelect.bind(this);
     this.onChangeText = this.onChangeText.bind(this);
     this.onSave = this.onSave.bind(this);
+    this.renderRadioFormButtons = this.renderRadioFormButtons.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -65,99 +67,97 @@ export default class PanhandlingSection extends Component {
     const nextStatus = nextProps.serviceRequest.panhandlingResponseRequestStatus;
     if (prevStatus !== nextStatus) {
       if (nextStatus === 'success') {
-        this.setState({ saveButtonText: 'Saved' });
+        this.setState({ saveInProgress: false, saveButtonText: 'Saved', isDirty: false });
       } else if (nextStatus === 'failure') {
-        this.setState({ saveButtonText: 'Try Again' });
-      } else {
-        this.setState({ saveButtonText: 'Save' });
+        this.setState({ saveInProgress: false, saveButtonText: 'Try Again' });
+      } else if (nextStatus === 'in_progress') {
+        this.setState({ saveInProgress: true });
       }
     }
   }
+  
+  onSelect(isClientPanhandling) {
+    const { interactionSummary, saveInProgress } = this.state;
+    const { interaction_summary, is_client_panhandling } = this.props.serviceRequest;
 
-  shouldDisableSaveButton() {
-    const { serviceRequest } = this.props;
-    const { disableSaveButton } = this.state;
-
-    return (
-      serviceRequest.panhandlingResponseRequestStatus !== 'failure'
-      && disableSaveButton
+    const isDirty = (
+      isClientPanhandling !== is_client_panhandling
+      || interactionSummary !== interaction_summary
     );
+    this.setState({ isDirty, isClientPanhandling });
   }
 
-  isLoading() {
-    const { serviceRequest } = this.props;
-    return serviceRequest.panhandlingResponseRequestStatus === 'in_progress';
-  }
+  onChangeText(interactionSummary) {
+    const { isClientPanhandling } = this.state;
+    const { interaction_summary, is_client_panhandling } = this.props.serviceRequest;
 
-  onSelect(value) {
-    this.setState({
-      disableSaveButton: false,
-      panhandling: value
-    });
-  }
-
-  onChangeText(value) {
-    this.setState({
-      disableSaveButton: false,
-      summary: value,
-    });
+    const isDirty = (
+      isClientPanhandling !== is_client_panhandling
+      || interactionSummary !== interaction_summary
+    );
+    this.setState({ isDirty, interactionSummary });
   }
 
   onSave() {
-    const { panhandling, summary } = this.state;
-    this.setState({ disableSaveButton: true });
-    Keyboard.dismiss();
+    const { isClientPanhandling, interactionSummary } = this.state;
     this.props.updatePanhandlingResponse(
       this.props.serviceRequest,
       {
-        isClientPanhandling: panhandling,
-        interactionSummary: summary,
+        isClientPanhandling,
+        interactionSummary,
         modifiedAt: moment(),
       }
     );
+    Keyboard.dismiss();
+  }
+
+  shouldDisableButton() {
+    const { isDirty, saveInProgress } = this.state;
+    return saveInProgress || !isDirty;
+  }
+
+  renderRadioFormButtons() {
+    const options = [
+      { label: 'Yes', value: true },
+      { label: 'No', value: false },
+    ];
+
+    return options.map((option, i) => (
+      <RadioButton key={i}>
+        <RadioButtonLabel
+          obj={option}
+          onPress={this.onSelect}
+          labelWrapStyle={{ marginRight: 10 }}
+        />
+        <RadioButtonInput
+          obj={option}
+          isSelected={this.state.isClientPanhandling === option.value}
+          onPress={this.onSelect}
+          borderWidth={1}
+          buttonInnerColor={DARK_GRAY}
+          buttonOuterColor={DARK_GRAY}
+          buttonSize={15}
+          buttonWrapStyle={{ marginRight: 50 }}
+        />
+      </RadioButton>
+    ));
   }
 
   render() {
+    const { isDirty, saveInProgress } = this.state;
     const { serviceRequest } = this.props;
 
     if (serviceRequest.status === 'in_the_field') {
       return null;
     }
 
-    const options = [
-      { label: 'Yes', value: true },
-      { label: 'No', value: false },
-    ];
-
     return (
       <View style={styles.container}>
         <View style={styles.innerContainer}>
           <Text>Is the client pan-handling?</Text>
           <View style={styles.radioFormContainer}>
-            <RadioForm
-              formHorizontal
-            >
-              {
-                options.map((option, i) => (
-                  <RadioButton key={i}>
-                    <RadioButtonLabel
-                      obj={option}
-                      onPress={this.onSelect}
-                      labelWrapStyle={{ marginRight: 10 }}
-                    />
-                    <RadioButtonInput
-                      obj={option}
-                      isSelected={this.state.panhandling === option.value}
-                      onPress={this.onSelect}
-                      borderWidth={1}
-                      buttonInnerColor={DARK_GRAY}
-                      buttonOuterColor={DARK_GRAY}
-                      buttonSize={15}
-                      buttonWrapStyle={{ marginRight: 50 }}
-                    />
-                  </RadioButton>
-                ))
-              }
+            <RadioForm formHorizontal>
+              {this.renderRadioFormButtons()}
             </RadioForm>
           </View>
           <Text>Write a brief summary of the interaction</Text>
@@ -172,10 +172,10 @@ export default class PanhandlingSection extends Component {
             style={{ height: 40, marginTop: 10 }}
             textStyle={{ fontSize: 18 }}
             onPress={this.onSave}
-            loading={this.isLoading()}
-            disabled={this.shouldDisableSaveButton()}
+            loading={saveInProgress}
+            disabled={this.shouldDisableButton()}
           >
-            {this.state.saveButtonText}
+            {isDirty ? 'Save' : this.state.saveButtonText}
           </Button>
         </View>
         <Separator />
