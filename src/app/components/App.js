@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import {
   Alert,
   NetInfo,
+  StatusBar,
 } from 'react-native';
 import SelectTeamModal from '../../teams/containers/SelectTeamModal';
 import { OfflineBanner } from '../../offline';
@@ -14,6 +15,9 @@ import AppNavigator from './AppNavigator';
 export default class App extends Component {
   constructor(props) {
     super(props);
+
+    StatusBar.setBarStyle('light-content');
+    
     this.onLayout = this.onLayout.bind(this);
     this.trackUserPosition = this.trackUserPosition.bind(this);
     this.updateUserPosition = this.updateUserPosition.bind(this);
