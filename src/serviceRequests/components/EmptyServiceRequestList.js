@@ -1,20 +1,21 @@
-import React, { Component } from 'react';
-
+import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
-
 import { BODY_BACKGROUND } from '../../shared';
 
-export default class EmptyServiceRequestList extends Component {
-
+export default class EmptyServiceRequestList extends React.PureComponent {
   render() {
     const { type, currentTeam } = this.props;
     return (
       <View style={styles.container}>
         {
           type ? (
-            <Text style={styles.text}>There are no {type} service requests for {currentTeam.name}.</Text>
+            <Text style={styles.text}>
+              There are no {type} service requests for {currentTeam.name}.
+            </Text>
           ) : (
-            <Text style={styles.text}>There are no service requests for {currentTeam.name}.</Text>
+            <Text style={styles.text}>
+              There are no service requests for {currentTeam.name}.
+            </Text>
           )
         }
       </View>
@@ -29,5 +30,5 @@ const styles = StyleSheet.create({
   },
   text: {
     textAlign: 'center'
-  }
+  },
 });
