@@ -17,8 +17,6 @@ export const initialState = {
   apiRequestInProgress: false,
   alertQueue: [],
   activeAlertId: null,
-  errorTitle: null,
-  errorMessage: null,
 };
 
 export default function reducer(state = initialState, action) {
@@ -94,7 +92,7 @@ export default function reducer(state = initialState, action) {
         ...state,
         activeAlertId: action.alertId,
       };
-    case appActionTypes.ADD_ALERT:
+    case appActionTypes.ADD_ALERT_TO_QUEUE:
       return {
         ...state,
         alertQueue: [

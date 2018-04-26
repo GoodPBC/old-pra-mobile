@@ -3,7 +3,9 @@ import React, { Component } from 'react';
 import {
   Alert,
   NetInfo,
+  Platform,
   StatusBar,
+  Linking,
 } from 'react-native';
 import SelectTeamModal from '../../teams/containers/SelectTeamModal';
 import { OfflineBanner } from '../../offline';
@@ -24,6 +26,8 @@ export default class App extends Component {
     this.registerToken = this.registerToken.bind(this);
     this.onNavigationStateChange = this.onNavigationStateChange.bind(this);
     this.fetchCanvassingData = this.fetchCanvassingData.bind(this);
+    this.handleLocationServiceError = this.handleLocationServiceError.bind(this);
+    this.showEnableLocationServiceAlert = this.showEnableLocationServiceAlert.bind(this);
   }
 
   componentWillMount() {
@@ -41,24 +45,35 @@ export default class App extends Component {
     );
   }
 
-  componentWillReceiveProps(newProps) {
-    // if (newProps.errorMessage) {
-    //   const title = newProps.errorTitle || 'Error';
-    //   Alert.alert(title, newProps.errorMessage, [
-    //     { text: 'OK', onPress: this.props.clearErrorMessage },
-    //   ]);
-    // }
+  componentWillReceiveProps(nextProps) {
     const { activeAlertId, alertQueue } = nextProps;
     if (alertQueue.length) {
       const nextAlert = alertQueue[0];
       if (nextAlert.id !== activeAlertId) {
+        let buttons = [
+          { text: 'OK', onPress: () => this.props.removeAlert() },
+        ];
+
+        if (Array.isArray(nextAlert.buttons) && nextAlert.buttons.length) {
+          buttons = nextAlert.buttons.reduce((acc, button) => ([
+            ...acc,
+            {
+              text: button.text,
+              onPress: () => {
+                if (typeof button.onPress === 'function') {
+                  button.onPress();
+                }
+                this.props.removeAlert();
+              },
+            },
+          ]), []);
+        }
+
         this.props.setActiveAlertId(nextAlert.id);
         Alert.alert(
           nextAlert.title,
           nextAlert.message,
-          [
-            { text: 'OK', onPress: () => this.props.removeAlert() },
-          ]
+          buttons,
         );
       }
     }
@@ -105,7 +120,30 @@ export default class App extends Component {
   }
 
   handleLocationServiceError(error) {
-    Alert.alert(JSON.stringify(error));
+    switch (error.code) {
+      case error.PERMISSION_DENIED:
+        this.showEnableLocationServiceAlert();
+        break;
+      case error.POSITION_UNAVAILABLE:
+      case error.TIMEOUT:
+      default:
+        break;
+    }
+  }
+
+  showEnableLocationServiceAlert() {
+    const buttons = [{ text: 'OK' }];
+    if (Platform.OS === 'ios') {
+      buttons.push({
+        text: 'Settings',
+        onPress: () => Linking.openURL('app-settings:'),
+      });
+    }
+    this.props.addAlertToQueue(
+      'Enable Location Service',
+      'Please allow us to access your location while you use the app.',
+      buttons,
+    );
   }
 
   updateUserPosition(position) {
@@ -162,7 +200,6 @@ export default class App extends Component {
 
 App.propTypes = {
   apiRequestInProgress: PropTypes.bool.isRequired,
-  clearErrorMessage: PropTypes.func.isRequired,
   gaTrackEvent: PropTypes.func.isRequired,
   gaTrackScreenView: PropTypes.func.isRequired,
   errorMessage: PropTypes.string,

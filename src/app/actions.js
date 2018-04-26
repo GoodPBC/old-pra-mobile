@@ -40,13 +40,14 @@ export const setApiRequestInProgress = apiRequestInProgress => ({
   apiRequestInProgress,
 });
 
-export function addAlert(title, message) {
+export function addAlertToQueue(title, message, buttons) {
   return {
-    type: appActionTypes.ADD_ALERT,
+    type: appActionTypes.ADD_ALERT_TO_QUEUE,
     alert: {
       id: uuidv4(),
       title,
       message,
+      buttons,
     },
   };
 }
