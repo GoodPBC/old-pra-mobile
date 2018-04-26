@@ -292,7 +292,7 @@ export default class MapScreen extends Component {
         >
           <Icon
             name="my-location"
-            style={[styles.locationIcon, { color: followUserLocation ? 'red' : '#666' }]}
+            style={[styles.locationIcon, { color: followUserLocation ? '#007AFF' : '#666' }]}
           />
         </TouchableOpacity>
       </View>
@@ -325,6 +325,10 @@ const styles = StyleSheet.create({
     borderRadius: 56,
     justifyContent: 'center',
     alignItems: 'center',
+    shadowColor: '#000',
+    shadowOpacity: 0.4,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 2,
   },
   locationIcon: {
     fontSize: 23,
