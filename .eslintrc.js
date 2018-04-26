@@ -36,5 +36,6 @@ module.exports = {
         "no-case-declarations": "off", // TODO: Add back
         "react/prop-types": "off",
         "react/require-default-props": "off",
+        "react/prefer-stateless-function": [2, { "ignorePureComponent": true }]
     }
 };
