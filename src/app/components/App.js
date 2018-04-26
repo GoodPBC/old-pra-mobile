@@ -42,11 +42,25 @@ export default class App extends Component {
   }
 
   componentWillReceiveProps(newProps) {
-    if (newProps.errorMessage) {
-      const title = newProps.errorTitle || 'Error';
-      Alert.alert(title, newProps.errorMessage, [
-        { text: 'OK', onPress: this.props.clearErrorMessage },
-      ]);
+    // if (newProps.errorMessage) {
+    //   const title = newProps.errorTitle || 'Error';
+    //   Alert.alert(title, newProps.errorMessage, [
+    //     { text: 'OK', onPress: this.props.clearErrorMessage },
+    //   ]);
+    // }
+    const { activeAlertId, alertQueue } = nextProps;
+    if (alertQueue.length) {
+      const nextAlert = alertQueue[0];
+      if (nextAlert.id !== activeAlertId) {
+        this.props.setActiveAlertId(nextAlert.id);
+        Alert.alert(
+          nextAlert.title,
+          nextAlert.message,
+          [
+            { text: 'OK', onPress: () => this.props.removeAlert() },
+          ]
+        );
+      }
     }
   }
 

@@ -5,13 +5,7 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import App from '../components/App';
-import {
-  selectTab,
-  updateDeviceInfo,
-  gaTrackEvent,
-  gaTrackScreenView,
-  clearErrorMessage
-} from '../actions';
+import * as appActions from '../actions';
 import { updateNetworkStatus } from '../../offline/actions';
 import { updateUserPosition } from '../../user/actions';
 import * as mapActions from '../../map/actions';
@@ -37,11 +31,7 @@ function mapStateToProps(state) {
  */
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-    selectTab,
-    updateDeviceInfo,
-    gaTrackEvent,
-    gaTrackScreenView,
-    clearErrorMessage,
+    ...appActions,
     updateNetworkStatus,
     updateUserPosition,
     ...mapActions,
