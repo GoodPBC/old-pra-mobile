@@ -8,8 +8,9 @@ import {
   Text,
   View,
   Linking,
+  TouchableOpacity,
 } from 'react-native';
-
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import { getAddress } from '../helpers';
 import {
   BODY_BACKGROUND,
@@ -20,9 +21,11 @@ export default class MapScreen extends Component {
     super(props);
     this.state = {
       selectedServiceRequest: null,
+      followUserLocation: true,
     };
     this.markers = {};
-    this.onRegionChangeComplete = this.onRegionChangeComplete.bind(this);
+    this.onPanDragEnd = this.onPanDragEnd.bind(this);
+    this.followUserLocation = this.followUserLocation.bind(this);
     this.renderActiveServiceRequestMarkers = this.renderActiveServiceRequestMarkers.bind(this);
     this.setMapBoundaries = this.setMapBoundaries.bind(this);
     this.getMapBoundaries = this.getMapBoundaries.bind(this);
@@ -35,7 +38,10 @@ export default class MapScreen extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setMapBoundaries();
+    if (this.state.followUserLocation) {
+      this.setMapBoundaries();
+    }
+
     if (!nextProps.context && nextProps.context !== this.props.context) {
       this.setState({ selectedServiceRequest: nextProps.context });
     }
@@ -73,8 +79,13 @@ export default class MapScreen extends Component {
     };
   }
 
-  onRegionChangeComplete(region) {
-    this.setState({ region });
+  onPanDragEnd() {
+    this.setState({ followUserLocation: false });
+  }
+
+  setMapBoundaries() {
+    const newRegion = this.getMapBoundaries();
+    this.MAP_VIEW.animateToRegion(newRegion);
   }
 
   getMapBoundaries() {
@@ -105,11 +116,6 @@ export default class MapScreen extends Component {
     };
   }
 
-  setMapBoundaries() {
-    const newRegion = this.getMapBoundaries();
-    this.MAP_VIEW.animateToRegion(newRegion);
-  }
-
   getEncodedURIForDirection(serviceRequest) {
     const { address, cross_streets, borough, city, state, zip } = serviceRequest;
     let destination;
@@ -119,6 +125,11 @@ export default class MapScreen extends Component {
       destination = [address, borough, city, state, zip].join('+');
     }
     return encodeURI(`https://www.google.com/maps/dir/?api=1&travelmode=driving&destination=${destination}`);
+  }
+
+  followUserLocation() {
+    this.setMapBoundaries();
+    this.setState({ followUserLocation: true });
   }
 
   selectMarker(serviceRequestNumber) {
@@ -179,7 +190,6 @@ export default class MapScreen extends Component {
               <Text>{formattedAddress}</Text>
             </MapView.Callout>
           </MapView.Marker>
-
         );
       })
     );
@@ -250,15 +260,21 @@ export default class MapScreen extends Component {
   }
 
   render() {
+    const { followUserLocation } = this.state;
+
     return (
-      <View style={styles.container}>
+      <View
+        style={styles.container}
+        onMoveShouldSetResponder={() => true}
+        onResponderRelease={this.onPanDragEnd}
+      >
         <MapView
           ref={ref => { this.MAP_VIEW = ref; }}
           onMapReady={this.setMapBoundaries}
           provider={PROVIDER_GOOGLE}
           style={styles.map}
           showsUserLocation
-          showsMyLocationButton
+          showsMyLocationButton={false}
           showsCompass
           showsScale
           loadingEnabled
@@ -269,6 +285,16 @@ export default class MapScreen extends Component {
           {this.renderJointOperationsData()}
           {this.renderPanhandlingData()}
         </MapView>
+        <TouchableOpacity
+          activeOpacity={0.8}
+          style={styles.locationButton}
+          onPress={this.followUserLocation}
+        >
+          <Icon
+            name="my-location"
+            style={[styles.locationIcon, { color: followUserLocation ? 'red' : '#666' }]}
+          />
+        </TouchableOpacity>
       </View>
     );
   }
@@ -288,6 +314,21 @@ const styles = StyleSheet.create({
   callout: {
     position: 'relative',
     maxWidth: 250,
+  },
+  locationButton: {
+    backgroundColor: '#FFFFFF',
+    position: 'absolute',
+    bottom: 10,
+    right: 10,
+    height: 56,
+    width: 56,
+    borderRadius: 56,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  locationIcon: {
+    fontSize: 23,
+    color: '#666',
   },
 });
 
