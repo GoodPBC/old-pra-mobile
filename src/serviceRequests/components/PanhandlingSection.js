@@ -18,6 +18,7 @@ import {
   Button,
   Separator,
   DARK_GRAY,
+  LIGHT_GRAY,
 } from '../../shared';
 
 const styles = StyleSheet.create({
@@ -116,6 +117,8 @@ export default class PanhandlingSection extends Component {
   }
 
   renderRadioFormButtons() {
+    const { saveInProgress } = this.state;
+
     const options = [
       { label: 'Yes', value: true },
       { label: 'No', value: false },
@@ -124,17 +127,19 @@ export default class PanhandlingSection extends Component {
     return options.map((option, i) => (
       <RadioButton key={i}>
         <RadioButtonLabel
+          disabled={saveInProgress}
           obj={option}
           onPress={this.onSelect}
           labelWrapStyle={{ marginRight: 10 }}
         />
         <RadioButtonInput
+          disabled={saveInProgress}
           obj={option}
           isSelected={this.state.isClientPanhandling === option.value}
           onPress={this.onSelect}
           borderWidth={1}
-          buttonInnerColor={DARK_GRAY}
-          buttonOuterColor={DARK_GRAY}
+          buttonInnerColor={saveInProgress ? LIGHT_GRAY : DARK_GRAY}
+          buttonOuterColor={saveInProgress ? LIGHT_GRAY : DARK_GRAY}
           buttonSize={15}
           buttonWrapStyle={{ marginRight: 50 }}
         />
@@ -162,6 +167,7 @@ export default class PanhandlingSection extends Component {
           <Text>Write a brief summary of the interaction</Text>
           <TextInput
             multiline
+            editable={!saveInProgress}
             style={styles.textInput}
             onChangeText={this.onChangeText}
             placeholder="Enter your summary here"
