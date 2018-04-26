@@ -55,7 +55,6 @@ export default class PanhandlingSection extends Component {
       interactionSummary: props.serviceRequest.interaction_summary,
     };
     this.shouldDisableButton = this.shouldDisableButton.bind(this);
-    this.isLoading = this.isLoading.bind(this);
     this.onSelect = this.onSelect.bind(this);
     this.onChangeText = this.onChangeText.bind(this);
     this.onSave = this.onSave.bind(this);
