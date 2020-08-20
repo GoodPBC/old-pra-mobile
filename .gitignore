@@ -53,4 +53,7 @@ fastlane/Preview.html
 fastlane/screenshots
 fastlane/.env
 
+# Bundle artifact
+*.jsbundle
+
 .vscode
